@@ -169,6 +169,7 @@
                       <td class="date" class="text-center">2018/11/14</td>
                       <td class="val" class="text-center">100mb</td>
                       </tr>
+                    
                 </tbody>
               </table>
                 
@@ -233,6 +234,8 @@
 
  <script type="text/javascript">
  
+
+ 
  var inputModal = function() {
 $('.myModal').modal({
   keyboard: true, 
@@ -253,15 +256,14 @@ $(document).ready(function(){
     
     $('.ft').append(
       `<div class="picOuter">
-        <div class="allpicOuter">
-          <div class="allpic">
-            <div class="pic1"></div>
-              <div class="pic2"></div>
-              <div class="pictext">파일을 여기 끌어다 놓거나 <br> '새로만들기'버튼을 사용하세요</div>
-              </div>
-              </div>
-              </div>`
-              )
+       		 <div class="allpicOuter">
+    		      <div class="allpic">
+          			  <div class="pic1"></div>
+   					  <div class="pic2"></div>
+           			  <div class="pictext">파일을 여기 끌어다 놓거나 <br> '새로만들기'버튼을 사용하세요</div>
+   			   	  </div>
+             </div>
+         </div>`)
             $('.picOuter').css("display", "flex");
             } //if
             }) 
@@ -349,6 +351,7 @@ addTextBefore()
          
         //changeNameText 
        var google = $(this).parent().parent().find('.changeNameText').val()
+       console.dir(google);
        // innertext 변경
        thii.text(google)
 
@@ -366,8 +369,8 @@ addTextBefore()
        //동적생성 태그 이벤트 
        $(document).on('contextmenu', 'tr' , function(e){
         thi = $(this)[0].children[0].innerText;
-        thii = $(this).find('.folderName');
-       console.dir(thi);
+        thii = $(this).find('span');
+       console.dir(thii);
 
     //Get window size:
     var winWidth = $(document).width();
@@ -413,57 +416,6 @@ addTextBefore()
     $(".contextmenu").show();
       
        })
-
-    //   $('tr').on("contextmenu",function(e){
-    //    thi = $(this)[0].childNodes[0].innerText
-    //    console.dir($(this)[0].children[0].innerText);
-       
-
-    // //Get window size:
-    // var winWidth = $(document).width();
-    // var winHeight = $(document).height();
-    // //Get pointer position:
-    // var posX = e.pageX;
-    // var posY = e.pageY;
-    // //Get contextmenu size:
-    // var menuWidth = $(".contextmenu").width();
-    // var menuHeight = $(".contextmenu").height();
-    // //Security margin:
-    // var secMargin = 10;
-    // //Prevent page overflow:
-    // if(posX + menuWidth + secMargin >= winWidth
-    // && posY + menuHeight + secMargin >= winHeight){
-    //   //Case 1: right-bottom overflow:
-    //   posLeft = posX - menuWidth - secMargin + "px";
-    //   posTop = posY - menuHeight - secMargin + "px";
-    // }
-    // else if(posX + menuWidth + secMargin >= winWidth){
-    //   //Case 2: right overflow:
-    //   posLeft = posX - menuWidth - secMargin + "px";
-    //   posTop = posY + secMargin + "px";
-    // }
-    // else if(posY + menuHeight + secMargin >= winHeight){
-    //   //Case 3: bottom overflow:
-    //   posLeft = posX + secMargin + "px";
-    //   posTop = posY - menuHeight - secMargin + "px";
-    // }
-    // else {
-    //   //Case 4: default values:
-    //   posLeft = posX + secMargin + "px";
-    //   posTop = posY + secMargin + "px";
-    // };
-   
-    // //Display contextmenu css
-    // $(".contextmenu").css({
-    //   "left": posLeft,
-    //   "top": posTop
-    // })
-    
-    // //contextmenu show
-    // $(".contextmenu").show();
-      
-    // return false;
-    // })
 
       //Hide contextmenu:
       $(document).click(function(){
@@ -517,14 +469,7 @@ $('.infoCircle').mouseover(function(){
           'opacity' : '.66'
         })
       }
-      //  $('.detailside').toggleClass('leftgo', 200, function(){
-      //     $('.fa-info-circle').toggleClass('focus')
-      //     if($('.main').hasClass('col-md-8') == 1)
-      //     $('.main ').attr('class', 'col-md-10 main')
-      //     else{
-      //       $('.main ').attr('class', 'col-md-8 main')
-      //     }
-      //  })             
+    
 })
 
 
@@ -592,6 +537,21 @@ $(document).on('keydown', function(e) {
     // Attach the fancytree widget to an existing <div id="tree"> element
     // and pass the tree options as an argument to the fancytree() function:
     $("#tree").fancytree({
+    	autoCollapse: true,
+        clickFolderMode: 3,
+        icon: function(event, data) {
+          return !data.node.isTopLevel();
+        },
+        activate: function(event, data) {
+            $("#echoActive").text(data.node.title);
+//                    alert(node.getKeyPath());
+            if( data.node.url )
+              window.open(data.node.url, data.node.target);
+          },
+          deactivate: function(event, data) {
+            $("#echoSelected").text("-");
+          },
+        
       extensions: ["dnd5","childcounter"],
       // titlesTabbable: true,
       source:[ 
@@ -693,11 +653,29 @@ $(document).on('keydown', function(e) {
       loadChildren: function(event, data) {
         // update node and parent counters after lazy loading
         data.node.updateCounters();
-      }
-     
+      },
+      keydown: function(event, data){
+          switch( $.ui.fancytree.eventToString(data.originalEvent) ) {
+          case "return":
+          case "space":
+            data.node.toggleExpanded();
+            break;
+          }
+        }
+      });
+      // For our demo: toggle auto-collapse mode:
+      $("input[name=autoCollapse]").on("change", function(e){
+        $.ui.fancytree.getTree().options.autoCollapse = $(this).is(":checked");
+      });
     });
-  });
 
+//트리 구조 얻어옴
+		$('.fa-sign-out-alt').on('click', function(){			
+	  var tree = $("#tree").fancytree("getTree");
+	  var d = tree.toDict(true);
+   	  alert(JSON.stringify(d));
+		})
+	
 
 </script>
 </body>
