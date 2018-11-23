@@ -7,7 +7,7 @@ body{
 }
 .bg-section{
     height:300px;
-    background:url("./bg/bg1.jpg");
+    background:url("/steach/resources/images/class/curriculum/bg1.jpg");
     /* 배경 가득 채움 */
     background-size: cover;
 }
@@ -40,30 +40,4 @@ body{
 
 .seat-section{
     height:600px;
-}
-.class{
-    background:blue;
-    height:80%;
-}
-.list{
-    padding:10px;
-    background: yellow;
-    height:20%;
-    overflow:auto;
-}
-.namecard{
-    border-radius:10px;
-    background:#eee;
-    margin:10px 10px;
-    float:left;
-    width:110px;
-    height:70px;
-    border:1px solid #eee;
-}
-.profile{
-    background:url("./bg/bg1.jpg") ;
-    border-radius:20px;
-    border:1px solid red;
-    width:40px;
-    height:40px;
 }
