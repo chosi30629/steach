@@ -1,0 +1,484 @@
+
+  *:focus {
+    outline: none;
+   
+  }
+
+  *{
+    font-family: 'Do Hyeon', sans-serif;
+  }
+
+
+  span.drag-source {
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 2px;
+    background-color: silver
+  }
+
+  ul.fancytree-container {
+  overflow: hidden;
+  /* The expand animations result in ugly focus outline artefacts, so hide those. */
+  outline: 0;
+  border: 0;
+  max-height: 500px;
+  height: 300px;
+  overflow-y: auto;
+}
+/* Display top level nodes as accordion header. */
+ul.fancytree-container >li >.fancytree-node span.fancytree-title {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px;
+  margin: 0;
+  background-color: #ddd;
+  border: 1px solid #bbb;
+  font-weight: 550;
+}
+/* Hide  expanders for top-level nodes */
+ul.fancytree-container >li >.fancytree-node .fancytree-expander {
+  display: none;
+}
+/* Don't indent level-2 nodes */
+ul.fancytree-container >li >ul {
+  padding-left: 0;
+}
+
+.firstside{
+  top: 30px;
+}
+
+  .modal-backdrop{ 
+    background: none !important; 
+} 
+
+#tree{
+  margin-top: 20px;
+}
+
+.icon{
+  margin-top: 25px;
+  display: flex;
+}
+
+.cloudicon{
+  margin: 0 20px 0 15px;
+}
+
+.table1{
+  display: flex;
+  align-items: center;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.tableC{
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  align-items: center;
+  height: 38px;
+  
+}
+
+.tableDiv{
+  max-height: 79vh;
+  overflow: auto;
+  overflow-x: unset;
+  width: 100%;
+  height: 100vh;
+}
+::-webkit-scrollbar{width: 8px;}
+::-webkit-scrollbar-track {background-color:#f1f1f1;}
+::-webkit-scrollbar-thumb {background-color:#f1ef79;border-radius: 10px;}
+::-webkit-scrollbar-thumb:hover {background: #555;}
+::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+width:8px;height:0px;background:#f1ef79;} 
+
+.fa-cloud{
+  color: pink;
+  outline: black;
+}
+
+#myBtn2 , .myBtn2{
+  font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    font-family: sans-serif;
+}
+
+
+.myBtn2outer{
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+}
+
+.myBtn2icon, .myBtn2icon i{
+  display: flex;
+  align-items: center;
+  margin-left: 0 5px;
+}
+
+#myBtn2:hover, .myBtn2:hover{
+  background-color: #f1f3f4;
+  border-radius: 10px
+}
+
+#myBtn2:focus , .myBtn2:focus{
+  background-color: #1966d26c;
+  border-radius: 15px
+}
+
+p{
+  margin: 10px 0  !important;
+}
+
+.container-fluid{
+  margin-top: 3px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+
+.outheader{
+  display: table;
+  padding-left: 16px;
+
+}
+
+.textheader{
+  font-size: 22px;
+  font-family: sans-serif;
+  opacity: .66;
+  vertical-align: middle;
+  display: table-cell;
+  line-height: 1px;
+  min-width: 210px;
+}
+
+.imgheader{
+  line-height: 44px
+}
+
+.headerimg{
+  vertical-align: middle;
+}
+
+.realheader{
+  padding: 8px;
+  display: flex;
+}
+
+.formrow{
+  display: flex;
+  border-radius: 5px;
+}
+
+.fff{
+  display: flex;
+}
+
+form{
+  display: block;
+    margin-top: 0em;
+    width: 720px !important;
+    background-color: #dddddd55;
+    
+}
+
+.fa-search{
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.searchbtn{
+  -webkit-appearance: button-bevel;
+  background: transparent;
+  font: normal 16px Roboto,sans-serif;
+  
+}
+
+input[type=search]{
+width: 680px;
+height: 100%;
+outline-style: none;
+-webkit-appearance: button-bevel;
+background: transparent;
+}
+
+.fa-folder{
+  color: rgb(143, 143, 143);
+  margin-right: 15px;
+}
+
+td{
+  line-height: 2 !important;
+  font-size: 13px;
+  /* font-weight: 600; */
+  color: rgba(0,0,0,.72);
+}
+
+.detailtable{
+  margin-top: 21px;
+}
+
+.focus{
+  color: #1966d26c;
+}
+body{
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.leftgo{
+  left : 250px;
+  display: none;
+ 
+}
+
+.fas{
+  opacity: .65;
+}
+
+.fas:hover{
+  opacity: unset;
+}
+
+.google{
+  opacity: unset;
+}
+
+.infoCircle{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #e8f0fe;
+}
+
+.fa-info-circle{
+  margin-left: auto;
+  margin-right: auto;
+  color: #1967d2;
+  
+}
+
+.progress{
+  height: 2px;
+  margin-bottom: unset;
+  margin: 8px 0;
+}
+
+.progress-bar{
+  background-image: unset;
+  background-color: #4285f4
+}
+/*  컨텍스트  */
+
+.contextmenu {
+  display: none;
+  position: absolute;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  background: #FFFFFF;
+  border-radius: 5px;
+  list-style: none;
+  box-shadow:
+    0 15px 35px rgba(50,50,90,0.1),
+    0 5px 15px rgba(0,0,0,0.07);
+  overflow: hidden;
+  z-index: 999999;
+}
+
+.contextmenu li {
+  border-left: 3px solid transparent;
+  transition: ease .2s;
+}
+
+.contextmenu li a {
+  display: block;
+  padding: 10px;
+  color: #B0BEC5;
+  text-decoration: none;
+  transition: ease .2s;
+}
+
+.contextmenu li:hover {
+  background: #CE93D8;
+  border-left: 3px solid #9C27B0;
+}
+
+.contextmenu li:hover a {
+  color: #FFFFFF;
+}
+
+.detailside{
+  border-top : 1px solid #ddd;
+  border-left : 1px solid #ddd;
+  margin-top: 21px;
+}
+
+.addBtn{
+  content: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2236%22 height=%2236%22 viewBox=%220 0 36 36%22%3E%3Cpath fill=%22%2334A853%22 d=%22M16 16v14h4V20z%22/%3E%3Cpath fill=%22%234285F4%22 d=%22M30 16H20l-4 4h14z%22/%3E%3Cpath fill=%22%23FBBC05%22 d=%22M6 16v4h10l4-4z%22/%3E%3Cpath fill=%22%23EA4335%22 d=%22M20 16V6h-4v14z%22/%3E%3Cpath fill=%22none%22 d=%22M0 0h36v36H0z%22/%3E%3C/svg%3E');
+  margin-left: 10px;
+  margin-right:10px;
+ 
+}
+
+.addBtnOuter{
+  border-radius: 24px;
+  height: 48px;
+  width: 160px;
+  background-color: #fff;
+  border: 1px solid transparent;
+  color : #3c4043;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+}
+
+.addBtnOuter:hover, .addBtnOuter:focus{
+  background-color : #f8f9fa;
+outline: none;
+box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
+0 4px 8px 3px rgba(60,64,67,0.149);
+}
+
+
+.modal-open{
+    padding-right: 0px !important;
+}
+
+.trClick{
+    display: flex;
+    font-size: 22px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    
+}
+
+.TrIcon{
+    margin-left: 30px;
+    margin-right: 20px
+}
+
+.TrName{
+    display: flex;
+    font-family: sans-serif;
+}
+
+.trClickDetail{
+    border-bottom: 1px solid #e8eaed;
+    border-top: none;
+    padding: 0 8px;
+    display: flex;
+    font-size: 14px;
+    color: #5f6368;
+    font-weight: 500;
+    height: 48px;
+    line-height: 48px;
+}
+
+.trClickDetail div{
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.col-md-8 {
+    width: 63%;
+}
+
+#myBtn1, .outheader, .fas , tr , p , .trClickDetail div {
+    cursor: pointer;
+}
+
+.trClickDetailContent{
+    padding-top: 10px;
+    text-align: center;
+    overflow: auto;
+    height: 68vh;
+    overflow-x: hidden;
+    max-height: 68vh;
+}
+
+/* 아래부터 디테일 */
+
+.picOuter{
+  width: 100%;
+  height: 76vh;
+  align-items: center;
+  display: none;
+}
+
+.allpicOuter{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.allpic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 430px;
+    width: 430px;
+    background-color: #f1f1f1;
+    flex-direction: column;
+}
+
+.pic1{    
+  background : url(../img/google.png) -101px 0px;
+    width: 100px;
+    height: 125px;
+    position: relative;
+    z-index: 1;
+    top: 50px;
+}
+
+.pic2{
+    background : url(../img/google.png) 0px -347px;
+    width: 100px;
+    height: 125px;
+    transform: rotate(20deg);
+    position: relative;
+    bottom: 75px;
+}
+
+.pictext{
+    position: relative;
+    bottom: 30px;
+}
+
+.folderName{
+  width: 38%;
+  overflow: auto;
+}
+.owner{
+  width: 8%;
+  text-align: center;
+}
+.date{
+  width: 32%;
+  text-align: center;
+}
+.val{
+  width: 18%;
+  text-align: center;
+}
+
+.fancytree-ext-childcounter span.fancytree-childcounter, .fancytree-ext-filter span.fancytree-childcounter
+{
+  padding-bottom: 9px;
+  z-index: 1;
+}

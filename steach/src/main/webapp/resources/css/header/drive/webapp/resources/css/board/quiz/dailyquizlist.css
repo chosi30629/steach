@@ -1,0 +1,96 @@
+*{
+    padding:0;
+    margin:0;
+}
+/* content size */ 
+section{
+	height:1200px; 
+	overflow:auto;
+}
+section::-webkit-scrollbar { 
+  /* This is the magic bit */
+  display: none;
+}
+
+.section{
+    width:83.7%;
+/*   	border:1px solid red; */
+    display:inline-block;
+    /* position:absolute */
+    margin-left:25px;
+	
+    }
+.aside{
+    /* background:skyblue; */
+    width:12%;
+    height:500px;
+/*     display:inline-block; */
+	float:left; 
+/*     border:1px solid blue; */
+
+}
+.background{
+    height:250px;
+    /* border:1px solid red; */
+}
+.title{
+    margin-top:30px;
+    height:80px;
+    background-color:#252c3f;
+    color:white;
+}
+.context{
+    margin-top:30px;
+}
+td > a, ul > li > a{
+    color:#000515; 
+}
+h2{
+    position:relative;
+    top:20px;
+    left:30px;
+}
+ div > .pagination{
+    margin:0 15%; 
+}
+
+div > .search{
+    text-align:center;
+}
+div > .search > *{
+    height:30px;
+    
+}
+div > .btn-primary, * > .buttons > button, form > button {
+    border:#6d909c;
+    background-color:#252c3f;
+    height:30px;
+}
+div > .nav-pills > li.active > a {
+  color: #fff;
+  background-color: #252c3f;
+}
+div > .nav > li > a:hover,
+div > .nav > li > a:focus {
+  color: #fff;
+  background-color: #6d909c;
+}
+
+textarea{
+	resize:none;
+}
+
+#uqForm > table > tbody > tr > th, #dqForm > table > tbody > tr > th {
+	width:15%
+}
+
+div > .pagination > li > a {
+	color: rgba(0,0,0,0.8); 
+}
+div > .pagination > li.active > a {
+	color: #ffffff; 
+	border-color: rgba(0,0,0,0.8); 
+	background-color: rgba(0,0,0,0.8); 
+}
+
+

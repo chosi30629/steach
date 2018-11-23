@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper> <!-- namespace="kr.co.cocain.repository.mapper.UserMapper"> -->
+	<!-- 유저 -->
+	<!-- <resultMap id="userMap" type="user">
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+		<result column="nickname" property="nickname" />
+		<result column="email" property="email" />
+		<result column="point" property="point"/>
+		<result column="reg_date" property="regDate" />
+		<association property="userFile"
+					 column="id"
+					 select="selectFile"></association>
+	</resultMap>
+	
+	유저 파일
+	<resultMap id="userFileMap" type="userFile">
+		<result column="id" property="id" />
+		<result column="fileName" property="fileName" />
+		<result column="uploadPath" property="uploadPath" />
+	</resultMap> 
+	
+	최근 활동
+	<resultMap id="recentActivityMap" type="recentActivity">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="typeqna" property="typeqna" />
+		<result column="reg_date" property="regDate" />
+	</resultMap> 
+	
+	메인 검색
+	<resultMap id="mainSearchMap" type="mainSearch">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="typeqna" property="typeqna" />
+		<result column="reg_date" property="regDate" />
+		<result column="comCnt" property="comCnt" />
+	</resultMap> 
+	
+	유저 랭킹
+	<resultMap id="userRankMap" type="userRank">
+		<result column="id" property="id" />
+		<result column="nickname" property="nickname" />
+		<result column="point" property="point" />
+		<result column="lank" property="lank" />
+	</resultMap>  -->
+	
+	<!-- 회원 등록 -->
+	<insert id="registerUser" parameterType="user">
+		insert into tb_user(
+			id, password, nickname, email
+		) values (
+			#{id}, #{password}, #{nickname}, #{email}
+		)
+	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="checkId" parameterType="user" resultType="int">
+		select count(*)
+		  from tb_user
+		 where id = #{id} 
+	</select>
+	
+	<!-- 닉네임 중복 체크 -->
+	<select id="checkName" parameterType="user" resultType="int">
+		select count(*)
+		  from tb_user
+		 where nickname = #{nickname} 
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="userLogin" parameterType="user" resultMap="userMap">
+		select * 
+		  from tb_user
+		 where id = #{id}
+	</select>
+	
+	<!-- 현재 비밀번호 체크 -->
+	<select id="checkPass" parameterType="string" resultMap="userMap">
+		select * 
+		  from tb_user
+		 where id = #{id}
+	</select>
+	
+	<!-- 비밀번호 수정 -->
+	<update id="updatePass" parameterType="user">
+		update tb_user 
+		   set password = #{password}
+		 where id = #{id}
+	</update>
+	
+	<!-- 파일 등록 -->
+ 	<insert id="insertFile" parameterType="userFile">
+		insert into tb_user_file (
+			id, fileName, uploadPath
+		) values (
+			#{id}, #{fileName}, #{uploadPath}
+		)
+	</insert>
+	
+	<!-- 파일 삭제 -->
+ 	<delete id="deleteFile" parameterType="userFile">
+		delete from tb_user_file 
+		 where id = #{id}
+	</delete> 
+	
+	<!-- 아이디에 따른 파일정보 검색 -->
+ 	<select id="selectFile" parameterType="userFile" resultMap="userFileMap">
+		select * from tb_user_file
+		 where id = #{id}
+	</select> 
+	
+	<!-- 유저 최근활동 리스트 -->
+ 	<select id="userRecentActivity" parameterType="recentActivity" resultMap="recentActivityMap">
+		select no, title, writer, typeqna, reg_date 
+		  from(select no, title, writer, 'typeqna', reg_date from tb_qna
+		        union
+			   select no, title, id, 'typestudy', reg_date from tb_study
+			 	union 
+			   select quiz_no, title, nickname, 'typequiz', reg_date from tb_quiz_board
+			    union
+			   select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment
+			    union 
+	 		   select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment
+			    union 
+		       select no, content, id, 'typestudycm', reg_date from tb_study_comment
+		        union 
+		 	   select no, title, writer, 'typenotice', reg_date from tb_notice
+			    union 
+		 	   select no, content, writer, 'typenoticecm', reg_date from tb_notice_comment) b 
+		  where writer = #{writer}
+		  order by reg_date desc
+     	  limit #{begin}, 5
+	</select> 
+	
+	<!-- 유저 최근활동 리스트 갯수 -->
+ 	<select id="userRecentActivityCount" parameterType="recentActivity" resultType="int">
+		select count(*) 
+		  from(select no, title, writer, 'typeqna', reg_date from tb_qna
+		        union
+				 select no, title, id, 'typestudy', reg_date from tb_study
+			 	  union 
+			 	 select quiz_no, title, nickname, 'typequiz', reg_date from tb_quiz_board
+				  union 
+			 	 select no, content, writer, 'typeqnacm', reg_date from tb_qna_comment 
+			 	  union 
+	 			 select quiz_no, content, nickname, 'typequizcm', reg_date from tb_quiz_comment
+	 		  	  union 
+		         select no, content, id, 'typestudycm', reg_date from tb_study_comment
+		          union 
+			 	 select no, title, writer, 'typenotice', reg_date from tb_notice
+				  union 
+			 	 select no, content, writer, 'typenoticecm', reg_date from tb_notice_comment) b 
+		  where writer = #{writer}
+	</select>
+	
+	<!-- 전체 게시물 수 -->
+	<select id="allArticleCount" resultType="int">
+		select count(*) 
+	 	 from(select no, title, writer from tb_qna
+	     	   union
+		  	  select no, title, id from tb_study
+		 	   union 
+		 	  select quiz_no, title, nickname from tb_quiz_board
+			   union 
+		 	  select no, title, writer from tb_notice) b
+	</select> 	  
+	
+	<!-- 전체 문제 수 -->
+	<select id="allQuizCount" resultType="int">
+		select count(*) from tb_quiz_board
+	</select> 
+	
+	<!-- 닉네임에 대한 검색 -->
+	<select id="selectUser" parameterType="string" resultMap="userMap">
+		select * from tb_user where nickname = #{writer}
+	</select>
+	
+	<!-- 해당 유저 랭킹 -->
+	<select id="selectRankById" parameterType="string" resultMap="userRankMap">
+		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+		  where nickname = #{nickname}   
+	</select>
+	
+	<!-- 유저 랭킹  -->
+	<select id="selectRank" resultMap="userRankMap">
+		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+	</select>
+		  
+	<!-- 유저 랭킹 paging  -->
+	<select id="selectRankPaging" parameterType="RankPage" resultMap="userRankMap">
+		select d.*
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+		 limit ${begin}, 20
+	</select>
+	
+	<select id="selectRankCount" resultType="int">
+		select count(*)
+		  from (select  id,
+		        point,
+		        nickname,
+		        IF(point=@_last_point,@curRank:=@curRank,@curRank:=@_sequence) AS rank,
+		        @_sequence:=@_sequence+1,@_last_point:=point
+				  from  tb_user p, (SELECT @curRank := 1, @_sequence:=1, @_last_point:=0) r
+		 		 order by point desc) d
+	</select>
+	
+	<!-- 메인 검색 리스트 -->
+ 	<select id="mainSearch" parameterType="mainSearch" resultMap="mainSearchMap">
+		select no, title, content, writer, typeqna, reg_date, comCnt 
+		  from(select no, title, content, writer, 'typeqna', reg_date, (select count(*) from tb_qna_comment where no = q.no) as comCnt  from tb_qna q
+		        union
+			   select no, title, content, id, 'typestudy', reg_date, (select count(*) from tb_study_comment where no = s.no) as comCnt from tb_study s
+			 	union 
+			   select quiz_no, title, content, nickname, 'typequiz', reg_date, (select count(*) from tb_quiz_comment where quiz_no = qz.quiz_no) as comCnt from tb_quiz_board qz
+				union 
+			   select no, title, content, writer, 'typenotice', reg_date, (select count(*) from tb_notice_comment where no = n.no) as comCnt from tb_notice n) b 
+		  where title like concat('%', #{searchContent}, '%')
+             or content like concat('%', #{searchContent}, '%')
+		  order by reg_date desc
+		  limit #{begin}, 10
+	</select> 	  	
+	
+		
+	<!-- 메인 검색 리스트 갯수 -->
+ 	<select id="mainSearchCount" parameterType="recentActivity" resultType="int">
+		select count(*)
+		  from(select no, title, content, writer, 'typeqna', reg_date, (select count(*) from tb_qna_comment where no = q.no) as comCnt  from tb_qna q
+		        union
+			   select no, title, content, id, 'typestudy', reg_date, (select count(*) from tb_study_comment where no = s.no) as comCnt from tb_study s
+			 	union 
+			   select quiz_no, title, content, nickname, 'typequiz', reg_date, (select count(*) from tb_quiz_comment where quiz_no = qz.quiz_no) as comCnt from tb_quiz_board qz
+				union 
+			   select no, title, content, writer, 'typenotice', reg_date, (select count(*) from tb_notice_comment where no = n.no) as comCnt from tb_notice n) b 
+		  where title like concat('%', #{searchContent}, '%')
+             or content like concat('%', #{searchContent}, '%')
+	</select>  
+</mapper>

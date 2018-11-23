@@ -1,0 +1,69 @@
+*{
+    padding:0;
+    margin:0;
+}
+body{
+    background:#cebfc7;
+}
+.bg-section{
+    height:300px;
+    background:url("./bg/bg1.jpg");
+    /* 배경 가득 채움 */
+    background-size: cover;
+}
+.calendar-section,.seat-section{
+    margin-top:20px;
+}
+.calendar-setting,.seat-setting {
+    margin:20px 20px;
+}
+.title{
+    background-color:pink;
+    height:35px;
+}
+.title > a {
+    display:inline-block;
+    font-size:1.2em;
+    text-decoration: none;
+    color:black;
+    line-height: 1.43;
+    margin-top:5px;  
+}
+#calendar,.accordion{
+    margin-top:20px;
+    background:white;
+}
+.accordion{
+    border:1px solid #eee;
+    box-shadow:1px 1px 1px grey;
+}
+
+.seat-section{
+    height:600px;
+}
+.class{
+    background:blue;
+    height:80%;
+}
+.list{
+    padding:10px;
+    background: yellow;
+    height:20%;
+    overflow:auto;
+}
+.namecard{
+    border-radius:10px;
+    background:#eee;
+    margin:10px 10px;
+    float:left;
+    width:110px;
+    height:70px;
+    border:1px solid #eee;
+}
+.profile{
+    background:url("./bg/bg1.jpg") ;
+    border-radius:20px;
+    border:1px solid red;
+    width:40px;
+    height:40px;
+}

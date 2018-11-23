@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>월별 달력 </title>
+<link href='../fullcalendar.min.css' rel='stylesheet' />
+<link href='../fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script src='../locale-all.js'></script>
+<script src="./test.js"></script>
+
+<style>
+
+    body {
+      margin: 40px 10px;
+      padding: 0;
+      font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+      font-size: 14px;
+    }
+  
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  
+  </style>
+</head>
+<body>
+    <div id="calendar"></div>
+
+    <hr>
+
+   
+    <script>
+        var cal = "";
+        var initialLocaleCode = 'ko';
+        $(document).ready(function() {
+            console.log(eventArray);
+
+            cal = $('#calendar').fullCalendar(
+              
+          {
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month,agendaWeek,listMonth'
+            },
+            defaultDate: '2018-11-15',
+            navLinks: true, // can click day/week names to navigate views
+      
+           // weekNumbers: true,
+            weekNumbersWithinDays: true,
+            weekNumberCalculation: 'ISO',
+            locale: initialLocaleCode,
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            selectable:true,
+            select:function(start,end,jsEvent,view){
+                var obj={};
+                var title = prompt("제목 입력하세요");
+                if(title){
+                  obj.title = title;
+                  obj.start = start;
+                  obj.end = end;
+                  eventArray.push(obj);
+                }
+
+                $("#calendar").fullCalendar('renderEvent',obj);
+                console.log(eventArray)
+                //console.log(eventArray.length)
+                console.log(eventArray[eventArray.length-1].start._d);
+                var m = eventArray[eventArray.length-1].start._d;
+                console.log(m);
+            },
+            events: function(start,end,timezone,callback){
+                callback(eventArray);
+            },
+
+            eventClick: function(event){
+               var result = confirm("삭제하시겠습니까?");
+               if(result){
+              //eventArray에서 제거 
+                const itemToFind = eventArray.find(function(item) {return item.title === event.title})
+                const idx = eventArray.indexOf(itemToFind) 
+                if (idx > -1) eventArray.splice(idx, 1);
+                console.log(eventArray);
+                
+                //화면에서제거
+                $("#calendar").fullCalendar('removeEvents',event._id);
+               }
+               
+            },
+
+            
+          //   eventClick:function(calEvent, jsEvent, view){
+          //     //alert('Event: ' + calEvent.title);
+          //     //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+          //     //alert('View: ' + view.name);
+              
+          //     var result = confirm("삭제하시겠습니까");
+          //     console.log(result);
+          //     if(result){
+          //       //this.remove();
+          //       removeRequestedEvent($(this), calEvent);
+          //       $("#calendar").fullCalendar('renderEvent');
+          //     }
+          //     console.log(confirm);
+          //     if(confirm){
+          //       this.remove();
+
+          //     } 
+          //     else return;
+              
+
+          //  }
+           
+            
+            
+
+          }
+          
+          );
+      
+        });
+        
+ 
+      </script>
+</body>
+</html>

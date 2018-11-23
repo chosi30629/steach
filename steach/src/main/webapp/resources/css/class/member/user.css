@@ -1,0 +1,91 @@
+
+.user-title{
+    margin-top:40px;
+    height:50px;
+    background:yellowgreen;
+    box-shadow:1px 1px 1px grey;
+    border-bottom:1px solid grey;
+}
+.user-title > span {
+    display:inline-block;
+    /* border:1px solid red; */
+    font-size :1.4em;
+    font-weight:bold;
+    margin:10px 10px;
+}
+.fa-crown{
+    color:gold;
+}
+.user-info{
+    height:50px;
+    background:#eee;
+    box-shadow:1px 1px 1px grey;
+    border-bottom:1px solid grey;  
+}
+.user-pic{
+    float:left;
+    width:40px;
+    height:40px;
+    margin:5px 5px;
+    border:1px solid red;
+}
+.user-name {
+    position:absolute;
+    height:30px;
+    /* border:1px solid blue; */
+    font-size:1.4em;
+    margin:10px 50px;
+}
+.user-elps{
+    display:block;
+    /* border:1px solid red; */
+    height:30px;
+    float:right;
+    margin:10px 10px;
+}
+.user-elps > a {
+    text-decoration:none;
+    color:black;
+}
+.user-name > a {
+    text-decoration:none;
+    color:black;
+}
+
+
+/* modal */
+.modal-body{
+    margin:0;
+    padding:0;
+}
+.modal-body > div {
+    margin:5px 10px;
+}
+.modal-ul{
+    margin:5px;
+    padding:0;
+    list-style:none;
+}
+.modal-ul > li {
+    font-size:1em;
+    text-align:left;
+    line-height:1.8;
+}
+.modal-ul > li > a {
+    text-decoration: none;
+    color:black;
+}
+.modal-ul > li:hover{
+    border-radius:5px;
+    background-color:pink;
+}
+.modal-dialog{
+    margin:0;
+    width:auto;
+    display:table;
+    transition: transform .1s ease-in;
+}
+
+.modal-backdrop{
+    height:100% !important;
+}

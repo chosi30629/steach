@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' rel='stylesheet' />
+  <link rel="stylesheet" href="./steach.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <style>
+    body
+{
+    background-image: url('../classroom.jpg');
+    background-size: cover;
+}
+input
+{
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+button
+{
+    margin-top: 15px;
+}
+
+div.scalable
+{
+    transition: height 0.5s;
+    overflow-y: hidden;
+}
+
+div.login
+{
+    position: absolute;
+    background: #ffffff;
+    text-align: center;
+  
+    padding: 20px 20px 9px;
+  
+    border-radius: 4px;
+    box-shadow: 0px 0px 15px 0px;
+
+    width: 300px;
+    height: auto;
+    
+    top: 50%;
+    left: 50%;
+    transform: translateY( -50% );
+    margin-left: -150px;
+}
+
+div.bottom
+{
+     font-size: 12px;
+     margin-top: 12px;
+}
+    </style>
+</head>
+
+<body>
+  <div class="login">
+    <div class="scalable" style="height:195px" id="login-scalable">
+      <input type="text" class="form-control" id="login-email" placeholder="Email 아이디">
+      <input type="password" class="form-control" id="login-password" placeholder="비밀번호">
+      <button type="button" class="btn btn-primary btn-lg btn-block" id="login">로그인</button>
+      <div class="bottom">
+        <a href="#" id="register">회원가입</a>　　<a href="#" id="forgot">비밀번호 찾기</a>
+      </div>
+    </div>
+    <div class="scalable" style="height:0px" id="register-scalable">
+      <input type="text" class="form-control" id="register-email" placeholder="Email 아이디">
+      <input type="text" class="form-control" id="register-name" placeholder="이름">
+      <div id="drop">
+        <a href="#">
+          <img id="profile" class="media-object" src="../profile.jpg" alt="프로필" />
+        </a>
+      </div>
+      <br>
+      <div class="fileBox text-center">
+        <label for="uploadBtn" class="btn_file">프로필 사진 등록</label>
+        <input type="file" name="uploadFile" id="uploadBtn" class="uploadBtn" />
+      </div>
+      <input type="password" class="form-control" id="login-password" placeholder="비밀번호">
+      <input type="password" class="form-control" id="login-password" placeholder="비밀번호 확인">
+      <button type="button" class="btn btn-success btn-lg btn-block" id="signup">회원가입</button>
+      <div class="bottom">
+        <a href="#" class="signinlink">로그인</a>
+      </div>
+    </div>
+    <div class="scalable" style="height:0px" id="findpass-scalable">
+      <input type="text" class="form-control" id="register-name" placeholder="이름">
+      <input type="text" class="form-control" id="register-email" placeholder="Email 아이디">
+
+      <button type="button" class="btn btn-link btn-block" id="findpass">비밀번호 찾기</button>
+      <input type="password" class="form-control" id="login-password" placeholder="현재 비밀번호">
+      <input type="password" class="form-control" id="login-password" placeholder="변경할 비밀번호">
+      <input type="password" class="form-control" id="login-password" placeholder="변경할 비밀번호 확인">
+      <button type="button" class="btn btn-success btn-lg btn-block" id="changepass">비밀번호 변경</button>
+      <div class="bottom">
+        <a href="#" class="signinlink">로그인</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $("#login").prop("disabled", false);
+
+      $(".btn").click(function () {
+        $(".btn").prop("disabled", true);
+
+        setTimeout(function () {
+          $(".btn").prop("disabled", false);
+        }, 1000);
+      });
+
+      $("#register").click(function () {
+        $("#login-scalable").height(0);
+        $("#register-scalable").height(470);
+      });
+
+      $(".signinlink").click(function () {
+        var path = $(this).parent().parent().attr('id');
+        console.dir(path);
+        $("#login-scalable").height(200);
+        if (path == 'register-scalable') {
+          $("#register-scalable").height(0);
+        } else {
+          $("#findpass-scalable").height(0);
+        }
+      });
+
+      $("#forgot").click(function () {
+        $("#login-scalable").height(0);
+        $("#findpass-scalable").height(400);
+      });
+      
+    });
+
+    $("#findpass").click(function(){
+      swal("임시 비밀번호가 등록된 메일로 전송되었습니다.");
+    });
+    $("#changepass").click(function(){
+      swal("비밀번호가 변경되었습니다.","로그인화면에서 로그인해주세요.");
+    });
+    $("#signup").click(function(){
+      swal({
+        title: "가입이 완료되었습니다",
+        icon: "success"
+      })
+    })
+
+    // 확장자 제한
+    function checkFile(f) {
+      // files로 해당 파일 정보 얻기
+      var file = f.files;
+
+      // file[0].name 은 파일명
+      // 정규식으로 확장자 체크
+      if (!/(gif|jpg|jpeg|png)$/i.test(file[0].name)) {
+        alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+        return false;
+      } else {
+        return;
+      }
+    }
+
+    // 파일
+    $("input[type='file']").change(function (e) {
+      if (checkFile(this) == false) {
+        return;
+      }
+
+      var fileReader = new FileReader();
+      var conf = null;
+      fileReader.readAsDataURL(e.target.files[0]);
+
+      fileReader.onload = function (e) {
+        document.getElementById('profile').src = e.target.result;
+        // setTimeout(function () {
+        //   conf = confirm("수정하시겠습니까?");
+        //   if (conf == false) { location.href = "myPage.do"; return; }
+
+        //   var formData = new FormData();
+        //   var inputFile = $("input[name='uploadFile']")
+        //   var files = inputFile[0].files;
+        //   var id = $("#userId").val();
+        //   formData.append("uploadFile", files[0]);
+        //   $.ajax({
+        //     url: "/cocain/user/profileImg.do",
+        //     processData: false,
+        //     contentType: false,
+        //     data: formData,
+        //     type: "POST"
+        //   })
+        //     .done(function (result) {
+        //       location.href = "myPage.do";
+        //     });
+        // }, 10)
+      }
+    });
+    // 파일 드래그 앤 드롭
+    var drop = document.getElementById('drop');
+    var fileInput = document.getElementById('uploadBtn');
+
+    drop.ondragover = drop.ondragenter = function (e) {
+      e.preventDefault();
+    };
+
+    drop.ondrop = function (e) {
+      fileInput.files = e.dataTransfer.files;
+      e.preventDefault();
+    };
+  </script>
+</body>
+
+</html>

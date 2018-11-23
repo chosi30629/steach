@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>jQuery UI Sortable - Connect lists</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <!-- 합쳐지고 최소화된 최신 CSS -->
+ 
+  <style>
+*{
+    margin:0px;
+    padding:0px;
+}
+
+    /* 1인 자리일경우  */
+  .sortable1{
+    border: 1px solid #eee;
+    width: 80px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 20px 0;
+    padding: 5px 0 0 0;
+    float: left; 
+    margin-left: 30px;
+  }
+  /*2인 자리일경우 */ 
+  .sortable2{
+    border: 1px solid #eee;
+    width: 155px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 20px 0;
+    padding: 5px 0 0 0;
+    float: left;
+    margin-left: 30px;
+  }
+   /*3인 자리일 경우 */
+  .sortable3{
+    border: 1px solid #eee;
+    width: 235px;
+    min-height: 20px;
+    list-style-type: none;
+    margin: 20px 0;
+    float:left;
+    padding: 5px 0 0 0;
+    margin-left: 30px;
+  }
+
+  li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 0.5em;
+    width: 55px;
+    float: left;
+  }
+  ul{
+    background-color:antiquewhite;
+  }
+.desk{
+    width:80px;
+    height:40px;
+    border:1px solid black;
+}
+#c {
+    border:1px solid black;
+}
+#a:hover{
+  width:300px !important;
+  height:800px;
+}
+  </style>
+  
+</head>
+<body>     
+        <div class="row" style="display:inline-block">
+            <div class="col-md-8" style="border:1px solid blue; width:500px;float:left; height:300px; overflow:auto">
+                <center><h2>seat</h2></center>
+                <center><div class="desk">desk</div></center>
+
+                <div id="result" style="margin-left:5px">
+                </div>
+            </div>
+            <div class="col-md-2" style="border: 1px solid red; width:250px;float:left; height:300px; overflow:auto">
+                <h5>list</h5>
+                <div id="list" class="connectedSortable sortable2">
+                        <div class="ui-state-default">짜장ais
+                        </div>
+                        <div id="a" class="ui-state-default">탕수육</div>
+                        <div class="ui-state-default">짜장면</div>
+                        <div class="ui-state-default">탕수육</div>
+                        <div class="ui-state-default">짜장면</div>
+                        <div class="ui-state-default">탕수육</div>
+                        <div class="ui-state-default">짜장면</div>
+                        <div class="ui-state-default">탕수육</div>
+                        <div class="ui-state-default">짜장면</div>
+                        <div class="ui-state-default">탕수육</div>
+                        <!-- <li class="ui-state-default">짬뽕</li>
+                        <li class="ui-state-default">짬뽕밥</li>
+                        <li class="ui-state-default">볶음밥</li>
+                        <li class="ui-state-default">유산슬</li>
+                        <li class="ui-state-default">잡탕면</li>
+                        <li class="ui-state-default">깐쇼새우</li>
+                        <li class="ui-state-default">삼선짜장</li>
+                        <li class="ui-state-default">라조기</li>
+                        <li class="ui-state-default">온냉면</li>
+                        <li class="ui-state-default">유산슬</li> 
+                        <li id="empty" class="ui-state-default">공석</li>   -->
+                </div>
+            </div>
+        </div><!--row -->
+        <div style="height:150px;width:800px;">
+        <button id="btn1">1인석 추가</button>
+        <button id="btn2">2인석 추가</button>
+        <button id="btn3">3인석 추가</button>
+        <button id="btn4">공석 추가</button>
+        </div>
+     
+    
+<script>
+         $("#result > ul > li:eq(0)").click(function(){
+         
+         })
+
+        $( function() {
+            $( ".sortable1, .sortable2,.sortable3" ).sortable({
+            connectWith: ".connectedSortable"
+          }).disableSelection();
+        } );
+    
+
+        $(document).on("click","#btn1",function(){
+            var html ='<div class="connectedSortable sortable1"></div>';
+            $("#result").append(html);
+            $( ".sortable1, .sortable2,.sortable3" ).sortable({
+            connectWith: ".connectedSortable"
+          }).disableSelection();
+        });
+
+        $(document).on("click","#btn2",function(){
+            var html ='<ul class="connectedSortable sortable2"></ul>';
+            $("#result").append(html);
+            $( ".sortable1, .sortable2,.sortable3" ).sortable({
+            connectWith: ".connectedSortable"
+          }).disableSelection();
+        });
+
+        $(document).on("click","#btn3",function(){
+            var html ='<ul class="connectedSortable sortable3"></ul>';
+            $("#result").append(html);
+            $( ".sortable1, .sortable2,.sortable3" ).sortable({
+            connectWith: ".connectedSortable"
+          }).disableSelection();
+        });
+
+        if($("#list").child().attr("id")=='empty'){
+          var html ='<li class="ui-state-default">공석</li>'
+          $("#list").append(html);
+        }
+         // console.log($("#empty").parents().attr("id"));
+</script>
+</body>
+</html>

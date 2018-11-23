@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.navbar-default {
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 0px;
+    margin: 0;
+    border: 0;
+}    
+.navbar-default > .navbar-collapse > .navbar-nav > li > a {
+    color: #ffffff;
+}    
+.navbar-default > .navbar-collapse > .navbar-nav > li > a:hover {
+    color: #bbbbbb;
+    text-decoration: none;
+    cursor: pointer;
+}   
+.navbar-default > .navbar-collapse > .navbar-nav > li.classUser, li.classCourse > a {
+    font-size: 1.7rem;
+    background: none;
+}    
+.navbar-default > .navbar-collapse > .navbar-nav >  .open > a {
+    background: none;
+}    
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+}
+.navbar-nav > li {
+    float: none;
+    display: inline-block;
+}
+.navbar-nav > .home {
+    font-size: 4rem;
+}
+.navbar-nav > .home > a {
+    padding-top: 13px;
+}
+.navbar-nav > .myClassName > a {
+    font-size: 2.24rem;
+    padding-top: 25px;
+}
+.navbar-nav > .classCurriculum > a {
+    font-size: 1.7rem;
+    padding-top: 25px;
+}
+.navbar-nav > .classCourse > a {
+    font-size: 1.7rem;
+    padding-top: 25px;
+}
+.navbar-nav > .add > a {
+    font-size: 1.7rem;
+    padding-top: 25px;
+}
+.navbar-nav > .classUser > a {
+    font-size: 1.7rem;
+    padding-top: 25px;
+}
+.navbar-nav > .myInformation > a {
+    font-size: 25px;
+    padding-top: 23px;
+}
+.navbar-nav > .myNotification > a {
+    font-size: 25px;
+    padding-top: 23px;
+}
+.dropdown-menu {
+    margin: 10px auto;
+}
+.dropdown-menu {
+    min-width: 100px; left:50%; margin-left:-50px;
+    border-radius: 3px !important;
+}
+.dropdown-menu > li {
+    width: 100%;
+}
+.myNotificationMenu > li {
+    width: 100%;
+}
+.myNotificationMenu > li {
+    width: 100%;
+}
+.dropdown-menu > li > a {
+    text-align: center;
+}
+.dropdown-menu > li > a:hover {
+    background-color: white;
+    font-size: 16px;
+    transition: 0.13s;
+}
+
+.modal {
+    text-align: center;
+    padding: 0!important;
+  }
+  
+  .modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px; /* Adjusts for spacing */
+  }
+  
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  #joincodeinput > div.modal-dialog {
+    width: 350px;
+  }
+  #modipassword > div.modal-dialog {
+    width: 400px;
+  }
+  #createclass > div.modal-dialog {
+    width: 500px;
+  }
+
+  .modal-header {
+      border: transparent;
+      padding-bottom: 5px;
+  }
+  .modal-footer {
+    border: transparent;
+    padding-top: 0px;
+}
+  .modal-body {
+      margin-top: 0px;
+  }
+
+
+tr {
+    margin-top: 10px;
+}
+
+div.list_style_table table tr {
+    border-bottom: 1px solid #e2e2e2;
+}

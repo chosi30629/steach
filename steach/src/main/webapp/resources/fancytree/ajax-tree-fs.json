@@ -1,0 +1,13 @@
+[
+	{"title": "내 드라이브", "expanded": true, "folder": true, "children": [
+		{"title": "하위폴더", "folder": true, "children": [
+			{"title": "cups"},
+			{"title": "httpd"},
+			{"title": "init.d"}
+		]}
+		
+	]},
+	{"title": "공유문서함", "expanded": true, "folder": true, "children": [
+		{"title": "하위폴더", "folder": true}
+	]}
+]

@@ -1,0 +1,255 @@
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR');
+*{
+    font-family: 'Noto Sans KR', sans-serif;
+}
+html, body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #dfe3e6;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+.student-card {
+    margin: 240px 0 0 0;
+    width: 330px;
+}
+.student-card-content {
+    margin: 150px auto 0 auto;
+    z-index: 101;
+    position: relative;
+    text-align: center;
+}
+.student-card-content > .card > .student-img > img {
+    border-radius: 100%; 
+    position: relative; 
+    top: -90px;
+}
+.student-card-content > .card > .student-img > h1 {
+    position: relative; 
+    top: -248px;
+}
+@-webkit-keyframes slide {
+    0%   { background-position: left; }
+    50%   { background-position: right; }
+    100% { background-position: left; }
+}
+.card {
+    width: 330px;
+    height: 400px;
+    margin: 0;
+    border-radius: 4px;
+    -webkit-box-shadow: 0px 3px 5px 3px #000000;
+    box-shadow: 0px 5px 5px 3px rgba(0, 0, 0, 0.15);
+    background: rgb(245,245,245); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(245,245,245,1) 0%, rgba(235,235,235,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(245,245,245,1)), color-stop(100%,rgba(235,235,235,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(235,235,235,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(235,235,235,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(245,245,245,1) 0%,rgba(235,235,235,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(245,245,245,1) 0%,rgba(235,235,235,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5f5f5', endColorstr='#ebebeb',GradientType=0 ); /* IE6-9 */
+    position: relative;
+    color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    line-height: 480px;
+    text-shadow: 0px 1px 0 rgba(255, 255, 255, 0.8), inset 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+.hang {
+    width: 70px;
+    height: 130px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: -95px;
+    left: 130px;
+    z-index: 1;
+}
+.hang:after {
+    content: "";
+    width: 60px;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.hang:before {
+    content: "";
+    width: 70px;
+    height: 8px;
+    background: rgba(0,0,0,0.7);
+    position: absolute;
+    top: 125px;
+    left: 0;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 2px 2px rgba(0, 0, 0, 0.7);
+    z-index: 4;
+}
+.hang > .student-img {
+    height: 300px;
+}
+.details {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4), inset 0 6px 3px rgba(255, 255, 255, 1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #3D3E3E;
+    border-radius: 100%;
+    position: absolute;
+    top: 10px;
+    left: 27px;
+}
+.details:after {
+    content: "";
+    width: 14px;
+    height: 14px;
+    background: #565759;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.9), inset 0 2px 6px 3px rgba(0, 0, 0, 0.9);
+    border-radius: 100%;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
+.student-info {
+    position: relative; top: -100px; line-height: 24px; list-style: none; margin-right: 42px; text-align: left;
+}
+.student-info > .student-address {
+    height: 43px; 
+    overflow: hidden;
+}
+#accordion {
+    position: relative; 
+    top: -600px; 
+    left: 439px;
+    max-height: 510px; 
+    overflow: auto; 
+    width: 700px; 
+    z-index: 59;
+}
+#accordion > h3 {
+    background-color: rgba(0,0,0,0.75); 
+    color: white;
+    padding: 15px; 
+    margin: 0;
+}
+#accordion > h3 > i.addCounseling {
+    float: right;
+    cursor: pointer;
+}
+#accordion > h3 > i.addCounseling:hover {
+    font-size: 26px;
+    transition: 0.13s;
+}
+@media(max-width: 800px) {
+    .studen-card {
+        margin: 170px 0 0 10px;
+        width: 330px;
+    }
+}
+#accordion .panel {
+    border-radius: 0;
+    border: 0;
+    margin-top: 0px;
+}
+#accordion a {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+#accordion .panel-heading a.collapsed:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    transition: all 0.1s ease-in;
+}
+#accordion .panel-heading a.collapsed:hover::before,
+#accordion .panel-heading a.collapsed:focus::before {
+    color: white;
+}
+#accordion .panel-heading {
+    padding: 0;
+    border-radius: 0px;
+    text-align: center;
+}
+#accordion .panel-heading a:not(.collapsed) {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.65);
+    transition: all 0.2s ease-in;
+}
+#accordion .panel-heading .accordion-toggle::before {
+    float: left;
+    color: white;
+    font-weight: lighter;
+    transform: rotate(0deg);
+    transition: all 0.2s ease-in;
+}
+#accordion .panel-heading .accordion-toggle.collapsed::before {
+    color: #444;
+    transform: rotate(-135deg);
+    transition: all 0.2s ease-in;
+}
+#accordion > .panel > .panel-collapse > .panel-body {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+#accordion > .panel > .panel-collapse > .panel-body > .counseling-modify-remove-btn {
+    float: right;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(50,45,66,.25);
+    border-radius: 10px;
+}​
+::-webkit-scrollbar-track-piece {
+    background: rgba(9,45,66,.08);
+}
+.modal {
+    text-align: center;
+    padding: 0 !important;
+}
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+.modal-open {
+    padding-right: 0px !important;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingTitle > button > span {
+    position: relative; 
+    top: 5px;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > hr {
+    border: 0; 
+    height: 1px; 
+    background: #ccc; 
+    margin-top: 15px;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselinContent > .counselinContent-div {
+    margin-top: 10px;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselinContent > .counselinContent-div {
+    margin-top: 10px;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselinContent > .write-btn-div {
+    float: right;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>월별 달력 </title>
+<link href='../fullcalendar.min.css' rel='stylesheet' />
+<link href='../fullcalendar.print.min.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script src="./test.js"></script>
+
+<style>
+
+    body {
+      margin: 40px 10px;
+      padding: 0;
+      font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+      font-size: 14px;
+    }
+  
+    #calendar {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  
+  </style>
+</head>
+<body>
+    <div id="calendar"></div>
+
+    <form id="f">
+    <div id="input">
+        <input type="text" name="title"/>
+        <input type="text" name="start"/>
+        <input type="text" name="end"/>
+        <button type="button" onclick="doAction()">click</button>
+    </div>
+    </form>
+    <hr>
+    <div id="calendar2"></div>
+   
+    <script>
+        var cal = "";
+        $(document).ready(function() {
+      
+            cal = $('#calendar').fullCalendar(
+              
+          {
+            header: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'month'
+            },
+            defaultDate: '2018-11-14',
+            navLinks: true, // can click day/week names to navigate views
+      
+           // weekNumbers: true,
+            weekNumbersWithinDays: true,
+            weekNumberCalculation: 'ISO',
+      
+           // editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            selectable:true,
+            select:function(){
+                
+            },
+            events: eventArray
+            
+            
+
+          }
+          
+          );
+      
+        });
+        
+        function doAction(){
+            var title = $("input[name='title']").val();
+            var start = $("input[name='start']").val();
+            var end = $("input[name='end']").val();
+            
+
+            var event ={title,start,end};
+            console.log(event);
+  
+            eventArray.push(event);
+            cal.events = eventArray;
+            console.log(cal.events);
+
+            $("#calendar").remove();
+            
+            $('#calendar2').fullCalendar(
+              
+              {
+                header: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'month'
+                },
+                defaultDate: '2018-11-14',
+                navLinks: true, // can click day/week names to navigate views
+          
+               // weekNumbers: true,
+                weekNumbersWithinDays: true,
+                weekNumberCalculation: 'ISO',
+          
+               // editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                selectable:true,
+                events: eventArray
+                
+                
+    
+              }
+              
+              );
+
+        }
+
+            
+        
+      </script>
+</body>
+</html>
