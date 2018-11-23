@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,15 +10,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="./group.css">
-    <link rel="stylesheet" href="./header.css">
-    <link rel="stylesheet" href="./groupMain.css">
-    <link rel="stylesheet" href="./animate.css">
+    <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
+    <link rel="stylesheet" href="/steach/resources/css/header/class-header.css">
+    <link rel="stylesheet" href="/steach/resources/css/class/group/group-main.css">
+    <link rel="stylesheet" href="/steach/resources/css/class/group/animate.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="./wow.min.js"></script>
-    <title>조별활동 메인페이지</title>
+    <script src="/steach/resources/js/class/group/wow.min.js"></script>
+    <title>GroupMain</title>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -109,45 +111,19 @@
                         </div>
                         <ul class="connectedSortable childDrop">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">나는이름이열글자입니</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -161,45 +137,19 @@
                         </div>
                         <ul class="connectedSortable childDrop">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -213,19 +163,19 @@
                         </div>
                         <ul class="connectedSortable childDrop">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -239,19 +189,71 @@
                         </div>
                         <ul class="connectedSortable childDrop">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                        </ul>
+                        <div>　</div>
+                    </li>
+                    <li class="parentDrag">
+                        <div class="listTitle">
+                            <div class="listSubject">
+                                1조
+                            </div>
+                        </div>
+                        <ul class="connectedSortable childDrop">
+                            　
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                        </ul>
+                        <div>　</div>
+                    </li>
+                    <li class="parentDrag">
+                        <div class="listTitle">
+                            <div class="listSubject">
+                                1조
+                            </div>
+                        </div>
+                        <ul class="connectedSortable childDrop">
+                            　
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -415,45 +417,19 @@ l0,-61 L40,28" />
                         </div>
                         <ul class="connectedSortable childDrop wow bounceIn">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">나는이름이열글자입니</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop wow bounceIn">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -467,45 +443,19 @@ l0,-61 L40,28" />
                         </div>
                         <ul class="connectedSortable childDrop wow bounceIn">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop wow bounceIn">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -519,19 +469,19 @@ l0,-61 L40,28" />
                         </div>
                         <ul class="connectedSortable childDrop wow bounceIn">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -545,19 +495,71 @@ l0,-61 L40,28" />
                         </div>
                         <ul class="connectedSortable childDrop wow bounceIn">
                             　
-                            <li class="ui-state-default clearfix" style="background-image: url('./p1.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p2.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p3.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p4.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('./p5.jpg');">
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                        </ul>
+                        <div>　</div>
+                    </li>
+                    <li class="parentDrag">
+                        <div class="listTitle">
+                            <div class="listSubject">
+                                1조
+                            </div>
+                        </div>
+                        <ul class="connectedSortable childDrop wow bounceIn">
+                            　
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                        </ul>
+                        <div>　</div>
+                    </li>
+                    <li class="parentDrag">
+                        <div class="listTitle">
+                            <div class="listSubject">
+                                1조
+                            </div>
+                        </div>
+                        <ul class="connectedSortable childDrop wow bounceIn">
+                            　
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
+                                <span class="student-name">조성일</span>
+                            </li>
+                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
                                 <span class="student-name">조성일</span>
                             </li>
                         </ul>
@@ -586,7 +588,7 @@ l0,-61 L40,28" />
         });
 
         $(".listTitle").on("click", function() {
-            location.href = "http://127.0.0.1:5500/group.html";
+            location.href = "groupActivity.do";
         });
     </script>
 </body>

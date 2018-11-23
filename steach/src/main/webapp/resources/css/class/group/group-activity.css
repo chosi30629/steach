@@ -15,7 +15,7 @@ html {
 }
 body {
     width: max-content;
-    background-image: url("./p5.jpg");
+    background-image: url("/steach/resources/images/class/group/p5.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

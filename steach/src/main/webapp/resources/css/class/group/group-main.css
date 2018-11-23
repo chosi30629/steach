@@ -231,7 +231,7 @@ input, textarea, button {
     border-radius: 10px;
 }
 .ui-state-highlight {
-    background-image: url("./pl.png");
+    background-image: url("/steach/resources/images/class/group/pl.png");
     background-size: cover;
     opacity: 0.4;
     opacity: 0.5px !important;

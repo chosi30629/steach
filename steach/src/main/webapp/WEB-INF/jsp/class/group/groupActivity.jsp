@@ -1,14 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>조별활동</title>
+    <title>groupActivity</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
-    <link rel="stylesheet" href="./group.css">
-    <link rel="stylesheet" href="./header.css">
+    <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
+    <link rel="stylesheet" href="/steach/resources/css/header/class-header.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
@@ -209,7 +211,7 @@
         </div>
         <div class="agent-face">
             <div class="half">
-            <img class="agent circle" src="./pl.png" alt="Jesse Tino"></div>
+            <img class="agent circle" src="/steach/resources/images/class/group/pl.png" alt="Jesse Tino"></div>
         </div>
         <div class="chat">
             <div class="chat-title">
