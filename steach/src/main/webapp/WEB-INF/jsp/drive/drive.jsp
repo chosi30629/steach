@@ -1,0 +1,704 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title>내 드라이브 - Steach 드라이브</title>
+  
+  <script src="/steach/resources/fancytree/lib/jquery.js"></script>
+  <script src="/steach/resources/fancytree/lib/jquery-ui.custom.js"></script>
+  <script src="/steach/resources/fancytree/src/jquery-ui-dependencies/jquery.fancytree.ui-deps.js"></script>
+  <script src="/steach/resources/fancytree/src/jquery.fancytree.js"></script>
+  <script src="/steach/resources/fancytree/src/jquery.fancytree.dnd5.js"></script>
+  <script src="/steach/resources/fancytree/src/jquery.fancytree.childcounter.js"></script>
+  <!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  <link href="/steach/resources/fancytree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link href="/steach/resources/fancytree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+  <link rel="stylesheet" href="/steach/resources/css/drive/drive.css">
+
+
+</head>
+
+<body>
+    <div class="realheader">
+      <div class="outheader">
+        <div class="imgheader">
+          <img class="headerimg" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/drive_48dp.png 2x " style="width:40px;height:40px">    
+        </div>
+        <div class="textheader">&nbsp;스티치 드라이브  
+        </div>
+      </div>
+      
+      <form class="formrow">
+        <div class="fff" >
+          <button class="searchbtn">
+            <i class="fas fa-search"></i>
+          </button>
+          <input type="search" placeholder="드라이브 검색">
+        </div>
+      </form>
+      
+      <div style="margin-right: 10px; display: flex; flex-direction: row-reverse; align-items: center; width: 100%">
+        <div>
+          <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></i>
+        </div>
+        <div style="margin : 0 25px" >
+          <i class="fas fa-th fa-lg" data-toggle="tooltip" data-placement="bottom" title="스티치 app" ></i>
+        </div>
+      </div>
+
+      <!-- header 종결-->
+    </div>
+    
+     <!-- The Modal -->
+     <div id="myModal3" class="modal fade">
+        <!-- Modal content -->
+        <div class="modal3 modal-content col-md-3">                                                   
+            <p><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
+            <hr>
+            <p><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+        </div>
+   
+      </div>
+    
+  
+
+  <div class="container-fluid">
+    
+      <div class="firstside col-md-2 sidebar">
+
+        <div class="addBtnOuter" tabindex="-1" id="myBtn1" style="display:flex;">
+          <div class="addBtn">
+          </div>
+          <div style="display : flex; align-items : center;">
+            새로 만들기
+          </div>
+        </div>
+ 
+           <!-- The Modal -->
+           <div id="myModal1" class="modal fade">
+       
+            <!-- Modal content -->
+            <div class="modal1 modal-content col-md-3">                                                   
+                <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
+                <hr>
+                <p class="addFile"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+            </div>
+       
+          </div>
+
+         <div id="tree"></div>
+         
+         <hr>
+          <div class="icon">
+           <div class="cloudicon">
+             <i class="fas fa-cloud fa-lg"></i>
+           </div>
+           
+           <div style="font-size: 13px;">
+             <div>저장용량</div>
+             <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+              </div>
+             <div>
+               15GB 중 732.7MB 사용중
+              </div>
+            </div> 
+          </div>  
+            
+        </div>
+        
+
+        <div class="col-md-10" style="display: flex;height: 30px;">
+          <div class="myBtn2outer" style="height: 30px;">
+            <div id="myBtn2" tabindex="-1" style="height: 40px;">내 드라이브
+                <div class="myBtn2icon"><i class="fas fa-sort-down" style="
+                  display: flex;
+                  align-items: center;
+                  margin-left: 10px;
+                  margin-bottom: 5px;
+              "></i></div>
+            </div>
+            
+          </div>
+            <div style="display: flex; align-items: center; flex-direction : row-reverse; width: 100%;">
+                <div class="infoCircle" data-toggle="tooltip" data-placement="bottom" title="세부정보">
+                  <i class="google fas fa-info-circle fa-lg"></i></div>
+              </div>
+        </div>  
+
+      <div class="col-md-8 main" style="padding-right: 0px;">
+            
+            
+          <!-- The Modal -->
+          <div id="myModal2" class="modal fade">
+       
+            <!-- Modal content -->
+            <div class="modal2 modal-content col-md-3">                                                   
+                <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
+                <hr>
+                <p class="addFile"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+            </div>
+       
+          </div>
+
+          
+            <div style="margin-top: 20px;">
+              <div class="table1">  
+                <div class="tableC" style="width: 40%; font-weight: 600;">제목</div>
+                <div class="tableC" style="width: 8%; font-weight: 600;  justify-content: center;">소유자</div>
+                <div class="tableC" style="width: 32%; font-weight: 600;  justify-content: center;">최종 수정 날짜</div>
+                <div class="tableC" style="width: 20%; font-weight: 600;  justify-content: center;">크기</div>
+            </div>
+            </div>
+            <div class="tableDiv">
+              <table class="ft table table-hover">
+                <tbody>
+                    <tr>
+                      <td class="folderName"><i class="fas fa-folder fa-lg"></i><span>예제용</span></td>
+                      <td class="owner" class="text-center">나</td>
+                      <td class="date" class="text-center">2018/11/14</td>
+                      <td class="val" class="text-center">100mb</td>
+                      </tr>
+                </tbody>
+              </table>
+                
+                
+               
+               
+                          
+                  <!--내용 끝-->
+              </div> <!-- tableDiv 종료-->
+            </div><!-- main 태그 col-md-8 종료-->
+            
+            
+            <div class="detailside col-md-2 sidebar" style="width: 20%; padding-left: 0px; padding-right: 0px; bottom: 1px;">
+                <div class="trClick">
+                  <div class="TrIcon"><i class="fas fa-folder fa-lg"></i></div>
+                  <div class="TrName">내 드라이브</div>
+                </div>
+                <div class="trClickDetail">
+                  <div>세부정보</div>
+                  <div>활동</div>
+                </div>
+
+                <div class="trClickDetailContent">폴더를 추가하였습니다</div>
+                
+
+              </div><!-- right sidebar -->
+
+              <div class="myModal modal fade">
+      
+                <div class="modal4 modal-content col-md-3">                                                   
+                    <p class="addFolderBefore">새폴더</p>
+                    <p><input class="addTextBefore form-control" type="text" value="제목없는 폴더"/></p>
+                    <p style="display : flex;flex-direction: row-reverse;">
+                      <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
+                      <button class="AfterMakeIt form-control" style="width:unset;">만들기</button>
+                    </p>
+                </div>
+                   
+              </div>
+
+  </div>  <!-- 그리드 종결 태그 -->
+  <ul class="contextmenu">
+      <li><a href="#">미리보기</a></li>
+      <li><a href="#">이름 변경</a></li>
+      <li><a href="#">공유</a></li>
+      <li><a href="#">다운로드</a></li>
+      <li><a href="#">삭제</a></li>
+    </ul>
+    
+    <div class="myModal2 modal fade">
+      
+        <div class="modal4 modal-content col-md-3">                                                   
+            <p>이름 바꾸기</p>
+            <p><input class="changeNameText form-control" type="text"/></p>
+            <p style="display : flex;flex-direction: row-reverse;">
+              <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
+              <button class="AfterChange form-control" style="width:unset;">변경</button>
+            </p>
+        </div>
+           
+      </div>
+
+ <script type="text/javascript">
+ 
+ var inputModal = function() {
+$('.myModal').modal({
+  keyboard: true, 
+  show: true,
+}).css({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: 'column',
+  justifyContent: 'center',
+})    
+}
+
+ 
+
+$(document).ready(function(){
+
+  if($('tbody').children().length==0){
+    
+    $('.ft').append(
+      `<div class="picOuter">
+        <div class="allpicOuter">
+          <div class="allpic">
+            <div class="pic1"></div>
+              <div class="pic2"></div>
+              <div class="pictext">파일을 여기 끌어다 놓거나 <br> '새로만들기'버튼을 사용하세요</div>
+              </div>
+              </div>
+              </div>`
+              )
+            $('.picOuter').css("display", "flex");
+            } //if
+            }) 
+          
+// 새로만들기 버튼 클릭시를 구현할 거예요!
+$('.addFolder').click(function(){
+  
+  $(this).parent().parent().modal('hide');
+  
+  inputModal()
+
+// 모달창은 autofocus 안먹혀서 따로 처리
+function addTextBefore(e) {
+  $('.addTextBefore').focus();
+}
+addTextBefore()
+  
+  // esc 키다운시 modal4 비활성화
+  $(document).on('keydown', function(e) { 
+      if (e.keyCode == 27) 
+      $('.myModal').modal('hide') 
+  }); 
+  
+})
+
+  //.AfterMakeIt 클릭시 
+  //.addTextBefore 의 myModal 내의 input:value 를 가져와서 폴더 만들기 
+   
+    $('.AfterMakeIt').click(function(){
+      $('tbody').append('<tr class="ggg">' 
+        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span>'+$(".addTextBefore").val()+'</span></td>'
+        +  '<td class="owner" class="text-center">나</td>'
+        +  '<td class="date" class="text-center">2018/11/14</td>'
+        +  '<td class="val" class="text-center">100mb</td>'
+        +  '</tr>');
+        
+       
+      var node = $("#tree").fancytree("getActiveNode");
+        var rootNode = $("#tree").fancytree("getRootNode").children[0];
+        var childNode;
+        console.dir(rootNode);
+        if(node){
+          childNode = node.addChildren({
+
+            title: $(".addTextBefore").val(),
+            tooltip: $(".addTextBefore").val(),
+            folder: true
+          });
+        }else{
+          childNode = rootNode.addChildren({
+            title: $(".addTextBefore").val(),
+            tooltip: $(".addTextBefore").val(),
+            folder: true
+          })
+        }
+        
+        $('.picOuter').css("display", "none");
+        $('.addTextBefore').val('제목없는 폴더');
+        $(this).parent().parent().parent().modal('hide');
+      
+      
+      })//end 폴더 추가하기
+  
+     
+       
+     
+//-----------------
+      // 동적으로 만든 tr 태그의 contextmenu 
+      var thi;
+      var thii;
+      $('.contextmenu').children().eq(1).click(function(){
+        $('.myModal2').modal({
+           keyboard: true, 
+           show: true
+         }).css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center'
+         }).find('.changeNameText').val(thi)
+         
+       })
+       // 이름바꾸기 변경 버튼 누를시
+       $('.myModal2').find('.AfterChange').click(function(){
+         
+        //changeNameText 
+       var google = $(this).parent().parent().find('.changeNameText').val()
+       // innertext 변경
+       thii.text(google)
+
+       // fancytree 이름변경
+      //  var node = $("#tree").fancytree("getActiveNode");
+      // if( !node ) return;
+      // node.setTitle(node.title + ", " + new Date());
+
+       $(this).parent().parent().parent().modal('hide');
+            })
+         
+      
+
+
+       //동적생성 태그 이벤트 
+       $(document).on('contextmenu', 'tr' , function(e){
+        thi = $(this)[0].children[0].innerText;
+        thii = $(this).find('.folderName');
+       console.dir(thi);
+
+    //Get window size:
+    var winWidth = $(document).width();
+    var winHeight = $(document).height();
+    //Get pointer position:
+    var posX = e.pageX;
+    var posY = e.pageY;
+    //Get contextmenu size:
+    var menuWidth = $(".contextmenu").width();
+    var menuHeight = $(".contextmenu").height();
+    //Security margin:
+    var secMargin = 10;
+    //Prevent page overflow:
+    if(posX + menuWidth + secMargin >= winWidth
+    && posY + menuHeight + secMargin >= winHeight){
+      //Case 1: right-bottom overflow:
+      posLeft = posX - menuWidth - secMargin + "px";
+      posTop = posY - menuHeight - secMargin + "px";
+    }
+    else if(posX + menuWidth + secMargin >= winWidth){
+      //Case 2: right overflow:
+      posLeft = posX - menuWidth - secMargin + "px";
+      posTop = posY + secMargin + "px";
+    }
+    else if(posY + menuHeight + secMargin >= winHeight){
+      //Case 3: bottom overflow:
+      posLeft = posX + secMargin + "px";
+      posTop = posY - menuHeight - secMargin + "px";
+    }
+    else {
+      //Case 4: default values:
+      posLeft = posX + secMargin + "px";
+      posTop = posY + secMargin + "px";
+    };
+   
+    //Display contextmenu css
+    $(".contextmenu").css({
+      "left": posLeft,
+      "top": posTop
+    })
+    
+    //contextmenu show
+    $(".contextmenu").show();
+      
+       })
+
+    //   $('tr').on("contextmenu",function(e){
+    //    thi = $(this)[0].childNodes[0].innerText
+    //    console.dir($(this)[0].children[0].innerText);
+       
+
+    // //Get window size:
+    // var winWidth = $(document).width();
+    // var winHeight = $(document).height();
+    // //Get pointer position:
+    // var posX = e.pageX;
+    // var posY = e.pageY;
+    // //Get contextmenu size:
+    // var menuWidth = $(".contextmenu").width();
+    // var menuHeight = $(".contextmenu").height();
+    // //Security margin:
+    // var secMargin = 10;
+    // //Prevent page overflow:
+    // if(posX + menuWidth + secMargin >= winWidth
+    // && posY + menuHeight + secMargin >= winHeight){
+    //   //Case 1: right-bottom overflow:
+    //   posLeft = posX - menuWidth - secMargin + "px";
+    //   posTop = posY - menuHeight - secMargin + "px";
+    // }
+    // else if(posX + menuWidth + secMargin >= winWidth){
+    //   //Case 2: right overflow:
+    //   posLeft = posX - menuWidth - secMargin + "px";
+    //   posTop = posY + secMargin + "px";
+    // }
+    // else if(posY + menuHeight + secMargin >= winHeight){
+    //   //Case 3: bottom overflow:
+    //   posLeft = posX + secMargin + "px";
+    //   posTop = posY - menuHeight - secMargin + "px";
+    // }
+    // else {
+    //   //Case 4: default values:
+    //   posLeft = posX + secMargin + "px";
+    //   posTop = posY + secMargin + "px";
+    // };
+   
+    // //Display contextmenu css
+    // $(".contextmenu").css({
+    //   "left": posLeft,
+    //   "top": posTop
+    // })
+    
+    // //contextmenu show
+    // $(".contextmenu").show();
+      
+    // return false;
+    // })
+
+      //Hide contextmenu:
+      $(document).click(function(){
+        $(".contextmenu").hide();
+      });
+
+
+      //modal cancle button
+    $('.AfterCancle').click(function(){
+     $(this).parent().parent().parent().modal('hide');
+    })
+
+  // 우클릭 비활성화
+$(document).contextmenu(function(e){
+  return false;
+})
+
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+$('.infoCircle').mouseover(function(){
+          $(this).css('background-color' , '#f1f3f4');
+          $('.google').css('opacity', 'unset');
+        }).mouseleave(function(){
+          $(this).css('background-color' , 'unset')
+          $('.google').css('opacity', '0.66');
+        })
+
+  $('.infoCircle').click(function() {
+      if($('.detailside').hasClass("leftgo")){
+        $('.main ').attr('class', 'col-md-8 main').css("transition" , ".4s")
+        $('.detailside').removeClass("leftgo")
+        $('.infoCircle').css({
+          'background-color' : '#e8f0fe'
+        })
+        
+
+        $('.google').css({
+          'color' : '#1967d2',
+          'opacity' : 'unset'
+        })
+      }else{
+        $('.main ').attr('class', 'col-md-10 main')
+        $('.detailside').addClass("leftgo").css("transition" , ".4s")
+        $('.infoCircle').css({
+          'background-color' : 'unset'
+        })
+        $('.google').css({
+          'color' : 'unset',
+          'opacity' : '.66'
+        })
+      }
+      //  $('.detailside').toggleClass('leftgo', 200, function(){
+      //     $('.fa-info-circle').toggleClass('focus')
+      //     if($('.main').hasClass('col-md-8') == 1)
+      //     $('.main ').attr('class', 'col-md-10 main')
+      //     else{
+      //       $('.main ').attr('class', 'col-md-8 main')
+      //     }
+      //  })             
+})
+
+
+  $btn1 = $('#myBtn1').offset();
+  $btn2 = $('#myBtn2').offset();
+  $btn3 = $('.fa-th').offset();
+  // $btn4 = $('.fa-th').offset();
+  console.log($btn1.top , $btn1.left)
+  
+  $('.modal1').css({
+    top :  $btn1.top+48,
+    left : $btn1.left,  
+  })
+  $('.modal2').css({
+    top : $btn2.top+35,
+    left : $btn2.left
+  })
+  $('.modal3').css({
+    top : $btn3.top+35,
+    left : $btn3.left
+  })
+  
+
+  // 모달버튼의 위치와 모달이뜨는 위치 계산
+
+  $('#myBtn1').click(function(){
+    $('#myModal1').modal({
+            keyboard: true, 
+            show: true
+})
+$(document).on('keydown', function(e) { 
+      if (e.keyCode == 27) 
+      $('#myModal1').modal('hide')
+  }); 
+
+  })
+  // myBtn1 myModal1 open
+
+  $('#myBtn2').click(function(){
+    $('#myModal2').modal({
+            keyboard: true, 
+            show: true
+})
+$(document).on('keydown', function(e) { 
+      if (e.keyCode == 27) 
+      $('#myModal2').modal('hide')
+  }); 
+  })
+   // myBtn2 myModal2 open
+
+ $('.fa-th').click(function(){
+    $('#myModal3').modal({
+            keyboard: true, 
+            show: true
+})
+$(document).on('keydown', function(e) { 
+      if (e.keyCode == 27) 
+      $('#myModal3').modal('hide')
+  }); 
+  })
+  //
+  
+
+  $(function(){
+    // Attach the fancytree widget to an existing <div id="tree"> element
+    // and pass the tree options as an argument to the fancytree() function:
+    $("#tree").fancytree({
+      extensions: ["dnd5","childcounter"],
+      // titlesTabbable: true,
+      source:[ 
+  	{"title": "내 드라이브", "expanded": true, "folder": true, "children": [
+		  {"title": "예제용", "folder": true, "children": [
+			  {"title": "cups"},
+			  {"title": "httpd"},
+			  {"title": "init.d"}
+		  ]}
+		
+    ]}
+    ],
+    dnd5: {
+        // autoExpandMS: 400,
+        // preventForeignNodes: true,
+        // preventNonNodes: true,
+        // preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
+        // preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
+        // scroll: true,
+        // scrollSpeed: 7,
+        // scrollSensitivity: 10,
+
+        // --- Drag-support:
+
+        dragStart: function(node, data) {
+          /* This function MUST be defined to enable dragging for the tree.
+           *
+           * Return false to cancel dragging of node.
+           * data.dataTransfer.setData() and .setDragImage() is available
+           * here.
+           */
+//          data.dataTransfer.setDragImage($("<div>hurz</div>").appendTo("body")[0], -10, -10);
+          return true;
+        },
+        dragDrag: function(node, data) {
+          data.dataTransfer.dropEffect = "move";
+        },
+        dragEnd: function(node, data) {
+        },
+
+        // --- Drop-support:
+
+        dragEnter: function(node, data) {
+          // node.debug("dragEnter", data);
+          data.dataTransfer.dropEffect = "move";
+          // data.dataTransfer.effectAllowed = "copy";
+          return true;
+        },
+        dragOver: function(node, data) {
+          data.dataTransfer.dropEffect = "move";
+          // data.dataTransfer.effectAllowed = "copy";
+        },
+        dragLeave: function(node, data) {
+        },
+        dragDrop: function(node, data) {
+          /* This function MUST be defined to enable dropping of items on
+           * the tree.
+           */
+          var transfer = data.dataTransfer;
+
+          node.debug("drop", data);
+
+          // alert("Drop on " + node + ":\n"
+          //   + "source:" + JSON.stringify(data.otherNodeData) + "\n"
+          //   + "hitMode:" + data.hitMode
+          //   + ", dropEffect:" + transfer.dropEffect
+          //   + ", effectAllowed:" + transfer.effectAllowed);
+
+          if( data.otherNode ) {
+            // Drop another Fancytree node from same frame
+            // (maybe from another tree however)
+            var sameTree = (data.otherNode.tree === data.tree);
+
+            data.otherNode.moveTo(node, data.hitMode);
+          } else if( data.otherNodeData ) {
+            // Drop Fancytree node from different frame or window, so we only have
+            // JSON representation available
+            node.addChild(data.otherNodeData, data.hitMode);
+          } else {
+            // Drop a non-node
+            node.addNode({
+              title: transfer.getData("text")
+            }, data.hitMode);
+          }
+          node.setExpanded();
+        }
+      },
+      childcounter: {
+        deep: true,
+        hideZeros: true,
+        hideExpanded: true
+      },
+      activate: function(event, data) {
+//        alert("activate " + data.node);
+      },
+      lazyLoad: function(event, data) {
+        data.result = {url: "/steach/resources/fancytree/ajax-sub2.json"}
+      },
+      loadChildren: function(event, data) {
+        // update node and parent counters after lazy loading
+        data.node.updateCounters();
+      }
+     
+    });
+  });
+
+
+</script>
+</body>
+</html>
