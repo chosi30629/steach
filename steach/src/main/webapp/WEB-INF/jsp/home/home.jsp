@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	asdf
+
+	home.jsp test
 </body>
 </html>
