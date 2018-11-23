@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -78,11 +80,14 @@
                 </div>
                 <ul class="connectedSortable childDrop">
                     　
-                    <li data-toggle="modal" data-target="#cardModal">Item 2</li>
+<!--                     <li data-toggle="modal" data-target="#cardModal">Item 2</li>
                     <li data-toggle="modal" data-target="#cardModal">Item 3</li>
                     <li data-toggle="modal" data-target="#cardModal">Item 4</li>
                     <li data-toggle="modal" data-target="#cardModal">Item 5</li>
-                    <li data-toggle="modal" data-target="#cardModal">Item 2</li>
+                    <li data-toggle="modal" data-target="#cardModal">Item 2</li> -->
+                    <c:forEach var="card" items="${cardList}">
+                    	<li data-toggle="modal" data-target="#cardModal" data-index="${card.cardNo}" data-order="${card.cardOrder}">${card.cardTitle}</li>
+                    </c:forEach>
                 </ul>
                 <div class="addCard">+ 카드 추가</div>
                 <div class="addCardForm" style="display: none;">
@@ -233,13 +238,40 @@
         // 트렐로 형식 드래그 앤 드롭
         $(function () {
             $(".childDrop").sortable({
-                connectWith: ".childDrop"
+                connectWith: ".childDrop",
+                update: function(event, ui) {
+					$(this).children().each(function(index) {
+						if($(this).attr("data-order") != (index + 1)) {
+							$(this).attr("data-order", (index + 1)).addClass("updated");
+						}
+					});
+					
+					saveNewOrders();
+				}
             }).disableSelection();
             $(".parentDrop").sortable({
                 connectWith: ".parentDrop"
             }).disableSelection();
         });
-
+		
+        // 위치 변경 데이터베이스 저장
+        function saveNewOrders() {
+        	var orders = [];
+        	$(".updated").each(function() {
+        		orders.push([$(this).attr("data-index"), $(this).attr("data-order")]);
+        		$(this).removeClass("updated");
+			});
+        	
+        	console.log(orders);
+        	$.ajax({
+        		url: "/steach/class/group/orderUpdate.do",
+        		data: {"orders": JSON.parse(JSON.stringify(orders))},
+        		success: function(response) {
+					console.log(response);
+				}
+        	});
+        }
+        
         // 빈 공간 클릭 시 폼 접기
         $(document).mousedown(function (e){
             var container = $('.addCardForm');

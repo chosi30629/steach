@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.GroupMapper">
+	<resultMap type="GroupCard" id="groupCardMap">
+		<result column="card_no" property="cardNo"/>
+		<result column="list_no" property="listNo"/>
+		<result column="card_writer" property="cardWriter"/>
+		<result column="card_title" property="cardTitle"/>
+		<result column="card_content" property="cardContent"/>
+		<result column="card_order" property="cardOrder"/>
+		<result column="card_reg_date" property="cardRegDate"/>
+	</resultMap>
+	
+	<!-- 카드 목록 -->
+	<select id="cardList" resultMap="groupCardMap">
+		select * from tb_class_group_list_card order by card_order
+	</select>
+	
+	<!-- 카드 위치 변경 -->
+	<update id="cardOrderUpdate" parameterType="GroupCard">
+		update tb_class_group_list_card
+		   set card_order = #{cardOrder}
+		 where card_no = #{cardNo}  
+	</update>
+	
+</mapper>
