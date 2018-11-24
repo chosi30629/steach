@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.steach.repository.mapper.GroupMapper">
+	<resultMap type="GroupList" id="groupListMap">
+		<result column="list_no" property="listNo"/>
+		<result column="group_no" property="GroupNo"/>
+		<result column="list_writer" property="listWriter"/>
+		<result column="list_title" property="listTitle"/>
+		<result column="list_order" property="listOrder"/>
+		<result column="list_reg_date" property="listRegDate"/>
+	</resultMap>
+	
 	<resultMap type="GroupCard" id="groupCardMap">
 		<result column="card_no" property="cardNo"/>
 		<result column="list_no" property="listNo"/>
@@ -12,15 +21,28 @@
 		<result column="card_reg_date" property="cardRegDate"/>
 	</resultMap>
 	
+	<!-- 리스트 목록 -->
+	<select id="listList" resultMap="groupListMap">
+		select * from tb_class_group_list order by list_order
+	</select>
+	
 	<!-- 카드 목록 -->
 	<select id="cardList" resultMap="groupCardMap">
 		select * from tb_class_group_list_card order by card_order
 	</select>
 	
+	<!-- 리스트 위치 변경 -->
+	<update id="listOrderUpdate" parameterType="GroupList">
+		update tb_class_group_list
+		   set list_order = #{listOrder}
+		 where list_no = #{listNo}  
+	</update>
+	
 	<!-- 카드 위치 변경 -->
 	<update id="cardOrderUpdate" parameterType="GroupCard">
 		update tb_class_group_list_card
-		   set card_order = #{cardOrder}
+		   set card_order = #{cardOrder},
+		       list_no = #{listNo}
 		 where card_no = #{cardNo}  
 	</update>
 	

@@ -1,5 +1,6 @@
 package kr.co.steach.clazz.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.steach.clazz.service.GroupService;
+import kr.co.steach.repository.domain.GroupCard;
+import kr.co.steach.repository.domain.GroupList;
 
 
 @Controller
@@ -32,24 +36,68 @@ public class GroupController {
 	
 	@RequestMapping("groupActivity.do")
 	public void groupActivity(Model model) {
+		model.addAttribute("listList", service.listList());
 		model.addAttribute("cardList", service.cardList());
 	} // groupActivity
 	
-	public GroupController() {
-		
-	}
 	@RequestMapping("orderUpdate.do")
 	@ResponseBody
-	public String orderUpdate(@RequestParam Map<String, Object> orders) {
-		System.out.println(orders.get("orders[0][]"));
+	public String orderUpdate(@RequestParam(value="orders") String orders) {
+//		System.out.println(orders);
+		GroupCard groupCard = new GroupCard();
 		
-		//		for(int i = 0; i <= orders.length; i++) {
-//			groupCard.setCardNo(orders[0]);
-//			groupCard.setCardOrder(orders[1]);
-//			service.cardOrderUpdate(groupCard);
-//		}
+		try {
+			// String을 Map으로
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object[]> map = new HashMap<String, Object[]>();
+			map = mapper.readValue(orders, new TypeReference<Map<String, String[]>>(){});
+//			System.out.println(map);
+			
+			// Map의 키와 값 분류
+			for(Map.Entry<String, Object[]> entry : map.entrySet()){
+				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue()[0] + " , listNo : " + entry.getValue()[1]);
+				
+				// 카드 순서 업데이트
+				groupCard.setCardNo(Integer.parseInt(entry.getKey()));
+				groupCard.setCardOrder(Integer.parseInt((String) entry.getValue()[0]));
+				groupCard.setListNo(Integer.parseInt((String) entry.getValue()[1]));
+				
+				service.cardOrderUpdate(groupCard);
+			} // for
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // try-catch
 		
 		return "성공";
 	} // orderUpdate
+	
+	@RequestMapping("listOrderUpdate.do")
+	@ResponseBody
+	public String listOrderUpdate(@RequestParam(value="listOrders") String listOrders) {
+		GroupList groupList = new GroupList();
+		
+		try {
+			// String을 Map으로
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map = mapper.readValue(listOrders, new TypeReference<Map<String, String>>(){});
+//			System.out.println(map);
+			
+			// Map의 키와 값 분류
+			for(Map.Entry<String, Object> entry : map.entrySet()){
+//				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue());
+				
+				// 카드 순서 업데이트
+				groupList.setListNo(Integer.parseInt(entry.getKey()));
+				groupList.setListOrder(Integer.parseInt((String) entry.getValue()));
+				
+				service.listOrderUpdate(groupList);
+			} // for
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // try-catch
+		
+		return "성공";
+	} // listOrderUpdate
 	
 } // end class

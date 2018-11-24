@@ -14,6 +14,5 @@ public class GroupCard {
 	private String cardContent;
 	private int cardOrder;
 	private Date cardRegDate;
-	private int[][] orders;
 	
 } // end class

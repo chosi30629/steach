@@ -59,10 +59,11 @@
     </div>
     <div class="wrapper clearfix">
         <ul class="connectedSortables parentDrop clearfix">
-            <li class="parentDrag">
+        	<c:forEach var="list" items="${listList}">
+            <li class="parentDrag" data-index="${list.listNo}" data-order="${list.listOrder}">
                 <div class="listTitle">
                     <div class="listSubject">
-                        해야 할 일
+                        ${list.listTitle}
                     </div>
                     <span class="listSubjectForm" style="display: none;">
                         <textarea class='modifyListForm'>해야 할 일</textarea><button class='btn btn-default btn-xs modifyListFormBtn'>수정</button>  
@@ -80,14 +81,11 @@
                 </div>
                 <ul class="connectedSortable childDrop">
                     　
-<!--                     <li data-toggle="modal" data-target="#cardModal">Item 2</li>
-                    <li data-toggle="modal" data-target="#cardModal">Item 3</li>
-                    <li data-toggle="modal" data-target="#cardModal">Item 4</li>
-                    <li data-toggle="modal" data-target="#cardModal">Item 5</li>
-                    <li data-toggle="modal" data-target="#cardModal">Item 2</li> -->
-                    <c:forEach var="card" items="${cardList}">
-                    	<li data-toggle="modal" data-target="#cardModal" data-index="${card.cardNo}" data-order="${card.cardOrder}">${card.cardTitle}</li>
-                    </c:forEach>
+	                    <c:forEach var="card" items="${cardList}">
+                    <c:if test="${list.listNo == card.listNo}">
+                    	<li data-toggle="modal" data-target="#cardModal" data-listNo="${card.listNo}" data-index="${card.cardNo}" data-order="${card.cardOrder}">${card.cardTitle}</li>
+                    </c:if>
+	                    </c:forEach>
                 </ul>
                 <div class="addCard">+ 카드 추가</div>
                 <div class="addCardForm" style="display: none;">
@@ -104,6 +102,7 @@
                     </div>
                 </div>
             </li>
+            </c:forEach>
         </ul>
         <div class="addList">
             <div class="addListBtn">+ 목록 추가</div>
@@ -241,31 +240,74 @@
                 connectWith: ".childDrop",
                 update: function(event, ui) {
 					$(this).children().each(function(index) {
+						$(this).attr("data-order", (index + 1)).addClass("updated");
+						console.log(index);
+					});
+					
+					saveNewCardOrders();
+				}
+            }).disableSelection();
+            
+            $(".parentDrop").sortable({
+                connectWith: ".parentDrop",
+                update: function(event, ui) {
+					$(this).children().each(function(index) {
 						if($(this).attr("data-order") != (index + 1)) {
-							$(this).attr("data-order", (index + 1)).addClass("updated");
+							$(this).attr("data-order", (index + 1)).addClass("listUpdated");
 						}
 					});
 					
-					saveNewOrders();
-				}
-            }).disableSelection();
-            $(".parentDrop").sortable({
-                connectWith: ".parentDrop"
+					saveNewListOrders();
+                }	
             }).disableSelection();
         });
 		
-        // 위치 변경 데이터베이스 저장
-        function saveNewOrders() {
-        	var orders = [];
+        // 카드 위치 변경 데이터베이스 저장
+        function saveNewCardOrders() {
+/*         	var orders = [];
         	$(".updated").each(function() {
         		orders.push([$(this).attr("data-index"), $(this).attr("data-order")]);
         		$(this).removeClass("updated");
-			});
+			}); */
         	
-        	console.log(orders);
-        	$.ajax({
+			var map = new Map();
+        	$(".updated").each(function() {
+        		map.set($(this).attr("data-index"), [$(this).attr("data-order"), $(this).parents(".parentDrag").attr("data-index")]);
+        		$(this).removeClass("updated");
+			}); 
+
+            var orders = {};
+			
+            map.forEach(function(value, key){
+            	orders[key] = value;
+            });
+            console.log(JSON.stringify(orders));
+         	$.ajax({
         		url: "/steach/class/group/orderUpdate.do",
-        		data: {"orders": JSON.parse(JSON.stringify(orders))},
+        		data: {"orders": JSON.stringify(orders)},
+        		success: function(response) {
+					console.log(response);
+				}
+        	}); 
+        }
+        
+        // 리스트 위치 변경 데이터베이스 저장
+        function saveNewListOrders() {
+			var map = new Map();
+        	$(".listUpdated").each(function() {
+        		map.set($(this).attr("data-index"), $(this).attr("data-order"));
+        		$(this).removeClass("listUpdated");
+			}); 
+
+            var listOrders = {};
+			
+            map.forEach(function(value, key){
+            	listOrders[key] = value;
+            });
+            // console.log(JSON.stringify(listOrders));
+        	$.ajax({
+        		url: "/steach/class/group/listOrderUpdate.do",
+        		data: {"listOrders": JSON.stringify(listOrders)},
         		success: function(response) {
 					console.log(response);
 				}
