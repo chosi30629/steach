@@ -3,7 +3,7 @@
     margin:0;
 }
 body{
-    background:#cebfc7;
+    background:white;
 }
 .bg-section{
     height:300px;
@@ -39,5 +39,5 @@ body{
 }
 
 .seat-section{
-    height:600px;
+    height:400px;
 }

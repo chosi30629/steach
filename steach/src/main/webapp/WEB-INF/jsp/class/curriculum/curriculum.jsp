@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html >
@@ -8,11 +8,15 @@
 <title>curriculum</title>
 
 
+<!-- header import -->
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
+
 <!-- css -->
 <link href="/steach/resources/css/class/curriculum/curriculum.css" rel="stylesheet"/>
-<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
 <script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script>
+
+
 <!-- fullcalendar -->	
 <link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.css' rel='stylesheet' />
 <link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -43,16 +47,16 @@
 					<div class="card">
 						<div class="card-header" role="tab" id="headingOne">
 							<div class="title">
-								<a data-toggle="collapse" href="#collapseOne">¼ö¾÷°èÈ¹Ç¥</a>
+								<a data-toggle="collapse" href="#collapseOne">ìˆ˜ì—…ê³„íší‘œ</a>
 							</div>
 						</div>
 
-						<div id="collapseOne" role="tabpanel" class="collapse">
+						<div id="collapseOne" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<div id="calendar"></div>
 								<div class="calendar-setting">
-									<button type="button" class="btn">ÀúÀå</button>
-									<button type="button" class="btn">ÃÊ±âÈ­</button>
+									<button type="button" class="btn">ì €ì¥</button>
+									<button type="button" class="btn">ì´ˆê¸°í™”</button>
 								</div>
 							</div>
 						</div>
@@ -61,7 +65,7 @@
 					<div class="card">
 						<div class="card-header" role="tab" id="headingTwo">
 							<div class="title">
-								<a data-toggle="collapse" href="#collapseTwo">ÀÚ¸®¹èÄ¡µµ</a>
+								<a data-toggle="collapse" href="#collapseTwo">ìë¦¬ë°°ì¹˜ë„</a>
 							</div>
 						</div>
 
@@ -72,7 +76,7 @@
 							
 								</div>
 								<div class="seat-setting">
-									<button type="button" class="btn">¼öÁ¤ÇÏ±â</button>
+									<button type="button" class="btn" onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do"/>'">ìˆ˜ì •í•˜ê¸°</button>
 								</div>
 							</div>
 						</div>
@@ -149,7 +153,7 @@
             selectable:true,
             select:function(start,end,jsEvent,view){
                 var obj={};
-                var title = prompt("Á¦¸ñ ÀÔ·ÂÇÏ¼¼¿ä");
+                var title = prompt("ì œëª© ì…ë ¥í•˜ì„¸ìš”");
                 if(title){
                   obj.title = title;
                   obj.start = start;
@@ -169,15 +173,15 @@
             },
 
             eventClick: function(event){
-               var result = confirm("»èÁ¦ÇÏ½Ã°Ú½À´Ï±î?");
+               var result = confirm("ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");
                if(result){
-              //eventArray¿¡¼­ Á¦°Å 
+              //eventArrayì—ì„œ ì œê±° 
                 const itemToFind = eventArray.find(function(item) {return item.title === event.title})
                 const idx = eventArray.indexOf(itemToFind) 
                 if (idx > -1) eventArray.splice(idx, 1);
                 console.log(eventArray);
                 
-                //È­¸é¿¡¼­Á¦°Å
+                //í™”ë©´ì—ì„œì œê±°
                 $("#calendar").fullCalendar('removeEvents',event._id);
                }
                

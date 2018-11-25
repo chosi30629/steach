@@ -1,56 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./lecture.css">
-    <link rel="stylesheet" href="./header.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <title>study</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>수업 페이지</title>
+<!-- header import -->
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
+<!-- css -->
+<link rel="stylesheet" href="/steach/resources/css/class/lecture/lecture.css"/>
+
 </head>
 <body>
-    <nav class="navbar navbar-default">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
-                    <li class="pull-left myClassName"><a href="#">클래스명</a></li>
-                    <li class="classCurriculum"><a href="#">커리큘럼</a></li>
-                    <!-- <li class="classCourse"><a href="#">수업</a></li> -->
-                    <li class="dropdown classCourse">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">과제제출</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown classUser">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">출결현황</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">조별활동</a></li>
-                        </ul>
-                    </li>
-                    <li class="nbsp">　　　　　　</li>
-                    <li class="pull-right dropdown myNotification">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
-                        <ul class="dropdown-menu myNotificationMenu">
-                            <li><a href="#">마이페이지</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">마이드라이브</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">로그아웃</a></li>
-                        </ul>
-                    </li>
-                    <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
-                </ul>
-            </div>
-        </nav>
-
-    <!-- lecture -->
+   <!-- lecture -->
 
     <!--menu modal -->
     <!-- title plus 모달 -->
@@ -100,7 +63,7 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <div>
-                                <center><h4>주제 추가</h4></center>
+                                <h4>주제 추가</h4>
                                 <input class="modal-text" type="text" placeholder="예) 자바 프로그래밍"
                                         maxlength=100 autocomplete="off">
                                 <button class="modal-button" type="button">만들기</button>
@@ -110,8 +73,8 @@
                 </div>
             </div><!-- modal end -->
 
-        <!-- form modal -->
-        <div class="aa" id="formModal" tabindex="-1" role="dialog" >
+        <!-- form modal 구현해아함!! -->
+        <div class="modal fade" id="formModal" tabindex="-1" role="dialog" >
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">

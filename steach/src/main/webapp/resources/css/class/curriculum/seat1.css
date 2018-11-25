@@ -2544,7 +2544,7 @@ a.btn-outline{
 .form-table thead:first-child td{
     border-top:none
 }
-.input-group-line{
+/* .input-group-line{
     padding:0;
     background:#fff;
     margin-bottom:25px;
@@ -2607,11 +2607,11 @@ a.btn-outline{
 .input-group-line input::-webkit-inner-spin-button,.input-group-line input::-webkit-outer-spin-button{
     -webkit-appearance:none;
     margin:0
-}
+} *//* 
 .ui-spinner input{
     border:0!important;
     padding-left:0!important
-}
+} */
 .input-group-line.input-group-line-naked input{
     border:0
 }
