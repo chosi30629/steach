@@ -12,6 +12,8 @@ public interface GroupService {
 	
 	List<GroupCard> cardList();
 	
+	void insertList(GroupList groupList);
+	
 	void listOrderUpdate(GroupList groupList);
 	
 	void cardOrderUpdate(GroupCard groupCard);

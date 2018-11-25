@@ -40,6 +40,24 @@ public class GroupController {
 		model.addAttribute("cardList", service.cardList());
 	} // groupActivity
 	
+	@RequestMapping("groupActivityList.do")
+	@ResponseBody
+	public Map<String, Object> groupActivityList() {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("listList", service.listList());
+		map.put("cardList", service.cardList());
+		
+		return map;
+	} // groupActivityList
+	
+	@RequestMapping("addList.do")
+	@ResponseBody
+	public String addList(GroupList groupList, Model model) {
+		service.insertList(groupList);
+		return "성공";
+	} // addList
+	
 	@RequestMapping("orderUpdate.do")
 	@ResponseBody
 	public String orderUpdate(@RequestParam(value="orders") String orders) {
@@ -55,7 +73,7 @@ public class GroupController {
 			
 			// Map의 키와 값 분류
 			for(Map.Entry<String, Object[]> entry : map.entrySet()){
-				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue()[0] + " , listNo : " + entry.getValue()[1]);
+//				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue()[0] + " , listNo : " + entry.getValue()[1]);
 				
 				// 카드 순서 업데이트
 				groupCard.setCardNo(Integer.parseInt(entry.getKey()));
@@ -87,7 +105,7 @@ public class GroupController {
 			for(Map.Entry<String, Object> entry : map.entrySet()){
 //				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue());
 				
-				// 카드 순서 업데이트
+				// 리스트 순서 업데이트
 				groupList.setListNo(Integer.parseInt(entry.getKey()));
 				groupList.setListOrder(Integer.parseInt((String) entry.getValue()));
 				

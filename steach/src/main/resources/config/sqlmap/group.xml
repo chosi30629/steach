@@ -26,10 +26,14 @@
 		select * from tb_class_group_list order by list_order
 	</select>
 	
-	<!-- 카드 목록 -->
-	<select id="cardList" resultMap="groupCardMap">
-		select * from tb_class_group_list_card order by card_order
-	</select>
+	<!-- 리스트 추가 -->
+	<insert id="insertList" parameterType="GroupList">
+		insert into tb_class_group_list (
+			group_no, list_writer, list_title, list_order
+		) values (
+			#{groupNo}, 'chos', #{listTitle}, #{listOrder}
+		)
+	</insert>
 	
 	<!-- 리스트 위치 변경 -->
 	<update id="listOrderUpdate" parameterType="GroupList">
@@ -38,6 +42,11 @@
 		 where list_no = #{listNo}  
 	</update>
 	
+	<!-- 카드 목록 -->
+	<select id="cardList" resultMap="groupCardMap">
+		select * from tb_class_group_list_card order by card_order
+	</select>
+
 	<!-- 카드 위치 변경 -->
 	<update id="cardOrderUpdate" parameterType="GroupCard">
 		update tb_class_group_list_card

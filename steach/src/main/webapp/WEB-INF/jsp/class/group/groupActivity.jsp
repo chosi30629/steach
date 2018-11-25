@@ -59,50 +59,50 @@
     </div>
     <div class="wrapper clearfix">
         <ul class="connectedSortables parentDrop clearfix">
-        	<c:forEach var="list" items="${listList}">
-            <li class="parentDrag" data-index="${list.listNo}" data-order="${list.listOrder}">
-                <div class="listTitle">
-                    <div class="listSubject">
-                        ${list.listTitle}
-                    </div>
-                    <span class="listSubjectForm" style="display: none;">
-                        <textarea class='modifyListForm'>해야 할 일</textarea><button class='btn btn-default btn-xs modifyListFormBtn'>수정</button>  
-                    </span>
-                    <div class="btn-group">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </div>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="text-center"><a class="modifyList" href="#">수정</a></li>
-                            <li class="divider"></li>
-                            <li class="text-center"><a class="removeList" href="#">삭제</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <ul class="connectedSortable childDrop">
-                    　
-	                    <c:forEach var="card" items="${cardList}">
-                    <c:if test="${list.listNo == card.listNo}">
-                    	<li data-toggle="modal" data-target="#cardModal" data-listNo="${card.listNo}" data-index="${card.cardNo}" data-order="${card.cardOrder}">${card.cardTitle}</li>
-                    </c:if>
-	                    </c:forEach>
-                </ul>
-                <div class="addCard">+ 카드 추가</div>
-                <div class="addCardForm" style="display: none;">
-                    <textarea class='addCardTextarea'>
+        	<%-- <c:forEach var="list" items="${listList}">
+	            <li class="parentDrag" data-index="${list.listNo}" data-order="${list.listOrder}">
+	                <div class="listTitle">
+	                    <div class="listSubject">
+	                        ${list.listTitle}
+	                    </div>
+	                    <span class="listSubjectForm" style="display: none;">
+	                        <textarea class='modifyListForm'>해야 할 일</textarea><button class='btn btn-default btn-xs modifyListFormBtn'>수정</button>  
+	                    </span>
+	                    <div class="btn-group">
+	                        <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                            <i class="fas fa-ellipsis-h"></i>
+	                        </div>
+	                        <ul class="dropdown-menu" role="menu">
+	                            <li class="text-center"><a class="modifyList" href="#">수정</a></li>
+	                            <li class="divider"></li>
+	                            <li class="text-center"><a class="removeList" href="#">삭제</a></li>
+	                        </ul>
+	                    </div>
+	                </div>
+	                <ul class="connectedSortable childDrop">
+	                    　
+		                    <c:forEach var="card" items="${cardList}">
+	                    <c:if test="${list.listNo == card.listNo}">
+	                    	<li data-toggle="modal" data-target="#cardModal" data-listNo="${card.listNo}" data-index="${card.cardNo}" data-order="${card.cardOrder}">${card.cardTitle}</li>
+	                    </c:if>
+		                    </c:forEach>
+	                </ul>
+	                <div class="addCard">+ 카드 추가</div>
+	                <div class="addCardForm" style="display: none;">
+	                    <textarea class='addCardTextarea'>
                     </textarea>
-                    <div>
-                        <button class='btn btn-default onAddCard'>
-                            추가
-                        </button>
-                        <a>
-                            <i class='fas fa-times addCardCancel'>
-                            </i>
-                        </a>
-                    </div>
-                </div>
-            </li>
-            </c:forEach>
+	                    <div>
+	                        <button class='btn btn-default onAddCard'>
+	                            추가
+	                        </button>
+	                        <a>
+	                            <i class='fas fa-times addCardCancel'>
+	                            </i>
+	                        </a>
+	                    </div>
+	                </div>
+	            </li>
+            </c:forEach> --%>
         </ul>
         <div class="addList">
             <div class="addListBtn">+ 목록 추가</div>
@@ -234,6 +234,58 @@
     </section>
 
     <script>
+		var $parentDrop = $(".parentDrop");
+		
+    	// 리스트 및 카드 목록 표현
+    	function listListAndCardList() {
+			$.ajax({
+				url: "/steach/class/group/groupActivityList.do"
+			}).done(function(result) {
+				var listList = result.listList;
+				var cardList = result.cardList;
+				
+				$parentDrop.empty();
+				
+ 				for(var i = 0; i < listList.length; i++) {
+					$parentDrop.append('<li class="parentDrag" data-index="' + listList[i].listNo + '" data-order="' + listList[i].listOrder + '">' + '<div class="listTitle"><div class="listSubject">' + listList[i].listTitle + '</div>' + '<span class="listSubjectForm" style="display: none;"><textarea class="modifyListForm">' + listList[i].listTitle + '</textarea><button class="btn btn-default btn-xs modifyListFormBtn">수정</button></span>' + '<div class="btn-group"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div>' + '<ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyList" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeList" href="#">삭제</a></li></ul></div></div>' + '<ul class="connectedSortables childDrop" id="childDrop' + i + '">' + '　' + '</ul><div class="addCard">+ 카드 추가</div><div class="addCardForm" style="display: none;"><textarea class="addCardTextarea"></textarea><div><button class="btn btn-default onAddCard">추가</button><a><i class="fas fa-times addCardCancel"></i></a></div></div></li>');
+					for(var j = 0; j < cardList.length; j++) {
+						if(listList[i].listNo == cardList[j].listNo) {
+							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
+						}
+					}
+				} 
+				
+				$(function () {
+		            $(".childDrop").sortable({
+		                connectWith: ".childDrop",
+		                update: function(event, ui) {
+							$(this).children().each(function(index) {
+								$(this).attr("data-order", (index + 1)).addClass("updated");
+								//console.log(index);
+							});
+							
+							saveNewCardOrders();
+						}
+		            }).disableSelection();
+		            
+		            $(".parentDrop").sortable({
+		                connectWith: ".parentDrop",
+		                update: function(event, ui) {
+							$(this).children().each(function(index) {
+								if($(this).attr("data-order") != (index + 1)) {
+									$(this).attr("data-order", (index + 1)).addClass("listUpdated");
+								}
+							});
+							
+							saveNewListOrders();
+		                }	
+		            }).disableSelection();
+		        });
+			});
+		};
+		
+		listListAndCardList();
+    
         // 트렐로 형식 드래그 앤 드롭
         $(function () {
             $(".childDrop").sortable({
@@ -241,7 +293,7 @@
                 update: function(event, ui) {
 					$(this).children().each(function(index) {
 						$(this).attr("data-order", (index + 1)).addClass("updated");
-						console.log(index);
+						//console.log(index);
 					});
 					
 					saveNewCardOrders();
@@ -261,7 +313,6 @@
                 }	
             }).disableSelection();
         });
-		
         // 카드 위치 변경 데이터베이스 저장
         function saveNewCardOrders() {
 /*         	var orders = [];
@@ -281,7 +332,7 @@
             map.forEach(function(value, key){
             	orders[key] = value;
             });
-            console.log(JSON.stringify(orders));
+            //console.log(JSON.stringify(orders));
          	$.ajax({
         		url: "/steach/class/group/orderUpdate.do",
         		data: {"orders": JSON.stringify(orders)},
@@ -404,72 +455,35 @@
         };       
 
         $("body").on("click", ".addListBtn", function(e) {
+        	
             addListArea(this);
         });
 
         // 추가(리스트) 버튼 누를 시
         $("body").on("click", ".onAddList", function(e) {
             var content = $(this).parent().siblings("textarea").val();
-            
+            var groupNo = "${listList[0].groupNo}";
+        	
             if(content == '') {
                 $(this).parent().siblings("textarea").focus();
                 return;
             }
             
-            $(".parentDrop").append(` <li class="parentDrag">
-                <div class="listTitle">
-                    <div class="listSubject">
-                        ` + content + `
-                    </div>
-                    <div class="listSubjectForm" style="display: none;">
-                        <textarea class='modifyListForm'>` + content + `</textarea><button class='btn btn-default btn-xs modifyListFormBtn'>수정</button>  
-                    </div>
-                    <div class="btn-group">
-                        <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </div>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="text-center"><a class="modifyList" href="#">수정</a></li>
-                            <li class="divider"></li>
-                            <li class="text-center"><a class="removeList" href="#">삭제</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <ul class="connectedSortable childDrop">
-　
-                </ul>
-                <div class="addCard">+ 카드 추가</div>
-                <div class="addCardForm" style="display: none;">
-                    <textarea class='addCardTextarea'>
-                    </textarea>
-                    <div>
-                        <button class='btn btn-default onAddCard'>
-                            추가
-                        </button>
-                        <a>
-                            <i class='fas fa-times addCardCancel'>
-                            </i>
-                        </a>
-                    </div>
-                </div>
-            </li>`);
-
-            $(".addListBtn").css("display", "block");
-            $(".addListForm").css("display", "none");
-            
-            function fnMove() {
-                var offset = $(".addList").offset();
-                $('html, body').animate({scrollLeft : offset.left}, 400);
-            }
-            fnMove();
-
-            $(".childDrop").sortable({
-                connectWith: ".childDrop"
-            }).disableSelection();
-            $(".parentDrop").sortable({
-                connectWith: ".parentDrop"
-            }).disableSelection();
-
+			$.ajax({
+				url: "/steach/class/group/addList.do",
+				data: {"groupNo" : groupNo, "listTitle": content, "listOrder": 10}
+			}).done(function(result) {
+				function fnMove() {
+	                var offset = $(".addList").offset();
+	                $('html, body').animate({scrollLeft : offset.left}, 400);
+	            }
+	            fnMove();
+	            
+	            $(".addListBtn").css("display", "block");
+	            $(".addListForm").css("display", "none");
+				
+	            listListAndCardList();
+			});
         });   
 
         // 취소(리스트) 버튼 누를 시

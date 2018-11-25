@@ -31,6 +31,11 @@ public class GroupServiceImpl implements GroupService {
 	} // cardList
 
 	@Override
+	public void insertList(GroupList groupList) {
+		mapper.insertList(groupList);
+	} // insertList
+	
+	@Override
 	public void listOrderUpdate(GroupList groupList) {
 		mapper.listOrderUpdate(groupList);
 	} // listOrderUpdate
