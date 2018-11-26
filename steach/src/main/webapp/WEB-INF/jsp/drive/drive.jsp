@@ -164,7 +164,7 @@
               <table class="ft table table-hover">
                 <tbody>
                     <tr>
-                      <td class="folderName"><i class="fas fa-folder fa-lg"></i><span>예제용</span></td>
+                      <td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_0">예제용</span></td>
                       <td class="owner" class="text-center">나</td>
                       <td class="date" class="text-center">2018/11/14</td>
                       <td class="val" class="text-center">100mb</td>
@@ -212,11 +212,11 @@
 
   </div>  <!-- 그리드 종결 태그 -->
   <ul class="contextmenu">
-      <li><a href="#">미리보기</a></li>
-      <li><a href="#">이름 변경</a></li>
-      <li><a href="#">공유</a></li>
-      <li><a href="#">다운로드</a></li>
-      <li><a href="#">삭제</a></li>
+      <li><a href="#">색상바꾸기 (나중에)</a></li>
+      <li><a href="#">이름 변경 (완료)</a></li>
+      <li><a href="#">공유 (미구현)</a></li>
+      <li><a href="#">다운로드 (미구현)</a></li>
+      <li><a href="#">삭제 (완료)</a></li>
     </ul>
     
     <div class="myModal2 modal fade">
@@ -255,15 +255,15 @@ $(document).ready(function(){
   if($('tbody').children().length==0){
     
     $('.ft').append(
-      `<div class="picOuter">
-       		 <div class="allpicOuter">
-    		      <div class="allpic">
-          			  <div class="pic1"></div>
-   					  <div class="pic2"></div>
-           			  <div class="pictext">파일을 여기 끌어다 놓거나 <br> '새로만들기'버튼을 사용하세요</div>
-   			   	  </div>
-             </div>
-         </div>`)
+   		'<div class="picOuter">'
+       		 +'<div class="allpicOuter">'
+    		 +'<div class="allpic">'
+          	 +'<div class="pic1"></div>'
+   			 +'<div class="pic2"></div>'
+           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br> '+새로만들기+'버튼을 사용하세요</div>'
+   			 +'</div>'
+             +'</div>'
+         	 +'</div>')
             $('.picOuter').css("display", "flex");
             } //if
             }) 
@@ -291,40 +291,42 @@ addTextBefore()
 
   //.AfterMakeIt 클릭시 
   //.addTextBefore 의 myModal 내의 input:value 를 가져와서 폴더 만들기 
-   
+   var num = 0;
     $('.AfterMakeIt').click(function(){
-      $('tbody').append('<tr class="ggg">' 
-        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span>'+$(".addTextBefore").val()+'</span></td>'
+    	num++;
+       	$('tbody').append('<tr class="ggg">' 
+        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_'+num+'">'+$(".addTextBefore").val()+'</span></td>'
         +  '<td class="owner" class="text-center">나</td>'
         +  '<td class="date" class="text-center">2018/11/14</td>'
         +  '<td class="val" class="text-center">100mb</td>'
         +  '</tr>');
-        
-       
-      var node = $("#tree").fancytree("getActiveNode");
+
+    	var node = $("#tree").fancytree("getActiveNode");
         var rootNode = $("#tree").fancytree("getRootNode").children[0];
         var childNode;
-        console.dir(rootNode);
         if(node){
           childNode = node.addChildren({
-
             title: $(".addTextBefore").val(),
             tooltip: $(".addTextBefore").val(),
+            id : "test_"+num,
             folder: true
           });
         }else{
           childNode = rootNode.addChildren({
             title: $(".addTextBefore").val(),
             tooltip: $(".addTextBefore").val(),
+            id : "test_"+num,
             folder: true
           })
         }
+      
+        
+       
         
         $('.picOuter').css("display", "none");
         $('.addTextBefore').val('제목없는 폴더');
         $(this).parent().parent().parent().modal('hide');
-      
-      
+
       })//end 폴더 추가하기
   
      
@@ -332,8 +334,15 @@ addTextBefore()
      
 //-----------------
       // 동적으로 만든 tr 태그의 contextmenu 
+      var tr;
       var thi;
       var thii;
+      var thiid;
+      var google;
+      var findData;
+      var find
+      var googleval;
+      var tree;
       $('.contextmenu').children().eq(1).click(function(){
         $('.myModal2').modal({
            keyboard: true, 
@@ -343,35 +352,57 @@ addTextBefore()
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
-         }).find('.changeNameText').val(thi)
-         
-       })
-       // 이름바꾸기 변경 버튼 누를시
+         }).find('.changeNameText').val(thi);
+        
+        tree = $("#tree").fancytree("getTree");
+         googleval = $('.myModal2').find('.changeNameText').val();
+         console.log(googleval);
+   		findData = tree.findAll(googleval)[0].data.id;
+   		 console.log("findData",findData);
+   		find = tree.findAll(googleval)[0];
+      })
+        $('.contextmenu').children().eq(4).click(function(){
+        	tr.remove()
+			tree = $("#tree").fancytree("getTree");
+        	 googleval = $('.myModal2').find('.changeNameText').val(thi);
+			console.log(googleval);        	 
+			find = tree.findAll(thi)[0];
+			tree.activateKey(find.key).remove();
+           	
+        })
+       
+      
+       // 이름 바꾸기 변경 버튼 누를시
        $('.myModal2').find('.AfterChange').click(function(){
-         
-        //changeNameText 
-       var google = $(this).parent().parent().find('.changeNameText').val()
-       console.dir(google);
+    	   //changeNameText 
+    	google = $(this).parent().parent().find('.changeNameText').val()
+		console.log("네가 찾는것이 이것이니",google);// span 내용이 뜸 , 예제용
+       	   
+		
        // innertext 변경
        thii.text(google)
-
-       // fancytree 이름변경
-      //  var node = $("#tree").fancytree("getActiveNode");
-      // if( !node ) return;
-      // node.setTitle(node.title + ", " + new Date());
-
+      
+        
+       if(findData == thiid){
+    	   console.log(true);
+    	   find.setTitle(google);
+       }
        $(this).parent().parent().parent().modal('hide');
             })
          
       
 
-
+ 	
        //동적생성 태그 이벤트 
        $(document).on('contextmenu', 'tr' , function(e){
+    	tr = $(this);
         thi = $(this)[0].children[0].innerText;
         thii = $(this).find('span');
-       console.dir(thii);
-
+        thiid = thii.attr('id');
+        console.log(thiid);
+        
+       
+        
     //Get window size:
     var winWidth = $(document).width();
     var winHeight = $(document).height();
@@ -537,6 +568,8 @@ $(document).on('keydown', function(e) {
     // Attach the fancytree widget to an existing <div id="tree"> element
     // and pass the tree options as an argument to the fancytree() function:
     $("#tree").fancytree({
+    	generateIds: true,
+        idPrefix: "test_", 
     	autoCollapse: true,
         clickFolderMode: 3,
         icon: function(event, data) {
@@ -544,7 +577,7 @@ $(document).on('keydown', function(e) {
         },
         activate: function(event, data) {
             $("#echoActive").text(data.node.title);
-//                    alert(node.getKeyPath());
+               
             if( data.node.url )
               window.open(data.node.url, data.node.target);
           },
@@ -556,7 +589,7 @@ $(document).on('keydown', function(e) {
       // titlesTabbable: true,
       source:[ 
   	{"title": "내 드라이브", "expanded": true, "folder": true, "children": [
-		  {"title": "예제용", "folder": true, "children": [
+		  {"title": "예제용", "folder": true , data : {id : "test_0"} , "children": [
 			  {"title": "cups"},
 			  {"title": "httpd"},
 			  {"title": "init.d"}
@@ -676,6 +709,7 @@ $(document).on('keydown', function(e) {
    	  alert(JSON.stringify(d));
 		})
 	
+		
 
 </script>
 </body>
