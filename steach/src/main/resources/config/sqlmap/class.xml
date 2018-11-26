@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.ClassMapper">
+	<resultMap id="classMap" type="Clazz">
+		<result column="class_no" property="classNo"/>
+		<result column="master" property="master"/>
+		<result column="class_name" property="className"/>
+		<result column="class_subname" property="clssSubname"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="begin_date" property="beginDate"/>
+		<result column="end_date" property="end_date"/>
+		<result column="class_key" property="classKey"/>
+		<result column="bg_name" property="bgName"/>
+		<result column="bg_path" property="bgPath"/>
+		<result column="seat_name" property="seat_name"/>
+		<result column="seat_path" property="seatPath"/>
+	</resultMap>
+	
+	
+	
+	<select id="selectClassInfo" resultMap="classMap">
+		select * 
+		  from tb_class
+	</select>
+	
+
+	
+</mapper>

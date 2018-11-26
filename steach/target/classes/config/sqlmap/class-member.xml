@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.MemberMapper">
+	
+	<resultMap id="memberMap" type="ClassMember">
+		<result column="mem_no" property="memNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="p_no" property="pNo"/>
+		<result column="g_no" property="gNo"/>
+		<result column="id" property="id"/>
+		<collection property="user" resultMap="userMap"/>
+	</resultMap>
+	
+	<resultMap id="userMap" type="User">
+		<result column="id" property="id"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="phone" property="phone"/>
+		<result column="addr" property="addr"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="profile" property="profile"/>
+		<result column="proflie_path" property="profilePath"/>	
+	</resultMap>
+	
+	<resultMap id="classMap" type="Clazz">
+		<result column="class_no" property="classNo"/>
+		<result column="master" property="master"/>
+		<result column="class_name" property="className"/>
+		<result column="class_subname" property="classSubname"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="begin_date" property="beginDate"/>
+		<result column="end_date" property="endDate"/>
+		<result column="class_key" property="classKey"/>
+		<result column="bg_name" property="bgName"/>
+		<result column="bg_path" property="bgPath"/>
+		<result column="seat_name" property="seatName"/>
+		<result column="seat_path" property="seatPath"/>
+		<collection property="user" resultMap="userMap"/>
+	</resultMap>
+	
+	
+	
+	<!-- class member 정보 구하기  -->
+	<select id="selectMemberByClassNo" parameterType="int" resultMap="memberMap">
+		select *
+		  from tb_class_member m,tb_user u
+		 where m.id=u.id
+		   and m.class_no=#{classNo}
+	</select>
+	
+	<!-- class master 정보 구하기 -->
+	<select id="selectMasterByClassNo" parameterType="int" resultMap="classMap">
+		select *
+		  from tb_class m, tb_user u
+		 where m.master=u.id
+		   and m.class_no = #{classNo}
+	</select>
+	
+	<!-- 반장 위임하기 & 반장 위임 취소하기 -->
+	
+	<update id="updateDoReader" parameterType="int">
+		update tb_class_member
+		   set p_no = 1001
+		 where mem_no=#{memNo}
+	</update>
+	
+	<update id="updateRemoveReader" parameterType="int">
+		update tb_class_member
+		   set p_no = 1002
+		 where mem_no=#{memNo}
+	</update>
+	
+	
+</mapper>
