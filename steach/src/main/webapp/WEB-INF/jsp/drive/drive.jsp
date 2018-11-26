@@ -139,7 +139,7 @@
       <div class="col-md-8 main" style="padding-right: 0px;">
             
             
-          <!-- The Modal -->
+          <!-- The Modal --> 
           <div id="myModal2" class="modal fade">
        
             <!-- Modal content -->
@@ -201,7 +201,7 @@
       
                 <div class="modal4 modal-content col-md-3">                                                   
                     <p class="addFolderBefore">새폴더</p>
-                    <p><input class="addTextBefore form-control" type="text" value="제목없는 폴더"/></p>
+                    <p><input class="addTextBefore form-control" type="text" value="제목없는 폴더" /></p>
                     <p style="display : flex;flex-direction: row-reverse;">
                       <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
                       <button class="AfterMakeIt form-control" style="width:unset;">만들기</button>
@@ -223,7 +223,7 @@
       
         <div class="modal4 modal-content col-md-3">                                                   
             <p>이름 바꾸기</p>
-            <p><input class="changeNameText form-control" type="text"/></p>
+            <p><input class="changeNameText form-control" type="text" /></p>
             <p style="display : flex;flex-direction: row-reverse;">
               <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
               <button class="AfterChange form-control" style="width:unset;">변경</button>
@@ -293,6 +293,12 @@ addTextBefore()
   //.addTextBefore 의 myModal 내의 input:value 를 가져와서 폴더 만들기 
    var num = 0;
     $('.AfterMakeIt').click(function(){
+    	
+    	if($(".addTextBefore").val() == "" || $(".addTextBefore").val().trim() == "" ){
+    		alert("이름을 지어주세요!")
+    		return false
+    	}
+    	
     	num++;
        	$('tbody').append('<tr class="ggg">' 
         +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_'+num+'">'+$(".addTextBefore").val()+'</span></td>'
@@ -307,14 +313,14 @@ addTextBefore()
         if(node){
           childNode = node.addChildren({
             title: $(".addTextBefore").val(),
-            tooltip: $(".addTextBefore").val(),
+//             tooltip: $(".addTextBefore").val(),
             id : "test_"+num,
             folder: true
           });
         }else{
           childNode = rootNode.addChildren({
             title: $(".addTextBefore").val(),
-            tooltip: $(".addTextBefore").val(),
+//             tooltip: $(".addTextBefore").val(),
             id : "test_"+num,
             folder: true
           })
@@ -374,10 +380,18 @@ addTextBefore()
       
        // 이름 바꾸기 변경 버튼 누를시
        $('.myModal2').find('.AfterChange').click(function(){
+    	   
+    	   
     	   //changeNameText 
     	google = $(this).parent().parent().find('.changeNameText').val()
+    	
+    	if(google == "" || google.trim() == ""){
+    		alert("이름을 지어주세요!")
+    		return false;
+    	}
+    	
 		console.log("네가 찾는것이 이것이니",google);// span 내용이 뜸 , 예제용
-       	   
+       	
 		
        // innertext 변경
        thii.text(google)
@@ -507,8 +521,7 @@ $('.infoCircle').mouseover(function(){
   $btn1 = $('#myBtn1').offset();
   $btn2 = $('#myBtn2').offset();
   $btn3 = $('.fa-th').offset();
-  // $btn4 = $('.fa-th').offset();
-  console.log($btn1.top , $btn1.left)
+//   console.log($btn1.top , $btn1.left)
   
   $('.modal1').css({
     top :  $btn1.top+48,
@@ -709,7 +722,16 @@ $(document).on('keydown', function(e) {
    	  alert(JSON.stringify(d));
 		})
 	
+		function nameChange() {	
+	$('.changeNameText').on('keyup', function(){
+		console.log($(this).val() == "")
+		if($(this).val() == ""){
+			alert("이름 입력하시오");
+		}
+	})
+}
 		
+	
 
 </script>
 </body>
