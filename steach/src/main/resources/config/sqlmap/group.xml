@@ -42,17 +42,47 @@
 		 where list_no = #{listNo}  
 	</update>
 	
+	<!-- 리스트 수정 -->
+	<update id="updateList" parameterType="GroupList">
+		update tb_class_group_list
+		   set list_title = #{listTitle}
+		 where list_no = #{listNo}
+	</update>
+	
+	<!-- 리스트 삭제 -->
+	<delete id="deleteList" parameterType="GroupList">
+		delete from tb_class_group_list
+		 where list_no = #{listNo}
+	</delete>
+	
 	<!-- 카드 목록 -->
 	<select id="cardList" resultMap="groupCardMap">
 		select * from tb_class_group_list_card order by card_order
 	</select>
-
+	
+	<!-- 카드 추가 -->
+	<insert id="insertCard" parameterType="GroupCard">
+		insert into tb_class_group_list_card (
+			list_no, card_writer, card_title, card_content, card_order
+		) values (
+			#{listNo}, 'chos', #{cardTitle}, #{cardContent}, #{cardOrder}
+		)
+	</insert>
+	
 	<!-- 카드 위치 변경 -->
 	<update id="cardOrderUpdate" parameterType="GroupCard">
 		update tb_class_group_list_card
 		   set card_order = #{cardOrder},
 		       list_no = #{listNo}
 		 where card_no = #{cardNo}  
+	</update>
+	
+	<!-- 카드 수정 -->
+	<update id="updateCard" parameterType="GroupCard">
+		update tb_class_group_list_card
+		   set card_title = #{cardTitle},
+		       card_content = #{cardContent}
+		 where card_no = #{cardNo}
 	</update>
 	
 </mapper>

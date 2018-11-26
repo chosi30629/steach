@@ -24,6 +24,27 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupList> listList() {
 		return mapper.listList();
 	} // listList
+
+	@Override
+	public void insertList(GroupList groupList) {
+		mapper.insertList(groupList);
+	} // insertList
+	
+
+	@Override
+	public void updateList(GroupList groupList) {
+		mapper.updateList(groupList);
+	} // updateList
+	
+	@Override
+	public void listOrderUpdate(GroupList groupList) {
+		mapper.listOrderUpdate(groupList);
+	} // listOrderUpdate
+	
+	@Override
+	public void deleteList(GroupList groupList) {
+		mapper.deleteList(groupList);
+	} // deleteList
 	
 	@Override
 	public List<GroupCard> cardList() {
@@ -31,14 +52,14 @@ public class GroupServiceImpl implements GroupService {
 	} // cardList
 
 	@Override
-	public void insertList(GroupList groupList) {
-		mapper.insertList(groupList);
-	} // insertList
+	public void insertCard(GroupCard groupCard) {
+		mapper.insertCard(groupCard);
+	} // insertCard
 	
 	@Override
-	public void listOrderUpdate(GroupList groupList) {
-		mapper.listOrderUpdate(groupList);
-	} // listOrderUpdate
+	public void updateCard(GroupCard groupCard) {
+		mapper.updateCard(groupCard);
+	} // updateCard
 	
 	@Override
 	public void cardOrderUpdate(GroupCard groupCard) {

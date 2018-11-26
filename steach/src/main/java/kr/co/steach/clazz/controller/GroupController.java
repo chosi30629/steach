@@ -55,8 +55,36 @@ public class GroupController {
 	@ResponseBody
 	public String addList(GroupList groupList, Model model) {
 		service.insertList(groupList);
-		return "성공";
+		return "리스트 추가 성공";
 	} // addList
+	
+	@RequestMapping("modifyList.do")
+	@ResponseBody
+	public String modifyList(GroupList groupList) {
+		service.updateList(groupList);
+		return "리스트 수정 성공";
+	} // modifyList
+	
+	@RequestMapping("removeList.do")
+	@ResponseBody
+	public String removeList(GroupList groupList) {
+		service.deleteList(groupList);
+		return "리스트 삭제 성공";
+	} // removeList
+	
+	@RequestMapping("addCard.do")
+	@ResponseBody
+	public String addCard(GroupCard groupCard) {
+		service.insertCard(groupCard);
+		return "카드 추가 성공";
+	} // addCard
+	
+	@RequestMapping("modifyCard.do")
+	@ResponseBody
+	public String modifyCard(GroupCard groupCard) {
+		service.updateCard(groupCard);
+		return "카드 수정 성공";
+	} // modifyCard
 	
 	@RequestMapping("orderUpdate.do")
 	@ResponseBody
@@ -86,7 +114,7 @@ public class GroupController {
 			e.printStackTrace();
 		} // try-catch
 		
-		return "성공";
+		return "카드 순서 업데이트 성공";
 	} // orderUpdate
 	
 	@RequestMapping("listOrderUpdate.do")
@@ -115,7 +143,7 @@ public class GroupController {
 			e.printStackTrace();
 		} // try-catch
 		
-		return "성공";
+		return "리스트 순서 업데이트 성공";
 	} // listOrderUpdate
 	
 } // end class

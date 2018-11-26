@@ -10,12 +10,20 @@ public interface GroupMapper {
 
 	List<GroupList> listList();
 	
-	List<GroupCard> cardList();
-	
 	void insertList(GroupList groupList);
 	
+	void updateList(GroupList groupList);
+	
+	void deleteList(GroupList groupList);
+	
 	void listOrderUpdate(GroupList groupList);
-
+	
+	List<GroupCard> cardList();
+	
+	void insertCard(GroupCard groupCard);
+	
+	void updateCard(GroupCard groupCard);
+	
 	void cardOrderUpdate(GroupCard groupCard);
 	
 } // end interface
