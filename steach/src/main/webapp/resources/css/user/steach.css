@@ -1,7 +1,11 @@
-div.scalable > #drop > a > img {
+div.scalable > form > #drop > a > img {
     width: 100px;
     height: 100px;
     border-radius: 5px;
+}
+.msg {
+	margin: 1px;
+	text-align: left;
 }
 
 .fileBox input[type="file"] {
@@ -13,4 +17,51 @@ div.scalable > #drop > a > img {
 	overflow: hidden;
 	clip: rect(0,0,0,0);
 	border: 0
+}
+body
+{
+    background-image: url('/steach/resources/images/main/classroom.jpg');
+    background-size: cover;
+}
+input
+{
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+button
+{
+    margin-top: 15px;
+}
+
+div.scalable
+{
+    transition: height 0.5s;
+    overflow-y: hidden;
+}
+
+div.login
+{
+    position: absolute;
+    background: #ffffff;
+    text-align: center;
+  
+    padding: 20px 20px 9px;
+  
+    border-radius: 4px;
+    box-shadow: 0px 0px 15px 0px;
+
+    width: 300px;
+    height: auto;
+    
+    top: 50%;
+    left: 50%;
+    transform: translateY( -50% );
+    margin-left: -150px;
+}
+
+div.bottom
+{
+     font-size: 12px;
+     margin-top: 12px;
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.UserMapper">
+	<resultMap id="userMap" type="user">
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="addr" property="addr" />
+		<result column="reg_date" property="regDate" />
+		<result column="profile" property="profile" />
+		<result column="profile_path" property="profilePath" />
+	</resultMap>
+
+
+	<!-- 회원 등록 -->
+	<insert id="registerUser" parameterType="user">
+		insert into tb_user(
+		id, name, profile, profile_path, password
+		) values (
+		#{id}, #{name},  #{profile}, #{profilePath}, #{password}
+		)
+	</insert>
+
+	<!-- 아이디 중복 체크 -->
+	<select id="checkId" parameterType="user" resultType="int">
+		select count(*)
+		  from tb_user
+		 where id = #{id}
+	</select>
+
+
+	<!-- 로그인 -->
+	<select id="userLogin" parameterType="user" resultMap="userMap">
+		select *
+		from tb_user
+		where id = #{id}
+	</select>
+
+	<!-- 현재 비밀번호 체크 -->
+	<select id="checkPass" parameterType="string" resultMap="userMap">
+		select *
+		from tb_user
+		where id = #{id}
+	</select>
+
+	<!-- 비밀번호 수정 -->
+	<update id="updatePass" parameterType="user">
+		update tb_user
+		set password = #{password}
+		where id = #{id}
+	</update>
+
+	<!-- 파일 등록 -->
+	<insert id="insertFile" parameterType="user">
+		insert into tb_user (
+		id, fileName, uploadPath
+		) values (
+		#{id}, #{fileName}, #{uploadPath}
+		)
+	</insert>
+
+
+</mapper>
