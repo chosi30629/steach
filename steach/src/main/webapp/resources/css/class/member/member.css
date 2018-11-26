@@ -41,7 +41,8 @@
     /* border:1px solid red; */
     height:30px;
     float:right;
-    margin:10px 10px;
+    margin-top: 13px;
+    margin-right: 10px;
 }
 .user-elps > a {
     text-decoration:none;
@@ -51,7 +52,13 @@
     text-decoration:none;
     color:black;
 }
-
+.user-detail{
+	margin:5px 5px;
+	
+}
+.user-detail > span{
+	position:inline;
+}
 
 /* modal */
 .modal-body{
@@ -88,4 +95,37 @@
 
 .modal-backdrop{
     height:100% !important;
+}
+
+
+/* accordion css*/
+.accordion-head{
+    height:50px;
+    background:#426e92;
+    box-shadow:1px 0px 1px grey;
+}
+.title-name{
+    font-size:1.4em;
+    font-weight:bold;
+}
+
+.card-header{
+    height:50px;
+    background-color:white;
+}
+
+.card-header:hover{
+    background-color:#dfbfc7;
+}
+/*subTitle */
+.card-body span {
+    display:inline-block;
+    margin:10px;
+    font-size:1.2em;
+    font-weight: 500;
+    line-height: 1.42857143;
+   
+}
+.card-body{
+	 box-shadow:1px 1px 1px grey;
 }

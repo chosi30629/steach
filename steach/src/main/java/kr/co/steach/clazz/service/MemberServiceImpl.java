@@ -26,4 +26,20 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.selectMasterByClassNo(classNo);
 	}
 
+	@Override
+	public void updateDoReader(int memNo) {
+		mapper.updateDoReader(memNo);
+	}
+
+	@Override
+	public void updateRemoveReader(int memNo) {
+		mapper.updateRemoveReader(memNo);
+		
+	}
+
+	@Override
+	public void deleteDoIgnore(int memNo) {
+		mapper.deleteDoIgnore(memNo);
+	}
+
 }

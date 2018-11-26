@@ -44,10 +44,11 @@
 	
 	<!-- class member 정보 구하기  -->
 	<select id="selectMemberByClassNo" parameterType="int" resultMap="memberMap">
-		select *
+		select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,u.name,u.phone,u.addr,u.profile,u.profile_path
 		  from tb_class_member m,tb_user u
 		 where m.id=u.id
 		   and m.class_no=#{classNo}
+		 order by u.name
 	</select>
 	
 	<!-- class master 정보 구하기 -->
@@ -71,6 +72,11 @@
 		   set p_no = 1002
 		 where mem_no=#{memNo}
 	</update>
+	
+	<delete id="deleteDoIgnore" parameterType="int">
+		delete from tb_class_member
+		 where mem_no=#{memNo}
+	</delete>
 	
 	
 </mapper>

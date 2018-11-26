@@ -32,5 +32,11 @@ public interface MemberMapper {
 	void updateDoReader(int memNo);
 	void updateRemoveReader(int memNo);
 	
+	/**
+	 * 
+	 * @param memNo
+	 * : 클래스 내보내기 
+	 */
+	void deleteDoIgnore(int memNo);
 	
 }

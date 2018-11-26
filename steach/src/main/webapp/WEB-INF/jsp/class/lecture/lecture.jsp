@@ -126,18 +126,18 @@
                             </div>
 
                             <div id="collapseOne"  role="tabpanel" class="collapse">
-                            <div class="card-body">
-                                <div class="subTitle-time">
-                                    <span>2018-11-17 18:26:11 작성됨</span>
-                                </div>
-                                <div class="subTitle-context">
-                                    <span>여기는 내용이나옵니다.</span>
-                                </div>
-                                <div class="subTitle-attach">
-                                    <span><i class="fas fa-paperclip"></i></span>
-                                    <span><i class="fab fa-google-drive"></i></span>
-                                </div>
-                            </div>
+	                            <div class="card-body">
+	                                <div class="subTitle-time">
+	                                    <span>2018-11-17 18:26:11 작성됨</span>
+	                                </div>
+	                                <div class="subTitle-context">
+	                                    <span>여기는 내용이나옵니다.</span>
+	                                </div>
+	                                <div class="subTitle-attach">
+	                                    <span><i class="fas fa-paperclip"></i></span>
+	                                    <span><i class="fab fa-google-drive"></i></span>
+	                                </div>
+	                            </div>
                             </div>
                         </div>
 
@@ -214,13 +214,7 @@
        
 
     <script>
-        // header 
-        $('ul.nav li.dropdown').hover(function() {
-            $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(200);
-        }, function() {
-            $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
-        });
-
+      
         //lecture
         $('.collapse').collapse();
 
