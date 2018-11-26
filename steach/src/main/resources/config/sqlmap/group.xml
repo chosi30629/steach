@@ -85,4 +85,10 @@
 		 where card_no = #{cardNo}
 	</update>
 	
+	<!-- 카드 삭제 -->
+	<delete id="deleteCard" parameterType="GroupCard">
+		delete from tb_class_group_list_card
+		 where card_no = #{cardNo}
+	</delete>
+	
 </mapper>

@@ -86,6 +86,13 @@ public class GroupController {
 		return "카드 수정 성공";
 	} // modifyCard
 	
+	@RequestMapping("removeCard.do")
+	@ResponseBody
+	public String removeCard(GroupCard groupCard) {
+		service.deleteCard(groupCard);
+		return "카드 삭제 성공";
+	} // removeCard
+	
 	@RequestMapping("orderUpdate.do")
 	@ResponseBody
 	public String orderUpdate(@RequestParam(value="orders") String orders) {

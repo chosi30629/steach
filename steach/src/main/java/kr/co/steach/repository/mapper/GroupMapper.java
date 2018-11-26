@@ -24,6 +24,8 @@ public interface GroupMapper {
 	
 	void updateCard(GroupCard groupCard);
 	
+	void deleteCard(GroupCard groupCard);
+	
 	void cardOrderUpdate(GroupCard groupCard);
 	
 } // end interface

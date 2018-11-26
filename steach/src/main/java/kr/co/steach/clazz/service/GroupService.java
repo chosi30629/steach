@@ -23,6 +23,8 @@ public interface GroupService {
 	void insertCard(GroupCard groupCard);
 	
 	void updateCard(GroupCard groupCard);
+
+	void deleteCard(GroupCard groupCard);
 	
 	void cardOrderUpdate(GroupCard groupCard);
 	

@@ -925,3 +925,41 @@ body {
     -moz-appearance: none; appearance: none; 
     float: left;
 }
+.modal-title > .btn-group {
+	border-radius: 3px;
+}
+.modal-title > .btn-group > .dropdown-toggle {
+	padding: 5px;
+	border-radius: 3px;
+}
+.modal-title > .btn-group:hover {
+   	cursor: pointer;
+   	background-color: #ebebeb;
+}
+.cardTitle > .modal-title > .cardTitleForm {
+   	position: relative;
+   	top: 0px;
+   	left: -7.5px;
+} 
+.cardTitle > .modal-title > .cardTitleForm > .modifyCardForm {
+   	height: 28px;
+   	padding: 0;
+} 
+.cardTitle > .modal-title > .cardTitleForm > .onModifyCardTitle {
+	height: 28px;
+	position: relative;
+	top: -3px;
+    line-height: 15px;
+} 
+.cardContent > .cardContent-div > span {
+	position: relative;
+ 	left: 1px;
+} 
+.cardContent > .cardContent-form > textarea {
+	width: 568px;
+	height: 310px;
+	padding: 0;
+	resize: none;
+	margin-top: 15px;
+	margin-bottom: 13px;
+}

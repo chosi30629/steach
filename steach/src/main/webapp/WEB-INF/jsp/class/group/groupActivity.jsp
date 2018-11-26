@@ -18,36 +18,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
-    <style type="text/css">
-    	.cardTitle > .modal-title > .cardTitleForm {
-    		position: relative;
-    		top: 0px;
-    		left: -7.5px;
-    	} 
-    	.cardTitle > .modal-title > .cardTitleForm > .modifyCardForm {
-    		height: 28px;
-    		padding: 0;
-    	} 
-    	.cardTitle > .modal-title > .cardTitleForm > .onModifyCardTitle {
-    		height: 28px;
-    		position: relative;
-    		top: -3px;
-    		line-height: 15px;
-    	} 
-    	.cardContent > .cardContent-div > span {
-    		position: relative;
-    		left: 1px;
-    	} 
-    	.cardContent > .cardContent-form > textarea {
-    		width: 568px;
-    		height: 310px;
-    		padding: 0;
-    		resize: none;
-    		margin-top: 15px;
-    		margin-bottom: 13px;
-    	}
-
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -298,6 +268,7 @@
 				nextLastListOrder = listList.length + 1;
 				
 				$parentDrop.empty();
+				$modalDiv.empty();
 				
  				for(var i = 0; i < listList.length; i++) {
 					$parentDrop.append('<li class="parentDrag" data-index="' + listList[i].listNo + '" data-order="' + listList[i].listOrder + '">' + '<div class="listTitle"><div class="listSubject">' + listList[i].listTitle + '</div>' + '<span class="listSubjectForm" style="display: none;"><textarea class="modifyListForm">' + listList[i].listTitle + '</textarea><button class="btn btn-default btn-xs modifyListFormBtn">수정</button></span>' + '<div class="btn-group"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div>' + '<ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyList" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeList" href="#">삭제</a></li></ul></div></div>' + '<ul class="connectedSortables childDrop" id="childDrop' + i + '">' + '　' + '</ul><div class="addCard">+ 카드 추가</div><div class="addCardForm" style="display: none;"><textarea class="addCardTextarea"></textarea><div><button class="btn btn-default onAddCard">추가</button><a><i class="fas fa-times addCardCancel"></i></a></div></div></li>');
@@ -306,7 +277,7 @@
 						if(listList[i].listNo == cardList[j].listNo) {
 							// $("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
-							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><table class="table"><tbody><tr><td><div>조성일&nbsp;&nbsp;<span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr></tbody></table></div></div></div></div></div>');
+							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><table class="table"><tbody><tr><td><div>조성일&nbsp;&nbsp;<span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr></tbody></table></div></div></div></div></div>');
 						}
 					}
 				} 
@@ -480,7 +451,11 @@
             
             var lastCardOrder = parseInt($(this).parents(".parentDrag").find(".childDrop").find("li:last-child").attr("data-order")) + 1;
             
-             if(content == '') {
+            if(isNaN(lastCardOrder)) {
+            	lastCardOrder = 1;
+            }
+            
+            if(content == '') {
                 $(this).parent().siblings("textarea").focus();
                 return;
             }
@@ -491,7 +466,7 @@
             
             $.ajax({
             	url: "/steach/class/group/addCard.do",
-            	data: {"listNo" : listNoOfAddCard, "cardTitle": content, "cardContent": "　", "cardOrder": lastCardOrder}
+            	data: {"listNo" : listNoOfAddCard, "cardTitle": content, "cardContent": "내용을 추가하세요.", "cardOrder": lastCardOrder}
             })
             .done(function(result) {
 				console.log(result);
@@ -526,21 +501,19 @@
             var modifyCardNo = $(this).siblings(".cardNo").attr("data-cardno");
             var modifyCardTitle = $(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitleForm").find(".modifyCardForm").val();
             var modifyCardContent = $(this).parent(".md-rv-bnt").siblings(".cardContent-textarea").val();
-            
-            console.log(modifyCardNo);
-            console.log(modifyCardTitle);
-            console.log(modifyCardContent);
+            var modalId = $(this).parents(".modal").attr("id");
             
             $(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitle-span").text(modifyCardTitle);
             $(this).parents(".cardContent-form").siblings(".cardContent-div").find(".cardContent-span").text(modifyCardContent);
-	            
+	        
+            $("li[data-target='#" + modalId + "']").text(modifyCardTitle);
+            
             $.ajax({
             	url: "/steach/class/group/modifyCard.do",
             	data: {"cardNo": modifyCardNo, "cardTitle": modifyCardTitle, "cardContent": modifyCardContent}
             }).done(function(result) {
 	            console.log(result);
 	            
-	            listListAndCardList();
 	            
 	            $(".cardTitle-span").css("display", "inline");
 	            $(".cardTitleForm").css("display", "none");
@@ -548,6 +521,25 @@
 	            $(".cardContent-div").css("display", "block");
 			}); 
         });  
+        
+        // 카드 삭제 버튼 누를 시
+        $("body").on("click", ".removeCard", function (e) {
+			e.preventDefault();
+        	var removeCardNo = $(this).siblings(".removeCardNo").attr("data-cardno");
+			
+			$.ajax({
+            	url: "/steach/class/group/removeCard.do",
+            	data: {"cardNo": removeCardNo}
+			})
+			.done(function(result) {
+				console.log(result);
+				
+				$(".modal").modal("hide");
+				
+	            listListAndCardList();
+	            
+			});
+		});
         
         // … 리스트 수정 버튼 누를 시        
         $("body").on("click", ".modifyList", function(e) {
@@ -590,9 +582,7 @@
         };       
 
         $("body").on("click", ".addListBtn", function(e) {
-        	
             addListArea(this);
-            console.log(nextLastListOrder);
         });
 
         // 추가(리스트) 버튼 누를 시

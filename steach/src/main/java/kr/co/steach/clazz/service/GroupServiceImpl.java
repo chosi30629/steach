@@ -66,4 +66,9 @@ public class GroupServiceImpl implements GroupService {
 		mapper.cardOrderUpdate(groupCard);
 	} // cardOrderUpdate
 
+	@Override
+	public void deleteCard(GroupCard groupCard) {
+		mapper.deleteCard(groupCard);
+	} // deleteCard
+
 } // end class
