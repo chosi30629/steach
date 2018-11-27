@@ -438,7 +438,7 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
 }
 
 .pic1{    
-  background : url(../img/google.png) -101px 0px;
+  background : url("../../images/drive/google.png") -101px 0px;
     width: 100px;
     height: 125px;
     position: relative;
@@ -447,7 +447,7 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
 }
 
 .pic2{
-    background : url(../img/google.png) 0px -347px;
+    background : url("../../images/drive/google.png") 0px -347px;
     width: 100px;
     height: 125px;
     transform: rotate(20deg);

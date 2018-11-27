@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,6 +30,10 @@
 </head>
 
 <body>
+	<c:if test="${user == null}">
+				<c:redirect url="/home/home.do"></c:redirect>
+			</c:if>
+			
     <div class="realheader">
       <div class="outheader">
         <div class="imgheader">
@@ -52,7 +57,7 @@
           <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></i>
         </div>
         <div style="margin : 0 25px" >
-          <i class="fas fa-th fa-lg" data-toggle="tooltip" data-placement="bottom" title="스티치 app" ></i>
+          <i class="fas fa-th fa-lg" data-toggle="tooltip" data-placement="bottom" title="스티치 app"  onclick="app()"></i>
         </div>
       </div>
 
@@ -60,15 +65,15 @@
     </div>
     
      <!-- The Modal -->
-     <div id="myModal3" class="modal fade">
-        <!-- Modal content -->
-        <div class="modal3 modal-content col-md-3">                                                   
-            <p><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
-            <hr>
-            <p><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
-        </div>
+<!--      <div id="myModal3" class="modal fade"> -->
+<!--         Modal content -->
+<!--         <div class="modal3 modal-content col-md-3">                                                    -->
+<!--             <p><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p> -->
+<!--             <hr> -->
+<!--             <p><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p> -->
+<!--         </div> -->
    
-      </div>
+<!--       </div> -->
     
   
 
@@ -162,15 +167,7 @@
             </div>
             <div class="tableDiv">
               <table class="ft table table-hover">
-                <tbody>
-                    <tr>
-                      <td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_0">예제용</span></td>
-                      <td class="owner" class="text-center">나</td>
-                      <td class="date" class="text-center">2018/11/14</td>
-                      <td class="val" class="text-center">100mb</td>
-                      </tr>
-                    
-                </tbody>
+                <tbody></tbody>
               </table>
                 
                 
@@ -260,7 +257,7 @@ $(document).ready(function(){
     		 +'<div class="allpic">'
           	 +'<div class="pic1"></div>'
    			 +'<div class="pic2"></div>'
-           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br> '+새로만들기+'버튼을 사용하세요</div>'
+           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
    			 +'</div>'
              +'</div>'
          	 +'</div>')
@@ -308,36 +305,34 @@ addTextBefore()
         +  '</tr>');
 
     	var node = $("#tree").fancytree("getActiveNode");
-        var rootNode = $("#tree").fancytree("getRootNode").children[0];
-        var childNode;
-        if(node){
-          childNode = node.addChildren({
+    	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
+    	
+    	console.dir(node);
+
+    	var childNode = node.addChildren({
             title: $(".addTextBefore").val(),
 //             tooltip: $(".addTextBefore").val(),
             id : "test_"+num,
+//             path : "test"
             folder: true
-          });
-        }else{
-          childNode = rootNode.addChildren({
-            title: $(".addTextBefore").val(),
-//             tooltip: $(".addTextBefore").val(),
-            id : "test_"+num,
-            folder: true
-          })
-        }
-      
-        
+         });
        
-        
+//         console.dir(childNode.getKeyPath(true));
         $('.picOuter').css("display", "none");
         $('.addTextBefore').val('제목없는 폴더');
         $(this).parent().parent().parent().modal('hide');
+        
 
+     	// ajax 호출하기
+        	
+        	$.ajax({
+        		url: '<c:url value="/drive/makedir.do" />',
+//         		data: 
+        	});
+     	
+     
       })//end 폴더 추가하기
   
-     
-       
-     
 //-----------------
       // 동적으로 만든 tr 태그의 contextmenu 
       var tr;
@@ -583,8 +578,8 @@ $(document).on('keydown', function(e) {
     $("#tree").fancytree({
     	generateIds: true,
         idPrefix: "test_", 
-    	autoCollapse: true,
-        clickFolderMode: 3,
+//     	autoCollapse: true, 자동 접기
+        clickFolderMode: 4,
         icon: function(event, data) {
           return !data.node.isTopLevel();
         },
@@ -601,12 +596,12 @@ $(document).on('keydown', function(e) {
       extensions: ["dnd5","childcounter"],
       // titlesTabbable: true,
       source:[ 
-  	{"title": "내 드라이브", "expanded": true, "folder": true, "children": [
-		  {"title": "예제용", "folder": true , data : {id : "test_0"} , "children": [
-			  {"title": "cups"},
-			  {"title": "httpd"},
-			  {"title": "init.d"}
-		  ]}
+  	{"title": "${user.name}의 드라이브", "expanded": true, "folder": true, "children": [
+// 		  {"title": "예제용", "folder": true , data : {id : "test_0"} , "children": [
+// 			  {"title": "cups"},
+// 			  {"title": "httpd"},
+// 			  {"title": "init.d"}
+// 		  ]}
 		
     ]}
     ],
@@ -731,8 +726,16 @@ $(document).on('keydown', function(e) {
 	})
 }
 		
-	
 
+		 $(document).ready(function(){	 
+		 var rootNode = $("#tree").fancytree("getRootNode");
+		 console.log(rootNode);
+		 })
+
+		 function app() {
+			 location.href = "/steach/main/main.do"
+		 }
+		 
 </script>
 </body>
 </html>
