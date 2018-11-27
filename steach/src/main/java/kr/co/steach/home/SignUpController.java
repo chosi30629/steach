@@ -72,45 +72,12 @@ public class SignUpController {
 //	return "성공";
 //	
 	
+	@RequestMapping("checkId.do")
+	@ResponseBody
+	public String checkId(User user) {
+		return Integer.toString(service.checkId(user));
+	} // checkId
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	
-//	@RequestMapping("checkId.do")
-//	@ResponseBody
-//	public String checkId(User user) {
-//		return Integer.toString(service.checkId(user));
-//	} // checkId
-	
-//	/**
-//	 * 닉네임 중복 체크
-//	 * @param user
-//	 */
-//	@RequestMapping("checkName.do")
-//	@ResponseBody
-//	public String checkName(User user) {
-//		return Integer.toString(service.checkName(user));
-//	} // checkName
-//	
-//	/**
-//	 * 인증코드 메일 보내기
-//	 * @param user
-//	 */
-//	@RequestMapping("sendMail.do")
-//	@ResponseBody
-//	public String sendMail(User user) {
-//		return service.sendMail(user);
-//	} // sendMail
+
 	
 } // end class

@@ -4,8 +4,11 @@ div.scalable > form > #drop > a > img {
     border-radius: 5px;
 }
 .msg {
-	margin: 1px;
+	height:12px;
+	margin: 0px;
+	padding-left:5px;
 	text-align: left;
+	font-size: small
 }
 
 .fileBox input[type="file"] {
@@ -25,13 +28,21 @@ body
 }
 input
 {
-    margin-top: 5px;
-    margin-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 10px;
 }
 
 button
 {
     margin-top: 15px;
+}
+button[id="findpass"]
+{
+    margin-top: 0px;
+}
+button[id="signup"]
+{
+    margin-top: 5px;
 }
 
 div.scalable

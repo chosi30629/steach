@@ -1,5 +1,8 @@
 package kr.co.steach.user.service;
 
+import java.util.Random;
+
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -7,12 +10,6 @@ import org.springframework.stereotype.Service;
 import kr.co.steach.repository.domain.User;
 import kr.co.steach.repository.mapper.UserMapper;
 
-
-
-/**
- * 유저에 대한 로직 처리
- * @author 조성일
- */
 @Service
 public class UserServiceImpl implements UserService {
 	
@@ -48,67 +45,77 @@ public class UserServiceImpl implements UserService {
 		return mapper.checkId(user);
 	} // checkId
 
+	
+	//임시비밀번호 변경후 메일로 보내기
+	@Override
+	public void sendMail(User user) {
 
-//	/**
-//	 * 회원 가입시 인증코드 메일 보내기
-//	 * @param user
-//	 */
-//	@Override
-//	public String sendMail(User user) {
-//		// Mail Server 설정
-//		String charSet = "utf-8";
-//		String hostSMTP = "smtp.naver.com";
-//		String hostSMTPid = "";								/* 보낼 이메일 Id , pw 입력   ex)asd  // asdasd */
-//		String hostSMTPpwd = "";
-//
-//		// 보내는 사람 Email, 제목, 내용
-//		String fromEmail = "";      						   /* 보낼 이메일  ex) asd@naver.com*/
-//		String fromName = "cocainProject";
-//		String subject = "";
-//		String msg = "";
-//
-//		// 인증키 생성
-//		Random rd = new Random();
-//		StringBuffer sb = new StringBuffer();
-//		
-//		for(int i=0; i<5; i++){
-//		    if(rd.nextBoolean()){
-//		    	sb.append((char)((int)(rd.nextInt(26))+97));
-//		    } else {
-//		    	sb.append((rd.nextInt(10)));
-//		    } // if-else
-//		} // for
-//
-//		// 회원가입 메일 내용
-//		subject = "Cocain 회원가입 인증 메일입니다.";
-//		msg += "<h3>인증번호는 : " + sb.toString() + " 입니다.</h3>";
-//
-//		// 받는 사람 Email 주소
-//		String mail = user.getEmail();
-//		
-//		// 메일 발송
-//		try {
-//			HtmlEmail email = new HtmlEmail();
-//			email.setDebug(true);
-//			email.setCharset(charSet);
-//			email.setSSL(true);
-//			email.setHostName(hostSMTP);
-//			email.setSmtpPort(587);
-//
-//			email.setAuthentication(hostSMTPid, hostSMTPpwd);
-//			email.setTLS(true);
-//			email.addTo(mail, charSet);
-//			email.setFrom(fromEmail, fromName, charSet);
-//			email.setSubject(subject);
-//			email.setHtmlMsg(msg);
-//			email.send();
-//		} catch (Exception e) {
-//			System.out.println("메일발송 실패 : " + e);
-//		} // try-catch
-//		
-//		return sb.toString();
-//	} // sendMail
+		
+		Random rd = new Random();
+		StringBuffer sb = new StringBuffer();
+		
+		for(int i=0; i<8; i++){
+		    if(rd.nextBoolean()){
+		    	sb.append((char)((int)(rd.nextInt(26))+97));
+		    } else {
+		    	sb.append((rd.nextInt(10)));
+		    } // if-else
+		} // for
+		System.out.println("랜덤"+sb.toString());
+		user.setPassword(sb.toString());
+		System.out.println("복호화" +user.getPassword());
+		mapper.temppass(user);
+		
+		
+		// Mail Server 설정
+		String charSet = "utf-8";
+		String hostSMTP = "smtp.naver.com";
+		String hostSMTPid = "ul_black";								/* 보낼 이메일 Id , pw 입력   ex)asd  // asdasd */
+		String hostSMTPpwd = "steach12!@";
 
+		// 보내는 사람 Email, 제목, 내용
+		String fromEmail = "ul_black@naver.com";      						   /* 보낼 이메일  ex) asd@naver.com*/
+		String fromName = "Steach";
+		String subject = "";
+		String msg = "";
+
+		// 회원가입 메일 내용
+		subject = "요청하신 아이디의 임시비밀번호 입니다.";
+		msg += "<h3>임시비밀번호는 : " + sb.toString() + " 입니다.</h3>";
+
+		// 받는 사람 Email 주소
+		String mail = user.getId();
+		
+		// 메일 발송
+		try {
+			HtmlEmail email = new HtmlEmail();
+			email.setDebug(true);
+			email.setCharset(charSet);
+			email.setSSL(true);
+			email.setHostName(hostSMTP);
+			email.setSmtpPort(587);
+
+			email.setAuthentication(hostSMTPid, hostSMTPpwd);
+			email.setTLS(true);
+			email.addTo(mail, charSet);
+			email.setFrom(fromEmail, fromName, charSet);
+			email.setSubject(subject);
+			email.setHtmlMsg(msg);
+			email.send();
+		} catch (Exception e) {
+			System.out.println("메일발송 실패 : " + e);
+		} // try-catch
+		
+	} // sendMail
+
+	
+	// 임시비밀번호 체크
+	@Override
+	public int temppasschk(User user) {
+		return mapper.temppasschk(user);
+	}
+	
+	
 	/**
 	 * 로그인 처리
 	 * @param user
@@ -136,6 +143,8 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		mapper.updatePass(user);
 	} // userPass
+
+	
 
 //	/**
 //	 * 파일 등록

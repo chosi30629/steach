@@ -23,16 +23,25 @@ public interface UserService {
 	 */
 	User userLogin(User user);
 	
-	/**
-	 * 현재 비밀번호 확인
-	 * @param id
-	 */
-	User checkPass(String id);
+	
+	// 임시비밀번호 변경 및 메일 보내기
+	void sendMail(User user);
+
+	// 임시비밀번호 체크
+	int temppasschk(User user);
 	
 	/**
 	 * 비밀번호 수정
 	 * @param user
 	 */
 	void updatePass(User user);
+	
+	/**
+	 * 현재 비밀번호 확인
+	 * @param id
+	 */
+	User checkPass(String id);
+	
+
 
 }

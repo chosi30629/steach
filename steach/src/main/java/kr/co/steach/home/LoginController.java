@@ -71,4 +71,30 @@ public class LoginController {
 		return "redirect:/home/home.do";
 	} // logout
 	
+	/**
+	 * 인증코드 메일 보내기
+	 * @param user
+	 */
+	@RequestMapping("sendMail.do")
+	@ResponseBody
+	public void sendMail(User user) {
+		service.sendMail(user);
+	} // sendMail
+	
+	
+	@RequestMapping("temppasschk.do")
+	@ResponseBody
+	public String temppasschk(User user) {
+		System.out.println(user.getPassword());
+		return Integer.toString(service.temppasschk(user));
+	} //temppasschk
+	
+
+	@RequestMapping("modipass.do")
+	@ResponseBody
+	public void modipass(User user) {
+		service.updatePass(user);
+	} // modipass
+	
+	
 } // end class
