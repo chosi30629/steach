@@ -20,7 +20,7 @@ public class ClassMember {
 
 	
 	
-	
+	//lombok err 수동 추가
 	public int getpNo() {
 		return pNo;
 	}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.lectureBoardMapper">
+		
+	<resultMap id="lectureMap" type="Lecture">
+		<result column="lec_no" property="lecNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="subject" property="subject"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="master" property="master"/>	
+	</resultMap>
+	
+	<resultMap id="lectureBoardMap" type="LectureBoard">
+		<collection property="lecture" resultMap="lectureMap"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="lec_no" property="lecNo"/>
+		<result column="g_no" property="gNo"/>
+		<result column="p_no" property="pNo"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="deadline" property="deadline"/>
+		<result column="mem_cnt" property="memCnt"/>
+	</resultMap>
+	
+	<select id="selectBoardBylecNo">
+		<!-- 서버가 죽었당..ㅠㅠ  -->
+	</select>
+	
+	
+	
+</mapper>

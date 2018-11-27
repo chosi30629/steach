@@ -115,10 +115,10 @@
 
                     <div class="accordion" role="tablist">
                         <div class="card">
-                            <div class="card-header" role="tab" id="headingOne">
+                            <div class="card-header" role="tab" data-toggle="collapse" href="#collapseOne" id="headingOne">
                                 <div class="subTitle">
                                     <i class="fas fa-book fa-2x"></i>　
-                                    <a data-toggle="collapse" href="#collapseOne">1일차 java 수업자료</a>
+                                    <a>1일차 java 수업자료</a>
                                     <div class="menu">
                                         <a href="subElps" data-toggle="modal" data-target="#subElpsModal"><i class="fas fa-ellipsis-v"></i></a>
                                     </div>
@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="card">
-                        <div class="card-header" role="tab" id="headingThree">
+                        <div class="card-header" role="tab" id="headingFour">
                             <div class="subTitle">
                                 <i class="fas fa-vote-yea fa-2x"></i>　
                                 <a class="collapsed" data-toggle="collapse" href="#collapseFour">
