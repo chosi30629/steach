@@ -43,5 +43,8 @@ public interface UserService {
 	User checkPass(String id);
 	
 
+	// 전화번호 등록.수정
+	void updatePhone(User user);
+	
 
 }

@@ -12,7 +12,7 @@
 		<result column="profile" property="profile" />
 		<result column="profile_path" property="profilePath" />
 	</resultMap>
-
+	
 
 	<!-- 회원 등록 -->
 	<insert id="registerUser" parameterType="user">
@@ -24,7 +24,7 @@
 	</insert>
 
 	<!-- 아이디 중복 체크 -->
-	<select id="checkId" parameterType="user" resultType="int">
+	<select id="checkId" parameterType="user" resultType="int" flushCache="true" useCache="false">
 		select count(*)
 		  from tb_user
 		 where id = #{id}
@@ -65,6 +65,13 @@
 		update tb_user
 		set password = #{password}
 		where id = #{id}
+	</update>
+	
+	<!-- 전화번호 등록 or 수정 -->
+	<update id="updatePhone" parameterType="user" flushCache="true">
+		update tb_user
+		   set phone = #{phone}
+		 where id = #{id}
 	</update>
 
 	<!-- 파일 등록 -->

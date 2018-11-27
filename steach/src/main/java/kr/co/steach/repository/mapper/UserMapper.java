@@ -18,7 +18,8 @@ public interface UserMapper {
 	// 비밀버호 변경
 	void updatePass(User user);
 	
-	
+	// 전화번호 등록.수정
+	void updatePhone(User user);
 	
 	
 	

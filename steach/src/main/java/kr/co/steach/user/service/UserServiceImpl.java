@@ -144,6 +144,13 @@ public class UserServiceImpl implements UserService {
 		mapper.updatePass(user);
 	} // userPass
 
+	// 전화번호 등록.수정
+	@Override
+	public void updatePhone(User user) {
+		mapper.updatePhone(user);
+		
+	}
+
 	
 
 //	/**

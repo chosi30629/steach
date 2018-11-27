@@ -24,9 +24,9 @@
                 <li class="pull-right dropdown myNotification">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
                     <ul class="dropdown-menu myNotificationMenu">
-                        <li><a href="#">마이페이지</a></li>
+                        <li><a href='<c:url value="/user/myPage.do"/>'>마이페이지</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">마이드라이브</a></li>
+                        <li><a href='<c:url value="/drive/drive.do"/>'>마이드라이브</a></li>
                         <li class="divider"></li>
                         <li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
 <%--                         <li><a href="<c:url value="/login/logout.do"/>">로그아웃</a></li> --%>
@@ -51,7 +51,7 @@
                 <li>
                     <div class="card--container">
                         <div class="card--section" style="background-color: rgb(74, 202, 106);">
-                            <h1><a href="#">비트캠프</a></h1>
+                            <h1><a href='<c:url value="/class/curriculum/curriculum.do"/>'>비트캠프</a></h1>
                             <p>2018-11-11~2018-11-11</p>
                         </div>
                         <div class="card--details">

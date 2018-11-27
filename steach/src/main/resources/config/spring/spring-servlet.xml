@@ -36,20 +36,14 @@
     		</mvc:message-converters>
     	</mvc:annotation-driven>
     	
-   		<!-- 로그인 세션 필터 처리 -->
-	<!-- 	<mvc:interceptors>
+		<!-- 로그인 세션 필터 처리 -->
+		<mvc:interceptors>
 			<mvc:interceptor>
 				<mvc:mapping path="/user/myPage.do" /> 
-				<mvc:mapping path="/user/profile.do" /> 
-				<mvc:mapping path="/board/*/*detail.do" /> 
-				<mvc:mapping path="/board/*/*delete.do" /> 
-				<mvc:mapping path="/board/*/*Form.do" /> 
-				<mvc:mapping path="/board/*/*update.do" /> 
-				<mvc:mapping path="/board/*/*form.do" /> 
-				<mvc:mapping path="/board/*/*write.do" /> 
-				<bean class="kr.co.steach.user.controller.AuthInterceptor" />
+
+				<bean class="kr.co.steach.home.AuthInterceptor" />
 			</mvc:interceptor>
-		</mvc:interceptors> -->
+		</mvc:interceptors>
 	
     	<!-- 아이디가 고정되어야함. 규칙(multipartResolver) -->
     	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

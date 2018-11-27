@@ -33,7 +33,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return true;			
 		} // if
 		
-		response.sendRedirect("/steach/main/main.do");	
+		response.sendRedirect("/steach/home/home.do");	
 		
 		return false;	
 	} // preHandle
