@@ -20,10 +20,11 @@
 	
 	
 	
-	<select id="selectClassInfo" resultMap="classMap">
-		select * 
+<!-- 	<select id="selectClassbyClassNo" parameterType="int" resultMap="classMap">
+		select class_no,master,class_name,class_subname,start_time,end_time,begin_date,end_date,bg_name,bg_path,seat_name,seat_path 
 		  from tb_class
-	</select>
+		  where class_no=#{classNo}
+	</select> -->
 	
 
 	

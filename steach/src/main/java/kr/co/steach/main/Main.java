@@ -7,12 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/main")
 public class Main {
 	
-	
-	
-	public Main() {
-		super();
-		System.out.println("1");
-	}
 
 	@RequestMapping("/main.do")
 	public void main() {

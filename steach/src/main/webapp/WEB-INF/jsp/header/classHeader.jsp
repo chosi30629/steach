@@ -21,19 +21,19 @@
             <ul class="nav navbar-nav">
                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
                 <li class="pull-left myClassName"><a href="#">클래스이름.</a></li>
-                <li class="classCurriculum"><a href="#">커리큘럼</a></li>
+                <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li>
                 <li class="dropdown classCourse">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a>
+                    <a href="lecture" class="dropdown-toggle" data-toggle="dropdown">수업</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">과제제출</a></li>
+                        <li><a href="<c:url value='/class/lecture/homework.do'/>">과제제출</a></li>
                     </ul>
                 </li>
                 <li class="dropdown classUser">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
+                    <a href="member" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
                     <ul class="dropdown-menu">
                         <li><a href="#">출결현황</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">조별활동</a></li>
+                        <li><a href="<c:url value='/class/group/groupActivity.do'/>">조별활동</a></li>
                     </ul>
                 </li>
                 <li class="nbsp"> </li>
@@ -58,6 +58,16 @@
     }, function() {
         $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
     });
+   
+       
+    $("a[href='lecture']").click(function(){
+    	location.href="<c:url value='/class/lecture/lecture.do'/>";
+    })
+    
+     $("a[href='member']").click(function(){
+    	location.href="<c:url value='/class/member/member.do'/>";
+    })
+ 
 </script>
 
 </html>
