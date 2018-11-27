@@ -1,6 +1,7 @@
 package kr.co.steach.clazz.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.steach.clazz.service.GroupService;
 import kr.co.steach.repository.domain.GroupCard;
+import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
 
 
@@ -152,5 +154,25 @@ public class GroupController {
 		
 		return "리스트 순서 업데이트 성공";
 	} // listOrderUpdate
+	
+	@RequestMapping("cardCommentList.do")
+	@ResponseBody
+	public List<GroupComment> cardCommentList(GroupComment groupComment) {
+		return service.cardCommentList(groupComment);
+	} // cardCommentList
+	
+	@RequestMapping("addCardComment.do")
+	@ResponseBody
+	public String addCardComment(GroupComment groupComment) {
+		service.insertCardComment(groupComment);
+		return "댓글 추가 성공";
+	} // addCardComment
+	
+	@RequestMapping("removeCardComment.do")
+	@ResponseBody
+	public String removeCardComment(GroupComment groupComment) {
+		service.deleteCardComment(groupComment);
+		return "댓글 삭제 성공";
+	} // removeCardComment
 	
 } // end class

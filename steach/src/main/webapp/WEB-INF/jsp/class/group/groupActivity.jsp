@@ -60,50 +60,7 @@
     </div>
     <div class="wrapper clearfix">
         <ul class="connectedSortables parentDrop clearfix">
-        	<%-- <c:forEach var="list" items="${listList}">
-	            <li class="parentDrag" data-index="${list.listNo}" data-order="${list.listOrder}">
-	                <div class="listTitle">
-	                    <div class="listSubject">
-	                        ${list.listTitle}
-	                    </div>
-	                    <span class="listSubjectForm" style="display: none;">
-	                        <textarea class='modifyListForm'>해야 할 일</textarea><button class='btn btn-default btn-xs modifyListFormBtn'>수정</button>  
-	                    </span>
-	                    <div class="btn-group">
-	                        <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-	                            <i class="fas fa-ellipsis-h"></i>
-	                        </div>
-	                        <ul class="dropdown-menu" role="menu">
-	                            <li class="text-center"><a class="modifyList" href="#">수정</a></li>
-	                            <li class="divider"></li>
-	                            <li class="text-center"><a class="removeList" href="#">삭제</a></li>
-	                        </ul>
-	                    </div>
-	                </div>
-	                <ul class="connectedSortable childDrop">
-	                    　
-		                    <c:forEach var="card" items="${cardList}">
-	                    <c:if test="${list.listNo == card.listNo}">
-	                    	<li data-toggle="modal" data-target="#cardModal" data-listNo="${card.listNo}" data-index="${card.cardNo}" data-order="${card.cardOrder}">${card.cardTitle}</li>
-	                    </c:if>
-		                    </c:forEach>
-	                </ul>
-	                <div class="addCard">+ 카드 추가</div>
-	                <div class="addCardForm" style="display: none;">
-	                    <textarea class='addCardTextarea'>
-                    </textarea>
-	                    <div>
-	                        <button class='btn btn-default onAddCard'>
-	                            추가
-	                        </button>
-	                        <a>
-	                            <i class='fas fa-times addCardCancel'>
-	                            </i>
-	                        </a>
-	                    </div>
-	                </div>
-	            </li>
-            </c:forEach> --%>
+        	
         </ul>
         <div class="addList">
             <div class="addListBtn">+ 목록 추가</div>
@@ -125,101 +82,7 @@
 
     <!-- Modal -->
     <div class="modal-div">
-	    <div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	        <div class="modal-dialog">
-	            <div class="modal-content">
-	                <div class="modal-body">
-	                    <div class="cardTitle clearfix">
-	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;">
-	                            <span aria-hidden="true">&times;</span>
-	                        </button>
-	                        <h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">카드 제목</span>
-	                        <span class="cardTitleForm" style="display: none;"><input type="text" class='modifyCardForm' value="카드 제목"/><button class='btn btn-default onModifyCardTitle'>수정</button></span>  
-	                        </h3><span style="float: right;">2018-12-26</span>
-	                    </div>
-	                    <hr>
-	                    <div class="cardContent clearfix">
-	                        <h4 class="modal-title"> <i class="far fa-sticky-note"></i>　카드 내용
-                   	            <div class="btn-group" style="float: right;">
-			                    	<div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-			                    		<i class="fas fa-ellipsis-h"></i>
-			                    	</div>
-			                    	<ul class="dropdown-menu" role="menu"> 
-				                    	<li class="text-center"><a class="modifyCard" href="#">수정</a></li>
-				                    	<li class="divider"></li>
-				                    	<li class="text-center"><a class="removeCard" href="#">삭제</a></li>
-			                    	</ul>
-		                    	</div>
-	                        </h4>
-	                        <div class="clearfix cardContent-div">
-	                        <span>입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!
-	                        </span>
-	                        </div>
-	                        <div class="clearfix cardContent-form" style="display: none;">
-	                        	<textarea class="cardContent-textarea">입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!입니다.!!!</textarea>
-		                        <div class="md-rv-bnt" style="float: right;">
-		                            <button class="btn btn-default onModifyCardContent">수정</button>
-		                        </div>    
-	                        </div>
-	                    </div>
-	                    <hr>
-	                    <div class="cardFile clearfix">
-	                        <h4 class="modal-title"> 
-	                            <i class="fas fa-paperclip"></i>　첨부 파일
-	                        </h4>
-	                        <div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;">
-	                            <div class="filebox"> 
-	                                <div class="upload-name" disabled="disabled" style="overflow: scroll"></div>
-	                                <label for="my_filename">
-	                                    <i class="fas fa-hdd"></i>
-	                                </label> 
-	                                <input type="file" id="my_filename" multiple class="upload-hidden"> 
-	                            </div>
-	                            <div class="filebox"> 
-	                                <div class="upload-name" disabled="disabled" style="overflow: scroll"></div>
-	                                <label for="drive_filename">
-	                                    <i class="fab fa-google-drive"></i>
-	                                </label> 
-	                                <input type="file" id="drive_filename" multiple class="upload-hidden"> 
-	                            </div>
-	                        </div>
-	                    </div>
-	                    <hr>
-	                    <div class="cardComment">
-	                        <h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;카드 댓글</h4>
-	                        <table class="table">
-	                            <tbody>
-	                                <tr>
-	                                    <td>
-	                                    <div>조성일&nbsp;&nbsp; 
-	                                    <span>2018-10-15 20:10:52</span></div>
-	                                    <div>이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;</div></td>
-	                                </tr>
-	                                <tr>
-	                                    <td>
-	                                    <div>조성일&nbsp;&nbsp; 
-	                                    <span>2018-10-15 20:10:52</span></div>
-	                                    <div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td>
-	                                </tr>
-	                                <tr>
-	                                    <td>
-	                                    <div>조성일&nbsp;&nbsp; 
-	                                    <span>2018-10-15 20:10:52</span></div>
-	                                    <div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td>
-	                                </tr>
-	                                <tr>
-	                                    <td>
-	                                    <div>조성일&nbsp;&nbsp; 
-	                                    <span>2018-10-15 20:10:52</span></div>
-	                                    <div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td>
-	                                </tr>
-	                            </tbody>
-	                        </table>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+
     </div>
     <section class="avenue-messenger">
         <div class="menu">
@@ -277,7 +140,7 @@
 						if(listList[i].listNo == cardList[j].listNo) {
 							// $("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
-							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><table class="table"><tbody><tr><td><div>조성일&nbsp;&nbsp;<span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr><tr><td><div>조성일&nbsp;&nbsp; <span>2018-10-15 20:10:52</span></div><div>이걸 자료라고 올린거여?ㅡㅡ;;</div></td></tr></tbody></table></div></div></div></div></div>');
+							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
 						}
 					}
 				} 
@@ -312,7 +175,72 @@
 		};
 		
 		listListAndCardList();
-    
+
+		// 카드 댓글 목록
+		function commentList(commentCardNo) {
+			$.ajax({
+				url: "/steach/class/group/cardCommentList.do",
+				data: {"cardNo": commentCardNo }
+			})
+			.done(function(result) {
+				var commentList = "";
+				
+				for(var c = 0; c < result.length; c++) {
+					commentList += "<tr><td><div>";
+					commentList += result[c].cardCommentWriter + "&nbsp;&nbsp;<span>";
+					commentList += $.format.date(result[c].cardCommentRegDate, "yyyy-MM-dd HH:mm:ss");
+					commentList += "</span></div><div class='comment-content-div'>";
+					commentList += result[c].cardCommentContent;
+					commentList += "</div><input type='hidden' class='commentNo' value='" + result[c].cardCommentNo + "'/>";
+					commentList += "<div class='comment-update-form' style='display: none;'><textarea>" + result[c].cardCommentContent + "</textarea></div>";
+					commentList += "<div class='comment-btn'><button class='btn btn-default btn-xs comment-delete-btn'>삭제</button>";
+					commentList += "<button class='btn btn-default btn-xs comment-update-btn'>수정</button></div>";
+					commentList += "<div class='comment-form-btn' style='display: none;'><button class='btn btn-default btn-xs comment-cancel-btn'>취소</button>";
+					commentList += "<button class='btn btn-default btn-xs comment-onUpdate-btn'>수정</button></div></td></tr>";
+				}
+				
+				$(".comment-table").html(commentList);
+			});
+		};
+		
+		$("body").on("click", "li[data-toggle='modal']", function() {
+			var commentCardNo = $(this).attr("data-index");
+			commentList(commentCardNo);
+		});
+		
+		// 댓글 작성
+		$("body").on("click", ".comment-insert-btn", function() {
+			var commentModalId = $(this).parents(".modal").attr("id");
+			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
+			var addCommentContent = $(this).siblings(".comment-textarea").val();
+			
+			$.ajax({
+				url: "/steach/class/group/addCardComment.do",
+				data: {"cardNo": commentCardNo, "cardCommentWriter": 'chos', "cardCommentContent": addCommentContent}
+			})
+			.done(function(result) {
+				console.log(result);
+				$(".comment-textarea").val("");
+				commentList(commentCardNo);
+			});
+		});
+		
+		// 댓글 삭제
+		$("body").on("click", ".comment-delete-btn", function() {
+			var commentModalId = $(this).parents(".modal").attr("id");
+			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
+			var cardCommentNo = $(this).parent(".comment-btn").siblings(".commentNo").val();
+			
+ 			$.ajax({
+				url: "/steach/class/group/removeCardComment.do",
+				data: {"cardCommentNo": cardCommentNo}
+			})
+			.done(function(result) {
+				console.log(result);
+				commentList(commentCardNo);
+			}); 
+		});
+		
         // 트렐로 형식 드래그 앤 드롭
         $(function () {
             $(".childDrop").sortable({
@@ -444,11 +372,8 @@
         
         // 추가(카드) 버튼 누를 시
         $("body").on("click", ".onAddCard", function(e) {
-            
             var listNoOfAddCard = $(this).parents(".parentDrag").attr("data-index");
-            
             var content = $(this).parent().siblings("textarea").val();
-            
             var lastCardOrder = parseInt($(this).parents(".parentDrag").find(".childDrop").find("li:last-child").attr("data-order")) + 1;
             
             if(isNaN(lastCardOrder)) {
@@ -513,7 +438,6 @@
             	data: {"cardNo": modifyCardNo, "cardTitle": modifyCardTitle, "cardContent": modifyCardContent}
             }).done(function(result) {
 	            console.log(result);
-	            
 	            
 	            $(".cardTitle-span").css("display", "inline");
 	            $(".cardTitleForm").css("display", "none");

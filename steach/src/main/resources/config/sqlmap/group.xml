@@ -21,6 +21,14 @@
 		<result column="card_reg_date" property="cardRegDate"/>
 	</resultMap>
 	
+	<resultMap type="GroupComment" id="groupCommentMap">
+		<result column="card_comment_no" property="cardCommentNo"/>
+		<result column="card_no" property="cardNo"/>
+		<result column="card_comment_writer" property="cardCommentWriter"/>
+		<result column="card_comment_content" property="cardCommentContent"/>
+		<result column="card_comment_reg_date" property="cardCommentRegDate"/>
+	</resultMap>
+	
 	<!-- 리스트 목록 -->
 	<select id="listList" resultMap="groupListMap">
 		select * from tb_class_group_list order by list_order
@@ -89,6 +97,27 @@
 	<delete id="deleteCard" parameterType="GroupCard">
 		delete from tb_class_group_list_card
 		 where card_no = #{cardNo}
+	</delete>
+	
+	<!-- 카드 댓글 목록 -->
+	<select id="cardCommentList" resultMap="groupCommentMap">
+		select * from tb_class_group_list_card_comment
+		 where card_no = #{cardNo}
+	</select>
+		
+	<!-- 카드 댓글 추가 -->
+	<insert id="insertCardComment" parameterType="GroupComment">
+		insert into tb_class_group_list_card_comment (
+			card_no, card_comment_writer, card_comment_content
+		) values (
+			#{cardNo}, 'chos', #{cardCommentContent}
+		)
+	</insert>
+	
+	<!-- 카드 댓글 삭제 -->
+	<delete id="deleteCardComment" parameterType="GroupComment">
+		delete from tb_class_group_list_card_comment
+		 where card_comment_no = #{cardCommentNo}
 	</delete>
 	
 </mapper>

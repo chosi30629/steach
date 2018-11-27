@@ -3,6 +3,7 @@ package kr.co.steach.clazz.service;
 import java.util.List;
 
 import kr.co.steach.repository.domain.GroupCard;
+import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
 
 
@@ -27,5 +28,11 @@ public interface GroupService {
 	void deleteCard(GroupCard groupCard);
 	
 	void cardOrderUpdate(GroupCard groupCard);
+	
+	List<GroupComment> cardCommentList(GroupComment groupComment);
+
+	void insertCardComment(GroupComment groupComment);
+
+	void deleteCardComment(GroupComment groupComment);
 	
 } // end interface

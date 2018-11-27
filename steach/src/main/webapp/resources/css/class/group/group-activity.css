@@ -228,7 +228,7 @@ body {
 ::-webkit-scrollbar-track-piece {
     background: rgba(9,45,66,.08);
 }
-.modal {
+/* .modal {
     text-align: center;
     padding: 0 !important;
 }
@@ -243,7 +243,7 @@ body {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
-}
+} */
 .modal > .modal-dialog > .modal-content > .modal-body > hr {
     border: 0; 
     height: 1px; 
@@ -962,4 +962,47 @@ body {
 	resize: none;
 	margin-top: 15px;
 	margin-bottom: 13px;
+}
+.cardComment > .comment-textarea {
+	width: 568px; 
+	height: 78px; 
+	resize: none; 
+	margin-top: 10px; 
+	border-radius: 3px;
+} 
+.cardComment > .comment-insert-btn {
+	float: right; 
+	margin-top: 5px;
+} 
+.cardComment > .table > tbody > tr > td {
+	padding-left: 0;
+	padding-right: 0;
+}
+.cardComment > .table > tbody > tr > td > .comment-btn {
+	padding-left: 2px;
+	padding-right: 1px;
+	float: right;
+}
+.cardComment > .table > tbody > tr > td > .comment-form-btn {
+	padding-left: 2px;
+	padding-right: 1px;
+	float: right;
+}
+.cardComment > .table > tbody > tr > td > .comment-content-div {
+	padding-top: 5px;
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.cardComment > .table > tbody > tr > td > .comment-btn > .comment-delete-btn {
+	margin-right: 3px;
+}
+.cardComment > .table > tbody > tr > td > .comment-form-btn > .comment-cancel-btn {
+	margin-right: 3px;
+}
+.cardComment > .table > tbody > tr > td > .comment-update-form > textarea {
+	width: 568px; 
+	height: 78px; 
+	resize: none; 
+	margin-top: 10px; 
+	border-radius: 3px;
 }
