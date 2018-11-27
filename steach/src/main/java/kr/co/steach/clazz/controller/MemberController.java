@@ -24,11 +24,11 @@ public class MemberController {
 	@RequestMapping("/member.do")
 	public void list(@RequestParam(value= "classNo", defaultValue="1") int classNo,Model model) {
 		List<ClassMember> list =  service.selectMemberByClassNo(classNo);
-		System.out.println("studentList:"+list);
+		//System.out.println("studentList:"+list);
 		Clazz master = service.selectMasterByClassNo(classNo);
-		System.out.println("master:"+master);
+		//System.out.println("master:"+master);
 		
-		model.addAttribute("studentList",service.selectMemberByClassNo(classNo));
+		//model.addAttribute("studentList",service.selectMemberByClassNo(classNo));
 		model.addAttribute("master",service.selectMasterByClassNo(classNo));
 	}
 	

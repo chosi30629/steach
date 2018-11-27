@@ -328,9 +328,6 @@
 	        	});
 	        } 
 	
-	        $(".card-header").click(function(){
-	        	alert(1);
-	        })
 	</script>
 </body>
 

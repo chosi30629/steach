@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +20,7 @@
         <div class="navbar-collapse" >
             <ul class="nav navbar-nav">
                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="pull-left myClassName"><a href="#">클래스명클래스명클래스명클래스명클래스명클래스명클래스명클래스명클래스명</a></li>
+                <li class="pull-left myClassName"><a href="#">클래스이름.</a></li>
                 <li class="classCurriculum"><a href="#">커리큘럼</a></li>
                 <li class="dropdown classCourse">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a>

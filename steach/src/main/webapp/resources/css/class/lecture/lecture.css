@@ -48,11 +48,11 @@ body,html{
     margin:0;padding:0;
 }
 body{
-    background-color:#cebfc7;
+    background-color:#eee;
 }
 .accordion{
    box-shadow:1px 1px 1px grey;
-   background-color:#eee;
+   background-color:#eff;
 }
 .subTitle{
     margin-top:-5px;
@@ -63,13 +63,18 @@ body{
 
 .accordion-head{
     height:50px;
-    background:#426e92;
+    /* background:#426e92; */
+    background:rgb(0, 121, 191);
     margin-top:30px;
     box-shadow:1px 0px 1px grey;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+  
 }
 .title-name{
     font-size:1.4em;
     font-weight:bold;
+    color:white;
 }
 
 .card-header{
@@ -90,7 +95,9 @@ a:hover,a:active,a:focus{
     padding-top:10px;
     height:30px;
 }
-
+.menu > a > i{
+	color:white;
+}
 .menu{
     float:right;
     text-align:right;
@@ -101,7 +108,7 @@ a:hover,a:active,a:focus{
 }
 .create-btn {
     border:none;
-    background-color:#eee;
+    background-color:#a4bdbf;
     border-radius: 15px;
     width:100px;
     height:30px;
@@ -114,7 +121,7 @@ a:hover,a:active,a:focus{
 /* accordion 내 css  */
 
 .card-header:hover{
-    background-color:#dfbfc7;
+    background-color:#d4bfd4;
 }
 .modal-body{
     margin:0;
@@ -161,6 +168,9 @@ a:hover,a:active,a:focus{
 }
 
 /*subTitle */
+.card-body {
+	background:white;
+}
 .card-body span {
     display:inline-block;
     margin:10px;

@@ -15,4 +15,8 @@ public interface LectureBoardMapper {
 	
 	
 	List<LectureBoard> selectLectureBoardByClassNo(int classNo);
+	
+	
+	/* insert lecture */
+	void insertLecture(Lecture lecture);
 }

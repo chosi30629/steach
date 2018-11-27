@@ -37,7 +37,7 @@
 		select *
 		  from tb_class_lecture
 		 where class_no =#{classNo}
-		order by reg_date
+		order by reg_date desc
 	</select>
 	
 	<!-- 클래스 별 주제의 board 가져오기  -->
@@ -46,8 +46,22 @@
 		  from tb_class_lecture_board b, tb_class_lecture l
 		 where l.lec_no = b.lec_no
 		   and l.class_no=#{classNo}
-		  order by b.reg_date
+		  order by b.reg_date desc
 	</select>
 	
+	<!-- insert Subject -->
+
+	<insert id="insertLecture" parameterType="Lecture">
+		insert into tb_class_lecture( 
+									class_no,
+									subject,
+									master
+									) values (
+												#{classNo},
+												#{subject},
+												#{master}
+															) 
+						
+	</insert>	
 	
 </mapper>
