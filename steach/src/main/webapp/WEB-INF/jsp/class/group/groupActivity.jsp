@@ -18,6 +18,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
+    <style type="text/css">
+    
+.addChecklist:hover {
+    cursor: pointer;
+}
+.addChecklist:hover h4 {
+    font-weight: bold;
+}
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -107,7 +116,7 @@
             </div>
             <div class="message-box">
                 <textarea type="text" class="message-input" placeholder="메시지를 입력하세요"></textarea>
-                <button type="submit" class="message-submit">
+                <button type="button" class="message-submit">
                     <i class="fas fa-arrow-circle-up"></i>
                 </button>
             </div>
@@ -140,7 +149,7 @@
 						if(listList[i].listNo == cardList[j].listNo) {
 							// $("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
-							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
+							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control" placeholder="체크리스트 추가"><span class="input-group-btn"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
 						}
 					}
 				} 
@@ -192,7 +201,7 @@
 					commentList += "</span></div><div class='comment-content-div'>";
 					commentList += result[c].cardCommentContent;
 					commentList += "</div><input type='hidden' class='commentNo' value='" + result[c].cardCommentNo + "'/>";
-					commentList += "<div class='comment-update-form' style='display: none;'><textarea>" + result[c].cardCommentContent + "</textarea></div>";
+					commentList += "<div class='comment-update-form' style='display: none;'><textarea class='modify-content'>" + result[c].cardCommentContent + "</textarea></div>";
 					commentList += "<div class='comment-btn'><button class='btn btn-default btn-xs comment-delete-btn'>삭제</button>";
 					commentList += "<button class='btn btn-default btn-xs comment-update-btn'>수정</button></div>";
 					commentList += "<div class='comment-form-btn' style='display: none;'><button class='btn btn-default btn-xs comment-cancel-btn'>취소</button>";
@@ -203,9 +212,37 @@
 			});
 		};
 		
+		// 카드 체크리스트 목록
+		function checklist(commentCardNo) {
+			$.ajax({
+				url: "/steach/class/group/cardChecklistList.do",
+				data: {"cardNo": commentCardNo }
+			})
+			.done(function(result) {
+				var checklistList = "";
+				
+				for(var l = 0; l < result.length; l++) {
+					checklistList += "<div class='checkbox'>";
+					if(result[l].cardChecklistStatus == 0) {
+						checklistList += "<label class='checklist-label' style='font-size: 1.5em; line-height: 27.3px; margin-top: 5px;'>";
+						checklistList += "<input type='checkbox' value=''/>";
+					} else {
+						checklistList += "<label class='checklist-label' style='font-size: 1.5em; line-height: 27.3px; margin-top: 5px; text-decoration: line-through;'>";
+						checklistList += "<input type='checkbox' value='' checked/>";
+					}
+					checklistList += "<span class='cr'><i class='cr-icon fa fa-check'></i></span>";
+					checklistList += result[l].cardChecklistTitle;
+					checklistList += "</label><input type='hidden' class='checklist-no' value='" + result[l].cardChecklistNo + "'><input type='hidden' class='checklist-status' value='" + result[l].cardChecklistStatus + "'></div>";
+				}
+				
+				$(".checkbox-list").html(checklistList);
+			});
+		};
+		
 		$("body").on("click", "li[data-toggle='modal']", function() {
 			var commentCardNo = $(this).attr("data-index");
 			commentList(commentCardNo);
+			checklist(commentCardNo);
 		});
 		
 		// 댓글 작성
@@ -213,6 +250,11 @@
 			var commentModalId = $(this).parents(".modal").attr("id");
 			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
 			var addCommentContent = $(this).siblings(".comment-textarea").val();
+			
+            if(addCommentContent == '') {
+            	$(this).siblings(".comment-textarea").focus();
+                return;
+            }
 			
 			$.ajax({
 				url: "/steach/class/group/addCardComment.do",
@@ -223,6 +265,49 @@
 				$(".comment-textarea").val("");
 				commentList(commentCardNo);
 			});
+		});
+		
+		// 댓글 수정
+		$("body").on("click", ".comment-update-btn", function() {
+			$(".comment-content-div").css("display", "block");
+			$(".comment-update-form").css("display", "none");
+			$(".comment-btn").css("display", "block");
+			$(".comment-form-btn").css("display", "none");
+			
+			$(this).parent(".comment-btn").siblings(".comment-content-div").css("display", "none");
+			$(this).parent(".comment-btn").siblings(".comment-update-form").css("display", "block");
+			$(this).parent(".comment-btn").css("display", "none");
+			$(this).parent(".comment-btn").siblings(".comment-form-btn").css("display", "block");
+			$(".modify-content").focus();
+		});
+		
+		$("body").on("click", ".comment-onUpdate-btn", function() {
+			var commentModalId = $(this).parents(".modal").attr("id");
+			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
+			var cardCommentNo = $(this).parent(".comment-form-btn").siblings(".commentNo").val();
+			var cardCommentContent = $(this).parent(".comment-form-btn").siblings(".comment-update-form").find(".modify-content").val();
+			
+            if(cardCommentContent == '') {
+            	$(this).parent(".comment-form-btn").siblings(".comment-update-form").find(".modify-content").focus();
+                return;
+            }
+            
+			$.ajax({
+				url: "/steach/class/group/modifyCardComment.do",
+				data: {"cardCommentNo": cardCommentNo, "cardCommentContent": cardCommentContent}
+			})
+			.done(function(result) {
+				console.log(result);
+				commentList(commentCardNo);
+			}); 
+		});
+		
+		// 댓글 수정 취소
+		$("body").on("click", ".comment-cancel-btn", function() {
+			$(".comment-content-div").css("display", "block");
+			$(".comment-update-form").css("display", "none");
+			$(".comment-btn").css("display", "block");
+			$(".comment-form-btn").css("display", "none");
 		});
 		
 		// 댓글 삭제
@@ -239,6 +324,61 @@
 				console.log(result);
 				commentList(commentCardNo);
 			}); 
+		});
+		
+		// 체크리스트 상태 변경
+		$("body").on("click", ".checklist-label", function() {
+			var commentModalId = $(this).parents(".modal").attr("id");
+			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
+			var checklistNo = $(this).siblings(".checklist-no").val();
+			var checklistStatus = $(this).siblings(".checklist-status").val();
+			
+			if(checklistStatus == 0) {
+				checklistStatus = 1;
+			} else {
+				checklistStatus = 0;
+			}
+ 		$.ajax({
+				url: "/steach/class/group/modifyChecklistStatus.do",
+				data: {"cardChecklistNo": checklistNo, "cardChecklistStatus": checklistStatus}
+			})
+			.done(function(result) {
+				console.log(result);
+				checklist(commentCardNo);
+			});
+		});
+		
+		// 체크리스트 추가 시
+        $("body").on("click", ".addChecklist", function() {
+            $(this).find("h4").css("display", "none");
+            $(this).find(".add-checklist-form").css("display", "block");
+            $(".form-control").focus();
+        });
+		
+		$("body").on("click", ".onAddChecklist", function() {
+			var checklistModalId = $(this).parents(".modal").attr("id");
+			var checklistCardNo = $("li[data-target='#" + checklistModalId + "']").attr("data-index");
+			var checklistTitle = $(this).parent(".input-group-btn").siblings(".form-control").val();
+
+	   	 	if(checklistTitle == '') {
+	   	 		$(this).parent(".input-group-btn").siblings(".form-control").focus();
+                return;
+            }
+			 
+            $(this).parent(".input-group-btn").siblings(".form-control").val("");
+
+			$.ajax({
+				url: "/steach/class/group/addChecklist.do",
+				data: {"cardNo": checklistCardNo, "cardChecklistTitle": checklistTitle}
+			})
+			.done(function(result) {
+				console.log(result);
+				
+				checklist(checklistCardNo);
+				
+	            $(".add-checklist-form").css("display", "none");
+	            $(".addChecklistBtn").css("display", "block");
+			});
 		});
 		
         // 트렐로 형식 드래그 앤 드롭
@@ -271,14 +411,9 @@
         
         // 카드 위치 변경 데이터베이스 저장
         function saveNewCardOrders() {
-/*         	var orders = [];
-        	$(".updated").each(function() {
-        		orders.push([$(this).attr("data-index"), $(this).attr("data-order")]);
-        		$(this).removeClass("updated");
-			}); */
-        	
 			var map = new Map();
-        	$(".updated").each(function() {
+        	
+			$(".updated").each(function() {
         		map.set($(this).attr("data-index"), [$(this).attr("data-order"), $(this).parents(".parentDrag").attr("data-index")]);
         		$(this).removeClass("updated");
 			}); 
@@ -288,7 +423,7 @@
             map.forEach(function(value, key){
             	orders[key] = value;
             });
-            //console.log(JSON.stringify(orders));
+            
          	$.ajax({
         		url: "/steach/class/group/orderUpdate.do",
         		data: {"orders": JSON.stringify(orders)},
@@ -301,6 +436,7 @@
         // 리스트 위치 변경 데이터베이스 저장
         function saveNewListOrders() {
 			var map = new Map();
+			
         	$(".listUpdated").each(function() {
         		map.set($(this).attr("data-index"), $(this).attr("data-order"));
         		$(this).removeClass("listUpdated");
@@ -311,8 +447,8 @@
             map.forEach(function(value, key){
             	listOrders[key] = value;
             });
-            // console.log(JSON.stringify(listOrders));
-        	$.ajax({
+
+            $.ajax({
         		url: "/steach/class/group/listOrderUpdate.do",
         		data: {"listOrders": JSON.stringify(listOrders)},
         		success: function(response) {
@@ -322,28 +458,28 @@
         }
         
         // 빈 공간 클릭 시 폼 접기
-        $(document).mousedown(function (e){
+        $(document).mousedown(function (e) {
             var container = $('.addCardForm');
             if( container.has(e.target).length === 0){
                 $(".addCardForm").css("display", "none");
                 $(".addCard").css("display", "block");
             }
         });
-        $(document).mousedown(function (e){
+        $(document).mousedown(function (e) {
             var container = $('.listSubjectForm');
             if( container.has(e.target).length === 0){
                 $(".listSubjectForm").css("display", "none");
                 $(".listSubject").css("display", "inline");
             }
         });  
-        $(document).mousedown(function (e){
+        $(document).mousedown(function (e) {
             var container = $('.addListForm');
             if( container.has(e.target).length === 0){
                 $(".addListForm").css("display", "none");
                 $(".addListBtn").css("display", "block");
             }
         });  
-        $(document).mousedown(function (e){
+        $(document).mousedown(function (e) {
             var container = $('.cardTitleForm');
             var contn = $('.cardContent-form');
             if( container.has(e.target).length === 0 && contn.has(e.target).length === 0){
@@ -351,8 +487,25 @@
                 $(".cardTitleForm").css("display", "none");
                 $(".cardContent-div").css("display", "block");
                 $(".cardContent-form").css("display", "none");
+                $(".btn-group").css("display", "block");
             }
         });  
+        $(document).mousedown(function (e) {
+            var container = $('.table');
+            if( container.has(e.target).length === 0){
+    			$(".comment-content-div").css("display", "block");
+    			$(".comment-update-form").css("display", "none");
+    			$(".comment-btn").css("display", "block");
+    			$(".comment-form-btn").css("display", "none");
+            }
+        }); 
+        $(document).mousedown(function (e) {
+            var container = $('.add-checklist-form');
+            if( container.has(e.target).length === 0){
+	            $(".add-checklist-form").css("display", "none");
+	            $(".addChecklistBtn").css("display", "block");
+            }
+        }); 
         
         // + 카드 추가 버튼 누를 시
         function addCardArea(addCardBtn) {
@@ -371,21 +524,21 @@
         });
         
         // 추가(카드) 버튼 누를 시
-        $("body").on("click", ".onAddCard", function(e) {
-            var listNoOfAddCard = $(this).parents(".parentDrag").attr("data-index");
-            var content = $(this).parent().siblings("textarea").val();
-            var lastCardOrder = parseInt($(this).parents(".parentDrag").find(".childDrop").find("li:last-child").attr("data-order")) + 1;
+        function onAddCard(addCardBtn) {
+        	var listNoOfAddCard = $(addCardBtn).parents(".parentDrag").attr("data-index");
+            var content = $(addCardBtn).parent().siblings("textarea").val();
+            var lastCardOrder = parseInt($(addCardBtn).parents(".parentDrag").find(".childDrop").find("li:last-child").attr("data-order")) + 1;
             
             if(isNaN(lastCardOrder)) {
             	lastCardOrder = 1;
             }
             
             if(content == '') {
-                $(this).parent().siblings("textarea").focus();
+                $(addCardBtn).parent().siblings("textarea").focus();
                 return;
             }
 			
-            // $(this).parent().parent().siblings(".childDrop").append("<li data-toggle='modal' data-target='#cardModal'>" + content + "</li>");
+            $(addCardBtn).parent().parent().siblings(".childDrop").append("<li data-toggle='modal' data-target='#cardModal'>" + content + "</li>");
             $(".addCardForm").css("display", "none");
             $(".addCard").css("display", "block");  
             
@@ -398,6 +551,10 @@
 
 	            listListAndCardList();
 			}); 
+		};
+        
+        $("body").on("click", ".onAddCard", function(e) {
+        	onAddCard(this);
         });    
         
         // 취소(카드) 버튼 누를 시
@@ -413,6 +570,7 @@
             $(".cardContent-form").css("display", "none");
             $(".cardContent-div").css("display", "block");
             
+            $(this).parents(".btn-group").css("display", "none");
             $(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitleForm").css("display", "inline");
             $(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitle-span").css("display", "none");
             $(this).parents("h4.modal-title").siblings(".cardContent-form").css("display", "block");
@@ -428,6 +586,17 @@
             var modifyCardContent = $(this).parent(".md-rv-bnt").siblings(".cardContent-textarea").val();
             var modalId = $(this).parents(".modal").attr("id");
             
+            if(modifyCardTitle == '') {
+            	$(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitleForm").find(".modifyCardForm").focus();
+                return;
+            }
+            
+            if(modifyCardContent == '') {
+            	$(this).parent(".md-rv-bnt").siblings(".cardContent-textarea").focus();
+                return;
+            }
+            
+            $(this).parents(".cardContent-form").siblings(".modal-title").find(".btn-group").css("display", "block");
             $(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitle-span").text(modifyCardTitle);
             $(this).parents(".cardContent-form").siblings(".cardContent-div").find(".cardContent-span").text(modifyCardContent);
 	        
@@ -480,8 +649,14 @@
             var modifyListNo = $(this).parents(".parentDrag").attr("data-index");
             
             var modifyListTitle = $(this).siblings(".modifyListForm").val();
+            
+            if(modifyListTitle == '') {
+            	$(this).siblings(".modifyListForm").focus();
+                return;
+            }
+            
             $(this).parents(".listTitle").find(".listSubject").text(modifyListTitle);
-
+			
             $.ajax({
             	url: "/steach/class/group/modifyList.do",
             	data: {"listNo": modifyListNo, "listTitle": modifyListTitle}
@@ -521,18 +696,53 @@
 
             $(".addListBtn").css("display", "block");
             $(".addListForm").css("display", "none");
+            $(".parentDrop").append(` <li class="parentDrag">
+                    <div class="listTitle">
+                        <div class="listSubject">
+                            ` + content + `
+                        </div>
+                        <div class="listSubjectForm" style="display: none;">
+                            <textarea class='modifyListForm'>` + content + `</textarea><button class='btn btn-default btn-xs modifyListFormBtn'>수정</button>  
+                        </div>
+                        <div class="btn-group">
+                            <div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </div>
+                            <ul class="dropdown-menu" role="menu">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="connectedSortable childDrop">
+    　
+                    </ul>
+                    <div class="addCard">+ 카드 추가</div>
+                    <div class="addCardForm" style="display: none;">
+                        <textarea class='addCardTextarea'>
+                        </textarea>
+                        <div>
+                            <button class='btn btn-default onAddCard'>
+                                추가
+                            </button>
+                            <a>
+                                <i class='fas fa-times addCardCancel'>
+                                </i>
+                            </a>
+                        </div>
+                    </div>
+                </li>`);
+            
+            function fnMove() {
+                var offset = $(".addList").offset();
+                $('html, body').animate({scrollLeft : offset.left}, 400);
+            }
+            fnMove();
             
 			$.ajax({
 				url: "/steach/class/group/addList.do",
 				data: {"groupNo" : groupNo, "listTitle": content, "listOrder": nextLastListOrder}
 			})
 			.done(function(result) {
-				function fnMove() {
-	                var offset = $(".addList").offset();
-	                $('html, body').animate({scrollLeft : offset.left}, 400);
-	            }
-	            fnMove();
-
 	            listListAndCardList();
 			});
         });   
@@ -589,7 +799,6 @@
             // }, 100);
         });
 
-
         function updateScrollbar() {
             $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
                 scrollInertia: 10,
@@ -619,17 +828,17 @@
                 // setTimeout(function() {
                 //     fakeMessage();
                 // }, 1000 + (Math.random() * 20) * 100);
-            }
+        }
 
-            $('.message-submit').click(function() {
-            insertMessage();
-            });
+        $('.message-submit').click(function() {
+        	insertMessage();
+        });
 
-            $(window).on('keydown', function(e) {
+        $(".chat").on('keydown', function(e) {
             if (e.which == 13) {
                 insertMessage();
                 return false;
-            }
+            } 
         });
 
         // var Fake = [

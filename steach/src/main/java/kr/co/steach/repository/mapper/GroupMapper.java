@@ -3,6 +3,7 @@ package kr.co.steach.repository.mapper;
 import java.util.List;
 
 import kr.co.steach.repository.domain.GroupCard;
+import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
 
@@ -33,6 +34,14 @@ public interface GroupMapper {
 	
 	void insertCardComment(GroupComment groupComment);
 	
+	void updateCardComment(GroupComment groupComment);
+	
 	void deleteCardComment(GroupComment groupComment);
+	
+	List<GroupChecklist> cardchecklistList(GroupChecklist groupChecklist);
+	
+	void addCardChecklist(GroupChecklist groupChecklist);
+	
+	void updateChecklistStatus(GroupChecklist groupChecklist);
 	
 } // end interface
