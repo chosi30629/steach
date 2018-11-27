@@ -90,10 +90,7 @@
         </div>   
 
 
-            
-
-
-    
+           
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
@@ -103,110 +100,25 @@
                     </div>
                     
                     <!-- subject title -->
-                    <div class="accordion-head">
-                        <div class="title">
-                            <span class="title-name">Java Programming</span>   
-                            <div class="menu">
-                                <a href="titlePlus" data-toggle="modal" data-target="#titlePlusModal"><i class="fas fa-plus"></i></a>　
-                                <a href="titleElps" data-toggle="modal" data-target="#titleElpsModal"><i class="fas fa-ellipsis-v"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    <c:forEach var="sb" items="${subjectList}">
+                    	<div class="accordion-head">
+                    		<div class="title">
+                    			<span class="title-name">${sb.subject}</span>
+                    			<div class="menu">
+                    				<a href="titlePlus" data-toggle="modal" data-target="#titlePlusModal">
+                    					<i class="fas fa-plus"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    					<a href="titleElps" data-toggle="modal" data-target="#titleElpsModal">
+                    					<i class="fas fa-ellipsis-v"></i></a>　
+                    			</div>
+                    		</div><!-- title end -->
+                    	</div><!-- acc-headend -->
+                    </c:forEach>
 
-                    <div class="accordion" role="tablist">
-                        <div class="card">
-                            <div class="card-header" role="tab" data-toggle="collapse" href="#collapseOne" id="headingOne">
-                                <div class="subTitle">
-                                    <i class="fas fa-book fa-2x"></i>　
-                                    <a>1일차 java 수업자료</a>
-                                    <div class="menu">
-                                        <a href="subElps" data-toggle="modal" data-target="#subElpsModal"><i class="fas fa-ellipsis-v"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="collapseOne"  role="tabpanel" class="collapse">
-	                            <div class="card-body">
-	                                <div class="subTitle-time">
-	                                    <span>2018-11-17 18:26:11 작성됨</span>
-	                                </div>
-	                                <div class="subTitle-context">
-	                                    <span>여기는 내용이나옵니다.</span>
-	                                </div>
-	                                <div class="subTitle-attach">
-	                                    <span><i class="fas fa-paperclip"></i></span>
-	                                    <span><i class="fab fa-google-drive"></i></span>
-	                                </div>
-	                            </div>
-                            </div>
-                        </div>
-
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingTwo">
-                        <div class="subTitle">
-                            <i class="fas fa-edit fa-2x"></i>　
-                            <a class="collapsed" data-toggle="collapse" href="#collapseTwo">
-                            1일차 과제 
-                            </a>
-                            <div class="menu">
-                                <a href="subElps" data-toggle="modal" data-target="#subElpsModal"><i class="fas fa-ellipsis-v"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="collapseTwo" class="collapse" role="tabpanel">
-                    <div class="card-body">
-                        -  1일차 과제<br>
-                        ..<br>
-                        .....<br>
-                        <br><br>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingThree">
-                    <div class="subTitle">
-                        <i class="fas fa-video fa-2x"></i>　
-                        <a class="collapsed" data-toggle="collapse" href="#collapseThree">
-                            1일차 보충수업
-                        </a>
-                        <div class="menu">
-                            <a href="subElps" data-toggle="modal" data-target="#subElpsModal"><i class="fas fa-ellipsis-v"></i></a>
-                        </div>
-                    </div>
-                    </div>
-                    <div id="collapseThree" class="collapse" role="tabpanel">
-                    <div class="card-body">
-                        -  1일차 보충수업 ...ㅋㄷㅋㄷ.<br>
-                        <br>
-                        ㅁ<br>
-                        ㅁ<br>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                        <div class="card-header" role="tab" id="headingFour">
-                            <div class="subTitle">
-                                <i class="fas fa-vote-yea fa-2x"></i>　
-                                <a class="collapsed" data-toggle="collapse" href="#collapseFour">
-                                1일차 투표
-                                    </a>
-                                <div class="menu">
-                                    <a href="subElps" data-toggle="modal" data-target="#subElpsModal"><i class="fas fa-ellipsis-v"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="collapseFour" class="collapse in" role="tabpanel">
-                        <div class="card-body">
-                            - 1일 차 투표--<br>
-                            <input type="checkbox"/> 참
-                            <input type="checkbox"/> 불    
-                        </div>
-                        </div>
-                    </div>
-                      </div><!--.accordion end -->
-                  </div><!--offset -->
+                 
+                      
+        
+                      
+        			 </div><!-- col end -->
                 </div><!--row end -->
             </div><!--container end . -->
        
