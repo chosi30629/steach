@@ -29,6 +29,15 @@
 		<result column="card_comment_reg_date" property="cardCommentRegDate"/>
 	</resultMap>
 	
+	<resultMap type="GroupChecklist" id="groupChecklistMap">
+		<result column="card_checklist_no" property="cardChecklistNo"/>
+		<result column="card_no" property="cardNo"/>
+		<result column="card_checklist_writer" property="cardChecklistWriter"/>
+		<result column="card_checklist_title" property="cardChecklistTitle"/>
+		<result column="card_checklist_status" property="cardChecklistStatus"/>
+		<result column="card_checklist_reg_date" property="cardChecklistRegDate"/>
+	</resultMap>
+	
 	<!-- 리스트 목록 -->
 	<select id="listList" resultMap="groupListMap">
 		select * from tb_class_group_list order by list_order
@@ -113,11 +122,40 @@
 			#{cardNo}, 'chos', #{cardCommentContent}
 		)
 	</insert>
+		
+	<!-- 카드 댓글 수정 -->
+	<update id="updateCardComment" parameterType="GroupComment">
+		update tb_class_group_list_card_comment
+		   set card_comment_content = #{cardCommentContent}
+		 where card_comment_no = #{cardCommentNo}
+	</update>
 	
 	<!-- 카드 댓글 삭제 -->
 	<delete id="deleteCardComment" parameterType="GroupComment">
 		delete from tb_class_group_list_card_comment
 		 where card_comment_no = #{cardCommentNo}
 	</delete>
+	
+	<!-- 카드 체크리스트 목록 -->
+	<select id="cardchecklistList" resultMap="groupChecklistMap">
+		select * from tb_class_group_list_card_checklist
+		 where card_no = #{cardNo}
+	</select>	 
+	
+	<!-- 카드 체크리스트 추가 -->
+	<insert id="addCardChecklist" parameterType="GroupChecklist">
+		insert into tb_class_group_list_card_checklist (
+			card_no, card_checklist_writer, card_checklist_title
+		) values (
+			#{cardNo}, 'chos', #{cardChecklistTitle}
+		)
+	</insert>	 
+	
+	<!-- 카드 체크리스트 상태 수정 -->
+	<update id="updateChecklistStatus" parameterType="GroupChecklist">
+		update tb_class_group_list_card_checklist
+		   set card_checklist_status = #{cardChecklistStatus}
+		 where card_checklist_no = #{cardChecklistNo}
+	</update>	 
 	
 </mapper>

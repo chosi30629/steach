@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.steach.clazz.service.GroupService;
 import kr.co.steach.repository.domain.GroupCard;
+import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
 
@@ -168,11 +169,38 @@ public class GroupController {
 		return "댓글 추가 성공";
 	} // addCardComment
 	
+	@RequestMapping("modifyCardComment.do")
+	@ResponseBody
+	public String modifyCardComment(GroupComment groupComment) {
+		service.updateCardComment(groupComment);
+		return "댓글 수정 성공";
+	} // modifyCardComment
+	
 	@RequestMapping("removeCardComment.do")
 	@ResponseBody
 	public String removeCardComment(GroupComment groupComment) {
 		service.deleteCardComment(groupComment);
 		return "댓글 삭제 성공";
 	} // removeCardComment
+	
+	@RequestMapping("cardChecklistList.do")
+	@ResponseBody
+	public List<GroupChecklist> cardChecklistList(GroupChecklist groupChecklist) {
+		return service.cardchecklistList(groupChecklist);
+	} // cardChecklistList
+	
+	@RequestMapping("addChecklist.do")
+	@ResponseBody
+	public String addChecklist(GroupChecklist groupChecklist) {
+		service.addCardChecklist(groupChecklist);
+		return "체크리스트 추가 성공";
+	} // addChecklist
+	
+	@RequestMapping("modifyChecklistStatus.do")
+	@ResponseBody
+	public String modifyChecklistStatus(GroupChecklist groupChecklist) {
+		service.updateChecklistStatus(groupChecklist);
+		return "체크리스트 상태 변경 성공";
+	} // modifyChecklistStatus
 	
 } // end class

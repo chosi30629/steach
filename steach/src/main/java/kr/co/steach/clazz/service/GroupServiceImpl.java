@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.steach.repository.domain.GroupCard;
+import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
 import kr.co.steach.repository.mapper.GroupMapper;
@@ -31,7 +32,6 @@ public class GroupServiceImpl implements GroupService {
 		mapper.insertList(groupList);
 	} // insertList
 	
-
 	@Override
 	public void updateList(GroupList groupList) {
 		mapper.updateList(groupList);
@@ -83,8 +83,28 @@ public class GroupServiceImpl implements GroupService {
 	} // insertCardComment
 
 	@Override
+	public void updateCardComment(GroupComment groupComment) {
+		mapper.updateCardComment(groupComment);
+	} // updateCardComment
+	
+	@Override
 	public void deleteCardComment(GroupComment groupComment) {
 		mapper.deleteCardComment(groupComment);
 	} // deleteCardComment
+
+	@Override
+	public List<GroupChecklist> cardchecklistList(GroupChecklist groupChecklist) {
+		return mapper.cardchecklistList(groupChecklist);
+	} // cardchecklistList
+
+	@Override
+	public void addCardChecklist(GroupChecklist groupChecklist) {
+		mapper.addCardChecklist(groupChecklist);
+	} // addCardChecklist
+	
+	@Override
+	public void updateChecklistStatus(GroupChecklist groupChecklist) {
+		mapper.updateChecklistStatus(groupChecklist);
+	} // updateChecklistStatus
 
 } // end class
