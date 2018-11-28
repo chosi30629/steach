@@ -18,6 +18,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
+    <style type="text/css">
+    .modal-backdrop {
+    	position: fixed;
+    }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -138,12 +143,21 @@
 					
 					for(var j = 0; j < cardList.length; j++) {
 						if(cardList[j].cardContent == null) {
-							cardList[j].cardContent = "<button>내용입력</button>";	
+							cardList[j].cardContent = "<a class='cardContent-null' href='#'>내용을 등록하세요.</a>";	
 						}
 						if(listList[i].listNo == cardList[j].listNo) {
 							// $("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
-							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control addChecklist-form" placeholder="체크리스트 추가"><span class="input-group-btn addChecklist-group"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
+							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a id="modifyCard' + j + '" class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span id="cardContent' + j + '" class="cardContent-span" style="white-space: pre-line;">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea id="cardContent-textarea' + j + '" class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button id="onModifyCardContent' + j + '" class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control addChecklist-form" placeholder="체크리스트 추가"><span class="input-group-btn addChecklist-group"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
+						}
+						if($("#cardContent" + j).text() == "내용을 등록하세요.") {
+							$("#modifyCard" + j).text("등록");
+							$("#onModifyCardContent" + j).text("등록");
+							$("#cardContent-textarea" + j).val("");
+							$("#cardContent-textarea" + j).attr("placeholder", "내용을 입력하세요.");
+						} else {
+							$("#modifyCard" + j).text("수정");
+							$("#onModifyCardContent" + j).text("수정");
 						}
 					}
 				} 
@@ -192,7 +206,7 @@
 					commentList += "<tr><td><div>";
 					commentList += result[c].cardCommentWriter + "&nbsp;&nbsp;<span>";
 					commentList += $.format.date(result[c].cardCommentRegDate, "yyyy-MM-dd HH:mm:ss");
-					commentList += "</span></div><div class='comment-content-div'>";
+					commentList += "</span></div><div class='comment-content-div' style='white-space: pre-line;'>";
 					commentList += result[c].cardCommentContent;
 					commentList += "</div><input type='hidden' class='commentNo' value='" + result[c].cardCommentNo + "'/>";
 					commentList += "<div class='comment-update-form' style='display: none;'><textarea class='modify-content'>" + result[c].cardCommentContent + "</textarea></div>";
@@ -245,6 +259,8 @@
 			var commentModalId = $(this).parents(".modal").attr("id");
 			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
 			var addCommentContent = $(this).siblings(".comment-textarea").val();
+			
+			// addCommentContent = addCommentContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 			
             if(addCommentContent == '') {
             	$(this).siblings(".comment-textarea").focus();
@@ -652,6 +668,12 @@
             $(".addCard").css("display", "block");
         });    
 		
+        // 카드내용 Null 일시 자동 수정 버튼 클릭 
+        $("body").on("click", ".cardContent-null", function(e) {
+        	e.preventDefault();
+			$(".modifyCard").click();
+		});
+        
         // ... 카드 수정 버튼 누를 시
         $("body").on("click", ".modifyCard", function(e) {
             $(".cardTitle-span").css("display", "inline");
@@ -675,6 +697,9 @@
             var modifyCardContent = $(this).parent(".md-rv-bnt").siblings(".cardContent-textarea").val();
             var modalId = $(this).parents(".modal").attr("id");
             
+ 	        $(this).parents(".cardContent-form").siblings(".modal-title").find(".btn-group").find(".dropdown-menu").find(".text-center").find(".modifyCard").text("수정");
+            $(this).text("수정");
+ 	        
             if(modifyCardTitle == '') {
             	$(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitleForm").find(".modifyCardForm").focus();
                 return;
