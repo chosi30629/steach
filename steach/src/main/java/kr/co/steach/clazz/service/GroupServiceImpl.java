@@ -107,4 +107,14 @@ public class GroupServiceImpl implements GroupService {
 		mapper.updateChecklistStatus(groupChecklist);
 	} // updateChecklistStatus
 
+	@Override
+	public void updateCardChecklist(GroupChecklist groupChecklist) {
+		mapper.updateCardChecklist(groupChecklist);
+	} // updateCardChecklist
+	
+	@Override
+	public void deleteCardChecklist(GroupChecklist groupChecklist) {
+		mapper.deleteCardChecklist(groupChecklist);
+	} // deleteCardChecklist
+
 } // end class

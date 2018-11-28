@@ -18,15 +18,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
-    <style type="text/css">
-    
-.addChecklist:hover {
-    cursor: pointer;
-}
-.addChecklist:hover h4 {
-    font-weight: bold;
-}
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -146,10 +137,13 @@
 					$parentDrop.append('<li class="parentDrag" data-index="' + listList[i].listNo + '" data-order="' + listList[i].listOrder + '">' + '<div class="listTitle"><div class="listSubject">' + listList[i].listTitle + '</div>' + '<span class="listSubjectForm" style="display: none;"><textarea class="modifyListForm">' + listList[i].listTitle + '</textarea><button class="btn btn-default btn-xs modifyListFormBtn">수정</button></span>' + '<div class="btn-group"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div>' + '<ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyList" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeList" href="#">삭제</a></li></ul></div></div>' + '<ul class="connectedSortables childDrop" id="childDrop' + i + '">' + '　' + '</ul><div class="addCard">+ 카드 추가</div><div class="addCardForm" style="display: none;"><textarea class="addCardTextarea"></textarea><div><button class="btn btn-default onAddCard">추가</button><a><i class="fas fa-times addCardCancel"></i></a></div></div></li>');
 					
 					for(var j = 0; j < cardList.length; j++) {
+						if(cardList[j].cardContent == null) {
+							cardList[j].cardContent = "<button>내용입력</button>";	
+						}
 						if(listList[i].listNo == cardList[j].listNo) {
 							// $("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
-							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control" placeholder="체크리스트 추가"><span class="input-group-btn"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
+							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span class="cardContent-span">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="my_filename"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled" style="overflow: scroll"></div><label for="drive_filename"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control addChecklist-form" placeholder="체크리스트 추가"><span class="input-group-btn addChecklist-group"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
 						}
 					}
 				} 
@@ -224,15 +218,16 @@
 				for(var l = 0; l < result.length; l++) {
 					checklistList += "<div class='checkbox'>";
 					if(result[l].cardChecklistStatus == 0) {
-						checklistList += "<label class='checklist-label' style='font-size: 1.5em; line-height: 27.3px; margin-top: 5px;'>";
+						checklistList += "<label class='checklist-label' style='font-size: 1.5em; line-height: 25.3px; margin-top: 3px; margin-bottom: 3px;'>";
 						checklistList += "<input type='checkbox' value=''/>";
 					} else {
-						checklistList += "<label class='checklist-label' style='font-size: 1.5em; line-height: 27.3px; margin-top: 5px; text-decoration: line-through;'>";
+						checklistList += "<label class='checklist-label' style='font-size: 1.5em; line-height: 25.3px; margin-top: 3px; margin-bottom: 3px; text-decoration: line-through;'>";
 						checklistList += "<input type='checkbox' value='' checked/>";
 					}
 					checklistList += "<span class='cr'><i class='cr-icon fa fa-check'></i></span>";
-					checklistList += result[l].cardChecklistTitle;
-					checklistList += "</label><input type='hidden' class='checklist-no' value='" + result[l].cardChecklistNo + "'><input type='hidden' class='checklist-status' value='" + result[l].cardChecklistStatus + "'></div>";
+					checklistList += "<div class='check-title'>" + result[l].cardChecklistTitle + "</div>";
+					checklistList += "</label><div class='input-group checklist-update-group' style='display: none;'><input type='text' class='form-control checklist-update-form' value='" + result[l].cardChecklistTitle + "'><span class='input-group-btn'><button class='btn btn-default onModifyChecklist' type='button'>수정</button></span></div>";
+					checklistList += "<span class='checklist-controller' style='display: none;'><button class='btn btn-default btn-xs checklist-update'>수정</button><button class='btn btn-default btn-xs checklist-remove'>삭제</button></span><input type='hidden' class='checklist-no' value='" + result[l].cardChecklistNo + "'><input type='hidden' class='checklist-status' value='" + result[l].cardChecklistStatus + "'></div>";
 				}
 				
 				$(".checkbox-list").html(checklistList);
@@ -355,17 +350,17 @@
             $(".form-control").focus();
         });
 		
-		$("body").on("click", ".onAddChecklist", function() {
-			var checklistModalId = $(this).parents(".modal").attr("id");
+		function addCheckList(onAddChecklist) {
+			var checklistModalId = $(onAddChecklist).parents(".modal").attr("id");
 			var checklistCardNo = $("li[data-target='#" + checklistModalId + "']").attr("data-index");
-			var checklistTitle = $(this).parent(".input-group-btn").siblings(".form-control").val();
+			var checklistTitle = $(onAddChecklist).parent(".input-group-btn").siblings(".form-control").val();
 
 	   	 	if(checklistTitle == '') {
-	   	 		$(this).parent(".input-group-btn").siblings(".form-control").focus();
+	   	 		$(onAddChecklist).parent(".input-group-btn").siblings(".form-control").focus();
                 return;
             }
 			 
-            $(this).parent(".input-group-btn").siblings(".form-control").val("");
+            $(onAddChecklist).parent(".input-group-btn").siblings(".form-control").val("");
 
 			$.ajax({
 				url: "/steach/class/group/addChecklist.do",
@@ -379,7 +374,84 @@
 	            $(".add-checklist-form").css("display", "none");
 	            $(".addChecklistBtn").css("display", "block");
 			});
+		};
+		
+		$("body").on("click", ".onAddChecklist", function() {
+			addCheckList(this);
 		});
+		
+		// 체크리스트 추가폼에서 엔터 쳐도 체크리스트 추가
+        $(document).on('keydown', '.addChecklist-form', function(e) {
+            if (e.which == 13) {
+            	var onAddChecklist = $(this).siblings(".input-group-btn").find(".onAddChecklist");
+            	addCheckList(onAddChecklist);
+            } 
+        });
+		
+		// 체크리스트 수정/삭제 버튼 컨트롤
+		$(document).on("mouseover", ".checkbox", function() {
+			$(this).find(".checklist-controller").css("display", "inline");
+			$(this).css("background-color", "#f5f5f5");
+			$(this).on("mouseout", function() {
+				$(this).find(".checklist-controller").css("display", "none");
+				$(this).css("background-color", "white");
+			});
+		});
+		
+		// 체크리스트 삭제
+		$(document).on("click", ".checklist-remove", function() {
+			var checklistModalId = $(this).parents(".modal").attr("id");
+			var checklistCardNo = $("li[data-target='#" + checklistModalId + "']").attr("data-index");
+			var removeChecklistNo = $(this).parent(".checklist-controller").siblings(".checklist-no").val();
+			
+			$.ajax({
+				url: "/steach/class/group/removeChecklist.do",
+				data: {"cardChecklistNo": removeChecklistNo}
+			})
+			.done(function(result) {
+				console.log(result);
+				checklist(checklistCardNo);
+			});
+		});
+		
+		// 체크리스트 수정
+		$(document).on("click", ".checklist-update", function(e) {
+			$(".checklist-update-group").css("display", "none");
+			$(".checklist-label").css("display", "inline-block");
+			
+			$(this).parents(".checklist-controller").find("button").css("display", "none");
+			$(this).parents(".checklist-controller").siblings(".checklist-update-group").css("display", "table");
+			$(this).parents(".checklist-controller").siblings(".checklist-label").css("display", "none");
+			$(this).parents(".checklist-controller").siblings(".checklist-update-group").find(".checklist-update-form").focus();
+		});
+		
+		function modifyChecklist(onModifyChecklist) {
+			var checklistModalId = $(onModifyChecklist).parents(".modal").attr("id");
+			var checklistCardNo = $("li[data-target='#" + checklistModalId + "']").attr("data-index");
+			var updateChecklistNo = $(onModifyChecklist).parents(".checklist-update-group").siblings(".checklist-no").val();
+			var updateChecklistTitle = $(onModifyChecklist).parent("span").siblings(".checklist-update-form").val();
+			
+			$.ajax({
+				url: "/steach/class/group/modifyChecklist.do",
+				data: {"cardChecklistNo": updateChecklistNo, "cardChecklistTitle": updateChecklistTitle}
+			})
+			.done(function(result) {
+				console.log(result);
+				checklist(checklistCardNo);
+			});  
+		};
+		
+		$(document).on("click", ".onModifyChecklist", function() {
+			modifyChecklist(this);
+		});
+		
+		// 체크리스트 수정폼에서 엔터 쳐도 체크리스트 수정
+        $(document).on('keydown', '.checklist-update-form', function(e) {
+            if (e.which == 13) {
+            	var onModifyChecklist = $(this).siblings(".input-group-btn").find(".onModifyChecklist");
+            	modifyChecklist(onModifyChecklist);
+            } 
+        });
 		
         // 트렐로 형식 드래그 앤 드롭
         $(function () {
@@ -506,6 +578,14 @@
 	            $(".addChecklistBtn").css("display", "block");
             }
         }); 
+        $(document).mousedown(function (e) {
+            var container = $('.checklist-update-group');
+            if( container.has(e.target).length === 0){
+    			$(".checklist-update-group").css("display", "none");
+    			$(".checklist-label").css("display", "inline-block");
+    			$(".checklist-controller").find("button").css("display", "block");
+            }
+        }); 
         
         // + 카드 추가 버튼 누를 시
         function addCardArea(addCardBtn) {
@@ -544,7 +624,7 @@
             
             $.ajax({
             	url: "/steach/class/group/addCard.do",
-            	data: {"listNo" : listNoOfAddCard, "cardTitle": content, "cardContent": "내용을 추가하세요.", "cardOrder": lastCardOrder}
+            	data: {"listNo" : listNoOfAddCard, "cardTitle": content, "cardOrder": lastCardOrder}
             })
             .done(function(result) {
 				console.log(result);
@@ -553,10 +633,19 @@
 			}); 
 		};
         
+		// 카드 추가
         $("body").on("click", ".onAddCard", function(e) {
         	onAddCard(this);
         });    
         
+     	// 카드 추가폼에서 엔터 쳐도 카드 추가
+        $(document).on('keydown', '.addCardTextarea', function(e) {
+            if (e.which == 13) {
+            	var addCardFormBtn = $(this).siblings("div").find(".onAddCard");
+            	onAddCard(addCardFormBtn);
+            } 
+        });
+     	
         // 취소(카드) 버튼 누를 시
         $("body").on("click", ".addCardCancel", function(e) {
             $(".addCardForm").css("display", "none");
@@ -646,21 +735,34 @@
 
         // 수정(리스트) 버튼 누를 시
         $("body").on("click", ".modifyListFormBtn", function(e) {
-            var modifyListNo = $(this).parents(".parentDrag").attr("data-index");
-            
-            var modifyListTitle = $(this).siblings(".modifyListForm").val();
-            
-            if(modifyListTitle == '') {
-            	$(this).siblings(".modifyListForm").focus();
-                return;
-            }
-            
-            $(this).parents(".listTitle").find(".listSubject").text(modifyListTitle);
+        	updateList(this);
+        });  
+
+        // 리스트 수정폼에서 엔터 쳐도 리스트 수정
+        $(document).on('keydown', '.modifyListForm', function(e) {
+            if (e.which == 13) {
+            	console.log("asdf");
+            	var modifyListFormBtn = $(this).siblings(".modifyListFormBtn")
+            	updateList(modifyListFormBtn);
+            } 
+        });
+		
+        function updateList(btn) {
+	        var modifyListNo = $(btn).parents(".parentDrag").attr("data-index");
+	        
+	        var modifyListTitle = $(btn).siblings(".modifyListForm").val();
+	        
+	        if(modifyListTitle == '') {
+	        	$(btn).siblings(".modifyListForm").focus();
+	            return;
+	        }
+	        
+	        $(btn).parents(".listTitle").find(".listSubject").text(modifyListTitle);
 			
-            $.ajax({
-            	url: "/steach/class/group/modifyList.do",
-            	data: {"listNo": modifyListNo, "listTitle": modifyListTitle}
-            }).done(function(result) {
+	        $.ajax({
+	        	url: "/steach/class/group/modifyList.do",
+	        	data: {"listNo": modifyListNo, "listTitle": modifyListTitle}
+	        }).done(function(result) {
 	            console.log(result);
 	            
 	            listListAndCardList();
@@ -668,8 +770,8 @@
 	            $(".listSubjectForm").css("display", "none");
 	            $(".listSubject").css("display", "inline");
 			});
-        });  
-
+        }
+        
         // + 리스트 추가 버튼 누를 시
         function addListArea(addListBtn) {
             $(".addList").css("display", "block");
@@ -683,14 +785,14 @@
         $("body").on("click", ".addListBtn", function(e) {
             addListArea(this);
         });
-
+     	
         // 추가(리스트) 버튼 누를 시
-        $("body").on("click", ".onAddList", function(e) {
-            var content = $(this).parent().siblings("textarea").val();
+        function addList(onAddList) {
+        	var content = $(onAddList).parent().siblings("textarea").val();
             var groupNo = "${listList[0].groupNo}";
         	
             if(content == '') {
-                $(this).parent().siblings("textarea").focus();
+                $(onAddList).parent().siblings("textarea").focus();
                 return;
             }
 
@@ -743,10 +845,23 @@
 				data: {"groupNo" : groupNo, "listTitle": content, "listOrder": nextLastListOrder}
 			})
 			.done(function(result) {
+				console.log(result);
 	            listListAndCardList();
 			});
+		};
+        
+        $("body").on("click", ".onAddList", function(e) {
+        	addList(this);
         });   
 
+        // 리스트 추가폼에서 엔터 쳐도 리스트 추가
+        $(document).on('keydown', '.addListTextarea', function(e) {
+            if (e.which == 13) {
+            	var addListFormBtn = $(this).siblings("div").find(".onAddList");
+            	addList(addListFormBtn);
+            } 
+        });
+        
         // 취소(리스트) 버튼 누를 시
         $("body").on("click", ".addListCancel", function(e) {
             $(".addListForm").css("display", "none");

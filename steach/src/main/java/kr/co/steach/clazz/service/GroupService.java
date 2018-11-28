@@ -43,5 +43,9 @@ public interface GroupService {
 	void addCardChecklist(GroupChecklist groupChecklist);
 	
 	void updateChecklistStatus(GroupChecklist groupChecklist);
+
+	void updateCardChecklist(GroupChecklist groupChecklist);
+	
+	void deleteCardChecklist(GroupChecklist groupChecklist);
 	
 } // end interface

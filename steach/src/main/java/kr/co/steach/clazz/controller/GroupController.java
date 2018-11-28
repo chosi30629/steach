@@ -202,5 +202,19 @@ public class GroupController {
 		service.updateChecklistStatus(groupChecklist);
 		return "체크리스트 상태 변경 성공";
 	} // modifyChecklistStatus
+
+	@RequestMapping("modifyChecklist.do")
+	@ResponseBody
+	public String modifyChecklist(GroupChecklist groupChecklist) {
+		service.updateCardChecklist(groupChecklist);
+		return "체크리스트 수정 성공";
+	} // modifyChecklist
+	
+	@RequestMapping("removeChecklist.do")
+	@ResponseBody
+	public String removeChecklist(GroupChecklist groupChecklist) {
+		service.deleteCardChecklist(groupChecklist);
+		return "체크리스트 삭제 성공";
+	} // removeCard
 	
 } // end class

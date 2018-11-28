@@ -80,9 +80,9 @@
 	<!-- 카드 추가 -->
 	<insert id="insertCard" parameterType="GroupCard">
 		insert into tb_class_group_list_card (
-			list_no, card_writer, card_title, card_content, card_order
+			list_no, card_writer, card_title, card_order
 		) values (
-			#{listNo}, 'chos', #{cardTitle}, #{cardContent}, #{cardOrder}
+			#{listNo}, 'chos', #{cardTitle}, #{cardOrder}
 		)
 	</insert>
 	
@@ -157,5 +157,17 @@
 		   set card_checklist_status = #{cardChecklistStatus}
 		 where card_checklist_no = #{cardChecklistNo}
 	</update>	 
+		
+	<!-- 카드 체크리스트 수정 -->
+	<update id="updateCardChecklist" parameterType="GroupChecklist">
+		update tb_class_group_list_card_checklist
+		   set card_checklist_title = #{cardChecklistTitle}
+		 where card_checklist_no = #{cardChecklistNo}
+	</update>
 	
+	<!-- 카드 체크리스트 삭제 -->
+	<delete id="deleteCardChecklist" parameterType="GroupChecklist">
+		delete from tb_class_group_list_card_checklist
+		 where card_checklist_no = #{cardChecklistNo}
+	</delete>	
 </mapper>
