@@ -195,8 +195,10 @@
 	</delete>	
 	
 	<!-- 조별 메인 그룹 -->
-	<select id="groupList" resultMap="groupMap">
-		select * from tb_class_group
+	<select id="groupList" parameterType="int" resultMap="groupMap">
+		select * 
+		  from tb_class_group
+		 where class_no = #{classNo}
 	</select>
 	
 	<!-- 조별 메인 그룹 인원 -->

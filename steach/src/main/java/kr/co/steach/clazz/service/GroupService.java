@@ -50,7 +50,7 @@ public interface GroupService {
 	
 	void deleteCardChecklist(GroupChecklist groupChecklist);
 
-	List<Group> groupList();
+	List<Group> groupList(int classNo);
 
 	List<GroupMember> groupMember(GroupMember groupMember);
 	

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.steach.clazz.service.GroupService;
 import kr.co.steach.clazz.service.MemberService;
+import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
@@ -41,9 +42,9 @@ public class GroupController {
 	
 	
 	@RequestMapping("groupMain.do")
-	public void groupMain(Model model) {
+	public void groupMain(Model model, Group group) {
 		List<GroupMember> studentList = service.groupMemberList();
-		model.addAttribute("groupList", service.groupList());
+		model.addAttribute("groupList", service.groupList(1));
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("groupNo", studentList.get(0).getGroupNo());
 		System.out.println("그룹메인~");

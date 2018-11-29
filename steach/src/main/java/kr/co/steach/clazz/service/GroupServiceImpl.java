@@ -125,13 +125,13 @@ public class GroupServiceImpl implements GroupService {
 	} // groupMemberList
 
 	@Override
-	public List<Group> groupList() {
-		return mapper.groupList();
+	public List<Group> groupList(int classNo) {
+		return mapper.groupList(classNo);
 	} // groupList
 
 	@Override
 	public List<GroupMember> groupMember(GroupMember groupMember) {
 		return mapper.groupMember(groupMember);
-	}
+	} // groupMember
 
 } // end class

@@ -166,16 +166,18 @@ l0,-61 L40,28" />
         // wow.js
         new WOW().init();
         
-        // 클래스 멤버 뿌리기
+        // 클래스 멤버 textarea(랜덤 설정 해주는 곳)에 뿌리기
         if(${groupNo} != 0) {
         	$("#studentList, .parentDrop").toggle();
         }
         var students = "";
-		<c:forEach var="student" items="${studentList}" varStatus="loop">
-			students += "${student.groupMemberId}"; 
-			<c:if test="${loop.last == false}">
-				students += "\n"; 
-			</c:if>
+		<c:forEach var="group" items="${groupList}" varStatus="loop">
+			<c:forEach var="student" items="${groupList[loop.index].groupMember}">
+				students += "${student.name}"; 
+				<c:if test="${loop.last == false}">
+					students += "\n"; 
+				</c:if>
+			</c:forEach>
 		</c:forEach>
 		$("#students").text(students);
         
@@ -247,7 +249,7 @@ l0,-61 L40,28" />
                     }
                 });
                 
-                console.log(i + 1); // 그룹 시퀀스!
+                // console.log(i + 1); // 그룹 시퀀스!
             }
             
             $(".parentDrag:nth-child(1n) .childDrop").addClass("wow rotateInDownLeft");
@@ -257,7 +259,6 @@ l0,-61 L40,28" />
             $(".parentDrag:nth-child(5n) .childDrop").addClass("wow rotateInUpLeft");
             $(".parentDrag:nth-child(6n) .childDrop").addClass("wow rotateInUpRight");
             
-           
             // 트렐로 형식 드래그 앤 드롭
             $(function () {
                 $(".childDrop").sortable({

@@ -687,7 +687,7 @@
             $(this).parents("h4.modal-title").siblings(".cardContent-form").css("display", "block");
             $(this).parents("h4.modal-title").siblings(".cardContent-div").css("display", "none");
             
-            $(".modifyCardForm").focus();
+            $(".cardContent-textarea").focus();
         }); 
         
         // 수정(카드) 버튼 누를 시
