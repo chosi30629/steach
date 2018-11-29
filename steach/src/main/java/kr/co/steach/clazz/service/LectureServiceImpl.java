@@ -42,20 +42,46 @@ public class LectureServiceImpl implements LectureService {
 		map.put("boardList", mapper.selectLectureBoardByClassNo(classNo));
 		return map;
 	}
-
-	@Override
-	public void insertLecture(Lecture lecture) {
-		mapper.insertLecture(lecture);	
-	}
-
-	
-
-/*	@Override
+	/*	@Override
 	public Clazz selectClassbyClassNo(int classNo) {
 		System.out.println("impl");
 		return cMapper.selectClassbyClassNo(classNo);
 	}*/
 	
+	@Override
+	public void insertLecture(Lecture lecture) {
+		mapper.insertLecture(lecture);	
+	}
+
+	@Override
+	public void updateLectureSubject(Lecture lecture) {
+		mapper.updateLectureSubject(lecture);
+	}
+
+	@Override
+	public void deleteLecture(int lecNo) {
+		mapper.deleteLecture(lecNo);
+		
+	}
+
+	@Override
+	public void insertLectureBoard(LectureBoard lectureBoard) {
+		mapper.insertLectureBoard(lectureBoard);
+	}
+
+	@Override
+	public void deleteLectureBoard(int boardNo) {
+		mapper.deleteLectureBoard(boardNo);
+	}
+
+	@Override
+	public LectureBoard selectLectureBoardByBNo(int boardNo) {
+		return mapper.selectLectureBoardByBNo(boardNo);
+	}
+
+	
+
+
 	
 	
 	

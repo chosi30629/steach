@@ -23,4 +23,21 @@ public interface LectureService {
 	/* insertLecture */
 	
 	void insertLecture(Lecture lecture);
+	
+	/* update lecture */
+	void updateLectureSubject(Lecture lecture);
+	
+	/* delete lecture */
+	
+    void deleteLecture(int lecNo);
+    
+    /* insert lecture board */
+    void insertLectureBoard(LectureBoard lectureBoard);
+    
+    
+    /* delete lecture board */
+    void deleteLectureBoard(int boardNo);
+    
+    /* select lecture board by bno */
+    LectureBoard selectLectureBoardByBNo(int boardNo);
 }

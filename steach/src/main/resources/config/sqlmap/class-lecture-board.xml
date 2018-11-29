@@ -62,6 +62,63 @@
 												#{master}
 															) 
 						
-	</insert>	
+	</insert>
+	
+	<!-- update Subject -->
+	<update id="updateLectureSubject" parameterType="Lecture">
+		update tb_class_lecture
+		   set subject=#{subject}
+		 where lec_no=#{lecNo}
+	</update>	
+	
+	<!-- delete Subject -->
+	<delete id="deleteLecture" parameterType="int">
+		delete from tb_class_lecture
+		 where lec_no=#{lecNo}
+	</delete>
+	
+	
+	<!--  board 등록  -->
+	<insert id="insertLectureBoard" parameterType="LectureBoard">
+		insert into tb_class_lecture_board(
+										   lec_no,
+										   p_no,
+										   title,
+										   content,
+										   deadline,
+										   mem_cnt
+										   ) values(
+										   			#{lecNo},
+										   			#{pNo},
+										   			#{title},
+										   			#{content},
+										   			#{deadline},
+										   			#{memCnt}
+										   						)	
+	</insert>
+	
+	<!-- board 삭제 -->
+	<delete id="deleteLectureBoard" parameterType="int">
+		delete from tb_class_lecture_board
+		 where board_no = #{boardNo}
+	
+	</delete>
+	
+	<!-- board 검색 수정폼 데이터 불러오기 -->
+	<select id="selectLectureBoardByBNo" parameterType="int" resultMap="lectureBoardMap">
+		select board_no,p_no,title,content,deadline,mem_cnt
+		  from tb_class_lecture_board
+		 where board_no=#{boardNo}
+	</select>
+	
+	<!-- board 수정하기  -->
+	<update id="updateLectureBoard" parameterType="LectureBoard">
+		update tb_class_lecture_board
+		   set  p_no=#{pNo}, title=#{title}, content=#{content},deadline=#{deadline},mem_cnt=#{memCnt}
+		 where board_no=#{boardNo}
+	</update>
+	
+	
+	
 	
 </mapper>

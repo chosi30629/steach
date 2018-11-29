@@ -33,7 +33,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#">출결현황</a></li>
                         <li class="divider"></li>
-                        <li><a href="<c:url value='/class/group/groupActivity.do'/>">조별활동</a></li>
+                        <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li>
                     </ul>
                 </li>
                 <li class="nbsp"> </li>

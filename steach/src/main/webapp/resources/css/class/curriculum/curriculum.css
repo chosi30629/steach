@@ -11,6 +11,11 @@ body{
     /* 배경 가득 채움 */
     background-size: cover;
 }
+.bg-button {
+	position: absolute;
+    top: 335px;
+	
+}
 .calendar-section,.seat-section{
     margin-top:20px;
 }

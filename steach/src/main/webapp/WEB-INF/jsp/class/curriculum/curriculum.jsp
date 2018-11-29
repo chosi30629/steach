@@ -34,7 +34,7 @@
 		<div class="row">
 			<!-- bg -->
 			<div class="bg-section"></div>
-			<div>
+			<div class="bg-button">
 				<button id="prev" type="button" class="btn"><</button>
 				<button id="next" type="button" class="btn">></button>
 
