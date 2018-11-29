@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <title>내 드라이브 - Steach 드라이브</title>
-  
   <script src="/steach/resources/fancytree/lib/jquery.js"></script>
   <script src="/steach/resources/fancytree/lib/jquery-ui.custom.js"></script>
   <script src="/steach/resources/fancytree/src/jquery-ui-dependencies/jquery.fancytree.ui-deps.js"></script>
@@ -30,9 +29,7 @@
 </head>
 
 <body>
-	<c:if test="${user == null}">
-				<c:redirect url="/home/home.do"></c:redirect>
-			</c:if>
+	
 			
     <div class="realheader">
       <div class="outheader">
@@ -101,7 +98,8 @@
        
           </div>
 
-         <div id="tree"></div>
+         <div id="tree">
+         </div>
          
          <hr>
           <div class="icon">
@@ -115,7 +113,8 @@
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
               </div>
              <div>
-               15GB 중 732.7MB 사용중
+             
+               ${usableSpace} 중 732.7MB 사용중
               </div>
             </div> 
           </div>  
@@ -188,8 +187,21 @@
                   <div>세부정보</div>
                   <div>활동</div>
                 </div>
-
-                <div class="trClickDetailContent">폴더를 추가하였습니다</div>
+				
+				<!-- 작업중 -->
+                <div class="trClickDetailContent">폴더를 추가하였습니다 <br> 
+                <c:forEach var="item" items="${subFiles}">${item.getCanonicalPath()}, 
+                <jsp:useBean id="dateValue" class="java.util.Date"/>	
+				<jsp:setProperty name="dateValue" property="time" value="${item.lastModified()}"/>
+				<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dateValue}" />
+				용량${item.length()}
+				<c:choose>
+					<c:when test="${item.isDirectory()==true}">folder</c:when>
+					<c:otherwise>file</c:otherwise>
+				</c:choose>
+				<br><br>
+                </c:forEach>
+                </div>
                 
 
               </div><!-- right sidebar -->
@@ -245,7 +257,6 @@ $('.myModal').modal({
 })    
 }
 
- 
 
 $(document).ready(function(){
 
@@ -265,12 +276,11 @@ $(document).ready(function(){
             } //if
             }) 
           
-// 새로만들기 버튼 클릭시를 구현할 거예요!
+// 새로 만들기 버튼 클릭시를 구현할 거예요!
 $('.addFolder').click(function(){
   
   $(this).parent().parent().modal('hide');
-  
-  inputModal()
+  inputModal();
 
 // 모달창은 autofocus 안먹혀서 따로 처리
 function addTextBefore(e) {
@@ -283,54 +293,61 @@ addTextBefore()
       if (e.keyCode == 27) 
       $('.myModal').modal('hide') 
   }); 
-  
 })
 
-  //.AfterMakeIt 클릭시 
+  //새로만들기모달  .AfterMakeIt (폴더 만들기) 클릭시 
   //.addTextBefore 의 myModal 내의 input:value 를 가져와서 폴더 만들기 
    var num = 0;
+  
     $('.AfterMakeIt').click(function(){
     	
+    	// input창에 공백으로 폴더를 생성할경우 false 반환
     	if($(".addTextBefore").val() == "" || $(".addTextBefore").val().trim() == "" ){
     		alert("이름을 지어주세요!")
     		return false
     	}
     	
-    	num++;
-       	$('tbody').append('<tr class="ggg">' 
-        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_'+num+'">'+$(".addTextBefore").val()+'</span></td>'
-        +  '<td class="owner" class="text-center">나</td>'
-        +  '<td class="date" class="text-center">2018/11/14</td>'
-        +  '<td class="val" class="text-center">100mb</td>'
-        +  '</tr>');
-
     	var node = $("#tree").fancytree("getActiveNode");
     	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
-    	
-    	console.dir(node);
-
     	var childNode = node.addChildren({
             title: $(".addTextBefore").val(),
 //             tooltip: $(".addTextBefore").val(),
             id : "test_"+num,
-//             path : "test"
             folder: true
          });
-       
-//         console.dir(childNode.getKeyPath(true));
-        $('.picOuter').css("display", "none");
-        $('.addTextBefore').val('제목없는 폴더');
-        $(this).parent().parent().parent().modal('hide');
-        
-
-     	// ajax 호출하기
+    	
+    //  path
+    		 var arrPath = [];
+//             console.log(childNode.getKeyPath(false).split("/"))
+            for(var i = 1 ; i< childNode.getKeyPath(false).split("/").length ; i++ ){
+//             	console.log( i , $("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).title);
+            	arrPath.push($("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).title)
+            }
+             var path = arrPath.join('\\');
+    	      console.log(path);
+           
+    // ajax 호출하기 makedir
         	
         	$.ajax({
         		url: '<c:url value="/drive/makedir.do" />',
-//         		data: 
-        	});
-     	
-     
+        		data: {path : path}
+        	}).done(function(result){
+    			console.log(result);
+    			num++;
+        		$('tbody').append('<tr class="ggg">' 
+        		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_'+num+'">'+$(".addTextBefore").val()+'</span></td>'
+        		        +  '<td class="owner" class="text-center">'+result.patt.split("\\")[2]+'</td>'
+        		        +  '<td class="date" class="text-center">'+result.modified+'</td>'
+        		        +  '<td class="val" class="text-center">'+result.length+'</td>'
+        		        +  '</tr>');
+        	})
+       	
+    	
+    	  $('.picOuter').css("display", "none");
+          $('.addTextBefore').val('제목없는 폴더');
+          $(this).parent().parent().parent().modal('hide');
+        
+        
       })//end 폴더 추가하기
   
 //-----------------
@@ -571,7 +588,23 @@ $(document).on('keydown', function(e) {
   })
   //
   
-
+  var subfile = '${subFiles}';
+  //fancytree 첫로드시 폴더 트리 구성 소스 ${subFiles}
+// 	for(var ide in subfile){
+// 		console.log(subfile);
+// 	}
+var sour = [ 
+  	{"title": "${user.name}", "expanded": true, "folder": true, "children": [
+//		  {"title": "예제용", "folder": true , data : {id : "test_0"} , "children": [
+//			  {"title": "cups"},
+//			  {"title": "httpd"},
+//			  {"title": "init.d"}
+//		  ]}
+		
+  ]}
+  ]
+  
+  //fancytree 처음 load
   $(function(){
     // Attach the fancytree widget to an existing <div id="tree"> element
     // and pass the tree options as an argument to the fancytree() function:
@@ -595,16 +628,7 @@ $(document).on('keydown', function(e) {
         
       extensions: ["dnd5","childcounter"],
       // titlesTabbable: true,
-      source:[ 
-  	{"title": "${user.name}의 드라이브", "expanded": true, "folder": true, "children": [
-// 		  {"title": "예제용", "folder": true , data : {id : "test_0"} , "children": [
-// 			  {"title": "cups"},
-// 			  {"title": "httpd"},
-// 			  {"title": "init.d"}
-// 		  ]}
-		
-    ]}
-    ],
+      source: sour,
     dnd5: {
         // autoExpandMS: 400,
         // preventForeignNodes: true,
@@ -727,10 +751,9 @@ $(document).on('keydown', function(e) {
 }
 		
 
-		 $(document).ready(function(){	 
-		 var rootNode = $("#tree").fancytree("getRootNode");
-		 console.log(rootNode);
-		 })
+// 		 $(document).ready(function(){	 
+// 		 var rootNode = $("#tree").fancytree("getRootNode");
+// 		 })
 
 		 function app() {
 			 location.href = "/steach/main/main.do"
