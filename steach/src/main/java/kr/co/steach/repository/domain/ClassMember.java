@@ -15,7 +15,7 @@ public class ClassMember {
 	private int pNo;		//default 1002 
 	private int gNo;		//default 2 
 	private String id;		//유저 ID 
-	
+	private int groupNo;
 	private User user;
 
 	

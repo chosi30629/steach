@@ -1,7 +1,14 @@
 package kr.co.steach.clazz.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import kr.co.steach.clazz.service.CurriculumService;
+import kr.co.steach.repository.domain.ClassSchedule;
 
 
 /**
@@ -13,6 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/class/curriculum")
 public class CurriculumController {
 	
+	@Autowired
+	CurriculumService service;
+	
+	
+	
 	/**
 	 * Curriculum의 메인 페이지 curriculum.jsp 
 	 */
@@ -20,6 +32,27 @@ public class CurriculumController {
 	public void list() {
 
 	}
+	
+	
+	
+	/**
+	 *  schedule data 불러오기 
+	 */
+	@RequestMapping("/selectSchbyCNo.do")
+	@ResponseBody
+	public List<ClassSchedule> selectSchbyCNo(int classNo) {
+		System.out.println("clNO:"+classNo);
+		List<ClassSchedule> list = service.selectSchByClassNo(classNo);
+		
+		System.out.println("list:"+list);
+		return service.selectSchByClassNo(classNo);
+	}
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Curriculum 자리배치 페이지..

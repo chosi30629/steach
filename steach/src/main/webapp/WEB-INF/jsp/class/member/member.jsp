@@ -198,7 +198,7 @@
 	        
 	        /* button 기능 */
 	        function doReader(memNo){
-	    	 	$(".modal").hide();
+	    	 	$(".modal").modal('hide');
 	        	$.ajax({
 	        		url:"<c:url value='doReader.do'/>",
 	        		data:"memNo="+memNo
@@ -218,7 +218,7 @@
 	        };
 	        
 	        function removeReader(memNo){
-	        	$(".modal").hide();
+	        	$(".modal").modal('hide');
 	        	$.ajax({
 	        		url:"<c:url value='removeReader.do'/>",
 	        		data:"memNo="+memNo
@@ -238,7 +238,7 @@
 	        };
 	        
 	        function doIgnore(memNo){
-	        	$(".modal").hide();
+	        	$(".modal").modal('hide');
 	        	$.ajax({
 	        		url:"<c:url value='doIgnore.do'/>",
 	        		data:"memNo="+memNo

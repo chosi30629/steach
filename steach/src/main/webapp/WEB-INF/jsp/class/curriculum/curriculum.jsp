@@ -13,8 +13,8 @@
 
 <!-- css -->
 <link href="/steach/resources/css/class/curriculum/curriculum.css" rel="stylesheet"/>
-<link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
-<script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<!-- <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
+<script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
 
 <!-- fullcalendar -->	
@@ -23,12 +23,14 @@
 <script src="/steach/resources/fullcalendar-3.9.0/lib/moment.min.js"></script>	
 <script src="/steach/resources/fullcalendar-3.9.0/fullcalendar.min.js"></script>	
 <script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>	
-<script src="/steach/resources/fullcalendar-3.9.0/demos/test.js"></script>
+
+
+<!-- <script src="/steach/resources/fullcalendar-3.9.0/demos/test.js"></script> -->
 
 
 </head>
-
-<body style= "height: 100vh; overflow: hidden;">
+<!-- style= "height: 100vh; overflow: hidden;" -->
+<body >
 
 	<div id="a" class="container-fluid">
 		<div class="row">
@@ -91,17 +93,70 @@
 	
 	  <script>
 	  
-	  $(function(){
+	/*   $(function(){
 	  		$("body").mCustomScrollbar({theme:"rounded-dark"});
-	  })
+	  }) */
+	
 	  
+	  var eventArray = [
+     {
+      title: 'ui 작업',
+      start: '2018-11-21',
+      end : '2018-11-24',
+      color:'#00FF00'
+    },
+    {
+        title:'열공기간',
+        start:'2018-11-11',
+        end:'2018-11-11',
+        color:'0000FF'
+    },
+    {	
+    	schNo:"0",
+    	id:'csi',
+    	detail:'fsdjkl',
+    	schId:'4',
+        title:'시작',
+        start:'2018-06-11',
+        end:'2018-06-11',
+        color:'0000FF'
+    },
+
+    {   
+        title:'생일파티',
+        start:'2018-06-15T10:30:00'
+    },
+    {
+        title:'aaa',
+        start:'2018-11-01'
+    },
+    {
+        title:'bbb',
+        start:'2018-11-02'
+    },
+    {
+    title: 'Meeting',
+    start: '2018-11-12T10:30:00',
+    end: '2018-11-12T12:30:00'
+    } 
+  ]
 	  
-        /*  header js */
-        $('ul.nav li.dropdown').hover(function() {
-            $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(200);
-        }, function() {
-            $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
-        });
+	  $(function(){
+		  /* schedule list 불러오기  */
+		  $.ajax({
+			  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
+		  }).done(function(data){
+			  console.log(data);
+
+			  for(var i=0; i<data.length;i++){
+			  	eventArray.push(data[i]);
+			  }
+		  })
+		  
+		  
+	  }) 
+	  
+   
 
         /*bg */
         var i =1; 
@@ -122,10 +177,6 @@
             }
         })
 
-
-
-        /* accordion */
-        $('.collapse').collapse();
 
         /* full Calendar */
         var cal = "";
@@ -164,7 +215,7 @@
                 $("#calendar").fullCalendar('renderEvent',obj);
                 console.log(eventArray)
                 //console.log(eventArray.length)
-                console.log(eventArray[eventArray.length-1].start._d);
+                //console.log(eventArray[eventArray.length-1].start._d);
                 var m = eventArray[eventArray.length-1].start._d;
                 console.log(m);
             },
@@ -175,6 +226,8 @@
             eventClick: function(event){
                var result = confirm("삭제하시겠습니까?");
                if(result){
+            	   
+            	   
               //eventArray에서 제거 
                 const itemToFind = eventArray.find(function(item) {return item.title === event.title})
                 const idx = eventArray.indexOf(itemToFind) 

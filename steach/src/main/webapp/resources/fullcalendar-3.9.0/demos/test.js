@@ -11,9 +11,16 @@ var eventArray = [
         end:'2018-11-11',
         color:'0000FF'
     },
+    {
+        title:'시작',
+        start:'2018-06-11',
+        end:'2018-06-11',
+        color:'0000FF'
+    },
+
     {   
-        title:'생일',
-        start:'2018-11-30'
+        title:'생일파티',
+        start:'2018-06-15T10:30:00'
     },
     {
         title:'aaa',
