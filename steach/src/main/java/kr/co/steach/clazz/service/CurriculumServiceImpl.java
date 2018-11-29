@@ -19,6 +19,12 @@ public class CurriculumServiceImpl implements CurriculumService {
 	public List<ClassSchedule> selectSchByClassNo(int classNo) {
 		return mapper.selectSchByClassNo(classNo);
 	}
+
+
+	@Override
+	public void insertSchedule(ClassSchedule classSchedule) {
+		mapper.insertSchedule(classSchedule);
+	}
 	
 	
 }

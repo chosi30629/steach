@@ -46,3 +46,6 @@ body{
 .seat-section{
     height:400px;
 }
+/* fullcalendar */
+.fc-sat { color:blue; }
+.fc-sun { color:red;  }

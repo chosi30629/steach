@@ -25,6 +25,8 @@
 <script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>	
 
 
+
+
 <!-- <script src="/steach/resources/fullcalendar-3.9.0/demos/test.js"></script> -->
 
 
@@ -90,7 +92,7 @@
 
 		</div>
 	</div>
-	
+	<script src="/steach/resources/js/jquery-dateformat.js"></script>
 	  <script>
 	  
 	/*   $(function(){
@@ -99,47 +101,18 @@
 	
 	  
 	  var eventArray = [
-     {
-      title: 'ui 작업',
-      start: '2018-11-21',
-      end : '2018-11-24',
-      color:'#00FF00'
-    },
-    {
-        title:'열공기간',
-        start:'2018-11-11',
-        end:'2018-11-11',
-        color:'0000FF'
-    },
-    {	
-    	schNo:"0",
-    	id:'csi',
-    	detail:'fsdjkl',
-    	schId:'4',
-        title:'시작',
-        start:'2018-06-11',
-        end:'2018-06-11',
-        color:'0000FF'
-    },
-
-    {   
-        title:'생일파티',
-        start:'2018-06-15T10:30:00'
-    },
-    {
-        title:'aaa',
-        start:'2018-11-01'
-    },
-    {
-        title:'bbb',
-        start:'2018-11-02'
-    },
-    {
-    title: 'Meeting',
-    start: '2018-11-12T10:30:00',
-    end: '2018-11-12T12:30:00'
-    } 
-  ]
+		  {
+			  start:"2018-11-18",
+			  end:"2018-11-23T00:00:00",
+			  title:"test" ,
+			  allDay:true
+		  },
+		  {
+			  start:"2018-11-12T13:00:00",
+			  title:"당일스케줄"
+		  }
+		  
+	  ];
 	  
 	  $(function(){
 		  /* schedule list 불러오기  */
@@ -156,7 +129,7 @@
 		  
 	  }) 
 	  
-   
+   	console.log()
 
         /*bg */
         var i =1; 
@@ -182,7 +155,7 @@
         var cal = "";
         var initialLocaleCode = 'ko';
         $(document).ready(function() {
-            console.log(eventArray);
+            //console.log(eventArray);
 
             cal = $('#calendar').fullCalendar(
               
@@ -192,12 +165,11 @@
               center: 'title',
               right: 'month,agendaWeek,listMonth'
             },
-            defaultDate: '2018-11-15',
             navLinks: true, // can click day/week names to navigate views
       
            // weekNumbers: true,
-            weekNumbersWithinDays: true,
-            weekNumberCalculation: 'ISO',
+            //weekNumbersWithinDays: true,
+            //weekNumberCalculation: 'ISO',
             locale: initialLocaleCode,
             editable: true,
             eventLimit: true, // allow "more" link when too many events
@@ -209,15 +181,21 @@
                   obj.title = title;
                   obj.start = start;
                   obj.end = end;
+                  
+                  console.log($.format.date(obj.start._d,pattern="yyyy-MM-ddTHH:mm:ss"));
+                  console.log($.format.date(obj.end._d,pattern="yyyy-MM-ddTHH:mm:ss"));
+                  
+                  
                   eventArray.push(obj);
                 }
-
+	
                 $("#calendar").fullCalendar('renderEvent',obj);
-                console.log(eventArray)
+               // console.log(eventArray)
                 //console.log(eventArray.length)
                 //console.log(eventArray[eventArray.length-1].start._d);
-                var m = eventArray[eventArray.length-1].start._d;
-                console.log(m);
+               // var m = eventArray[eventArray.length-1].start._d;
+                //console.log("m:",m);
+                //console.log($.format.date(m,pattern="yyyy-MM-ddTHH:mm:ss"));
             },
             events: function(start,end,timezone,callback){
                 callback(eventArray);

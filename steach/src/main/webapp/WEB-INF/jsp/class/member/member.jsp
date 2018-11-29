@@ -177,7 +177,7 @@
 	       	}); 
 	       	
 	     	/* modal */    	
-	     	$(document).on("click","a[href='msgModal']",function(e){
+	     	$(document).on("click","a[id='msgModal']",function(e){
 	     		var modal = $(this).attr("data-target");
 	        	$(modal).children(".modal-dialog").css({
 	        		left:e.clientX,
@@ -185,7 +185,7 @@
 	        	});
 	     	});
 	     	
-	     	$(document).on("click","a[href='userElpsModal']",function(e){
+	     	$(document).on("click","a[id='userElpsModal']",function(e){
 	     		var modal = $(this).attr("data-target");
 	        	$(modal).children(".modal-dialog").css({
 	        		left:e.clientX,
@@ -286,9 +286,9 @@
 	        		    }
 	        			html.append(" <a href='#'>"+i.user.name+" ("+i.user.id+")</a></div>");
 	        			html.append("<div class='user-elps'>");
-	        			html.append("<a href='msgModal' data-toggle='modal' data-target='#msgModal"+i.memNo+"'>");
+	        			html.append("<a id='msgModal' data-toggle='modal' data-target='#msgModal"+i.memNo+"'>");
 	        			html.append("<i class='far fa-envelope'></i></a>");
-	        			html.append("　<a href='userElpsModal' data-toggle='modal' data-target='#userElpsModal"+i.memNo+"'>");
+	        			html.append("　<a id='userElpsModal' data-toggle='modal' data-target='#userElpsModal"+i.memNo+"'>");
 	        			html.append("<i class='fas fa-ellipsis-v'></i></a></div></div></div>");
 	        			html.append("<div id='collapse"+i.memNo+"' role='tabpanel' class='collapse'>");
 	        			html.append("<div class='card-body'>");

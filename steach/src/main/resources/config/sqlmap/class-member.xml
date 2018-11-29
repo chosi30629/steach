@@ -10,6 +10,7 @@
 		<result column="g_no" property="gNo"/>
 		<result column="id" property="id"/>
 		<result column="group_no" property="groupNo"/>
+		<result column="group_member_order" property="groupMemberOrder"/>
 		<collection property="user" resultMap="userMap"/>
 	</resultMap>
 	
@@ -45,7 +46,7 @@
 	
 	<!-- class member 정보 구하기  -->
 	<select id="selectMemberByClassNo" parameterType="int" resultMap="memberMap">
-		select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,m.group_no,u.name,u.phone,u.addr,u.profile,u.profile_path
+		select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,m.group_no,m.group_member_order,u.name,u.phone,u.addr,u.profile,u.profile_path
 		  from tb_class_member m,tb_user u
 		 where m.id=u.id
 		   and m.class_no=#{classNo}

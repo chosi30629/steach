@@ -9,4 +9,8 @@ public interface CurriculumService {
 	
 	/* 클래스별 스케줄 불러오기*/
 	List<ClassSchedule> selectSchByClassNo(int classNo);
+	
+	/* schedule 등록하기 */
+	void insertSchedule(ClassSchedule classSchedule);
+	
 }

@@ -4,13 +4,15 @@ import lombok.Data;
 
 @Data
 public class ClassSchedule {
-	private int schNo;
+	private int id;
 	private int classNo;
-	private String id;
 	private String start;
 	private String end;
 	private String title;
 	private String detail;
-	private String schId;
+	private boolean allDay;
+	private String url;
+	private String color;
+
 	
 }

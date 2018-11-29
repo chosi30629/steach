@@ -49,7 +49,12 @@ public class CurriculumController {
 	}
 	
 	
-	
+	/* schedule 등록하기 */
+	@RequestMapping("/insertSchedule.do")
+	@ResponseBody
+	public void insertSchedule(ClassSchedule classSchedule) {
+		service.insertSchedule(classSchedule);
+	}
 	
 	
 	

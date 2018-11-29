@@ -21,6 +21,29 @@
 		 where class_no=#{classNo}
 	</select>
 	
+	
+	<!-- 달력 DB저장하기  -->
+	<insert id="insertSchedule" parameterType="ClassSchedule">
+		insert into tb_class_schedule(
+										class_no,
+										start,
+										end,
+										title,
+										detail,
+										url,
+										allDay,
+										color
+												)values(
+														#{classNo},
+														#{start},
+														#{end},
+														#{title},
+														#{detail},
+														#{url},
+														#{allDay},
+														#{color}
+																	)
+	</insert>
 
 	
 </mapper>

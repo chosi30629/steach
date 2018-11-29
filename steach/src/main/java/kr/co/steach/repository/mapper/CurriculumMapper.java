@@ -8,5 +8,7 @@ public interface CurriculumMapper {
 	
 	
 	List<ClassSchedule> selectSchByClassNo(int classNo);
+
 	
+	void insertSchedule(ClassSchedule classSchedule);
 }
