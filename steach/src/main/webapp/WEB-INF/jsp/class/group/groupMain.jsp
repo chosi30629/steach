@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,33 +62,7 @@
             &nbsp;<i class="fas fa-users"></i>&nbsp;&nbsp;조별 활동
         </h3>
         <div class="wrap alt">
-            <p><textarea name="students" id="students" cols="40" rows="15" readonly>
-박아란
-이경
-조용제
-최창유
-최원영
-유병욱
-김도훈
-박한준
-김해동
-안규영
-조성일
-이원재
-김차원
-김세영
-김병관
-오수진
-김은비
-이승재
-정인용
-임유신
-나원석
-이득재
-박태환
-신득수
-방진웅
-이현규</textarea></p>
+            <p><textarea name="students" id="students" cols="40" rows="15" readonly></textarea></p>
             <div class="groups text-center clearfix">
                 <div class="wrapper">
                     <div class="menu">
@@ -102,163 +77,34 @@
                         <span class="button__line"></span>
                     </div>
                 </div>
-                <ul class="connectedSortables parentDrop clearfix">
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-                                <span class="student-name">나는이름이열글자입니</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
-                    <li class="parentDrag">
-                        <div class="listTitle">
-                            <div class="listSubject">
-                                1조
-                            </div>
-                        </div>
-                        <ul class="connectedSortable childDrop">
-                            　
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p2.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p3.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p4.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p5.jpg');">
-                                <span class="student-name">조성일</span>
-                            </li>
-                        </ul>
-                        <div>　</div>
-                    </li>
+                <div id="studentList" class="clearfix">
+                	<ul class="studentList student-list clearfix text-center" style="width: 70% !important; padding: 0 0 0 0; list-style-type: none; display: inline-block;">
+                		<c:forEach var="student" items="${studentList}" varStatus="loop">
+	                		<li class="ui-state-default clearfix" style="margin: 0 15px; background-image: url('/steach/resources/images/class/group/p1.jpg');">
+	                			<span class="student-name">${student.groupMemberId}</span>
+	                		</li>
+                		</c:forEach>
+                	</ul>
+                </div>
+                <ul class="connectedSortables parentDrop clearfix" style="display: none;">
+                	<c:forEach var="group" items="${groupList}" varStatus="loop">
+	                    <li class="parentDrag">
+	                        <div class="listTitle">
+	                            <div class="listSubject">
+	                                ${group.groupName}
+	                            </div>
+	                        </div>
+	                        <ul class="connectedSortable childDrop">
+	                            　				
+ 							<c:forEach var="member" items="${groupList[loop.index].groupMember}">    
+ 	                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
+	                                <span class="student-name">${member.name}</span>
+	                            </li> 
+	                        </c:forEach>      
+	                        </ul>
+	                        <div>　</div>
+	                    </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
@@ -305,7 +151,7 @@ l0,-61 L40,28" />
                     <br>
                     <div class="randomContent clearfix">
                         <div class="input-group">
-                            <input class="numgroups form-control" type="integer" value="" placeholder="학생 수"/>
+                            <input class="numgroups form-control" type="integer" value="" placeholder="조별 학생 수"/>
                             <span class="input-group-btn">
                                 <button class="btn btn-default onRandom">편성</button>
                             </span>
@@ -319,7 +165,20 @@ l0,-61 L40,28" />
     <script>
         // wow.js
         new WOW().init();
-
+        
+        // 클래스 멤버 뿌리기
+        if(${groupNo} != 0) {
+        	$("#studentList, .parentDrop").toggle();
+        }
+        var students = "";
+		<c:forEach var="student" items="${studentList}" varStatus="loop">
+			students += "${student.groupMemberId}"; 
+			<c:if test="${loop.last == false}">
+				students += "\n"; 
+			</c:if>
+		</c:forEach>
+		$("#students").text(students);
+        
         // 트렐로 형식 드래그 앤 드롭
         $(function () {
             $(".childDrop").sortable({
@@ -336,6 +195,9 @@ l0,-61 L40,28" />
                 alert("학생 수를 입력하십시오.");
                 return false;
             }
+            
+            $("#studentList").remove();
+            $(".parentDrop").show();
             
             $(".button").click();
             $("#randomModal").modal("hide");
@@ -361,16 +223,31 @@ l0,-61 L40,28" />
             // for (i = 0; i < numgroups; i++) {
             //     $('.groups').append('<div class="group" id="group' + (i + 1) + '"><h2>' + (i + 1) + '조</h2></div>');
             // }
-            $('.parentDrop').empty();
+            // $('.parentDrop').empty();
 
             for (i = 0; i < numgroups; i++) {
-                $('.parentDrop').append(`<li class="parentDrag wow wobble clearfix" id=group${i + 1}>
-                            <div class="listTitle clearfix">
-                                <div class="listSubject clearfix">${i + 1}조</div>
-                            </div>
-                            <ul class="connectedSortable childDrop">
-                            </ul>
-                            </li>`);
+                $('.parentDrop').append('<li class="parentDrag wow wobble clearfix">' +
+                            '<div class="listTitle clearfix">' +
+                                '<div class="listSubject clearfix">' + (i + 1) + '조</div>' +
+                            '</div>' +
+                            '<ul class="connectedSortable childDrop">' +
+                            '</ul>' +
+                            '</li>');
+                
+                $(".childDrop:last").append('<span>　</span>');
+                $('.childDrop:last').each(function () {
+                    for (j = 0; j < namespergroup; j++) {
+                        var randname = Math.floor(Math.random() * allnames.length);
+                        if (allnames[randname]) {
+                            $(this).append('<li class="ui-state-default clearfix"><span class="student-name">' + allnames[randname] + '</span></li>');
+                        }   
+                        allnames.splice(randname, 1);
+                        // console.log(allnames);
+                        // console.log(j+1); // order 가 되자!
+                    }
+                });
+                
+                console.log(i + 1); // 그룹 시퀀스!
             }
             
             $(".parentDrag:nth-child(1n) .childDrop").addClass("wow rotateInDownLeft");
@@ -380,17 +257,7 @@ l0,-61 L40,28" />
             $(".parentDrag:nth-child(5n) .childDrop").addClass("wow rotateInUpLeft");
             $(".parentDrag:nth-child(6n) .childDrop").addClass("wow rotateInUpRight");
             
-            $(".childDrop").append('<span>　</span>');
-            $('.childDrop').each(function () {
-                for (j = 0; j < namespergroup; j++) {
-                    var randname = Math.floor(Math.random() * allnames.length);
-                    if (allnames[randname]) {
-                        $(this).append('<li class="ui-state-default clearfix"><span class="student-name">' + allnames[randname] + '</span></li>');
-                    }
-                    allnames.splice(randname, 1);
-                    console.log(allnames);
-                }
-            });
+           
             // 트렐로 형식 드래그 앤 드롭
             $(function () {
                 $(".childDrop").sortable({

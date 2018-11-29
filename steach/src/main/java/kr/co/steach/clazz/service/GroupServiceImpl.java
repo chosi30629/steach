@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
+import kr.co.steach.repository.domain.GroupMember;
 import kr.co.steach.repository.mapper.GroupMapper;
 
 
@@ -116,5 +118,20 @@ public class GroupServiceImpl implements GroupService {
 	public void deleteCardChecklist(GroupChecklist groupChecklist) {
 		mapper.deleteCardChecklist(groupChecklist);
 	} // deleteCardChecklist
+
+	@Override
+	public List<GroupMember> groupMemberList() {
+		return mapper.groupMemberList();
+	} // groupMemberList
+
+	@Override
+	public List<Group> groupList() {
+		return mapper.groupList();
+	} // groupList
+
+	@Override
+	public List<GroupMember> groupMember(GroupMember groupMember) {
+		return mapper.groupMember(groupMember);
+	}
 
 } // end class

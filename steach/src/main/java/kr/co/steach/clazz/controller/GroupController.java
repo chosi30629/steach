@@ -15,10 +15,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.steach.clazz.service.GroupService;
+import kr.co.steach.clazz.service.MemberService;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
+import kr.co.steach.repository.domain.GroupMember;
 
 
 @Controller
@@ -31,12 +33,28 @@ public class GroupController {
 	@Autowired
 	private GroupService service;
 	
+	/**
+	 * 멤버 서비스 인터페이스에 대한 멤버 필드
+	 */
+	@Autowired
+	private MemberService memberService;
+	
 	
 	@RequestMapping("groupMain.do")
-	public void groupMain() {
+	public void groupMain(Model model) {
+		List<GroupMember> studentList = service.groupMemberList();
+		model.addAttribute("groupList", service.groupList());
+		model.addAttribute("studentList", studentList);
+		model.addAttribute("groupNo", studentList.get(0).getGroupNo());
 		System.out.println("그룹메인~");
 	} // groupMain
 	
+/*	@RequestMapping("classStudentList.do")
+	@ResponseBody
+	public List<ClassMember> classStudentList(){
+		return memberService.selectMemberByClassNo(1);
+	} // classStudentList
+*/	
 	@RequestMapping("groupActivity.do")
 	public void groupActivity(Model model) {
 		model.addAttribute("listList", service.listList());

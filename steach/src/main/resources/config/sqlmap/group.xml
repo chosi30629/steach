@@ -38,6 +38,29 @@
 		<result column="card_checklist_reg_date" property="cardChecklistRegDate"/>
 	</resultMap>
 	
+	<resultMap type="GroupMember" id="groupMemberMap">
+		<result column="group_member_no" property="groupMemberNo"/>
+		<result column="group_no" property="groupNo"/>
+		<result column="p_no" property="pNo"/>
+		<result column="g_no" property="gNo"/>
+		<result column="group_member_id" property="groupMemberId"/>
+		<result column="group_member_order" property="groupMemberOrder"/>
+		<result column="group_sequence" property="groupSequence"/>
+	</resultMap>
+	
+	<resultMap type="Group" id="groupMap">
+		<result column="group_no" property="groupNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="group_generator" property="groupGenerator"/>
+		<result column="group_sequence" property="groupSequence"/>
+		<result column="group_name" property="groupName"/>
+		<result column="group_reg_date" property="groupRegDate"/>
+		<result column="current_at" property="currentAt"/>
+		<association property="groupMember"
+			 column="group_no"
+			 select="groupMember"></association>
+	</resultMap>
+	
 	<!-- 리스트 목록 -->
 	<select id="listList" resultMap="groupListMap">
 		select * from tb_class_group_list order by list_order
@@ -170,4 +193,27 @@
 		delete from tb_class_group_list_card_checklist
 		 where card_checklist_no = #{cardChecklistNo}
 	</delete>	
+	
+	<!-- 조별 메인 그룹 -->
+	<select id="groupList" resultMap="groupMap">
+		select * from tb_class_group
+	</select>
+	
+	<!-- 조별 메인 그룹 인원 -->
+	<select id="groupMember" parameterType="groupMember" resultMap="groupMemberMap">
+		select m.*, u.name 
+		  from tb_class_group_member m, tb_user u 
+		   where m.group_member_id = u.id
+		     and m.group_no = #{groupNo}
+	</select>
+	
+	<!-- 조별 메인 그룹 인원 -->
+	<select id="groupMemberList" resultMap="groupMemberMap">
+		select m.*, g.group_sequence 
+		  from tb_class_group_member m
+		 inner join tb_class_group g
+		    on m.group_no = g.group_no
+		 order by m.group_no, m.group_member_order
+	</select>
+	
 </mapper>

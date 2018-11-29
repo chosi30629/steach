@@ -2,10 +2,12 @@ package kr.co.steach.repository.mapper;
 
 import java.util.List;
 
+import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
 import kr.co.steach.repository.domain.GroupList;
+import kr.co.steach.repository.domain.GroupMember;
 
 
 public interface GroupMapper {
@@ -47,5 +49,11 @@ public interface GroupMapper {
 	void updateCardChecklist(GroupChecklist groupChecklist);
 	
 	void deleteCardChecklist(GroupChecklist groupChecklist);
+	
+	List<Group> groupList();
+	
+	List<GroupMember> groupMember(GroupMember groupMember);
+	
+	List<GroupMember> groupMemberList();
 	
 } // end interface

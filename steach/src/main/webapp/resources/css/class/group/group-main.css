@@ -274,6 +274,17 @@ input, textarea, button {
     position: relative; 
     top: 143.49px;
 }
+.student-list {
+    width: 860px !important;
+    margin-top: 50px !important; 
+    /* margin-left: 17px !important;  */
+    margin-left: 40px !important; 
+}
+.student-list > li > .student-name {
+    position: relative; 
+    color: #ffffff;
+    top: 147.49px;
+}
 @-webkit-keyframes drop {
     from {
         top: 0px;
@@ -311,7 +322,7 @@ input, textarea, button {
     height: 50px;
     margin: 10px auto;
     cursor: pointer;
-    top: 67px;
+    top: 68px;
 }
 .wrapper:hover .button__line {   
     background: #ccc;
@@ -340,7 +351,7 @@ input, textarea, button {
 .menu {
     width: 50px;
 }
-.menu > .menu__list > .random-li{
+.menu > .menu__list > .random-li {
     padding-left: 10px;
     padding-bottom: 10px;
 }
@@ -349,6 +360,8 @@ input, textarea, button {
     width: 50px;
     padding-left: 0;
     height: 30px;
+    position: relative;
+    top: -62px;
 }
 .menu__list__item {
     position: relative;
@@ -357,7 +370,7 @@ input, textarea, button {
     text-align: right;
     top: 0px;
     width: 100px;
-    left: -55px;
+    left: -120px;
 }
 .menu__list__item a {
     text-decoration: none;
