@@ -12,6 +12,7 @@
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 
 <!-- css -->
+
 <link href="/steach/resources/css/class/curriculum/curriculum.css" rel="stylesheet"/>
 <!-- <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
 <script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
@@ -24,10 +25,11 @@
 <script src="/steach/resources/fullcalendar-3.9.0/fullcalendar.min.js"></script>	
 <script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>	
 
-
+	<script src="/steach/resources/js/jquery-dateformat.js"></script>
 
 
 <!-- <script src="/steach/resources/fullcalendar-3.9.0/demos/test.js"></script> -->
+
 
 
 </head>
@@ -80,19 +82,19 @@
 							
 								</div>
 								<div class="seat-setting">
-									<button type="button" class="btn" onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do"/>'">수정하기</button>
+									<button type="button" class="btn" onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do"/>'">수정하기</button> 
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-
+    
+ 
 			</div>
 
 		</div>
 	</div>
-	<script src="/steach/resources/js/jquery-dateformat.js"></script>
+
 	  <script>
 	  
 	/*   $(function(){
@@ -100,36 +102,40 @@
 	  }) */
 	
 	  
-	  var eventArray = [
-		  {
-			  start:"2018-11-18",
-			  end:"2018-11-23T00:00:00",
-			  title:"test" ,
-			  allDay:true
-		  },
-		  {
-			  start:"2018-11-12T13:00:00",
-			  title:"당일스케줄"
-		  }
-		  
-	  ];
-	  
-	  $(function(){
-		  /* schedule list 불러오기  */
-		  $.ajax({
-			  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
-		  }).done(function(data){
-			  console.log(data);
 
-			  for(var i=0; i<data.length;i++){
-			  	eventArray.push(data[i]);
-			  }
-		  })
-		  
-		  
-	  }) 
+      /* full Calendar */
+      var cal = "";
+	  var eventArray = [];
+      var initialLocaleCode = 'ko';
+	
+		  /* schedule list 불러오기  */
+			$(function(){
+				 $.ajax({
+					  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
+				  }).done(function(data){
+					  console.log(data);
+					  for(var i=0; i<data.length;i++){
+					  	eventArray.push(data[i]);
+					  }
+					  calendar();
+				  });
+				
+			})
 	  
-   	console.log()
+			function calendarList(){
+				 $.ajax({
+					  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
+				  }).done(function(data){
+					  console.log(data);
+					  for(var i=0; i<data.length;i++){
+					  	eventArray.push(data[i]);
+					  }
+					 	
+				  });
+		 	 }
+			
+			
+			
 
         /*bg */
         var i =1; 
@@ -140,7 +146,7 @@
                     "background":"url(/steach/resources/images/class/curriculum/bg"+i+".jpg)"
                 });
             }
-        })
+        });
         $("#next").click(function(){
             if(i<9){
                 i++;
@@ -148,25 +154,26 @@
                     "background":"url(/steach/resources/images/class/curriculum/bg"+i+".jpg)"
                 });
             }
-        })
+        });
+		
 
 
-        /* full Calendar */
-        var cal = "";
-        var initialLocaleCode = 'ko';
-        $(document).ready(function() {
-            //console.log(eventArray);
-
-            cal = $('#calendar').fullCalendar(
-              
+ 
+        
+        
+   		function calendar(){
+ 			//console.log(eventArray);
+            
+ 			cal = $('#calendar').fullCalendar(
+            
           {
             header: {
               left: 'prev,next today',
               center: 'title',
               right: 'month,agendaWeek,listMonth'
-            },
+            },         
             navLinks: true, // can click day/week names to navigate views
-      
+      		eventColor:'#043E3F',
            // weekNumbers: true,
             //weekNumbersWithinDays: true,
             //weekNumberCalculation: 'ISO',
@@ -174,55 +181,89 @@
             editable: true,
             eventLimit: true, // allow "more" link when too many events
             selectable:true,
+       		/* event 등록하기 */ 
             select:function(start,end,jsEvent,view){
+            	console.log(jsEvent);
                 var obj={};
                 var title = prompt("제목 입력하세요");
+                var description = prompt("내용을 입력하세요");
                 if(title){
                   obj.title = title;
-                  obj.start = start;
-                  obj.end = end;
-                  
-                  console.log($.format.date(obj.start._d,pattern="yyyy-MM-ddTHH:mm:ss"));
-                  console.log($.format.date(obj.end._d,pattern="yyyy-MM-ddTHH:mm:ss"));
-                  
-                  
-                  eventArray.push(obj);
+                  obj.description = description;
+                  obj.start = start.format();
+                  obj.end = end.format();                  
+				
+                  if(obj.start.length>10){
+                	  obj.allDay="false";
+                  } else{
+                	  obj.allDay="true";
+                  }
+        
+                 /* 등록했을 경우!!  */
+                 /*  */
+                 $.ajax({
+                  	 url:"<c:url value='insertSchedule.do'/>",
+                	 data:obj
+                 }).done(function(id){
+                	// alert(id);
+                	obj.id=id;
+                	$("#calendar").fullCalendar('renderEvent',obj);
+                 }).fail(function(){
+                	 alert("안됬다...ㅠ")
+                 })
+                 
+               
                 }
 	
-                $("#calendar").fullCalendar('renderEvent',obj);
-               // console.log(eventArray)
-                //console.log(eventArray.length)
-                //console.log(eventArray[eventArray.length-1].start._d);
-               // var m = eventArray[eventArray.length-1].start._d;
-                //console.log("m:",m);
-                //console.log($.format.date(m,pattern="yyyy-MM-ddTHH:mm:ss"));
             },
-            events: function(start,end,timezone,callback){
-                callback(eventArray);
+            events: 
+            	 function(start,end,timezone,callback){
+            		callback(eventArray); 
+            	
             },
-
+            /* description 가져오기 */
+            eventRender: function (event, element, view) {
+                element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px">'+event.description+'</span></div>');
+            },
             eventClick: function(event){
+              // console.dir(event);
                var result = confirm("삭제하시겠습니까?");
-               if(result){
+               if(result){ 
             	   
-            	   
-              //eventArray에서 제거 
-                const itemToFind = eventArray.find(function(item) {return item.title === event.title})
-                const idx = eventArray.indexOf(itemToFind) 
-                if (idx > -1) eventArray.splice(idx, 1);
-                console.log(eventArray);
-                
+            	   $.ajax({
+            		   url:"<c:url value='deleteSchedule.do'/>",
+            		   data:"id="+event.id
+            	   }).done(function(){
+            			alert("삭제됨");
+            	   }).fail(function(){
+            		   alert("삭제안됬죵..")
+            	   });
                 //화면에서제거
                 $("#calendar").fullCalendar('removeEvents',event._id);
                }
                
             },
+            eventDrop:function(event){
+            	console.dir(event);
+            	//console.dir(event.start.format());
+            	//console.dir(event.end.format());
+            	$.ajax({
+            		url:"<c:url value='updateScheduleDate.do'/>",
+            		data:{start:event.start.format(),end:event.end.format(),id:event.id}
+            	}).done(function(){
+            	}).fail(function(){
+            		alert("안됬습니다..")
+            	})
+            },
+            eventResizeStop:function(event){
+            	console.dir(event);
+            }
 
           }
           
           );
       
-        });
+        };
         
     </script>
 </body>

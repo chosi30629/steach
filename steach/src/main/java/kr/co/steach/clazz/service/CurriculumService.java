@@ -13,4 +13,8 @@ public interface CurriculumService {
 	/* schedule 등록하기 */
 	void insertSchedule(ClassSchedule classSchedule);
 	
+	
+	void deleteSchedule(int id);
+	/* schedule 기간 변경 */
+	void updateScheduleDate(ClassSchedule classSchedule);
 }

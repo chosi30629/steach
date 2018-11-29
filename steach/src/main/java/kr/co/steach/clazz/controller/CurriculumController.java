@@ -52,10 +52,27 @@ public class CurriculumController {
 	/* schedule 등록하기 */
 	@RequestMapping("/insertSchedule.do")
 	@ResponseBody
-	public void insertSchedule(ClassSchedule classSchedule) {
+	public String insertSchedule(ClassSchedule classSchedule) {
+		System.out.println(classSchedule);
+		classSchedule.setClassNo(1);
 		service.insertSchedule(classSchedule);
+		return classSchedule.getId()+"";			//insert한 key 가져오기!1
 	}
 	
+	/* schedule 삭제 */
+	@RequestMapping("/deleteSchedule.do")
+	@ResponseBody
+	public void deleteSchedule(int id) {
+		service.deleteSchedule(id);
+	}
+	
+	/* schedule 기간 변경 */
+	@RequestMapping("/updateScheduleDate.do")
+	@ResponseBody
+	public void updateScheduleDate(ClassSchedule classSchedule) {
+		System.out.println(classSchedule);
+		service.updateScheduleDate(classSchedule);
+	}
 	
 	
 	

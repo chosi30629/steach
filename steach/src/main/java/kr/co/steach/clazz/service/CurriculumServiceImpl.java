@@ -25,6 +25,19 @@ public class CurriculumServiceImpl implements CurriculumService {
 	public void insertSchedule(ClassSchedule classSchedule) {
 		mapper.insertSchedule(classSchedule);
 	}
+
+
+	@Override
+	public void deleteSchedule(int id) {
+		mapper.deleteSchedule(id);
+	}
+
+
+	@Override
+	public void updateScheduleDate(ClassSchedule classSchedule) {
+		mapper.updateScheduleDate(classSchedule);
+		
+	}
 	
 	
 }

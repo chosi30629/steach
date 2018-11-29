@@ -9,10 +9,9 @@ public class ClassSchedule {
 	private String start;
 	private String end;
 	private String title;
-	private String detail;
+	private String description;
 	private boolean allDay;
 	private String url;
 	private String color;
 
-	
 }

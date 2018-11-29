@@ -11,4 +11,10 @@ public interface CurriculumMapper {
 
 	
 	void insertSchedule(ClassSchedule classSchedule);
+	
+	void deleteSchedule(int id);
+	
+	
+	/* 기간 변경하기 */
+	void updateScheduleDate(ClassSchedule classSchedule);
 }
