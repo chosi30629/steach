@@ -63,5 +63,7 @@ public interface GroupService {
 	void updateGroupCurrentAt();
 
 	List<Group> randomGroup(Group group);
+
+	void memberOrderUpdate(GroupMember groupMember);
 	
 } // end interface

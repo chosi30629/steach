@@ -211,6 +211,7 @@
 		  from tb_class_group_member m, tb_user u 
 		   where m.group_member_id = u.id
 		     and m.group_no = #{groupNo}
+		   order by m.group_member_order    
 	</select>
 	
 	<!-- 조별 메인 그룹 인원 -->
@@ -244,6 +245,14 @@
 	<update id="updateGroupCurrentAt">
 		update tb_class_group
 		   set current_at = 'n'
+	</update>
+		
+	<!-- 카드 위치 변경 -->
+	<update id="memberOrderUpdate" parameterType="groupMember">
+		update tb_class_group_member
+		   set group_member_order = #{groupMemberOrder},
+		       group_no = #{groupNo}
+		 where group_member_no = #{groupMemberNo}  
 	</update>
 	
 </mapper>

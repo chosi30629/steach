@@ -187,7 +187,7 @@ l0,-61 L40,28" />
 		function group() {
 			var group = "";
 			<c:forEach var="group" items="${groupList}" varStatus="loop">
-				group += '<li class="parentDrag">'
+				group += '<li class="parentDrag" data-index="${group.groupNo}">'
 		            + '<div class="listTitle">'
 		            +     '<div class="listSubject">'
 		            +         '${group.groupName}'
@@ -196,7 +196,7 @@ l0,-61 L40,28" />
 		            + '<ul class="connectedSortable childDrop">'
 		                　		+ '　'
 		           	+ ' <c:forEach var="member" items="${groupList[loop.index].groupMember}">  '  
-		                　		+      '<li class="ui-state-default clearfix" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
+		                　		+      '<li class="ui-state-default clearfix" data-groupNo="${member.groupNo}" data-index="${member.groupMemberNo}" data-order="${member.groupMemberOrder}" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
 		                　		+         '<span class="student-name">${member.name}</span>'
 		                　		+     '</li>'
 		            + ' </c:forEach>'  
@@ -210,9 +210,40 @@ l0,-61 L40,28" />
         $(function () {
             $(".childDrop").sortable({
                 connectWith: ".childDrop",
-                placeholder: "ui-state-highlight"
+                placeholder: "ui-state-highlight",
+                update: function(event, ui) {
+					$(this).children().each(function(index) {
+						$(this).attr("data-order", (index + 1)).addClass("updated");
+					});
+					
+					saveNewMemberOrders();
+				}
             }).disableSelection();
         });
+        
+        // 조별 인원 위치 변경 데이터베이스 저장
+        function saveNewMemberOrders() {
+			var map = new Map();
+        	
+			$(".updated").each(function() {
+        		map.set($(this).attr("data-index"), [$(this).attr("data-order"), $(this).parents(".parentDrag").attr("data-index")]);
+        		$(this).removeClass("updated");
+			}); 
+
+            var orders = {};
+			
+            map.forEach(function(value, key) {
+            	orders[key] = value;
+            });
+            
+         	$.ajax({
+        		url: "/steach/class/group/modifyMemberOrder.do",
+        		data: {"orders": JSON.stringify(orders)},
+        		success: function(response) {
+					console.log(response);
+				}
+        	});
+        }
         
         // 랜덤 조 편성
         $(".doRandom").on("click", function() {
@@ -256,7 +287,7 @@ l0,-61 L40,28" />
 				var html = "";
 				for (let i = 0; i < result.length; i++) {
 					let group = result[i];
-					html += '<li class="parentDrag wow wobble">'
+					html += '<li class="parentDrag wow wobble" data-index="' + group.groupNo + '">'
 			             + '<div class="listTitle">'
 			             +     '<div class="listSubject">'
 			             +         group.groupName
@@ -268,7 +299,7 @@ l0,-61 L40,28" />
 			        var groupMemberList = group.groupMember;
 			        for (let k = 0; k < groupMemberList.length; k++) {
 			        	groupMemberList[k]     		
-			            html += '<li class="ui-state-default clearfix" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
+			            html += '<li class="ui-state-default clearfix" data-groupNo="' + groupMemberList[k].groupNo + '" data-index="' + groupMemberList[k].groupMemberNo + '" data-order="' + groupMemberList[k].groupMemberOrder + '" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
 			          		 +         '<span class="student-name">' + groupMemberList[k].name + '</span>'
 			                　			 +     '</li>';
 			        }
@@ -285,7 +316,14 @@ l0,-61 L40,28" />
 	            $(function () {
 	                $(".childDrop").sortable({
 	                    connectWith: ".childDrop",
-	                    placeholder: "ui-state-highlight"
+	                    placeholder: "ui-state-highlight",
+	                    update: function(event, ui) {
+	    					$(this).children().each(function(index) {
+	    						$(this).attr("data-order", (index + 1)).addClass("updated");
+	    					});
+	    					
+	    					saveNewMemberOrders();
+	    				}
 	                }).disableSelection();
 	            });
             

@@ -25,6 +25,7 @@ public class GroupServiceImpl implements GroupService {
 	 */
 	@Autowired
 	private GroupMapper mapper;
+	
 	@Autowired
 	private MemberMapper memberMapper;
 	
@@ -210,5 +211,10 @@ public class GroupServiceImpl implements GroupService {
 		
 		return mapper.groupList(group);
 	} // randomGroup
+
+	@Override
+	public void memberOrderUpdate(GroupMember groupMember) {
+		mapper.memberOrderUpdate(groupMember);
+	} // memberOrderUpdate
 	
 } // end class

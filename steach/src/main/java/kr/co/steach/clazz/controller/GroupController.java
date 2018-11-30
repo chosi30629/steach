@@ -45,12 +45,17 @@ public class GroupController {
 	@RequestMapping("groupMain.do")
 	public void groupMain(Model model, Group group) {
 		List<GroupMember> studentList = service.groupMemberList();
-		model.addAttribute("studentList", studentList);
-		model.addAttribute("groupNo", studentList.get(0).getGroupNo());
-		group.setClassNo(1);
-		model.addAttribute("groupList", service.groupList(group));
-		model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
-		System.out.println("그룹메인~");
+		try {
+			model.addAttribute("studentList", studentList);
+			model.addAttribute("groupNo", studentList.get(0).getGroupNo());
+			group.setClassNo(1);
+			model.addAttribute("groupList", service.groupList(group));
+			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
+			System.out.println("그룹메인~");
+		} catch(Exception e) {
+			model.addAttribute("studentList", studentList);
+			model.addAttribute("groupNo", "0");
+		}
 	} // groupMain
 	
 /*	@RequestMapping("classStudentList.do")
@@ -80,6 +85,37 @@ public class GroupController {
 		service.insertGroupMember(groupMember);
 		return "조원 추가 성공";
 	} // addGroupMember
+	
+	@RequestMapping("modifyMemberOrder.do")
+	@ResponseBody
+	public String modifyMemberOrder(@RequestParam(value="orders") String orders) {
+//		System.out.println(orders);
+		GroupMember groupMember = new GroupMember();
+		
+		try {
+			// String을 Map으로
+			ObjectMapper mapper = new ObjectMapper();
+			Map<String, Object[]> map = new HashMap<String, Object[]>();
+			map = mapper.readValue(orders, new TypeReference<Map<String, String[]>>(){});
+//			System.out.println(map);
+			
+			// Map의 키와 값 분류
+			for(Map.Entry<String, Object[]> entry : map.entrySet()){
+//				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue()[0] + " , listNo : " + entry.getValue()[1]);
+				
+				// 카드 순서 업데이트
+				groupMember.setGroupMemberNo(Integer.parseInt(entry.getKey()));
+				groupMember.setGroupMemberOrder(Integer.parseInt((String) entry.getValue()[0]));
+				groupMember.setGroupNo(Integer.parseInt((String) entry.getValue()[1]));
+				
+				service.memberOrderUpdate(groupMember);
+			} // for
+		} catch (Exception e) {
+			e.printStackTrace();
+		} // try-catch
+		
+		return "멤버 순서 업데이트 성공";
+	} // modifyMemberOrder
 	
 	@RequestMapping("groupActivity.do")
 	public void groupActivity(Model model) {
