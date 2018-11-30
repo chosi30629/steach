@@ -195,10 +195,14 @@
 	</delete>	
 	
 	<!-- 조별 메인 그룹 -->
-	<select id="groupList" parameterType="int" resultMap="groupMap">
+	<select id="groupList" parameterType="Group" resultMap="groupMap">
 		select * 
 		  from tb_class_group
 		 where class_no = #{classNo}
+		 <if test="currentAt != null">
+		 and current_at = #{currentAt}
+		 </if>
+		 order by field(current_at, 'y') desc, group_no, group_sequence
 	</select>
 	
 	<!-- 조별 메인 그룹 인원 -->
@@ -211,11 +215,35 @@
 	
 	<!-- 조별 메인 그룹 인원 -->
 	<select id="groupMemberList" resultMap="groupMemberMap">
-		select m.*, g.group_sequence 
+		select m.*,  g.name 
 		  from tb_class_group_member m
-		 inner join tb_class_group g
-		    on m.group_no = g.group_no
+		 inner join tb_user g
+		    on m.group_member_id = g.id
 		 order by m.group_no, m.group_member_order
 	</select>
+	
+	<!-- 조 생성 -->
+	<insert id="insertGroup" parameterType="Group" useGeneratedKeys="true" keyProperty="groupNo">
+		insert into tb_class_group (
+			class_no, group_generator, group_sequence, group_name
+		) values (
+			#{classNo}, #{groupGenerator}, #{groupSequence}, #{groupName}
+		)
+	</insert>
+	
+	<!-- 생성된 조에 학생 넣기 -->
+	<insert id="insertGroupMember" parameterType="groupMember">
+		insert into tb_class_group_member (
+			group_no, group_member_id, group_member_order
+		) values (
+			#{groupNo}, #{groupMemberId}, #{groupMemberOrder}
+		)
+	</insert>
+	
+	<!-- 조 생성할 때 현재 조 여부 수정 -->
+	<update id="updateGroupCurrentAt">
+		update tb_class_group
+		   set current_at = 'n'
+	</update>
 	
 </mapper>

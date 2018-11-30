@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.steach.clazz.service.GroupService;
 import kr.co.steach.clazz.service.MemberService;
+import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
@@ -35,7 +36,7 @@ public class GroupController {
 	private GroupService service;
 	
 	/**
-	 * 멤버 서비스 인터페이스에 대한 멤버 필드
+	 * 클래스 멤버 서비스 인터페이스에 대한 멤버 필드
 	 */
 	@Autowired
 	private MemberService memberService;
@@ -44,9 +45,11 @@ public class GroupController {
 	@RequestMapping("groupMain.do")
 	public void groupMain(Model model, Group group) {
 		List<GroupMember> studentList = service.groupMemberList();
-		model.addAttribute("groupList", service.groupList(1));
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("groupNo", studentList.get(0).getGroupNo());
+		group.setClassNo(1);
+		model.addAttribute("groupList", service.groupList(group));
+		model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
 		System.out.println("그룹메인~");
 	} // groupMain
 	
@@ -56,6 +59,28 @@ public class GroupController {
 		return memberService.selectMemberByClassNo(1);
 	} // classStudentList
 */	
+	
+	@RequestMapping("updateGroupCurrentAt.do")
+	@ResponseBody
+	public String updateGroupCurrentAt() {
+		service.updateGroupCurrentAt();
+		return "현재 조 여부 수정";
+	} // updateGroupCurrentAt
+	
+	@RequestMapping("addGroup.do")
+	@ResponseBody
+	public int addGroup(Group group) {
+		service.insertGroup(group);
+		return group.getGroupNo();
+	} // addGroup
+	
+	@RequestMapping("addGroupMember.do")
+	@ResponseBody
+	public String addGroupMember(GroupMember groupMember) {
+		service.insertGroupMember(groupMember);
+		return "조원 추가 성공";
+	} // addGroupMember
+	
 	@RequestMapping("groupActivity.do")
 	public void groupActivity(Model model) {
 		model.addAttribute("listList", service.listList());
@@ -236,4 +261,32 @@ public class GroupController {
 		return "체크리스트 삭제 성공";
 	} // removeCard
 	
+	@RequestMapping("randomGroup.do")
+	@ResponseBody
+	public List<Group> randomGroup(Group group) {
+		return service.randomGroup(group);
+	}
 } // end class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

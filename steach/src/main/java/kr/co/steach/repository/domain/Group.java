@@ -17,5 +17,8 @@ public class Group {
 	private String currentAt;
 	private List<GroupMember> groupMember;
 	
+	// 그룹 생성 관련 항목 추가
+	private int groupSize;
+	
 	
 } // end class

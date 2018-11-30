@@ -50,10 +50,18 @@ public interface GroupService {
 	
 	void deleteCardChecklist(GroupChecklist groupChecklist);
 
-	List<Group> groupList(int classNo);
+	List<Group> groupList(Group group);
 
 	List<GroupMember> groupMember(GroupMember groupMember);
 	
 	List<GroupMember> groupMemberList();
+	
+	void insertGroup(Group group);
+	
+	void insertGroupMember(GroupMember groupMember);
+	
+	void updateGroupCurrentAt();
+
+	List<Group> randomGroup(Group group);
 	
 } // end interface
