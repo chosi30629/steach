@@ -128,15 +128,18 @@ a:hover,a:active,a:focus{
 	padding:15px;
 }
 
-.form-title{
-    
-}
 
 /* .modal-backdrop{
     height:100% !important;
 } */
 
 /*subTitle */
+.subTitle-context{
+	margin-top:10px;
+}
+
+
+
 .card-body {
 	background:white;
 }
@@ -146,4 +149,25 @@ a:hover,a:active,a:focus{
     font-size:1.2em;
     font-weight: 500;
     line-height: 1.42857143;
+}
+.submit-cnt-number,.total-cnt-number{
+	height:70px;
+	text-align:center;
+	vertical-align:bottom;
+	padding-top:10px;
+	font-size:3em;
+	font-weight:600;
+}
+.submit-cnt-text,.total-cnt-text{
+	height:30px;
+	text-align:center;
+	font-size:1.2em;
+	font-weight:700;
+}
+.subTitle-context > .col-md-8,.subTitle-context > .col-md4 {
+	min-height:100px;
+}
+.count > .col-md-6{
+	padding:0px;
+	border-left:1px solid #eee;
 }

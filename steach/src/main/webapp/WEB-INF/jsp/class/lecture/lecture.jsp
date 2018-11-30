@@ -48,7 +48,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">
-						등록하기
+						<i class="far fa-edit"></i> 등록하기
 					</h4>
 				</div>
 				<div class="modal-body">
@@ -137,7 +137,7 @@
 					<button class="create-btn">CREATE</button>
 				</div>
 
-			<%--   <!-- subject title -->
+			   <!-- subject title -->
                     <c:forEach var="sb" items="${list.subjectList}">
                     	<div class="accordion-head">
                     		<div class="title">
@@ -176,8 +176,21 @@
 	                    						<span>${b.regDate} 작성됨</span>
 	                    					</div>
 	                    					<div class="subTitle-context">
-	                    						<span>${b.content}</span>
+	                    						<div class="col-md-8">
+	                    							<span>${b.content}</span>
+	                    						</div>
+	                    						<div class="count col-md-4">
+	                    							<div class="col-md-6" >
+	                    								<div class="submit-cnt-number">1</div>
+	                    								<div class="submit-cnt-text">제출자 수</div>
+	                    							</div>
+	                    							<div class="col-md-6">
+	                    								<div class="total-cnt-number">28</div>
+	                    								<div class="total-cnt-text">총 인원수</div>
+													</div>
+	                    						</div>
 	                    					</div>
+	                    					
 	                    					<div class="subTitle-attach">
 			                                    <span><i class="fas fa-paperclip"></i></span>
 			                                    <span><i class="fab fa-google-drive"></i></span>
@@ -188,7 +201,7 @@
                     			</div>
                     		</c:if>
                     	</c:forEach> 
-                    </c:forEach>  --%>
+                    </c:forEach>  
 
 			</div>
 			<!-- col end -->
@@ -229,9 +242,9 @@
 
 	<script>
 	
-		$(function(){
+	/* 	$(function(){
 	  		 list();
-	  	});
+	  	}); */
 	  	
 	  	var lecNo = 0; 
 	  	var boardNo=0;

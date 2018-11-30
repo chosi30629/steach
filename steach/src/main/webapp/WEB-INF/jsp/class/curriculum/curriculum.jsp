@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>curriculum</title>
@@ -13,28 +13,131 @@
 
 <!-- css -->
 
-<link href="/steach/resources/css/class/curriculum/curriculum.css" rel="stylesheet"/>
+<link href="/steach/resources/css/class/curriculum/curriculum.css"
+	rel="stylesheet" />
 <!-- <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
 <script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
 
-<!-- fullcalendar -->	
-<link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.css' rel='stylesheet' />
-<link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src="/steach/resources/fullcalendar-3.9.0/lib/moment.min.js"></script>	
-<script src="/steach/resources/fullcalendar-3.9.0/fullcalendar.min.js"></script>	
-<script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>	
+<!-- fullcalendar -->
+<link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.css'
+	rel='stylesheet' />
+<link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.print.css'
+	rel='stylesheet' media='print' />
+<!-- <link rel="stylesheet" href="https://bootswatch.com/4/Sketchy/bootstrap.min.css"/> -->
+<script src="/steach/resources/fullcalendar-3.9.0/lib/moment.min.js"></script>
+<script src="/steach/resources/fullcalendar-3.9.0/fullcalendar.min.js"></script>
+<script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>
 
-	<script src="/steach/resources/js/jquery-dateformat.js"></script>
-
-
-<!-- <script src="/steach/resources/fullcalendar-3.9.0/demos/test.js"></script> -->
-
-
-
+<!-- swAlert.js -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
+	
 </head>
 <!-- style= "height: 100vh; overflow: hidden;" -->
-<body >
+<body>
+	<!-- calendar modal  -->
+	<div id="formModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title"><i class="far fa-edit"></i>일정 등록하기</h4>
+				</div>
+				<div class="modal-body">
+					<form id="sForm" class="form-horizontal">
+
+						<div class="form-group">
+							<label for="inputTitle" class="col-sm-2 control-label">제목</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputTitle"
+									name="title" placeholder="예) 1주차 Java Programming "
+									autocomplete="off" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputDescription" class="col-sm-2 control-label">설명</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="inputDescription"
+									name="description" placeholder="예) 수업교재 : 이것이 자바다 1권  - 신용권 "
+									autocomplete="off" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputColor" class="col-sm-2 control-label">색상</label>
+							<div class="col-sm-10">
+								<select id="inputColor" name="color" class="form-control"
+									style="width: 50%; color: red">
+									<option value="#ff0000">■ red</option>
+									<option value="#ff6347">■ tomato</option>
+									<option value="#fa8072">■ salmon</option>
+									<option value="#ffa500">■ orange</option>
+									<option value="#ffff00">■ yellow</option>
+									<option value="#00ff00">■ lime</option>
+									<option value="#008000">■ green</option>
+									<option value="#006400">■ darkgreen</option>
+									<option value="#00ff7f">■ springgreen</option>
+									<option value="#008080">■ teal</option>
+									<option value="#00ffff">■ acua</option>
+									<option value="#87ceeb">■ skyblue</option>
+									<option value="#0000ff">■ blue</option>
+									<option value="#00008b">■ darkblue</option>
+									<option value="#000080">■ navy</option>
+									<option value="#808080">■ gray</option>
+									<option value="#000000">■ black</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="displayStart" class="col-sm-2 control-label">시작일</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="displayStart"
+									name="start" placeholder="" readonly style="width: 50%" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="displayEnd" class="col-sm-2 control-label">종료일</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="displayEnd"
+									name="end" placeholder="" readonly style="width: 50%" />
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+					<button id="formBtn" type="button" class="btn btn-primary">등록하기</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
+	<script>
+		$(function(){
+			for(var i=0;i<$("#inputColor > option").length; i++){
+				$("#inputColor > option:eq("+i+")").css({color:$("#inputColor > option:eq("+i+")").val()});
+			}		
+			
+		});
+		
+		/* 색상 변경 시 color 적용하기 */
+		$("#inputColor").on("change",function(){
+			$("#inputColor").css({color:$("#inputColor > option:selected").val()});
+		});
+		
+		
+	</script>
+
 
 	<div id="a" class="container-fluid">
 		<div class="row">
@@ -61,9 +164,7 @@
 							<div class="card-body">
 								<div id="calendar"></div>
 								<div class="calendar-setting">
-									<button type="button" class="btn">저장</button>
-									<button type="button" class="btn">초기화</button>
-								</div>
+								</div> 
 							</div>
 						</div>
 					</div>
@@ -78,30 +179,28 @@
 						<div id="collapseTwo" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<!-- seat-->
-								<div class="seat-section">
-							
-								</div>
+								<div class="seat-section"></div>
 								<div class="seat-setting">
-									<button type="button" class="btn" onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do"/>'">수정하기</button> 
+									<button type="button" class="btn"
+										onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do"/>'">수정하기</button>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-    
- 
+
+
 			</div>
 
 		</div>
 	</div>
 
-	  <script>
+	<script>
 	  
 	/*   $(function(){
 	  		$("body").mCustomScrollbar({theme:"rounded-dark"});
 	  }) */
-	
-	  
+
 
       /* full Calendar */
       var cal = "";
@@ -122,7 +221,7 @@
 				
 			})
 	  
-			function calendarList(){
+	/* 		function calendarList(){
 				 $.ajax({
 					  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
 				  }).done(function(data){
@@ -133,7 +232,7 @@
 					 	
 				  });
 		 	 }
-			
+			 */
 			
 			
 
@@ -156,7 +255,38 @@
             }
         });
 		
+        $("#formBtn").click(function(e){
+        	obj={};
+        	var formData =  $("#sForm").serializeArray();
 
+
+        	obj.title = formData[0].value;
+        	obj.description = formData[1].value;
+        	obj.color= formData[2].value;
+        	obj.start= formData[3].value;
+        	obj.end=formData[4].value;
+        	
+        	if(obj.start.lenth>10){
+        		obj.allDay="false";
+        	} else {
+        		obj.allDay="true"
+        	}    
+        	
+        	
+            $.ajax({
+           			 url:"<c:url value='insertSchedule.do'/>",
+         	 		 data:obj
+            }).done(function(id){
+          		$("#formModal").modal('hide');
+          		$("#sForm").find("input").val(""); 
+         		obj.id=id;
+         		$("#calendar").fullCalendar('renderEvent',obj);
+           }).fail(function(){
+         	 	alert("안됬다...ㅠ")
+           })
+    		
+        	
+        })//btn end ;
 
  
         
@@ -164,106 +294,104 @@
    		function calendar(){
  			//console.log(eventArray);
             
- 			cal = $('#calendar').fullCalendar(
-            
-          {
-            header: {
-              left: 'prev,next today',
-              center: 'title',
-              right: 'month,agendaWeek,listMonth'
-            },         
-            navLinks: true, // can click day/week names to navigate views
-      		eventColor:'#043E3F',
-           // weekNumbers: true,
-            //weekNumbersWithinDays: true,
-            //weekNumberCalculation: 'ISO',
-            locale: initialLocaleCode,
-            editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            selectable:true,
-       		/* event 등록하기 */ 
-            select:function(start,end,jsEvent,view){
-            	console.log(jsEvent);
-                var obj={};
-                var title = prompt("제목 입력하세요");
-                var description = prompt("내용을 입력하세요");
-                if(title){
-                  obj.title = title;
-                  obj.description = description;
-                  obj.start = start.format();
-                  obj.end = end.format();                  
-				
-                  if(obj.start.length>10){
-                	  obj.allDay="false";
-                  } else{
-                	  obj.allDay="true";
-                  }
-        
-                 /* 등록했을 경우!!  */
-                 /*  */
-                 $.ajax({
-                  	 url:"<c:url value='insertSchedule.do'/>",
-                	 data:obj
-                 }).done(function(id){
-                	// alert(id);
-                	obj.id=id;
-                	$("#calendar").fullCalendar('renderEvent',obj);
-                 }).fail(function(){
-                	 alert("안됬다...ㅠ")
-                 })
-                 
-               
-                }
-	
-            },
-            events: 
-            	 function(start,end,timezone,callback){
-            		callback(eventArray); 
-            	
-            },
-            /* description 가져오기 */
-            eventRender: function (event, element, view) {
-                element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px">'+event.description+'</span></div>');
-            },
-            eventClick: function(event){
-              // console.dir(event);
-               var result = confirm("삭제하시겠습니까?");
-               if(result){ 
-            	   
-            	   $.ajax({
-            		   url:"<c:url value='deleteSchedule.do'/>",
-            		   data:"id="+event.id
-            	   }).done(function(){
-            			alert("삭제됨");
-            	   }).fail(function(){
-            		   alert("삭제안됬죵..")
-            	   });
-                //화면에서제거
-                $("#calendar").fullCalendar('removeEvents',event._id);
-               }
-               
-            },
-            eventDrop:function(event){
-            	console.dir(event);
-            	//console.dir(event.start.format());
-            	//console.dir(event.end.format());
-            	$.ajax({
-            		url:"<c:url value='updateScheduleDate.do'/>",
-            		data:{start:event.start.format(),end:event.end.format(),id:event.id}
-            	}).done(function(){
-            	}).fail(function(){
-            		alert("안됬습니다..")
-            	})
-            },
-            eventResizeStop:function(event){
-            	console.dir(event);
-            }
+ 			cal = $('#calendar').fullCalendar({
+	            header: {
+	              left: 'prev,next today',
+	              center: 'title',
+	              right: 'month,agendaWeek,listMonth'
+	            },  
+	           /*  theme:true,
+	            themeSystem:"bootstrap4", */
+	            navLinks: true, // can click day/week names to navigate views
+	           	// weekNumbers: true,
+	            //weekNumbersWithinDays: true,
+	            //weekNumberCalculation: 'ISO',
+	            locale: initialLocaleCode,
+	            editable: true,
+	            eventLimit: true, // allow "more" link when too many events
+	            selectable:true,
+	       		/* event 등록하기 */ 
+	            select:function(start,end,jsEvent,view){
+	            	//console.log(jsEvent);
+            	var obj={};
+                $("input[name='start']").val(start.format());
+                $("input[name='end']").val(end.format());
+                $("#formModal").modal('show');
+	            },
+	            events: 
+	            	 function(start,end,timezone,callback){
+	            		callback(eventArray); 
+	            	
+	            },
+	            /* description 가져오기 */
+	            eventRender: function (event, element, view) {
+	                element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px">'+event.description+'</span></div>');
+	            },
+	            /* click 삭제하기 */
+	            eventClick: function(event){  
+	               swal({
+	            	   title: '일정을 삭제하시겠습니까?',
+	            	   text: "이벤트 제목 :"+event.title,
+	            	   type: 'warning',
+	            	   showCancelButton: true,
+	            	   confirmButtonColor: '#3085d6',
+	            	   cancelButtonColor: '#d33',
+	            	   confirmButtonText: 'Yes'
+	            	 })
+	            	 .then((result) => {
+	            	   if (result.value) {
+	            		   $.ajax({
+		            		   url:"<c:url value='deleteSchedule.do'/>",
+		            		   data:"id="+event.id
+		            	   }).done(function(){
+		            		   swal(
+		    	            	       'Deleted!',
+		    	            	       'Your file has been deleted.',
+		    	            	       'success'
+		    	            	     );
+		            		   $("#calendar").fullCalendar('removeEvents',event._id);   
+		            	   }).fail(function(){
+		            		   alert("err");
+		            	   })//ajax end 
+	            	  
+	            	   }//if end 
+	            	 })//then end 
 
-          }
-          
-          );
-      
-        };
+	               
+	            },
+	            /* drag event 변경하기 */
+	            eventDrop:function(event){
+	            	//console.dir(event);
+	            	//console.dir(event.start.format());
+	            	//console.dir(event.end.format());
+	            	$.ajax({
+	            		url:"<c:url value='updateScheduleDate.do'/>",
+	            		data:{start:event.start.format(),end:event.end.format(),id:event.id}
+	            	}).done(function(){
+	            	}).fail(function(){
+	            		alert("err")
+	            	})
+	            },
+	        	/* resize event */
+	            eventResize: function( event, delta, revertFunc, jsEvent, ui, view ) {
+	            	 //console.log(event.end.format())
+					 //console.log(event.end)
+	                // startDateOnStop = event.start.format();
+	                 //endDateOnStop = event.end.format();
+					$.ajax({
+	            		url:"<c:url value='updateScheduleDate.do'/>",
+	            		data:{start:event.start.format(),end:event.end.format(),id:event.id}
+	            	}).done(function(){
+	            	}).fail(function(){
+	            		alert("err")
+	            	})
+
+	            }
+	          }
+	          
+	          );
+	      
+	        };
         
     </script>
 </body>
