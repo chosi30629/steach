@@ -110,7 +110,7 @@
            <div style="font-size: 13px;">
              <div>저장용량</div>
              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                <div class="progress-bar" role="progressbar"  style="width: 10%;"></div>
               </div>
              <div>
              
@@ -194,10 +194,10 @@
                 <jsp:useBean id="dateValue" class="java.util.Date"/>	
 				<jsp:setProperty name="dateValue" property="time" value="${item.lastModified()}"/>
 				<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dateValue}" />
-				용량${item.length()}
+				<br>
 				<c:choose>
-					<c:when test="${item.isDirectory()==true}">folder</c:when>
-					<c:otherwise>file</c:otherwise>
+					<c:when test="${item.isDirectory()==true}">폴더용량 : ${item.length()}</c:when>
+					<c:otherwise>파일용량 : ${item.length()}</c:otherwise>
 				</c:choose>
 				<br><br>
                 </c:forEach>
@@ -255,27 +255,8 @@ $('.myModal').modal({
   flexDirection: 'column',
   justifyContent: 'center',
 })    
-}
+};
 
-
-$(document).ready(function(){
-
-  if($('tbody').children().length==0){
-    
-    $('.ft').append(
-   		'<div class="picOuter">'
-       		 +'<div class="allpicOuter">'
-    		 +'<div class="allpic">'
-          	 +'<div class="pic1"></div>'
-   			 +'<div class="pic2"></div>'
-           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
-   			 +'</div>'
-             +'</div>'
-         	 +'</div>')
-            $('.picOuter').css("display", "flex");
-            } //if
-            }) 
-          
 // 새로 만들기 버튼 클릭시를 구현할 거예요!
 $('.addFolder').click(function(){
   
@@ -297,7 +278,6 @@ addTextBefore()
 
   //새로만들기모달  .AfterMakeIt (폴더 만들기) 클릭시 
   //.addTextBefore 의 myModal 내의 input:value 를 가져와서 폴더 만들기 
-   var num = 0;
   
     $('.AfterMakeIt').click(function(){
     	
@@ -309,33 +289,40 @@ addTextBefore()
     	
     	var node = $("#tree").fancytree("getActiveNode");
     	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
+    	
     	var childNode = node.addChildren({
             title: $(".addTextBefore").val(),
 //             tooltip: $(".addTextBefore").val(),
-            id : "test_"+num,
             folder: true
          });
     	
     //  path
     		 var arrPath = [];
-//             console.log(childNode.getKeyPath(false).split("/"))
+    		 var keyPath = [];
             for(var i = 1 ; i< childNode.getKeyPath(false).split("/").length ; i++ ){
-//             	console.log( i , $("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).title);
             	arrPath.push($("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).title)
+            	keyPath.push($("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).key)
             }
              var path = arrPath.join('\\');
-    	      console.log(path);
+             var kpath = keyPath.join('\\');
+             var keyVal = kpath.substring(kpath.lastIndexOf('\\')+1 , kpath.length) // 마지막 \\ 찾아서 자르기
+    	        console.log(path);
+            	console.log(kpath);
+            	console.log(keyVal);
+            	// 
            
     // ajax 호출하기 makedir
         	
         	$.ajax({
         		url: '<c:url value="/drive/makedir.do" />',
-        		data: {path : path}
+        		data: {
+        			path : path,
+        			keyVal : keyVal
+        			}
         	}).done(function(result){
     			console.log(result);
-    			num++;
         		$('tbody').append('<tr class="ggg">' 
-        		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="test_'+num+'">'+$(".addTextBefore").val()+'</span></td>'
+        		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="'+result.keyVal+'">'+result.name+'</span></td>'
         		        +  '<td class="owner" class="text-center">'+result.patt.split("\\")[2]+'</td>'
         		        +  '<td class="date" class="text-center">'+result.modified+'</td>'
         		        +  '<td class="val" class="text-center">'+result.length+'</td>'
@@ -751,9 +738,41 @@ var sour = [
 }
 		
 
-// 		 $(document).ready(function(){	 
-// 		 var rootNode = $("#tree").fancytree("getRootNode");
-// 		 })
+		$(document).ready(function(){
+			            
+				 node = $("#tree").fancytree("getRootNode").children[0];
+				 var childlist = ${list};
+				 for(var i=0 ; i< childlist.length; i++){
+					 var e = childlist[i]
+					 var childNode = node.addChildren(e);
+					 console.log(e);
+					 
+					 $('tbody').append('<tr>' 
+			    		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="">'+e.title+'</span></td>'
+			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
+			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
+			    		        +  '<td class="val" class="text-center">'+e.length+'</td>'
+			    		        +  '</tr>');
+				 }
+			            
+
+				  if($('tbody').children().length==0){
+				    
+				    $('.ft').append(
+				   		'<div class="picOuter">'
+				       		 +'<div class="allpicOuter">'
+				    		 +'<div class="allpic">'
+				          	 +'<div class="pic1"></div>'
+				   			 +'<div class="pic2"></div>'
+				           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+				   			 +'</div>'
+				             +'</div>'
+				         	 +'</div>')
+				            $('.picOuter').css("display", "flex");
+				            } //if
+				 
+				 
+			            })
 
 		 function app() {
 			 location.href = "/steach/main/main.do"

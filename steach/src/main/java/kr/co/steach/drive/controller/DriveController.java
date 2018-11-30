@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import kr.co.steach.repository.domain.User;
 
@@ -28,10 +32,11 @@ public class DriveController {
 	
 	@RequestMapping("/makedir.do")
 	@ResponseBody
-	public HashMap<String, Object> makeDir(@RequestParam(value="path")String path) {
+	public HashMap<String, Object> makeDir(@RequestParam(value="path")String path, @RequestParam(value="keyVal")String keyVal) {
 		File file = new File(Npath + path); //
 		file.mkdir();
 		HashMap<String, Object> file2 = new HashMap<>();
+		file2.put("keyVal", keyVal);
 		file2.put("name", file.getName());
 		file2.put("length", file.length());
 		file2.put("patt", file.getPath());
@@ -50,15 +55,32 @@ public class DriveController {
 			response.sendRedirect("/steach/home/home.do");
 		}
 		
-				File f= new File(Npath+user.getName()); 	
+				File f= new File(Npath+user.getName());
+				f.mkdirs(); 
+
+				long usedSpaece = f.length();
+				System.out.println(usedSpaece);
+				
+				List<Map<String, Object>> list = new ArrayList<>();
+				File[] arrfile = f.listFiles();
+				for(File fInfo : arrfile) {
+					Map<String, Object> fmap = new HashMap<>();
+					fmap.put("path", fInfo.getPath());
+					fmap.put("title", fInfo.getName());
+					fmap.put("folder", fInfo.isDirectory());
+					fmap.put("lastModified", sdf.format(fInfo.lastModified()));
+					fmap.put("length", fInfo.length());
+					list.add(fmap);
+				}
 				
 				
 				// 경로를 가지고 있는 배열
 				ArrayList<File> subFiles= new ArrayList<File>();
 		        // 드라이브 사용 가능한 용량
 				String usableSpace = Math.round(f.getUsableSpace()/Math.pow(1024, 3))+"GB";
+//				String usedSpace = Math.round(f.getuse()/Math.pow(1024, 3))+"GB";
 		        System.out.println(usableSpace);
-		       
+		        
 		        if(!f.exists()) 
 		        { 
 		            System.out.println("디렉토리가 존재하지 않습니다"); 
@@ -74,7 +96,8 @@ public class DriveController {
 		                System.out.println("파일 이름 : "+file.getName()); 
 		                System.out.println("파일 경로 : "+file.getCanonicalPath()); 
 		                System.out.println("파일 크기 : "+file.length()); 
-		                System.out.println("———————————-"); 
+		                System.out.println("———————————-");
+		            
 		            } 
 		            else if(file.isDirectory()) 
 		            { 
@@ -83,14 +106,18 @@ public class DriveController {
 		                System.out.println("디렉토리 경로 : "+file.getCanonicalPath()); 
 		                System.out.println("디렉토리  : "+file.length());
 		                System.out.println("———————————-"); 
+		               
 		            } 
 		        } 
+		        
 		        //subFiles 경로 배열 
 		        //usableSpace 사용 가능한 용량
+		        Gson gson = new Gson();
 		        model.addAttribute("subFiles", subFiles);
 		        model.addAttribute("usableSpace", usableSpace);
+		        model.addAttribute("list", gson.toJson(list));
 		        
-		        
+		       
 		        return user;
 		    } 
 		     

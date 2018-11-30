@@ -379,7 +379,7 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
 .trClickDetail{
     border-bottom: 1px solid #e8eaed;
     border-top: none;
-    padding: 0 8px;
+    padding: 0 10px;
     display: flex;
     font-size: 14px;
     color: #5f6368;
@@ -402,7 +402,7 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
 }
 
 .trClickDetailContent{
-    padding-top: 10px;
+    padding: 10px 10px 0 10px;
     text-align: center;
     overflow: auto;
     height: 68vh;
