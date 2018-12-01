@@ -411,3 +411,16 @@ input, textarea, button {
     opacity: 0.7;
     font-size: 20px;
 }
+.parentDrag > .listTitle > div > .modify-group-name {
+    float: right;
+    position: relative;
+    top: -30px;
+}
+.parentDrag > .groupNameForm {
+    display: none; 
+    width: 500px;
+    height: 25px; 
+    position: relative; 
+    top: 15px; 
+    margin: 0 auto;
+}

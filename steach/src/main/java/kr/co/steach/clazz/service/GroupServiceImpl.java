@@ -216,5 +216,10 @@ public class GroupServiceImpl implements GroupService {
 	public void memberOrderUpdate(GroupMember groupMember) {
 		mapper.memberOrderUpdate(groupMember);
 	} // memberOrderUpdate
+
+	@Override
+	public void updateGroupName(Group group) {
+		mapper.updateGroupName(group);
+	} // updateGroupName
 	
 } // end class

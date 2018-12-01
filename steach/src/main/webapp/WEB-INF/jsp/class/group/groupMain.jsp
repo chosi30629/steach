@@ -189,10 +189,14 @@ l0,-61 L40,28" />
 			<c:forEach var="group" items="${groupList}" varStatus="loop">
 				group += '<li class="parentDrag" data-index="${group.groupNo}">'
 		            + '<div class="listTitle">'
-		            +     '<div class="listSubject">'
-		            +         '${group.groupName}'
+		            +     '<div class="listSubject text-center">'
+		            +         '<span class="group-name">${group.groupName}</span>'
 		            +     '</div>'
+		            +     '<div><button class="btn btn-default btn-sm modify-group-name" style="display: none; float: right;">수정</button></div>'
 		            + '</div>'
+		            + '<div class="groupNameForm text-center"><div class="input-group">'
+		            + '<input type="text" class="form-control modify-group-name-input" value="${group.groupName}">'
+		            + '<span class="input-group-btn"><button class="btn btn-default on-modify-group-name" type="button">수정</button></span></div></div>'
 		            + '<ul class="connectedSortable childDrop">'
 		                　		+ '　'
 		           	+ ' <c:forEach var="member" items="${groupList[loop.index].groupMember}">  '  
@@ -289,10 +293,14 @@ l0,-61 L40,28" />
 					let group = result[i];
 					html += '<li class="parentDrag wow wobble" data-index="' + group.groupNo + '">'
 			             + '<div class="listTitle">'
-			             +     '<div class="listSubject">'
-			             +         group.groupName
+			             +     '<div class="listSubject text-center">'
+			             +         '<span class="group-name">' + group.groupName + '</span>'
 			             +     '</div>'
+			             +     '<div><button class="btn btn-default btn-sm modify-group-name" style="display: none; float: right;">수정</button></div>'
 			             + '</div>'
+			             + '<div class="groupNameForm text-center"><div class="input-group">'
+			             + '<input type="text" class="form-control modify-group-name-input" value="' + group.groupName + '">'
+			             + '<span class="input-group-btn"><button class="btn btn-default on-modify-group-name" type="button">수정</button></span></div></div>'
 			             + '<ul class="connectedSortable childDrop">'
 			                　		 + '　';
 					
@@ -360,14 +368,53 @@ l0,-61 L40,28" />
         document.querySelector('.menu__list')
             .classList.toggle('menu__list--animate');
         });
+		
+        // 조 이름 수정
+        $(document).mousedown(function (e){
+            var container = $('.groupNameForm');
+            if( container.has(e.target).length === 0){
+                $(".groupNameForm").hide();
+                $(".listTitle").show();
+            }
+        });
 
+        $("body").on("mouseover", ".listTitle", function() {
+            $(this).find("div").find(".modify-group-name").show();
+            $(this).mouseleave(function() {
+                $(this).find("div").find(".modify-group-name").hide();
+            });
+        });
+        
+        $("body").on("click", ".modify-group-name", function(e) {
+            e.preventDefault();
+            $(this).parents(".listTitle").siblings(".groupNameForm").show();
+            $(this).parents(".listTitle").hide();
+            $(".modify-group-name-input").focus();
+        });
+        
+        $("body").on("click", ".on-modify-group-name", function() {
+            var modifyName = $(this).parent("span").siblings(".modify-group-name-input").val();
+            $(this).parents(".groupNameForm").siblings(".listTitle").find(".listSubject").find(".group-name").text(modifyName);
+            var modifyGroupNo = $(this).parents(".parentDrag").attr("data-index");
+            
+            $.ajax({
+            	url: "/steach/class/group/modifyGroupName.do",
+            	data: {"groupNo": modifyGroupNo, "groupName": modifyName}
+            })
+            .done(function(result) {
+				console.log(result);
+	            $(".groupNameForm").hide();
+	            $(".listTitle").show();
+			}); 
+        });
+        
         $('ul.nav li.dropdown').hover(function () {
             $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(200);
         }, function () {
             $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
         });
 
-        $("body").on("click", ".listTitle", function() {
+        $("body").on("click", ".group-name", function() {
             location.href = "groupActivity.do";
         });
         

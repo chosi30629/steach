@@ -247,12 +247,19 @@
 		   set current_at = 'n'
 	</update>
 		
-	<!-- 카드 위치 변경 -->
+	<!-- 멤버 위치 변경 -->
 	<update id="memberOrderUpdate" parameterType="groupMember">
 		update tb_class_group_member
 		   set group_member_order = #{groupMemberOrder},
 		       group_no = #{groupNo}
 		 where group_member_no = #{groupMemberNo}  
+	</update>
+	
+	<!-- 그룹 이름 변경 -->
+	<update id="updateGroupName" parameterType="Group">
+		update tb_class_group
+		   set group_name = #{groupName}
+		 where group_no = #{groupNo}  
 	</update>
 	
 </mapper>

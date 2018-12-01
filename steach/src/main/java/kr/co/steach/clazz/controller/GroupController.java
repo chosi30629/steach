@@ -117,6 +117,14 @@ public class GroupController {
 		return "멤버 순서 업데이트 성공";
 	} // modifyMemberOrder
 	
+
+	@RequestMapping("modifyGroupName.do")
+	@ResponseBody
+	public String modifyGroupName(Group group) {
+		service.updateGroupName(group);
+		return "조 이름 변경 성공";
+	} // modifyGroupName
+	
 	@RequestMapping("groupActivity.do")
 	public void groupActivity(Model model) {
 		model.addAttribute("listList", service.listList());

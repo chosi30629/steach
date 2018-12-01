@@ -64,4 +64,6 @@ public interface GroupMapper {
 	
 	void memberOrderUpdate(GroupMember groupMember);
 	
+	void updateGroupName(Group group);
+	
 } // end interface
