@@ -138,7 +138,7 @@
 				</div>
 
 			   <!-- subject title -->
-                    <c:forEach var="sb" items="${list.subjectList}">
+                 <%--     <c:forEach var="sb" items="${list.subjectList}">
                     	<div class="accordion-head">
                     		<div class="title">
                     			<span class="title-name">${sb.subject}</span>
@@ -152,7 +152,7 @@
                     	</div><!-- acc-head end -->
            	 		
            	 		<!-- board  -->
-           	 		<c:forEach var="b" items="${list.boardList}">
+           	  		<c:forEach var="b" items="${list.boardList}">
            	 			<c:if test="${b.lecNo==sb.lecNo}">
 	                    	<div class="accordion" role="tablist">
 	                    		<div class="card">
@@ -176,32 +176,42 @@
 	                    						<span>${b.regDate} 작성됨</span>
 	                    					</div>
 	                    					<div class="subTitle-context">
+	                    						<div class="row">
 	                    						<div class="col-md-8">
 	                    							<span>${b.content}</span>
 	                    						</div>
-	                    						<div class="count col-md-4">
-	                    							<div class="col-md-6" >
-	                    								<div class="submit-cnt-number">1</div>
-	                    								<div class="submit-cnt-text">제출자 수</div>
-	                    							</div>
-	                    							<div class="col-md-6">
-	                    								<div class="total-cnt-number">28</div>
-	                    								<div class="total-cnt-text">총 인원수</div>
-													</div>
-	                    						</div>
+	                    						<c:if test="${b.pNo ne 1 and b.pNo ne 3}">
+		                    						<div class="count col-md-4">
+		                    							<div class="col-md-6" >
+		                    								<div class="submit-cnt-number">1</div>
+		                    								<div class="submit-cnt-text">제출자 수</div>
+		                    							</div>
+		                    							<div class="col-md-6">
+		                    								<div class="total-cnt-number">28</div>
+		                    								<div class="total-cnt-text">총 인원수</div>
+														</div>
+		                    						</div>
+	                    						</c:if>
 	                    					</div>
-	                    					
-	                    					<div class="subTitle-attach">
-			                                    <span><i class="fas fa-paperclip"></i></span>
-			                                    <span><i class="fab fa-google-drive"></i></span>
-		                                	</div>
+	                    					</div>
+	                    				
+	                    					<c:if test="${b.pNo ne 4}">
+		                    					<div class="subTitle-attach">
+		                    						<div class="row">
+		                    							<div class="col-md-6">
+					                                    <span>subject1.txt <i class="fas fa-paperclip"></i></span>
+					                                   <!--  <span><i class="fab fa-google-drive"></i></span> -->
+					                                    </div>
+				                    				</div>
+			                                	</div>
+		                                	</c:if> 
 	                    				</div>
 	                    			</div>
 	                    		</div>
                     			</div>
                     		</c:if>
                     	</c:forEach> 
-                    </c:forEach>  
+                    </c:forEach>     --%>
 
 			</div>
 			<!-- col end -->
@@ -242,10 +252,10 @@
 
 	<script>
 	
-	/* 	$(function(){
+	 	$(function(){
 	  		 list();
-	  	}); */
-	  	
+	  	});  
+	  	 
 	  	var lecNo = 0; 
 	  	var boardNo=0;
 	  /* modal 동적 로딩 */
@@ -305,9 +315,9 @@
 			$("input[name='deadline']").val($("#deadlineText").html());
 			
 			/* textarea */
-			//var str = $("textarea[name='content']").val();
-			//str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
-			//$("textarea[name='content']").val(str);
+			var str = $("textarea[name='content']").val();
+			str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
+			$("textarea[name='content']").val(str);
 			
 			
 			var formData = new FormData($("#bForm")[0]);
@@ -493,41 +503,75 @@
 		        		html.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
 		        		html.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
 		        		html.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-		        		html.append("<i class='fas fa-ellipsis-v'></i></a></div></div></div>");
+		        		html.append("<i class='fas fa-ellipsis-v'></i></a>");
+		        		html.append("</div>"); //menu end 
+		        		html.append("</div>"); //title end 
+		        		html.append("</div>"); //acc-head end 
 		        		
 		        		for(let j=0; j < boardList.length; j++){
 		        			if(boardList[j].lecNo == subjectList[i].lecNo){
 		        				html.append("<div class='accordion' role='tablist'>");
-				        		html.append("<div class='card'>");
-				        		html.append("<div class='card-header' role='tab' data-toggle='collapse' aria-expanded='false'");
-				        		html.append("href='#collapse"+boardList[j].boardNo+"' ");
-				        		html.append("id='heading"+boardList[j].boardNo+"'>");
-				        		html.append("<div class='subTitle'>");
-				        		/* 아이콘 변경 */
-				        		switch(parseInt(boardList[j].pNo)){
-				        			case 1:html.append("<i class='fas fa-book fa-2x'></i>"); break;
-				        			case 2:html.append("<i class='fas fa-edit fa-2x'></i>"); break;
-				        			case 3:html.append("<i class='fas fa-video fa-2x'></i>"); break;
-				        			case 4:html.append("<i class='fas fa-vote-yea fa-2x'></i>");break;
-				        		}//sw end 
+				        			html.append("<div class='card'>");
+				        				html.append("<div class='card-header' role='tab' data-toggle='collapse' aria-expanded='false'");
+				        				html.append("href='#collapse"+boardList[j].boardNo+"' ");
+				        				html.append("id='heading"+boardList[j].boardNo+"'>");
+				        					html.append("<div class='subTitle'>");
+							        		/* 아이콘 변경 */
+							        		switch(parseInt(boardList[j].pNo)){
+							        			case 1:html.append("<i class='fas fa-book fa-2x'></i>"); break;
+							        			case 2:html.append("<i class='fas fa-edit fa-2x'></i>"); break;
+							        			case 3:html.append("<i class='fas fa-video fa-2x'></i>"); break;
+							        			case 4:html.append("<i class='fas fa-vote-yea fa-2x'></i>");break;
+							        		}//sw end 
+							        		
 				        		
+				        				html.append("&nbsp;&nbsp;<a>"+boardList[j].title+"</a>");
+				        				html.append("<div class='menu'>");
+				        					html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
+				        					html.append("<i class='fas fa-ellipsis-v'></i></a>");
+				        				html.append("</div>"); // menu end 
+			        				html.append("</div>"); //subtitle end
+				        		html.append("</div>"); //card header end 
 				        		
-				        		html.append("&nbsp;&nbsp;<a>"+boardList[j].title+"</a>");
-				        		html.append("<div class='menu'>");
-				        		html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
-				        		html.append("<i class='fas fa-ellipsis-v'></i></a></div></div></div>");
 				        		html.append("<div id='collapse"+boardList[j].boardNo+"' roll='tabpanel' class='collapse'>");
-				        		html.append("<div class='card-body'>");
-				        		html.append("<div class='subTitle-time'>");
-				        		html.append("<span>"+$.format.date(boardList[j].regDate, pattern="yyyy-MM-dd HH:mm:ss")+" 작성됨</span></div>");
-				        		html.append("<div class='subTitle-context'>");
-				        		html.append("<span style='white-space:pre'>"+boardList[j].content+"</span></div>");
-				        		html.append("<div class='subTitle-attach'>")
-				        		html.append("<span><i class='fas fa-paperclip'></i></span>");
-				        		html.append("<span><i class='fab fa-google-drive'></i></span>");
-				        		html.append("</div></div></div></div></div>");
+				        			html.append("<div class='card-body'>");
+				        				html.append("<div class='subTitle-time'>");
+				        					html.append("<span>"+$.format.date(boardList[j].regDate, pattern="yyyy-MM-dd HH:mm:ss")+" 작성됨</span>"); 
+										html.append("</div>")//subTitle-time end 
+				        	
+										html.append("<div class='subTitle-context'>");
+											html.append("<div class='row'>")
+						        				html.append("<div class='col-md-8'>");
+						        				html.append("<span>"+boardList[j].content+"</span>");
+						        				html.append("</div>");//col-md-8 end 	
+						        		
+						        				html.append("<div class='count col-md-4'>");
+							        				html.append("<div class='col-md-6'>");
+								        				html.append("<div class='submit-cnt-number'>1</div>");
+								        				html.append("<div class='submit-cnt-text'>제출자 수</div>");
+								        			html.append("</div>");//col-md-6 end 
+								        			html.append("<div class='col-md-6'>");
+										        		html.append("<div class='total-cnt-number'>28</div>");
+										        		html.append("<div class='total-cnt-text'>총 인원수</div>");
+										        	html.append("</div>");//col-md-6 end 
+								        		html.append("</div>");//col-md-4 end 
+								        	html.append("</div>");//row end 		
+						        		html.append("</div>");//subTitle-context end 
+						        	
+					        			html.append("<div class='subTitle-attach'>");
+						        			html.append("<div class='row'>");
+					        					html.append("<div class='col-md-6'>")
+										        	html.append("<span><i class='fas fa-paperclip'></i></span>");
+										        	html.append("<span><i class='fab fa-google-drive'></i></span>");
+						        				html.append("</div>");//col-md-6 end 
+					        				html.append("</div>")//row end 
+					        			html.append("</div>")//subTitle-attach end 
+					        	html.append("</div>");//collapse end
+					        	html.append("</div>");//card end 
+					        	html.append("</div>");//acc -end 
+					        	html.append("</div>")
 		        			}//if end 
-		        		}//inner for end 
+		        		}//inner for end  
         			}//outer for end 
         			
         		$(".create").after(html.toString());

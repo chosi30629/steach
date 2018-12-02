@@ -133,7 +133,10 @@ public class LectureController {
 	
 	
 	@RequestMapping("/homework.do")
-	public void hwList() {
-		
+	public void hwList(@RequestParam(value="classNo",defaultValue="1")int classNo,Model model) {
+		System.out.println("homeworkTitle:"+service.selectHomeworkByCNo(classNo));
+		System.out.println("homeworkDetail:"+service.selectSubmitHomeworkByCNo(classNo));
+		model.addAttribute("homework",service.selectHomeworkByCNo(classNo));
+		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
 	}
 }

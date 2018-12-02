@@ -24,6 +24,16 @@
 		<collection property="lecture" resultMap="lectureMap"/>
 	</resultMap>
 	
+	<resultMap id="homeworkMap" type="Homework">
+		<result column="hw_no" property="hwNo"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="id" property="id"/>
+		<result column="hw_content" property="hwContent"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+	
+	
+	
 <!-- 	<select id="selectBoardByClassNo" parameterType="int" resultMap="lectureBoardMap">
 		select b.board_no,b.lec_no, b.p_no, b.title, b.content, b.reg_date, b.deadline, b.mem_cnt,l.class_no,l.subject,l.master 
 		  from tb_class_lecture_board b,tb_class_lecture l
@@ -117,6 +127,35 @@
 		   set  p_no=#{pNo}, title=#{title}, content=#{content},deadline=#{deadline},mem_cnt=#{memCnt}
 		 where board_no=#{boardNo}
 	</update>
+	
+	
+	
+	<!-- homework -->
+	
+	<!-- class번호에 해당하는 homework 가져오기  -->
+	<select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
+		select b.*,l.subject 
+		  from tb_class_lecture_board b, tb_class_lecture l
+		 where b.lec_no=l.lec_no
+		   and l.class_no=#{classNo}
+		   and b.p_no=2
+	</select>
+	
+	
+	<!-- select homework detail by boardNo -->
+	<select id="selectSubmitHomeworkByCNo" parameterType="int" resultMap="homeworkMap">
+		select h.*
+		  from tb_class_lecture_board b, tb_class_lecture l, tb_class_lecture_board_homework h, tb_class c
+		 where l.lec_no = b.lec_no
+		   and b.board_no = h.board_no
+		   and c.class_no = #{classNo}
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 	

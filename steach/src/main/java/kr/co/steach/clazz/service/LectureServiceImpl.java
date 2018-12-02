@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.mapper.ClassMapper;
@@ -77,6 +78,16 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public LectureBoard selectLectureBoardByBNo(int boardNo) {
 		return mapper.selectLectureBoardByBNo(boardNo);
+	}
+
+	@Override
+	public List<LectureBoard> selectHomeworkByCNo(int classNo) {
+		return mapper.selectHomeworkByCNo(classNo);
+	}
+
+	@Override
+	public List<Homework> selectSubmitHomeworkByCNo(int classNo) {
+		return mapper.selectSubmitHomeworkByCNo(classNo);
 	}
 
 	

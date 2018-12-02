@@ -69,11 +69,12 @@
     margin:5px 10px;
 }
 .modal-ul{
-    margin:5px;
+    margin:0;
     padding:0;
     list-style:none;
 }
 .modal-ul > li {
+	padding:0 5px;
     font-size:1em;
     text-align:left;
     line-height:1.8;

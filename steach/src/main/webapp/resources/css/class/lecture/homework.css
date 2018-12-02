@@ -25,8 +25,7 @@ body{
 
 .accordion-head{
     height:50px;
-    /* background:#426e92; */
-    background:rgb(0, 121, 191);
+    background:rgb(75, 191, 107);
     margin-top:30px;
     box-shadow:1px 0px 1px grey;
     border-top-left-radius: 11px;
@@ -64,20 +63,7 @@ a:hover,a:active,a:focus{
     float:right;
     text-align:right;
 }
-.create{
-    margin-top:50px;
-    margin-bottom:30px;
-}
-.create-btn {
-    border:none;
-    background-color:#a4bdbf;
-    border-radius: 15px;
-    width:100px;
-    height:30px;
-    font-weight:bold;
-    font-size:1.2em;
-    box-shadow:1px 0px 1px grey;
-}
+
 
 
 /* accordion 내 css  */
@@ -128,49 +114,67 @@ a:hover,a:active,a:focus{
 	padding:15px;
 }
 
-
-/* .modal-backdrop{
-    height:100% !important;
-} */
-
 /*subTitle */
 .subTitle-context{
 	margin-top:10px;
 
 }
-.subTitle-attach{
-
+.homework-name{
+	font-size:1.2em;
+	font-weight:600;
 }
-
 
 .card-body {
 	background:white;
 }
 .card-body span {
     display:inline-block;
-    margin:10px;
+    margin:5px;
     font-size:1.2em;
     font-weight: 500;
     line-height: 1.42857143;
 }
-.submit-cnt-number,.total-cnt-number{
-	height:70px;
-	text-align:center;
-	vertical-align:bottom;
-	padding-top:10px;
-	font-size:3em;
-	font-weight:600;
+.user-info{
+    height:50px;
+    background:#eee;
+    box-shadow:1px 1px 1px grey;
+    border-bottom:1px solid grey;  
 }
-.submit-cnt-text,.total-cnt-text{
-	height:30px;
-	text-align:center;
-	font-size:1.2em;
-	font-weight:700;
+.user-pic {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin: 5px 5px;
+    border: 1px solid red;
 }
-.subTitle-context > .col-md-8,.subTitle-context > .col-md4 {
-	min-height:100px;
+.user-name {
+	display: inline;
+    position: relative;
+    top: 5px;
 }
-.count > .col-md-6{
-	padding:0px;
-	border-left:1px solid #eee;
+.user-name > a {
+    text-decoration:none;
+    color:black;  
+} 
+.user-file{
+	margin: 0 10px;
+	display:inline;
+	position:relative;
+	top:5px;
+	float:right;
 }
+.user-file > a > span{
+	margin-top:9px;
+}
+
+.submit-section,.unsubmit-section{
+	margin-top:10px;
+}
+/* 미제출자 table */
+table{
+	margin:auto;
+}
+td{
+	padding:5px;
+}
+ 
