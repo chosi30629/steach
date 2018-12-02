@@ -44,6 +44,28 @@ public class DriveController {
 		return file2;
 	}
 	
+	@RequestMapping("/detailFolder.do")
+	@ResponseBody
+	public List<Map<String, Object>> detailFolder(Model model ,@RequestParam(value="path")String path ) {
+		System.out.println(path);
+		File f= new File(path);
+		if(f.isDirectory()) {
+		List<Map<String, Object>> list = new ArrayList<>();
+		File[] arrfile = f.listFiles();
+		for(File fInfo : arrfile) {
+			Map<String, Object> fmap = new HashMap<>();
+			fmap.put("title", fInfo.getName());
+			fmap.put("folder", fInfo.isDirectory());
+			fmap.put("path", fInfo.getPath());
+			if(fInfo.isDirectory() == true && fInfo.listFiles().length != 0) {
+				fmap.put("lazy", true);
+			}
+			list.add(fmap);
+			}
+			return list;
+		}
+		return null;
+	}
 	
 	@RequestMapping("/drive.do")
 	public User drive(Model model,HttpServletRequest request , HttpServletResponse response) throws IOException{
@@ -54,13 +76,16 @@ public class DriveController {
 		if(user== null) {
 			response.sendRedirect("/steach/home/home.do");
 		}
-		
-				File f= new File(Npath+user.getName());
-				f.mkdirs(); 
-
-				long usedSpaece = f.length();
-				System.out.println(usedSpaece);
 				
+				File f= new File(Npath+user.getName());
+				if(f.exists()) {
+					String len = (f.length() < 1024) ? "KB" : (f.length() > Math.pow(1024, 3) ? "GB" : "MB");
+					String usedSpaece = f.length()+len;
+					System.out.println(usedSpaece);					
+				}else {
+					f.mkdirs(); 					
+				}
+
 				List<Map<String, Object>> list = new ArrayList<>();
 				File[] arrfile = f.listFiles();
 				for(File fInfo : arrfile) {
@@ -68,6 +93,10 @@ public class DriveController {
 					fmap.put("path", fInfo.getPath());
 					fmap.put("title", fInfo.getName());
 					fmap.put("folder", fInfo.isDirectory());
+					if(fInfo.isDirectory() && fInfo.listFiles().length != 0) {
+						fmap.put("lazy", true);
+						fmap.put("flist", fInfo.listFiles());
+					}
 					fmap.put("lastModified", sdf.format(fInfo.lastModified()));
 					fmap.put("length", fInfo.length());
 					list.add(fmap);
@@ -93,19 +122,19 @@ public class DriveController {
 		        { 
 		            if(file.isFile()) 
 		            { 
-		                System.out.println("파일 이름 : "+file.getName()); 
-		                System.out.println("파일 경로 : "+file.getCanonicalPath()); 
-		                System.out.println("파일 크기 : "+file.length()); 
-		                System.out.println("———————————-");
+//		                System.out.println("파일 이름 : "+file.getName()); 
+//		                System.out.println("파일 경로 : "+file.getCanonicalPath()); 
+//		                System.out.println("파일 크기 : "+file.length()); 
+//		                System.out.println("———————————-");
 		            
 		            } 
 		            else if(file.isDirectory()) 
 		            { 
-		            	System.out.println("최종 수정 날짜"+ sdf.format(file.lastModified()));
-		                System.out.println("디렉토리 이름 : "+file.getName()); 
-		                System.out.println("디렉토리 경로 : "+file.getCanonicalPath()); 
-		                System.out.println("디렉토리  : "+file.length());
-		                System.out.println("———————————-"); 
+//		            	System.out.println("최종 수정 날짜"+ sdf.format(file.lastModified()));
+//		                System.out.println("디렉토리 이름 : "+file.getName()); 
+//		                System.out.println("디렉토리 경로 : "+file.getCanonicalPath()); 
+//		                System.out.println("디렉토리  : "+file.length());
+//		                System.out.println("———————————-"); 
 		               
 		            } 
 		        } 

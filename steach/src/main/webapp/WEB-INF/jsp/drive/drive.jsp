@@ -243,8 +243,6 @@
 
  <script type="text/javascript">
  
-
- 
  var inputModal = function() {
 $('.myModal').modal({
   keyboard: true, 
@@ -577,29 +575,22 @@ $(document).on('keydown', function(e) {
   
   var subfile = '${subFiles}';
   //fancytree 첫로드시 폴더 트리 구성 소스 ${subFiles}
-// 	for(var ide in subfile){
-// 		console.log(subfile);
-// 	}
 var sour = [ 
   	{"title": "${user.name}", "expanded": true, "folder": true, "children": [
-//		  {"title": "예제용", "folder": true , data : {id : "test_0"} , "children": [
-//			  {"title": "cups"},
-//			  {"title": "httpd"},
-//			  {"title": "init.d"}
-//		  ]}
-		
   ]}
   ]
-  
+var updateCounter;
   //fancytree 처음 load
   $(function(){
     // Attach the fancytree widget to an existing <div id="tree"> element
     // and pass the tree options as an argument to the fancytree() function:
+    	
     $("#tree").fancytree({
-    	generateIds: true,
-        idPrefix: "test_", 
+//     	generateIds: true,
+//         idPrefix: "test_", 
 //     	autoCollapse: true, 자동 접기
         clickFolderMode: 4,
+        selectMode: 1,
         icon: function(event, data) {
           return !data.node.isTopLevel();
         },
@@ -692,19 +683,28 @@ var sour = [
         }
       },
       childcounter: {
-        deep: true,
+//         deep: true,
         hideZeros: true,
         hideExpanded: true
       },
       activate: function(event, data) {
-//        alert("activate " + data.node);
+    	 	console.log(data.node);
       },
+    	  // 부분 로드 및 게으른(트랜지션 줄 수 있음) 폴더 구현할 수 있음 
       lazyLoad: function(event, data) {
-        data.result = {url: "/steach/resources/fancytree/ajax-sub2.json"}
+    	  node = data.node;
+    	  var path = node.data.path;
+	    		 data.result =	 $.ajax({
+				url : '<c:url value="/drive/detailFolder.do" />',
+				data : {
+					"path" : path
+					},
+			})
+			
       },
-      loadChildren: function(event, data) {
+      loadChildren: function (event, data) {
         // update node and parent counters after lazy loading
-        data.node.updateCounters();
+    	  updateCounter = data.node.updateCounters();
       },
       keydown: function(event, data){
           switch( $.ui.fancytree.eventToString(data.originalEvent) ) {
@@ -714,6 +714,10 @@ var sour = [
             break;
           }
         }
+//         dbclick: function(event, data) {
+// //            data.node.toggleSelect();
+// 				console.log(data.node);
+//           }
       });
       // For our demo: toggle auto-collapse mode:
       $("input[name=autoCollapse]").on("change", function(e){
@@ -745,34 +749,46 @@ var sour = [
 				 for(var i=0 ; i< childlist.length; i++){
 					 var e = childlist[i]
 					 var childNode = node.addChildren(e);
-					 console.log(e);
+// 					 console.log(childNode);
+
+					 // 아이콘 결정 폴더 or 파일
+					 var emoji;
+					 var fLength = (e.length < 1024) ? "KB" : (e.length > Math.pow(1024,3) ? "GB" : "MB");
+					 switch(e.folder){
+		 				case true : emoji='fas fa-folder fa-lg';
+		 				break;
+		 				case false : emoji='googleicon';
+		 				break;
+		 				}
 					 
 					 $('tbody').append('<tr>' 
-			    		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="">'+e.title+'</span></td>'
+			    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
-			    		        +  '<td class="val" class="text-center">'+e.length+'</td>'
+			    		        +  '<td class="val" class="text-center">'+e.length+fLength+'</td>'
 			    		        +  '</tr>');
 				 }
-			            
-
-				  if($('tbody').children().length==0){
-				    
-				    $('.ft').append(
-				   		'<div class="picOuter">'
-				       		 +'<div class="allpicOuter">'
-				    		 +'<div class="allpic">'
-				          	 +'<div class="pic1"></div>'
-				   			 +'<div class="pic2"></div>'
-				           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
-				   			 +'</div>'
-				             +'</div>'
-				         	 +'</div>')
-				            $('.picOuter').css("display", "flex");
-				            } //if
+					
+			  if($('tbody').children().length==0){
+			    
+			    $('.ft').append(
+			   		'<div class="picOuter">'
+			       		 +'<div class="allpicOuter">'
+			    		 +'<div class="allpic">'
+			          	 +'<div class="pic1"></div>'
+			   			 +'<div class="pic2"></div>'
+			           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+			   			 +'</div>'
+			             +'</div>'
+			         	 +'</div>')
+			            $('.picOuter').css("display", "flex");
+			            } //if
+				 
 				 
 				 
 			            })
+			            
+			          
 
 		 function app() {
 			 location.href = "/steach/main/main.do"
