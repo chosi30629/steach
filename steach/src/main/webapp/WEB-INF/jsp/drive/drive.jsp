@@ -683,12 +683,56 @@ var updateCounter;
         }
       },
       childcounter: {
-//         deep: true,
+        deep: false,
         hideZeros: true,
         hideExpanded: true
       },
       activate: function(event, data) {
     	 	console.log(data.node);
+    	 	var path = data.node.data.path
+    	 	$.ajax({
+    	 		url : '<c:url value="/drive/activateFolder.do" />', 
+    	 		data : {
+    	 			"path" : path
+    	 			}
+    	 	}).done(function(e){
+    	 		$('tbody').empty();
+    	 		
+    	 		 var emoji;
+				 for(var i =0 ; i < e.length ; i++){
+				 var fLength = (e[i].length < 1024) ? "KB" : (e[i].length > Math.pow(1024,3) ? "GB" : "MB");
+				 switch(e[i].folder){
+	 				case true : emoji='fas fa-folder fa-lg';
+	 				break;
+	 				case false : emoji='googleicon';
+	 				break;
+	 				}
+					 
+    	 		 $('tbody').append('<tr>' 
+		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e[i].title+'</span></td>'
+		    		        +  '<td class="owner" class="text-center">'+e[i].path.split("\\")[2]+'</td>'
+		    		        +  '<td class="date" class="text-center">'+e[i].lastModified+'</td>'
+		    		        +  '<td class="val" class="text-center">'+e[i].length+fLength+'</td>'
+		    		        +  '</tr>');
+				 }
+    	 		 
+				if($('tbody').children().length==0){
+    			    
+    			    $('.ft').append(
+    			   		'<div class="picOuter">'
+    			       		 +'<div class="allpicOuter">'
+    			    		 +'<div class="allpic">'
+    			          	 +'<div class="pic1"></div>'
+    			   			 +'<div class="pic2"></div>'
+    			           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+    			   			 +'</div>'
+    			             +'</div>'
+    			         	 +'</div>')
+    			            $('.picOuter').css("display", "flex");
+    			            } //if
+    	 		
+    	 	})
+    	 	
       },
     	  // 부분 로드 및 게으른(트랜지션 줄 수 있음) 폴더 구현할 수 있음 
       lazyLoad: function(event, data) {

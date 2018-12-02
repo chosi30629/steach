@@ -26,27 +26,38 @@ import kr.co.steach.repository.domain.User;
 @RequestMapping("/drive")
 public class DriveController {
 
-	 private final String Npath = "c:\\drive\\";
-	 
+	 private final String Npath = "c:\\drive\\";		// 저장소 전역변수화
 	 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	
+	 /**
+	  * 폴더 생성
+	  * @param path
+	  * @param keyVal
+	  * @return
+	  */
 	@RequestMapping("/makedir.do")
 	@ResponseBody
 	public HashMap<String, Object> makeDir(@RequestParam(value="path")String path, @RequestParam(value="keyVal")String keyVal) {
 		File file = new File(Npath + path); //
-		file.mkdir();
 		HashMap<String, Object> file2 = new HashMap<>();
-		file2.put("keyVal", keyVal);
-		file2.put("name", file.getName());
-		file2.put("length", file.length());
-		file2.put("patt", file.getPath());
-		file2.put("modified", sdf.format(file.lastModified()));
+			file.mkdir();
+			file2.put("keyVal", keyVal);
+			file2.put("name", file.getName());
+			file2.put("length", file.length());
+			file2.put("patt", file.getPath());
+			file2.put("modified", sdf.format(file.lastModified()));
 		return file2;
 	}
 	
+	/**
+	 * lazyload 사용 루트 폴더 내 세부폴더 
+	 * 펼치기 및 더블클릭 시 가시화
+	 * @param path
+	 * @return
+	 */
 	@RequestMapping("/detailFolder.do")
 	@ResponseBody
-	public List<Map<String, Object>> detailFolder(Model model ,@RequestParam(value="path")String path ) {
+	public List<Map<String, Object>> detailFolder(@RequestParam(value="path")String path ) {
 		System.out.println(path);
 		File f= new File(path);
 		if(f.isDirectory()) {
@@ -67,6 +78,37 @@ public class DriveController {
 		return null;
 	}
 	
+	/**
+	 * 플러그인 폴더 클릭(activate속성 걸릴 시 )시 해당 폴더 내부표현(하위폴더 및 파일들)
+	 * @return 
+	 * @return 
+	 */
+	@RequestMapping("/activateFolder.do")
+	@ResponseBody
+	public List<Map<String, Object>> activateFolder(@RequestParam(value="path")String path) {
+		System.out.println(path);
+		File f = new File(path);
+		List<Map<String,Object>> list = new ArrayList<>();
+		for(File fInfo : f.listFiles()) {
+			Map<String,Object> fmap = new HashMap<>();
+			fmap.put("title", fInfo.getName());
+			fmap.put("folder", fInfo.isDirectory());
+			fmap.put("lastModified", sdf.format(fInfo.lastModified()));
+			fmap.put("length", fInfo.length());
+			fmap.put("path", fInfo.getPath());
+			list.add(fmap);
+		}
+			return list;
+	}
+	
+	/**
+	 * 최초 팬시트리 로드시 루트 폴더[사용자 이름] 직속 하위폴더들만 표시
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/drive.do")
 	public User drive(Model model,HttpServletRequest request , HttpServletResponse response) throws IOException{
 		
@@ -102,12 +144,10 @@ public class DriveController {
 					list.add(fmap);
 				}
 				
-				
 				// 경로를 가지고 있는 배열
 				ArrayList<File> subFiles= new ArrayList<File>();
 		        // 드라이브 사용 가능한 용량
 				String usableSpace = Math.round(f.getUsableSpace()/Math.pow(1024, 3))+"GB";
-//				String usedSpace = Math.round(f.getuse()/Math.pow(1024, 3))+"GB";
 		        System.out.println(usableSpace);
 		        
 		        if(!f.exists()) 
