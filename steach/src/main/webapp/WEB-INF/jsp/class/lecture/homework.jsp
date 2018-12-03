@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,12 +17,11 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 
-
 				<!-- subject title -->
-				<c:forEach var="i" items="${homework}">
+				<c:forEach var="board" items="${homework}">
 					<div class="accordion-head">
 						<div class="title">
-							<span class="title-name">${i.lecture.subject}</span>
+							<span class="title-name">${board.lecture.subject}</span>
 						</div>
 						<!-- title end -->
 					</div>
@@ -29,33 +29,33 @@
 					<div class="accordion" role="tablist">
 						<div class="card">
 							<div class="card-header" role="tab" data-toggle="collapse"
-								href="#collapse${i.boardNo}" id="heading${i.boardNo}">
+								href="#collapse${board.boardNo}" id="heading${board.boardNo}">
 								<div class="subTitle">
 									<div class="row">
 										<div class="col-md-9">
-											<span class="homework-name">${i.title}</span>
+											<span class="homework-name">${board.title}</span>
 										</div>
 										<div class="col-md-3">
-											<span>마감일 </span> <span class="homework-deadline">${i.deadline}</span>
+											<span>마감일 </span> <span class="homework-deadline">${board.deadline}</span>
 										</div>
 									</div>
 
 								</div>
 							</div>
 
-							<div id="collapse${i.boardNo}" roll="tabpanel"
+							<div id="collapse${board.boardNo}" roll="tabpanel"
 								class="collapse in">
 								<div class="card-body">
 									<div class="row">
 										<div class="col-md-10 col-md-offset-1">
 											<div class="submit-section">
-												<span>제출자 수</span> <span>3</span> <span>/</span> <span>${i.memCnt}</span>
-												<c:forEach var="j" items="${submit}">
-													<c:if test="${i.boardNo==j.boardNo}">
+												<span>제출자 수</span> <span>${board.count}</span> <span>/</span> <span>${board.memCnt}</span>
+												<c:forEach var="j" items="${board.homework}">
+													<c:if test="${board.boardNo==j.boardNo}">
 														<div class="user-info">
-															<div class="user-pic"></div>
+															<div class="user-pic">${j.user.profile}</div>
 															<div class="user-name">
-																<a href="#"><span>${j.id}</span></a>
+																<a href="#"><span>${j.user.name}</span></a> Comment: <span>${j.hwContent}</span>
 															</div>
 															<div class="user-file">
 																<a><span><i class="fas fa-paperclip"></i></span></a>
@@ -63,16 +63,116 @@
 														</div>
 													</c:if>
 												</c:forEach>
+												<%--
+												<c:forEach var="j" items="${submit}">
+													<c:if test="${i.boardNo==j.boardNo}">
+														<div class="user-info">
+															<div class="user-pic">${j.user.profile}</div>
+															<div class="user-name">
+																<a href="#"><span>${j.user.name}</span></a> Comment: <span>${j.hwContent}</span>
+															</div>
+															<div class="user-file">
+																<a><span><i class="fas fa-paperclip"></i></span></a>
+															</div>
+														</div>
+													</c:if>
+												</c:forEach>
+												 --%>
 											</div>
+											<!--  unsubmit. -->
+											<div class="unsubmit-section">
+												<span>미제출자</span> <span>${board.memCnt-board.count}</span> <span>/</span>
+												<span>${board.memCnt}</span>
+												<div class="unsubmit-list">
+												
+												<c:forEach var="j" items="${board.homework}">
+													<c:if test="${board.boardNo!=j.boardNo}">
+																									
+														<div class="user-info">
+															<div class="user-pic">${j.user.profile}</div>
+															<div class="user-name">
+																<a href="#"><span>${j.user.name}</span></a>
+															</div>
+															<div class="user-file">
+																<a><span><i class="fas fa-paperclip"></i></span></a>
+															</div>
+														</div>
+													</c:if>
+												</c:forEach>
+													
+												<!-- 	<table>
+														<tr>
+															<td>
+																<div class="user-info">
+																	<div class="user-pic"></div>
+																	<div class="user-name">
+																		<a href="#"><span>박아란</span></a>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<div class="user-info">
+																	<div class="user-pic"></div>
+																	<div class="user-name">
+																		<a href="#"><span>박아란</span></a>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<div class="user-info">
+																	<div class="user-pic"></div>
+																	<div class="user-name">
+																		<a href="#"><span>박아란</span></a>
+																	</div>
+																</div>
+															</td>
+
+															<td>
+																<div class="user-info">
+																	<div class="user-pic"></div>
+																	<div class="user-name">
+																		<a href="#"><span>박아란</span></a>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<div class="user-info">
+																	<div class="user-pic"></div>
+																	<div class="user-name">
+																		<a href="#"><span>박아란</span></a>
+																	</div>
+																</div>
+															</td>
+
+															<td>
+																<div class="user-info">
+																	<div class="user-pic"></div>
+																	<div class="user-name">
+																		<a href="#"><span>박아란</span></a>
+																	</div>
+																</div>
+															</td>
+														</tr>
+
+
+													</table> -->
+												</div>
+												<!-- unsubmit list -->
+											</div>
+											<!--  unsubmit section  -->
 										</div>
+										<!-- col-md-10 end  -->
 									</div>
+									<!-- row end  -->
 								</div>
+								<!-- card body end  -->
 							</div>
+							<!-- collapse end  -->
 
 						</div>
+						<!-- card end  -->
 					</div>
-
-
+					<!-- accordion end  -->
 				</c:forEach>
 				<!-- acc-head end -->
 
@@ -251,54 +351,16 @@
 						</div>
 					</div>
 
-					2번과제 
-					<div class="card">
-						<div class="card-header" role="tab" data-toggle="collapse"
-							href="#collapse" id="heading">
-							<div class="subTitle">
-								<a>과제이름</a>
-								<div class="menu">
-									<a href="subElps" data-toggle="modal"
-										data-target="#subElpsModal"> <i class="fas fa-ellipsis-v"></i>
-									</a>
-								</div>
-							</div>
-						</div>
-
-						<div id="collapse" roll="tabpanel" class="collapse in">
-							<div class="card-body">
-								<div class="subTitle-time">
-									<span> 작성됨</span>
-								</div>
-								<div class="subTitle-context">
-									<div class="row"></div>
-								</div>
-
-
-								<div class="subTitle-attach">
-									<div class="row">
-										<div class="col-md-6">
-											<span>subject1.txt <i class="fas fa-paperclip"></i></span>
-											 <span><i class="fab fa-google-drive"></i></span>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div> -->
-				-->
-
+				
 
 
 
 			</div>
 			<!-- col end -->
+			</div>
+			<!--row end -->
 		</div>
-		<!--row end -->
+		<!--container end . -->
 	</div>
-	<!--container end . -->
-
 </body>
 </html>

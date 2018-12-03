@@ -1,6 +1,7 @@
 package kr.co.steach.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
@@ -47,5 +48,9 @@ public interface LectureBoardMapper {
 	
 	/* select homework by boardNo*/
 	List<Homework> selectSubmitHomeworkByCNo(int classNo);
+
+	List<Homework> selectAllHomeworkByCNo(Map<String, Object> param);
+	
+
 	
 }

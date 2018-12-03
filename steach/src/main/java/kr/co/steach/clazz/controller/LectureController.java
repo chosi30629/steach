@@ -30,16 +30,18 @@ public class LectureController {
 		//System.out.println(list);
 		
 		/* 주제 가져오기 */
-		List<Lecture> subjectList = service.selectLectureByClassNo(classNo);
-		/* 주제별 데이터 가져오기 */
-		List<LectureBoard> boardList = service.selectLectureBoardByClassNo(classNo);
+	/*	List<Lecture> subjectList = service.selectLectureByClassNo(classNo);
+		 주제별 데이터 가져오기 
+		List<LectureBoard> boardList = service.selectLectureBoardByClassNo(classNo);*/
 		
 		//System.out.println(boardList);
 		
 		//model.addAttribute("subjectList",service.selectLectureByClassNo(classNo));
 		//model.addAttribute("boardList",service.selectLectureBoardByClassNo(classNo));
-		
+
 		model.addAttribute("list",service.selectLectureListByClassNo(classNo));
+		
+	
 /*		//test
 		model.addAttribute("classInfo",service.selectClassbyClassNo(classNo));
 		Clazz clz = service.selectClassbyClassNo(classNo);
@@ -134,9 +136,21 @@ public class LectureController {
 	
 	@RequestMapping("/homework.do")
 	public void hwList(@RequestParam(value="classNo",defaultValue="1")int classNo,Model model) {
-		System.out.println("homeworkTitle:"+service.selectHomeworkByCNo(classNo));
-		System.out.println("homeworkDetail:"+service.selectSubmitHomeworkByCNo(classNo));
-		model.addAttribute("homework",service.selectHomeworkByCNo(classNo));
-		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
+//		System.out.println("homeworkTitle:"+service.selectHomeworkByCNo(classNo));
+//		System.out.println("homeworkDetail:"+service.selectSubmitHomeworkByCNo(classNo));
+		System.out.println("List:"+service.selectHomework(classNo));
+		
+		model.addAttribute("subject",service.selectHomeworkByCNo(classNo));
+		model.addAttribute("homework",service.selectHomework(classNo));
+		//		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
 	}
+
+//	@RequestMapping("/homework.do")
+//	public void hwList(@RequestParam(value="classNo",defaultValue="1")int classNo,Model model) {
+//		System.out.println("homeworkTitle:"+service.selectHomeworkByCNo(classNo));
+//		System.out.println("homeworkDetail:"+service.selectSubmitHomeworkByCNo(classNo));
+//		model.addAttribute("homework",service.selectHomeworkByCNo(classNo));
+//		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
+//	}
+	
 }

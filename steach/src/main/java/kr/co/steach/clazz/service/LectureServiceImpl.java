@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
-import kr.co.steach.repository.mapper.ClassMapper;
 import kr.co.steach.repository.mapper.LectureBoardMapper;
 
 @Controller
@@ -26,7 +25,7 @@ public class LectureServiceImpl implements LectureService {
 		return mapper.selectBoardByClassNo(classNo);
 	}*/
 
-	@Override
+/*	@Override
 	public List<Lecture> selectLectureByClassNo(int classNo) {
 		return mapper.selectLectureByClassNo(classNo);
 	}
@@ -34,13 +33,15 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public List<LectureBoard> selectLectureBoardByClassNo(int classNo) {
 		return mapper.selectLectureBoardByClassNo(classNo);
-	}
+	}*/
 
 	@Override
 	public Map<String,Object> selectLectureListByClassNo(int classNo) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("subjectList", mapper.selectLectureByClassNo(classNo));
 		map.put("boardList", mapper.selectLectureBoardByClassNo(classNo));
+		
+		System.out.println(mapper.selectLectureBoardByClassNo(classNo));
 		return map;
 	}
 	/*	@Override
@@ -79,7 +80,7 @@ public class LectureServiceImpl implements LectureService {
 	public LectureBoard selectLectureBoardByBNo(int boardNo) {
 		return mapper.selectLectureBoardByBNo(boardNo);
 	}
-
+ 
 	@Override
 	public List<LectureBoard> selectHomeworkByCNo(int classNo) {
 		return mapper.selectHomeworkByCNo(classNo);
@@ -88,6 +89,20 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public List<Homework> selectSubmitHomeworkByCNo(int classNo) {
 		return mapper.selectSubmitHomeworkByCNo(classNo);
+	}
+
+	@Override
+	public List<LectureBoard> selectHomework(int classNo) {
+		List<LectureBoard> boardList = mapper.selectHomeworkByCNo(classNo);
+
+		Map<String, Object> param = new HashMap<>();
+		param.put("classNo", classNo);
+		for (LectureBoard board : boardList) {
+			param.put("boardNo", board.getBoardNo());
+			board.setHomework(mapper.selectAllHomeworkByCNo(param));
+		}
+
+		return boardList;
 	}
 
 	

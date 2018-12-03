@@ -10,9 +10,9 @@ import kr.co.steach.repository.domain.LectureBoard;
 public interface LectureService {
 	/*List<LectureBoard> selectBoardByClassNo(int classNo);*/
 
-	List<Lecture> selectLectureByClassNo(int classNo);
+/*	List<Lecture> selectLectureByClassNo(int classNo);
 	
-	List<LectureBoard>selectLectureBoardByClassNo(int classNo);
+	List<LectureBoard>selectLectureBoardByClassNo(int classNo);*/
 	
 	Map<String,Object> selectLectureListByClassNo(int classNo);
 	
@@ -48,6 +48,7 @@ public interface LectureService {
     
     /*제출자 내역 리스트  ~~ */
     List<Homework> selectSubmitHomeworkByCNo(int classNo);
-    
+
+    List<LectureBoard> selectHomework(int classNo);
     
 }

@@ -1,6 +1,7 @@
 package kr.co.steach.repository.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 /**
@@ -20,9 +21,11 @@ public class LectureBoard {
 	private Date regDate;
 	private String deadline;
 	private int memCnt;
-	
+	private List<Homework> homework;
 	private Lecture lecture;
 	
+	/*test */
+	private int count;
 	
 	
 	public int getgNo() {
