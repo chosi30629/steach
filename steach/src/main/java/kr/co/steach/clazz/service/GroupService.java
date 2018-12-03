@@ -67,5 +67,7 @@ public interface GroupService {
 	void memberOrderUpdate(GroupMember groupMember);
 
 	void updateGroupName(Group group);
+
+	void initClassGroup(Group group);
 	
 } // end interface

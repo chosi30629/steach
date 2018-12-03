@@ -26,6 +26,9 @@ public class GroupServiceImpl implements GroupService {
 	@Autowired
 	private GroupMapper mapper;
 	
+	/**
+	 * 클래스 멤버 인터페이스에 대한 멤버 필드
+	 */
 	@Autowired
 	private MemberMapper memberMapper;
 	
@@ -221,5 +224,10 @@ public class GroupServiceImpl implements GroupService {
 	public void updateGroupName(Group group) {
 		mapper.updateGroupName(group);
 	} // updateGroupName
+
+	@Override
+	public void initClassGroup(Group group) {
+		mapper.initClassGroup(group);
+	} // initClassGroup
 	
 } // end class

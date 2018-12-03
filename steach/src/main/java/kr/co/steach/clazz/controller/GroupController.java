@@ -51,10 +51,10 @@ public class GroupController {
 			group.setClassNo(1);
 			model.addAttribute("groupList", service.groupList(group));
 			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
-			System.out.println("그룹메인~");
 		} catch(Exception e) {
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", "0");
+			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
 		}
 	} // groupMain
 	
@@ -117,7 +117,6 @@ public class GroupController {
 		return "멤버 순서 업데이트 성공";
 	} // modifyMemberOrder
 	
-
 	@RequestMapping("modifyGroupName.do")
 	@ResponseBody
 	public String modifyGroupName(Group group) {
@@ -125,8 +124,16 @@ public class GroupController {
 		return "조 이름 변경 성공";
 	} // modifyGroupName
 	
+	@RequestMapping("initClassGroup.do")
+	@ResponseBody
+	public String initClassGroup(Group group) {
+		service.initClassGroup(group);
+		return "조 초기화 성공";
+	} // initClassGroup
+	
 	@RequestMapping("groupActivity.do")
-	public void groupActivity(Model model) {
+	public void groupActivity(Model model, int groupNo) {
+		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("listList", service.listList());
 		model.addAttribute("cardList", service.cardList());
 	} // groupActivity

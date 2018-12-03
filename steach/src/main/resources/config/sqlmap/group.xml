@@ -262,4 +262,10 @@
 		 where group_no = #{groupNo}  
 	</update>
 	
+	<!-- 클래스 그룹 초기화 -->
+	<delete id="initClassGroup" parameterType="Group">
+		delete from tb_class_group
+	 	 where class_no = #{classNo}
+	</delete>
+	
 </mapper>

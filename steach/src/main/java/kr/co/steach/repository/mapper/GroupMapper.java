@@ -66,4 +66,6 @@ public interface GroupMapper {
 	
 	void updateGroupName(Group group);
 	
+	void initClassGroup(Group group);
+	
 } // end interface

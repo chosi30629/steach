@@ -810,13 +810,12 @@
         $("body").on("click", ".addListBtn", function(e) {
             addListArea(this);
         });
-     	
         // 추가(리스트) 버튼 누를 시
         function addList(onAddList) {
         	var content = $(onAddList).parent().siblings("textarea").val();
-            var groupNo = "${listList[0].groupNo}";
-        	
-            if(content == '') {
+			var groupNo = "${groupNo}";
+
+			if(content == '') {
                 $(onAddList).parent().siblings("textarea").focus();
                 return;
             }

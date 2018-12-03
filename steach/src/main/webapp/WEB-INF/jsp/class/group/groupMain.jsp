@@ -80,9 +80,9 @@
                 </div>
                 <div id="studentList" class="clearfix">
                 	<ul class="studentList student-list clearfix text-center" style="width: 70% !important; padding: 0 0 0 0; list-style-type: none; display: inline-block;">
-                		<c:forEach var="student" items="${studentList}" varStatus="loop">
+                		<c:forEach var="member" items="${classMember}" varStatus="loop">
 	                		<li class="ui-state-default clearfix" style="margin: 0 15px; background-image: url('/steach/resources/images/class/group/p1.jpg');">
-	                			<span class="student-name">${student.groupMemberId}</span>
+	                			<span class="student-name">${member.user.name}</span>
 	                		</li>
                 		</c:forEach>
                 	</ul>
@@ -172,7 +172,6 @@ l0,-61 L40,28" />
         	$("#studentList, .parentDrop").toggle();
         }
         var students = "";
-        
 		<c:forEach var="student" items="${classMember}" varStatus="loop">
 			students += "${student.user.name}" + "[" + "${student.id}" + "]"; 
 			<c:if test="${loop.last == false}">
@@ -261,7 +260,7 @@ l0,-61 L40,28" />
                 return false;
             }
             
-            $("#studentList").remove();
+            $("#studentList").hide();
             $(".parentDrop").show();
             
             $(".button").click();
@@ -276,7 +275,6 @@ l0,-61 L40,28" />
                 $("body").css("background", "none");
                 $(".demo").css("display", "none");
             }, 3640);
-
 			
             $.ajax({
             	url: "/steach/class/group/randomGroup.do",
@@ -316,9 +314,9 @@ l0,-61 L40,28" />
 			             + '</li>';
 				}
 				
-				console.log("-----------------------------");
-				console.log(html)
-				console.log("88888888888888888888888888888888888888888888888888888888888888888888888888");
+				// console.log("-----------------------------");
+				// console.log(html)
+				// console.log("88888888888888888888888888888888888888888888888888888888888888888888888888");
 				$(".parentDrop").prepend(html);
 	            
 	            $(function () {
@@ -353,14 +351,16 @@ l0,-61 L40,28" />
             }
             
             $(".button").click();
-            $(".parentDrop").empty();
             
-            $(function() {
-                $(".childDrop").sortable({
-                    connectWith: ".childDrop",
-                    placeholder: "ui-state-highlight"
-                }).disableSelection();
-            });
+            $.ajax({
+            	url: "/steach/class/group/initClassGroup.do",
+               	data: {"classNo": 1}
+            })
+            .done(function(result) {
+				console.log(result);
+	        	$("#studentList").show();
+	        	$(".parentDrop").hide();
+			});
         });
 
         // function to trigger animation
@@ -386,16 +386,20 @@ l0,-61 L40,28" />
         });
         
         $("body").on("click", ".modify-group-name", function(e) {
-            e.preventDefault();
+            e.stopPropagation();
             $(this).parents(".listTitle").siblings(".groupNameForm").show();
             $(this).parents(".listTitle").hide();
             $(".modify-group-name-input").focus();
         });
         
         $("body").on("click", ".on-modify-group-name", function() {
-            var modifyName = $(this).parent("span").siblings(".modify-group-name-input").val();
-            $(this).parents(".groupNameForm").siblings(".listTitle").find(".listSubject").find(".group-name").text(modifyName);
-            var modifyGroupNo = $(this).parents(".parentDrag").attr("data-index");
+        	modfiyGroupName(this);
+        });
+        
+        function modfiyGroupName(modifyGroupNameBtn) {
+            var modifyName = $(modifyGroupNameBtn).parent("span").siblings(".modify-group-name-input").val();
+            $(modifyGroupNameBtn).parents(".groupNameForm").siblings(".listTitle").find(".listSubject").find(".group-name").text(modifyName);
+            var modifyGroupNo = $(modifyGroupNameBtn).parents(".parentDrag").attr("data-index");
             
             $.ajax({
             	url: "/steach/class/group/modifyGroupName.do",
@@ -406,6 +410,14 @@ l0,-61 L40,28" />
 	            $(".groupNameForm").hide();
 	            $(".listTitle").show();
 			}); 
+		};
+        
+        // 그룹 이름 수정폼에서 엔터 쳐도 그룹 이름 수정
+        $(document).on('keydown', '.modify-group-name-input', function(e) {
+            if (e.which == 13) {
+            	var modifyGroupNameBtn = $(this).siblings("span").find(".on-modify-group-name");
+            	modfiyGroupName(modifyGroupNameBtn);
+            } 
         });
         
         $('ul.nav li.dropdown').hover(function () {
@@ -414,17 +426,18 @@ l0,-61 L40,28" />
             $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
         });
 
-        $("body").on("click", ".group-name", function() {
-            location.href = "groupActivity.do";
+        $("body").on("click", ".listTitle", function() {
+        	var groupNo = $(this).parent(".parentDrag").attr("data-index");
+            location.href = "groupActivity.do?groupNo=" + groupNo;
         });
         
         $("a[href='lecture']").click(function(){
         	location.href="<c:url value='/class/lecture/lecture.do'/>";
-        })
+        });
         
          $("a[href='member']").click(function(){
         	location.href="<c:url value='/class/member/member.do'/>";
-        })
+        });
     </script>
 </body>
 </html>
