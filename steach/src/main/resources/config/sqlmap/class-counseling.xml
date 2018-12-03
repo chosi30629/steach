@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.CounselingMapper">
+	<resultMap type="Counseling" id="counselingMap">
+		<result column="counseling_no" property="counselingNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="student_id" property="studentId"/>
+		<result column="counseling_writer" property="counselingWriter"/>
+		<result column="counseling_title" property="counselingTitle"/>
+		<result column="counseling_content" property="counselingContent"/>
+		<result column="counseling_reg_Date" property="counselingRegDate"/>
+	</resultMap>
+	
+	<!-- 상담 리스트 -->
+	<!-- 클래스 번호와 학생 아이디 받아야 함 -->
+	<select id="counselingListBystudentId" resultMap="counselingMap">
+		select * 
+		  from tb_class_counseling
+		 order by counseling_no desc	
+	</select>
+	
+	<!-- 상담 등록 -->
+	<insert id="insertCounseling" parameterType="Counseling" useGeneratedKeys="true" keyProperty="counselingNo">
+		insert into tb_class_counseling (
+			class_no, student_id, counseling_writer, counseling_title, counseling_content
+		) values (
+			#{classNo}, #{studentId}, #{counselingWriter}, #{counselingTitle}, #{counselingContent}
+		)
+	</insert>
+	
+	<!-- 상담 수정 -->
+	<update id="updateCounseling" parameterType="Counseling">
+		update tb_class_counseling
+		   set counseling_title = #{counselingTitle},
+		       counseling_content = #{counselingContent}
+		 where counseling_no = #{counselingNo}
+	</update>
+	
+	<!-- 상담 삭제 -->
+	<delete id="deleteCounseling" parameterType="Counseling">
+		delete from tb_class_counseling
+		 where counseling_no = #{counselingNo}
+	</delete>
+	
+</mapper>

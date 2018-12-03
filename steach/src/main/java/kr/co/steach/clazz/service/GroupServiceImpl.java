@@ -21,7 +21,7 @@ import kr.co.steach.repository.mapper.MemberMapper;
 public class GroupServiceImpl implements GroupService {
 	
 	/**
-	 * 매퍼 인터페이스에 대한 멤버 필드
+	 * 그룹 매퍼 인터페이스에 대한 멤버 필드
 	 */
 	@Autowired
 	private GroupMapper mapper;

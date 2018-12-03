@@ -194,11 +194,28 @@ a {
     transform: rotate(-135deg);
     transition: all 0.2s ease-in;
 }
+#accordion > .panel > .panel-heading > .panel-title > a > .title-update-form {
+    color: black; 
+    width: 500px; 
+    display: none;
+}
 #accordion > .panel > .panel-collapse > .panel-body {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
+#accordion > .panel > .panel-collapse > .panel-body .content-update-form {
+    width: 670px; 
+    height: 180px; 
+    resize: none; 
+    display: none;
+}
 #accordion > .panel > .panel-collapse > .panel-body > .counseling-modify-remove-btn {
     float: right;
+}
+#accordion > .panel > .panel-collapse > .panel-body > .counseling-modify-btn-div {
+    float: right;
+}
+#accordion > .panel > .panel-collapse > .panel-body > .counseling-modify-btn-div > .on-modify-counseling {
+    margin-top: 11px;
 }
 ::-webkit-scrollbar {
     width: 5px;
@@ -244,12 +261,27 @@ a {
     background: #ccc; 
     margin-top: 15px;
 }
-.modal > .modal-dialog > .modal-content > .modal-body > .counselinContent > .counselinContent-div {
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingTitle > .modal-title > .writeform-counseling-title {
+    width: 500px; 
+    margin-left: 10px;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingContent > .counselinContent-div {
     margin-top: 10px;
 }
-.modal > .modal-dialog > .modal-content > .modal-body > .counselinContent > .counselinContent-div {
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingContent > .counselinContent-div {
     margin-top: 10px;
 }
-.modal > .modal-dialog > .modal-content > .modal-body > .counselinContent > .write-btn-div {
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingContent > .counselinContent-div > .writeform-counseling-content {
+    width: 568px; 
+    height: 250px; 
+    resize: none;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingContent > .write-btn-div {
     float: right;
+}
+.modal > .modal-dialog > .modal-content > .modal-body > .counselingContent > .write-btn-div > .write-counseling {
+     margin-top: 11px;
+}
+.remove-counseling, .modify-counseling {
+	margin-left: 3px;
 }
