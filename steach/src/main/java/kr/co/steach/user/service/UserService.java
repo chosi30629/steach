@@ -43,8 +43,14 @@ public interface UserService {
 	User checkPass(String id);
 	
 
+	// 마이페이지 정보
+	User mypage(String id);
+	
+	
 	// 전화번호 등록.수정
 	void updatePhone(User user);
+	// 주소 등록.수정
+	void updateAddr(User user);
 	
 
 }

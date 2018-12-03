@@ -39,7 +39,8 @@
 		<!-- 로그인 세션 필터 처리 -->
 		<mvc:interceptors>
 			<mvc:interceptor>
-				<mvc:mapping path="/user/myPage.do" /> 
+				<mvc:mapping path="/user/myPage.do" />
+				<mvc:mapping path="/main/main.do" />
 
 				<bean class="kr.co.steach.home.AuthInterceptor" />
 			</mvc:interceptor>

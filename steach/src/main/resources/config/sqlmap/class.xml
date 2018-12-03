@@ -6,17 +6,66 @@
 		<result column="class_no" property="classNo"/>
 		<result column="master" property="master"/>
 		<result column="class_name" property="className"/>
-		<result column="class_subname" property="clssSubname"/>
+		<result column="class_subname" property="classSubname"/>
 		<result column="start_time" property="startTime"/>
 		<result column="end_time" property="endTime"/>
 		<result column="begin_date" property="beginDate"/>
-		<result column="end_date" property="end_date"/>
+		<result column="end_date" property="endDate"/>
 		<result column="class_key" property="classKey"/>
 		<result column="bg_name" property="bgName"/>
 		<result column="bg_path" property="bgPath"/>
-		<result column="seat_name" property="seat_name"/>
+		<result column="seat_name" property="seatName"/>
 		<result column="seat_path" property="seatPath"/>
 	</resultMap>
+	
+	<resultMap id="memberMap" type="ClassMember">
+		<result column="mem_no" property="memNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="p_no" property="pNo"/>
+		<result column="g_no" property="gNo"/>
+		<result column="id" property="id"/>
+		<result column="group_no" property="groupNo"/>
+		<result column="group_member_order" property="groupMemberOrder"/>
+		<collection property="user" resultMap="userMap"/>
+	</resultMap>
+	
+	<!-- 클래스개설하기 -->
+	<insert id="createClass" parameterType="Clazz">
+		insert into tb_class(
+		master, class_name, class_subname, begin_date, end_date, start_time, end_time, class_key
+		) values (
+		#{master}, #{className}, #{classSubname}, #{beginDate}, #{endDate}, #{startTime}, #{endTime}, #{classKey}
+		)
+	</insert>
+	
+	<!-- 메인페이지:강의중인클래스 -->
+	<select id="teaching" parameterType="String" resultMap="classMap">
+		select *
+		  from tb_class
+		 where master=#{id}
+	</select>
+	
+	<!-- 메인페이지:수강중인클래스 -->
+	<select id="studying" parameterType="String" resultMap="classMap">
+		select c.*
+		  from tb_class c, tb_class_member m
+		 where m.id=#{id}
+	</select>
+	
+	<!-- 고유번호에 해당하는 클래스확인 -->
+	<select id="findclass" parameterType="String" resultMap="classMap">
+		select class_no
+		  from tb_class
+		 where class_key=#{classKey}
+	</select>
+	
+	<!-- 클래스 참여하기 -->
+	<insert id="joinclass" parameterType="ClassMember">
+		insert into tb_class_member (class_no, id)
+		values (
+		#{classNo}, #{id}
+		)
+	</insert>
 	
 	
 	
