@@ -8,16 +8,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>groupActivity</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
     <link rel="stylesheet" href="/steach/resources/css/header/class-header.css">
+    <link href="/steach/resources/css/class/group/emoji.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
+    <script src="/steach/resources/js/class/group/config.js"></script>
+    <script src="/steach/resources/js/class/group/util.js"></script>
+    <script src="/steach/resources/js/class/group/jquery.emojiarea.js"></script>
+    <script src="/steach/resources/js/class/group/emoji-picker.js"></script>
     <style type="text/css">
     .modal-backdrop {
     	position: fixed;
@@ -111,8 +117,8 @@
                 <div class="messages-content chat_s"></div>
             </div>
             <div class="message-box chat_input">
-                <textarea id="message" type="text" class="message-input chat_text" placeholder="메시지를 입력하세요"></textarea>
-                <button id="sendBtn" type="button" class="message-submit chat_submit fa fa-send">
+                <input id="message" type="text" class="message-input chat_text" placeholder="메시지를 입력하세요" data-emojiable="true" />
+                <button id="sendBtn" type="button" class="message-submit chat_submit">
                     <i class="fas fa-arrow-circle-up"></i>
                 </button>
             </div>
@@ -1050,7 +1056,6 @@
 		        console.log('연결 성공');
 		    };
 		    ws.onmessage = function(evt) {
-		    	console.log(evt);
 				$('<div class="message loading new"><figure class="avatar"><img src="/steach/resources/images/class/group/p1.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
 				updateScrollbar();
 				
@@ -1075,19 +1080,27 @@
 				send(); 
 			});
 			
-		    $('#message').keypress(function(event){
-			    var keycode = (event.keyCode ? event.keyCode : event.which);
-			    if(keycode == '13'){
-			         send();
-			    }
-			    event.stopPropagation();
-			});
+// 		    $('#message').keypress(function(event){
+// 			    var keycode = (event.keyCode ? event.keyCode : event.which);
+// 			    if(keycode == '13'){
+// 			         send();
+// 			    }
+// 			    event.stopPropagation();
+// 			});
+
+	        $(window).on('keydown', function (e) {
+	            if (e.originalEvent.keyCode == 13) {
+
+	                send();
+	                return false;
+	            }
+	        });
 		});
 		
 		function send() {
 		    var $msg = $("#message");
 // 		    var sendMsg = $msg.val();
-		    var sendMsg = $('.message-input').val();
+		    var sendMsg = $('.message-input').val($(".emoji-wysiwyg-editor").html()).val();
             
 		    if ($.trim(sendMsg) == '') {
                 return false;
@@ -1096,6 +1109,7 @@
 		    $('<div class="message message-personal">' + sendMsg + '</div>').appendTo($('.mCSB_container')).addClass('new');
 		    setDate();
 		    $('.message-input').val(null);
+		    $('.emoji-wysiwyg-editor').text('');
 		    updateScrollbar();
 		    
 		    ws.send(sendMsg);
@@ -1103,6 +1117,26 @@
 // 		    $(".chat_s").append('<div class="chat_bubble-2">' + sendMsg + '</div>');
 		}
         
+		// 채팅 이모티콘
+        $(function () {
+            window.emojiPicker = new EmojiPicker({
+                emojiable_selector: '[data-emojiable=true]',
+                assetsPath: '/steach/resources/images/class/group/img/',
+                popupButtonClasses: 'fa fa-smile-o'
+            });
+            window.emojiPicker.discover();
+        });
+		 
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-49610253-3', 'auto');
+        ga('send', 'pageview');
+             
         // 파일첨부
         var filenames = [];
         $(document).ready(
