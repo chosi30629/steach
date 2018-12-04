@@ -1,0 +1,92 @@
+/* Kurien / Kurien's Blog / http://blog.kurien.co.kr */
+/* 주석만 제거하지 않는다면, 어떤 용도로 사용하셔도 좋습니다. */
+
+/* @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+* {font-family: 'Nanum Gothic', serif;} */
+
+/* #kCalendar { border: 1px solid black; text-align: center} */
+
+/* .accordion {
+	box-shadow: 1px 1px 1px 1px #ddd;
+} */
+
+.title{
+	margin-top:20px;
+    background-color:navy;
+    height:35px;
+    border-radius: 8px
+}
+
+.title > a {
+    display:inline-block;
+    font-size:1.2em;
+    text-decoration: none;
+    font-weight:bold;
+    color:white;
+    line-height: 1.43;
+    margin: 5px 10px;
+}
+
+#kCalendar #header {height: 50px; line-height: 50px; text-align: center; font-size: 18px; font-weight: bold}
+#kCalendar .button {color: #000; text-decoration: none;}
+
+/* #kCalendar table {width: 500px; height: 400px;} */
+#kCalendar caption {display: none;}
+
+#kCalendar .sun {text-align: center; color: deeppink;}
+#kCalendar .mon {text-align: center;}
+#kCalendar .tue {text-align: center;}
+#kCalendar .wed {text-align: center;}
+#kCalendar .thu {text-align: center;}
+#kCalendar .fri {text-align: center;}
+#kCalendar .sat {text-align: center; color: deepskyblue;}
+
+th {
+    margin: 5px;
+    border : solid 1px #ddd;
+}
+td {
+    border-radius: 5px;
+}
+
+
+
+#kCalendar td.sun, td.mon, td.tue, td.wed, td.thu, td.fri, td.sat {
+    width: 120px;
+    height: 100px;
+    vertical-align: top;
+    border : solid 1px #ddd;
+}
+/* #kCalendar td.sun,  td.tue, td.wed, td.thu, td.fri, td.sat a {
+    float: right;
+} */
+#kCalendar td.sun a,td.mon a, td.tue a, td.wed a, td.thu a, td.fri a, td.sat a{
+    margin: 5px;
+    float: right;
+}
+#kCalendar td.sun a {
+	color : deeppink
+}
+#kCalendar td.sat a {
+	color : deepskyblue
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.attendContent {
+	margin-top : 5px;
+    vertical-align: center;
+}
+
+.attendContent p {
+	margin-top: 2px;
+	margin-bottom : 2px;
+	text-align: left;
+	color: grey;
+}

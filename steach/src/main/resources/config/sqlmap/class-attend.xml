@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.steach.repository.mapper.AttendMapper">
+	<resultMap id="classMap" type="Clazz">
+		<result column="class_no" property="classNo" />
+		<result column="master" property="master" />
+		<result column="class_name" property="className" />
+		<result column="class_subname" property="classSubname" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="begin_date" property="beginDate" />
+		<result column="end_date" property="endDate" />
+		<result column="class_key" property="classKey" />
+		<result column="bg_name" property="bgName" />
+		<result column="bg_path" property="bgPath" />
+		<result column="seat_name" property="seatName" />
+		<result column="seat_path" property="seatPath" />
+	</resultMap>
+
+	<resultMap id="memberMap" type="ClassMember">
+		<result column="mem_no" property="memNo" />
+		<result column="class_no" property="classNo" />
+		<result column="p_no" property="pNo" />
+		<result column="g_no" property="gNo" />
+		<result column="id" property="id" />
+		<result column="group_no" property="groupNo" />
+		<result column="group_member_order" property="groupMemberOrder" />
+		<collection property="user" resultMap="userMap" />
+	</resultMap>
+	
+	<resultMap type="Attend" id="attendMap">
+		<result column="attend_no" property="attendNo" />
+		<result column="class_no" property="classNo" />
+		<result column="id" property="id" />
+		<result column="attend_date" property="attendDate" />
+		<result column="attend_day" property="attendDay" />
+		<result column="attend_time" property="attendTime" />
+		<result column="g_no" property="gNo" />
+		<result column="off_status" property="offStatus" />
+		<result column="off_time" property="offTime" />
+	</resultMap>
+
+	<!-- 출석부 이름과 날짜 batch -->
+	<insert id="insertattend">
+		insert into
+		tb_class_attend (id,class_no, attend_date)
+		select
+		id, class_no, curdate() as attend_date
+		from tb_class_member
+	</insert>
+	
+	<!-- 출석여부확인 출석/퇴실버튼분류 -->
+	<select id="attendStatus" parameterType="String" resultMap="attendMap">
+		select attend_time
+		  from tb_class_attend
+		 where id=#{id}
+	</select>
+	
+
+	
+</mapper>

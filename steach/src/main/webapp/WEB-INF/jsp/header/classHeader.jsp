@@ -19,7 +19,7 @@
     <nav class="navbar navbar-default">
         <div class="navbar-collapse" >
             <ul class="nav navbar-nav">
-                <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
+                <li class="pull-left home"><a href="/steach/main/main.do"><i class="fas fa-home"></i></a></li>
                 <li class="pull-left myClassName"><a href="#">${clazz.className}</a></li>
                 <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do?classNo=${clazz.classNo}'/>">커리큘럼</a></li>
                 <li class="dropdown classCourse">
@@ -31,7 +31,7 @@
                 <li class="dropdown classUser">
                     <a href="member" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">출결현황</a></li>
+                        <li><a href="<c:url value='/class/attend/attend.do'/>">출결현황</a></li>
                         <li class="divider"></li>
                         <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li>
                     </ul>
@@ -40,14 +40,16 @@
                 <li class="pull-right dropdown myNotification">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
                     <ul class="dropdown-menu myNotificationMenu">
-                        <li><a href="#">마이페이지</a></li>
+                        <li><a href='<c:url value="/user/myPage.do"/>'>마이페이지</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">마이드라이브</a></li>
+                        <li><a href='<c:url value="/drive/drive.do"/>'>마이드라이브</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">로그아웃</a></li>
+                        <li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
                     </ul>
                 </li>
                 <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
+                <li class="pull-right attend attendoff" style="display: none"><a href="#"><i class="fas fa-door-open"></i></a></li>
+                <li class="pull-right attend attendon" style="display: none"><a href="#"><i class="fas fa-calendar-check"></i></a></li>
             </ul>
         </div>
     </nav>
@@ -67,7 +69,32 @@
      $("a[href='member']").click(function(){
     	location.href="<c:url value='/class/member/member.do'/>";
     })
- 
+ 	
+    var id = "${user.id}";
+    var master = "${clazz.master}";
+    
+    console.log(id)
+    console.log(master)
+/*     if (id != master) {
+		$(".attendon").css("display", "block");
+	} */
+    
+    // 출석 결석 버튼 구분
+    function attStatus(){
+    	$.ajax({
+ 			url:"/steach/class/attend/attendStatus.do",
+ 			data:{
+ 				id:id
+ 			}
+ 		}).done(function(result){
+        	if(result == ""){
+        		$(".attendon").css("display", "block");
+        	}
+        	else
+        		$(".attendoff").css("display", "block");
+        });
+    }
+    attStatus();
 </script>
 
 </html>

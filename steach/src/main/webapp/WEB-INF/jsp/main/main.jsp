@@ -70,7 +70,7 @@
 							<div class="card--section"
 								style="background-color: rgb(74, 202, 106);">
 								<h1>
-									<a href="#">${teach.className}</a>
+									<a href="#" data-no="${teach.classNo}">${teach.className}</a>
 								</h1>
 								<p>${teach.beginDate}~${teach.endDate}</p>
 							</div>
@@ -298,7 +298,8 @@
 			url : "/steach/class/createClass.do",
 			data : $(this).serialize()
 		}).done(function() {
-			alert("success");
+			/* alert("success"); */
+			location.href="<c:url value='/main/main.do'/>";
 		});
 	});
 	var joinkey = "";
@@ -333,13 +334,14 @@
 		}).done(function() {
 			$("#classkey").val("");
 			alert("클래스에 가입되었습니다")
+			location.href="<c:url value='/main/main.do'/>";
 		})
 
 	});
 	
 	
 	/* 수강 중인 클래스 이동 */
-	$(document).on("click","a",function(){
+	$(document).on("click","h1 > a",function(){
 		var cNo = $(this).data("no");
 		alert(cNo);
 		location.href="<c:url value='/class/curriculum/curriculum.do?classNo="+cNo+"'/>";

@@ -67,6 +67,10 @@
     font-size: 25px;
     padding-top: 23px;
 }
+.navbar-nav > .attend > a {
+    font-size: 25px;
+    padding-top: 23px;
+}
 .nbsp {
     padding-right: 400px;
 }
