@@ -34,8 +34,8 @@ public class GroupServiceImpl implements GroupService {
 	
 
 	@Override
-	public List<GroupList> listList() {
-		return mapper.listList();
+	public List<GroupList> listList(int groupNo) {
+		return mapper.listList(groupNo);
 	} // listList
 
 	@Override

@@ -12,7 +12,7 @@ import kr.co.steach.repository.domain.GroupMember;
 
 public interface GroupService {
 
-	List<GroupList> listList();
+	List<GroupList> listList(int groupNo);
 	
 	void insertList(GroupList groupList);
 	

@@ -134,16 +134,16 @@ public class GroupController {
 	@RequestMapping("groupActivity.do")
 	public void groupActivity(Model model, int groupNo) {
 		model.addAttribute("groupNo", groupNo);
-		model.addAttribute("listList", service.listList());
+		model.addAttribute("listList", service.listList(groupNo));
 		model.addAttribute("cardList", service.cardList());
 	} // groupActivity
 	
 	@RequestMapping("groupActivityList.do")
 	@ResponseBody
-	public Map<String, Object> groupActivityList() {
+	public Map<String, Object> groupActivityList(int groupNo) {
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("listList", service.listList());
+		map.put("listList", service.listList(groupNo));
 		map.put("cardList", service.cardList());
 		
 		return map;
