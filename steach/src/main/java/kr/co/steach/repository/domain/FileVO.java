@@ -8,6 +8,8 @@ public class FileVO {
 
 		private String id;
 		private List<MultipartFile> attach;
+		private String path;
+		
 		public String getId() {
 			return id;
 		}
@@ -20,5 +22,13 @@ public class FileVO {
 		public void setAttach(List<MultipartFile> attach) {
 			this.attach = attach;
 		}
+		public String getPath() {
+			return path;
+		}
+		public void setPath(String path) {
+			this.path = path;
+		}
+		
 	
+		
 }

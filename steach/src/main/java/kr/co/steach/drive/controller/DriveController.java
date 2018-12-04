@@ -62,7 +62,7 @@ public class DriveController {
 	@RequestMapping("/detailFolder.do")
 	@ResponseBody
 	public List<Map<String, Object>> detailFolder(@RequestParam(value="path")String path ) {
-		System.out.println(path);
+//		System.out.println(path);
 		File f= new File(path);
 		if(f.isDirectory()) {
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -90,7 +90,7 @@ public class DriveController {
 	@RequestMapping("/activateFolder.do")
 	@ResponseBody
 	public List<Map<String, Object>> activateFolder(@RequestParam(value="path")String path) {
-		System.out.println(path);
+//		System.out.println(path);
 		File f = new File(path);
 		List<Map<String,Object>> list = new ArrayList<>();
 		for(File fInfo : f.listFiles()) {
@@ -114,7 +114,7 @@ public class DriveController {
 	@RequestMapping("/trClickToDetail.do")
 	@ResponseBody
 	public List<Map<String, Object>> trClickToDetail(@RequestParam(value="path")String path ) throws IOException {
-		System.out.println(path);
+//		System.out.println(path);
 		
 		File f =new File(path);
 		List<Map<String,Object>> list = new ArrayList();
@@ -136,19 +136,27 @@ public class DriveController {
 			System.out.println(title);
 	}
 
+	/**
+	 * 파일 업로드
+	 * @param vo
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/fileUpload.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String fileUpload(FileVO vo) throws IllegalStateException, IOException {
+	public void fileUpload(FileVO vo) throws IllegalStateException, IOException {
 		
-		String path = vo.getId();
+		String path = vo.getPath();
+		System.out.println("path예요" + path);
 		
 		for(MultipartFile file : vo.getAttach()) {
 			if(file.isEmpty() == true) continue;
 			
 			System.out.println("올린 파일 이름 : " + file.getOriginalFilename());
-			file.transferTo(new File("C:/drive/"+path , file.getOriginalFilename()));
+			file.transferTo(new File(path+"\\" , file.getOriginalFilename()));
 	}
-		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "drive.do";
+//		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "drive.do";
 }
 	
 	/**
@@ -173,7 +181,7 @@ public class DriveController {
 				if(f.exists()) {
 					String len = (f.length() < 1024) ? "KB" : (f.length() > Math.pow(1024, 3) ? "GB" : "MB");
 					String usedSpaece = f.length()+len;
-					System.out.println(usedSpaece);					
+//					System.out.println(usedSpaece);					
 				}else {
 					f.mkdirs(); 					
 				}
@@ -198,7 +206,7 @@ public class DriveController {
 				ArrayList<File> subFiles= new ArrayList<File>();
 		        // 드라이브 사용 가능한 용량
 				String usableSpace = Math.round(f.getUsableSpace()/Math.pow(1024, 3))+"GB";
-		        System.out.println(usableSpace);
+//		        System.out.println(usableSpace);
 		        
 		        if(!f.exists()) 
 		        { 

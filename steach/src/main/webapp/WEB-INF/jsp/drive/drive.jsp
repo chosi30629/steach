@@ -84,10 +84,10 @@
            <div id="myModal1" class="modal fade">
        
             <!-- Modal content -->
-            <div class="modal1 modal-content col-md-3">                                                   
-                <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
+            <div class="modal1 modal-content" style="width : 20%;">                                                   
+                <div class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</div>
                 <hr>
-                <p class="addFile" data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+                <div class="addFile" data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</div>
             </div>
        
           </div>
@@ -141,10 +141,10 @@
           <!-- The Modal --> 
          <div id="myModal2" class="modal fade">
            	  <!-- Modal content -->
-	          <div class="modal2 modal-content col-md-3">                                                   
-	              <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
+	          <div class="modal2 modal-content " style="width : 20%;">                                                   
+	              <div class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</div>
 	              <hr>
-	              <p class="addFile"  data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+	              <div class="addFile"  data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</div>
 	          </div>
          </div><!-- 모달 -->
           
@@ -238,10 +238,16 @@
       
 
  <script type="text/javascript">
- // 파일 업로드
+ // 파일 업로드 ajax
+	 	var nPath; 
+		 function nowpath(result){
+			nPath =	 result;
+	 	}
  $('.fButton').click(function() {
+	 	// 현재 페이지의 path경로 가져올거야
 		var files = $("input[name='attach']")[0].files;
 		var fd = new FormData();
+	 	fd.append("path" , nPath);
 		fd.append("id", $("input[name='id']").val());
 		console.log($("input[name='id']").val())
 		for (var i = 0 ; i< files.length; i++){
@@ -259,7 +265,10 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
+			document.location.hash = "part5";
+			location.hash = "part5";
 		})
+		return true;
 	});
  // 파일업로드 끝
  
@@ -585,7 +594,7 @@ var sour = [
   	{"title": "${user.name}", "expanded": true, "path" : "c:\\drive\\"+"${user.name}" , "folder": true, "children": [
   ]}
   ]
-  //fancytree 처음 load
+  //fancytree 최초에 load
   // 태그중 id가 tree인것에 적용 됨
   $(function(){
 	
@@ -709,6 +718,8 @@ var sour = [
         click: function(event, data) {
         	console.log(data.node);
     	 	var path = data.node.data.path
+    	 	//파일업로드 경로주기
+    	 	nowpath(path);
     	 	$.ajax({
     	 		url : '<c:url value="/drive/activateFolder.do" />', 
     	 		data : {
@@ -764,12 +775,14 @@ var sour = [
 }
 		
 		// drive.do 처음 접속화면 리스트 표현
+		// 유저 이름에 해당하는 리스트를 가져와서 뿌린다.
 		$(document).ready(function(){
 				var node = $("#tree").fancytree("getRootNode").children[0];
 				var keyPath;
 				var childlist = ${list};
 				var emoji;
 		 	 	var length;
+		 	 	
 				 	for(var i=0 ; i< childlist.length; i++){
 					 	var e = childlist[i]
 					 	var childNode = node.addChildren(e);
@@ -815,6 +828,10 @@ var sour = [
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 			    		        +  '<td class="val" class="text-center">'+length+'</td>'
 			    		        +  '</tr>');
+					 $('tbody').attr('data-path',  childlist[0].path.substring(0, childlist[0].path.lastIndexOf('\\')) )
+					 
+						// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
+					 	 	nowpath($('tbody').attr('data-path'));
 				 }
 				 
 					
@@ -835,8 +852,13 @@ var sour = [
 			            })
 			            
 			            // 리스트(테이블)내 tr태그 클릭시(폴더) 하위폴더로 이동
-			            	$(document).on('click', 'tr' ,function(){
+			            	$(document).on('dblclick', 'tr' ,function(){
 								pathData = $(this).attr('path-data');
+								
+								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
+	 					 	 	nowpath(pathData);
+					 
+								console.log("dbclick", pathData);
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',
 									data : {
@@ -985,6 +1007,7 @@ var sour = [
 		    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 		    		        +  '<td class="val" class="text-center">'+length+'</td>'
 		    		        +  '</tr>');
+	    	 		$('tbody').attr('data-path',  result[0].path.substring(0, result[0].path.lastIndexOf('\\')) )
 			 }//end for
 			 
 		 }// end function EmojiAndFLengthLIST
