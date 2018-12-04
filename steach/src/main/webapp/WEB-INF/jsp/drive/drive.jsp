@@ -32,34 +32,31 @@
 	
 			
     <div class="realheader">
-      <div class="outheader">
-        <div class="imgheader">
-          <img class="headerimg" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/drive_48dp.png 2x " style="width:40px;height:40px">    
-        </div>
-        <div class="textheader">&nbsp;스티치 드라이브  
-        </div>
-      </div>
+   		<div class="outheader">
+       		<div class="imgheader">
+       			<img class="headerimg" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/drive_48dp.png 2x " style="width:40px;height:40px">    
+      		</div>
+     		<div class="textheader">&nbsp;스티치 드라이브  </div>
+		</div>
       
-      <form class="formrow">
-        <div class="fff" >
-          <button class="searchbtn">
-            <i class="fas fa-search"></i>
-          </button>
-          <input type="search" placeholder="드라이브 검색">
-        </div>
-      </form>
+      	<form class="formrow">
+	        <div class="fff" >
+          		<button class="searchbtn">
+      				<i class="fas fa-search"></i>
+	          	</button>
+	          <input type="search" placeholder="드라이브 검색">
+	        </div>
+      	</form>
       
-      <div style="margin-right: 10px; display: flex; flex-direction: row-reverse; align-items: center; width: 100%">
-        <div>
-          <i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></i>
-        </div>
-        <div style="margin : 0 25px" >
-          <i class="fas fa-th fa-lg" data-toggle="tooltip" data-placement="bottom" title="스티치 app"  onclick="app()"></i>
-        </div>
-      </div>
-
-      <!-- header 종결-->
-    </div>
+      	<div style="margin-right: 10px; display: flex; flex-direction: row-reverse; align-items: center; width: 100%">
+        	<div>
+          		<i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></i>
+        	</div>
+        	<div style="margin : 0 25px" >
+        		<i class="fas fa-th fa-lg" data-toggle="tooltip" data-placement="bottom" title="스티치 app"  onclick="app()"></i>
+        	</div>
+      	</div>
+    </div><!-- header 종결-->
     
      <!-- The Modal -->
 <!--      <div id="myModal3" class="modal fade"> -->
@@ -71,11 +68,8 @@
 <!--         </div> -->
    
 <!--       </div> -->
-    
-  
 
   <div class="container-fluid">
-    
       <div class="firstside col-md-2 sidebar">
 
         <div class="addBtnOuter" tabindex="-1" id="myBtn1" style="display:flex;">
@@ -93,7 +87,7 @@
             <div class="modal1 modal-content col-md-3">                                                   
                 <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
                 <hr>
-                <p class="addFile"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+                <p class="addFile" data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
             </div>
        
           </div>
@@ -125,60 +119,52 @@
         <div class="col-md-10" style="display: flex;height: 30px;">
           <div class="myBtn2outer" style="height: 30px;">
             <div id="myBtn2" tabindex="-1" style="height: 40px;">내 드라이브
-                <div class="myBtn2icon"><i class="fas fa-sort-down" style="
-                  display: flex;
-                  align-items: center;
-                  margin-left: 10px;
-                  margin-bottom: 5px;
-              "></i></div>
+                <div class="myBtn2icon">
+                	<i class="fas fa-sort-down" style="
+		                  display: flex;
+		                  align-items: center;
+		                  margin-left: 10px;
+		                  margin-bottom: 5px;
+              		"></i>
+           		</div>
             </div>
-            
           </div>
-            <div style="display: flex; align-items: center; flex-direction : row-reverse; width: 100%;">
-                <div class="infoCircle" data-toggle="tooltip" data-placement="bottom" title="세부정보">
-                  <i class="google fas fa-info-circle fa-lg"></i></div>
-              </div>
+          
+          <div style="display: flex; align-items: center; flex-direction : row-reverse; width: 100%;">
+              <div class="infoCircle" data-toggle="tooltip" data-placement="bottom" title="세부정보">
+                <i class="google fas fa-info-circle fa-lg"></i></div>
+          </div>
         </div>  
 
-      <div class="col-md-8 main" style="padding-right: 0px;">
-            
+     <div class="col-md-8 main" style="padding-right: 0px;">
             
           <!-- The Modal --> 
-          <div id="myModal2" class="modal fade">
-       
-            <!-- Modal content -->
-            <div class="modal2 modal-content col-md-3">                                                   
-                <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
-                <hr>
-                <p class="addFile"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
-            </div>
-       
-          </div>
-
+         <div id="myModal2" class="modal fade">
+           	  <!-- Modal content -->
+	          <div class="modal2 modal-content col-md-3">                                                   
+	              <p class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</p>
+	              <hr>
+	              <p class="addFile"  data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</p>
+	          </div>
+         </div><!-- 모달 -->
           
-            <div style="margin-top: 20px;">
+          <div style="margin-top: 20px;">
               <div class="table1">  
-                <div class="tableC" style="width: 40%; font-weight: 600;">제목</div>
-                <div class="tableC" style="width: 8%; font-weight: 600;  justify-content: center;">소유자</div>
-                <div class="tableC" style="width: 32%; font-weight: 600;  justify-content: center;">최종 수정 날짜</div>
-                <div class="tableC" style="width: 20%; font-weight: 600;  justify-content: center;">크기</div>
-            </div>
-            </div>
-            <div class="tableDiv">
-              <table class="ft table table-hover">
+	                <div class="tableC" style="width: 40%; font-weight: 600;">제목</div>
+	                <div class="tableC" style="width: 8%; font-weight: 600;  justify-content: center;">소유자</div>
+	                <div class="tableC" style="width: 32%; font-weight: 600;  justify-content: center;">최종 수정 날짜</div>
+	                <div class="tableC" style="width: 20%; font-weight: 600;  justify-content: center;">크기</div>
+            	</div>
+           </div>
+           <div class="tableDiv">
+              	<table class="ft table table-hover">
                 <tbody></tbody>
-              </table>
-                
-                
-               
-               
-                          
-                  <!--내용 끝-->
-              </div> <!-- tableDiv 종료-->
-            </div><!-- main 태그 col-md-8 종료-->
+             	 </table><!--내용 끝-->
+            </div> <!-- tableDiv 종료-->
+       </div><!-- main 태그 col-md-8 종료-->
             
-            
-            <div class="detailside col-md-2 sidebar" style="width: 20%; padding-left: 0px; padding-right: 0px; bottom: 1px;">
+         <!-- 우측 사이드바 관련태그 시작 -->
+        <div class="detailside col-md-2 sidebar" style="width: 20%; padding-left: 0px; padding-right: 0px; bottom: 1px;">
                 <div class="trClick">
                   <div class="TrIcon"><i class="fas fa-folder fa-lg"></i></div>
                   <div class="TrName">내 드라이브</div>
@@ -188,26 +174,25 @@
                   <div>활동</div>
                 </div>
 				
-				<!-- 작업중 -->
-                <div class="trClickDetailContent">폴더를 추가하였습니다 <br> 
+				<!--활동 로그 이벤트 -->
+            <div class="trClickDetailContent">폴더를 추가하였습니다 <br> 
                 <c:forEach var="item" items="${subFiles}">${item.getCanonicalPath()}, 
-                <jsp:useBean id="dateValue" class="java.util.Date"/>	
-				<jsp:setProperty name="dateValue" property="time" value="${item.lastModified()}"/>
-				<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dateValue}" />
-				<br>
-				<c:choose>
-					<c:when test="${item.isDirectory()==true}">폴더용량 : ${item.length()}</c:when>
-					<c:otherwise>파일용량 : ${item.length()}</c:otherwise>
-				</c:choose>
-				<br><br>
+	                <jsp:useBean id="dateValue" class="java.util.Date"/>	
+					<jsp:setProperty name="dateValue" property="time" value="${item.lastModified()}"/>
+					<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dateValue}" />
+					<br>
+					
+					<c:choose>
+						<c:when test="${item.isDirectory()==true}">폴더용량 : ${item.length()}</c:when>
+						<c:otherwise>파일용량 : ${item.length()}</c:otherwise>
+					</c:choose>
+					<br><br>
                 </c:forEach>
-                </div>
+             </div><!-- 활동로그 -->
                 
+        </div><!-- right sidebar  우측 사이드바 관련태그 끝 -->
 
-              </div><!-- right sidebar -->
-
-              <div class="myModal modal fade">
-      
+             <div class="myModal modal fade">
                 <div class="modal4 modal-content col-md-3">                                                   
                     <p class="addFolderBefore">새폴더</p>
                     <p><input class="addTextBefore form-control" type="text" value="제목없는 폴더" /></p>
@@ -216,10 +201,10 @@
                       <button class="AfterMakeIt form-control" style="width:unset;">만들기</button>
                     </p>
                 </div>
-                   
-              </div>
-
-  </div>  <!-- 그리드 종결 태그 -->
+             </div>
+  	</div><!-- 그리드 종결 태그 -->
+  
+  <!-- 컨텍스트 메뉴 관련 -->
   <ul class="contextmenu">
       <li><a href="#">색상바꾸기 (나중에)</a></li>
       <li><a href="#">이름 변경 (완료)</a></li>
@@ -227,56 +212,83 @@
       <li><a href="#">다운로드 (미구현)</a></li>
       <li><a href="#">삭제 (완료)</a></li>
     </ul>
+    <!-- 컨텍스트 메뉴 끝 -->
     
     <div class="myModal2 modal fade">
-      
         <div class="modal4 modal-content col-md-3">                                                   
             <p>이름 바꾸기</p>
             <p><input class="changeNameText form-control" type="text" /></p>
             <p style="display : flex;flex-direction: row-reverse;">
-              <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
-              <button class="AfterChange form-control" style="width:unset;">변경</button>
+	              <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
+	              <button class="AfterChange form-control" style="width:unset;">변경</button>
             </p>
         </div>
-           
       </div>
+      
+      <!-- 파일 업로드 모달 -->
+    <div class="fileUpload modal fade">
+      	<div class="modal-content col-md-3">
+			<form id="upload_form" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="id" value="${user.name}"><br>
+				<input type="file" name=attach multiple /><br>
+				<button class="fButton">업로드</button>
+			</form>
+      	</div>    
+    </div>
+      
 
  <script type="text/javascript">
+ // 파일 업로드
+ $('.fButton').click(function() {
+		var files = $("input[name='attach']")[0].files;
+		var fd = new FormData();
+		fd.append("id", $("input[name='id']").val());
+		console.log($("input[name='id']").val())
+		for (var i = 0 ; i< files.length; i++){
+			fd.append("attach", files[i]);
+			console.log("name", "attach" + i, files[i].name);
+		}//for
+		
+		$.ajax({
+			url : '<c:url value="/drive/fileUpload.do"/>',
+			data : fd,
+			type : "POST",
+			// fileupload 를 ajax로 전송하기 위한 설정!!!!!!!!!!!!!
+			// true 로 설정시 enctype = application/x-www-form-urlencoded 으로 설정되므로
+			// enctype = multipart/form-data 로 하기위해서 하는 설정 false
+			processData : false,
+			contentType : false,
+		}).done(function(result){
+		})
+	});
+ // 파일업로드 끝
  
- var inputModal = function() {
-$('.myModal').modal({
-  keyboard: true, 
-  show: true,
-}).css({
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-  justifyContent: 'center',
-})    
-};
-
-// 새로 만들기 버튼 클릭시를 구현할 거예요!
+// 모달의 새로 만들기 버튼 클릭시를 구현할 거예요!
 $('.addFolder').click(function(){
-  
-  $(this).parent().parent().modal('hide');
-  inputModal();
+  	$(this).parent().parent().modal('hide');
+  	
+  		$('.myModal').modal({
+  		  keyboard: true, 
+  		  show: true,
+  		}).css({
+  		  display: 'flex',
+  		  alignItems: 'center',
+  		  flexDirection: 'column',
+  		  justifyContent: 'center',
+  		})    
 
-// 모달창은 autofocus 안먹혀서 따로 처리
-function addTextBefore(e) {
-  $('.addTextBefore').focus();
-}
-addTextBefore()
+	// 모달창은 autofocus 안먹혀서 따로 처리
+  	$('.addTextBefore').focus();
   
-  // esc 키다운시 modal4 비활성화
-  $(document).on('keydown', function(e) { 
+// esc 키다운시 modal4 비활성화
+ $(document).on('keydown', function(e) { 
       if (e.keyCode == 27) 
       $('.myModal').modal('hide') 
   }); 
 })
 
-  //새로만들기모달  .AfterMakeIt (폴더 만들기) 클릭시 
-  //.addTextBefore 의 myModal 내의 input:value 를 가져와서 폴더 만들기 
-  
+  //폴더만들기 모달의  생성버튼( .AfterMakeIt) 클릭시 
+  //폴더이름의 클래스(.addTextBefore) 해당 모달의  input태그 내 value 를 가져와서 폴더 만들기 
     $('.AfterMakeIt').click(function(){
     	
     	// input창에 공백으로 폴더를 생성할경우 false 반환
@@ -290,7 +302,6 @@ addTextBefore()
     	
     	var childNode = node.addChildren({
             title: $(".addTextBefore").val(),
-//             tooltip: $(".addTextBefore").val(),
             folder: true
          });
     	
@@ -307,10 +318,8 @@ addTextBefore()
     	        console.log(path);
             	console.log(kpath);
             	console.log(keyVal);
-            	// 
            
-    // ajax 호출하기 makedir
-        	
+    // ajax 호출하기 makedir 폴더 생성
         	$.ajax({
         		url: '<c:url value="/drive/makedir.do" />',
         		data: {
@@ -318,25 +327,22 @@ addTextBefore()
         			keyVal : keyVal
         			}
         	}).done(function(result){
-    			console.log(result);
-        		$('tbody').append('<tr class="ggg">' 
+    			console.log(result.patt);
+        		$('tbody').append('<tr class="ggg" path-data ="'+result.patt+'">'
         		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="'+result.keyVal+'">'+result.name+'</span></td>'
         		        +  '<td class="owner" class="text-center">'+result.patt.split("\\")[2]+'</td>'
         		        +  '<td class="date" class="text-center">'+result.modified+'</td>'
         		        +  '<td class="val" class="text-center">'+result.length+'</td>'
         		        +  '</tr>');
         	})
-       	
     	
     	  $('.picOuter').css("display", "none");
           $('.addTextBefore').val('제목없는 폴더');
           $(this).parent().parent().parent().modal('hide');
         
-        
       })//end 폴더 추가하기
   
-//-----------------
-      // 동적으로 만든 tr 태그의 contextmenu 
+//----------------- // 동적으로 만든 tr(폴더) 태그의 contextmenu 
       var tr;
       var thi;
       var thii;
@@ -374,25 +380,28 @@ addTextBefore()
            	
         })
        
-      
-       // 이름 바꾸기 변경 버튼 누를시
+       // 이름 바꾸기 변경 버튼 누를시 !!!! contextmenu 추후 구현해야 할 것 (이름바꾸기)
        $('.myModal2').find('.AfterChange').click(function(){
-    	   
-    	   
+    	   console.log($(this));
     	   //changeNameText 
     	google = $(this).parent().parent().find('.changeNameText').val()
-    	
     	if(google == "" || google.trim() == ""){
     		alert("이름을 지어주세요!")
     		return false;
     	}
     	
-		console.log("네가 찾는것이 이것이니",google);// span 내용이 뜸 , 예제용
+		console.log("네가 찾는것이 이것이니",google);// span 내용이 뜸
+		$.ajax({
+			url: '<c:url value="/drive/rename.do" />',
+			data : {
+				title : google
+			}
+		}).done(function(){
+			console.log("김성공!");
+		})
        	
-		
        // innertext 변경
        thii.text(google)
-      
         
        if(findData == thiid){
     	   console.log(true);
@@ -401,18 +410,14 @@ addTextBefore()
        $(this).parent().parent().parent().modal('hide');
             })
          
-      
-
  	
-       //동적생성 태그 이벤트 
+       //contextmenu 동적생성 이벤트 tr태그(폴더) 한정 발생
        $(document).on('contextmenu', 'tr' , function(e){
     	tr = $(this);
         thi = $(this)[0].children[0].innerText;
         thii = $(this).find('span');
         thiid = thii.attr('id');
         console.log(thiid);
-        
-       
         
     //Get window size:
     var winWidth = $(document).width();
@@ -457,28 +462,31 @@ addTextBefore()
     //contextmenu show
     $(".contextmenu").show();
       
-       })
+       })//contextmenu 위치 및 css
 
-      //Hide contextmenu:
+      //Hide contextmenu
       $(document).click(function(){
         $(".contextmenu").hide();
       });
-
 
       //modal cancle button
     $('.AfterCancle').click(function(){
      $(this).parent().parent().parent().modal('hide');
     })
 
-  // 우클릭 비활성화
+  //배경 우클릭 비활성화
 $(document).contextmenu(function(e){
   return false;
 })
+//-----------------contextmenu 관련 끝 ---------------------
 
+//-----------------------아이콘 관련 시작--------------
+//부트스트랩 아이콘 툴팁
   $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
+      // 아이콘 css
 $('.infoCircle').mouseover(function(){
           $(this).css('background-color' , '#f1f3f4');
           $('.google').css('opacity', 'unset');
@@ -487,6 +495,7 @@ $('.infoCircle').mouseover(function(){
           $('.google').css('opacity', '0.66');
         })
 
+        // 아이콘 css
   $('.infoCircle').click(function() {
       if($('.detailside').hasClass("leftgo")){
         $('.main ').attr('class', 'col-md-8 main').css("transition" , ".4s")
@@ -495,7 +504,6 @@ $('.infoCircle').mouseover(function(){
           'background-color' : '#e8f0fe'
         })
         
-
         $('.google').css({
           'color' : '#1967d2',
           'opacity' : 'unset'
@@ -511,14 +519,13 @@ $('.infoCircle').mouseover(function(){
           'opacity' : '.66'
         })
       }
-    
-})
+})//end infoCircle 아이콘 css
+//-----------------------아이콘 관련 끝 -----------------------------
 
-
+//------------------------------------------ 모달 관련 시작
   $btn1 = $('#myBtn1').offset();
   $btn2 = $('#myBtn2').offset();
   $btn3 = $('.fa-th').offset();
-//   console.log($btn1.top , $btn1.left)
   
   $('.modal1').css({
     top :  $btn1.top+48,
@@ -535,7 +542,6 @@ $('.infoCircle').mouseover(function(){
   
 
   // 모달버튼의 위치와 모달이뜨는 위치 계산
-
   $('#myBtn1').click(function(){
     $('#myModal1').modal({
             keyboard: true, 
@@ -571,21 +577,19 @@ $(document).on('keydown', function(e) {
       $('#myModal3').modal('hide')
   }); 
   })
-  //
+  //------------------------------------------ 모달 과련 끝
   
   var subfile = '${subFiles}';
   //fancytree 첫로드시 폴더 트리 구성 소스 ${subFiles}
 var sour = [ 
-  	{"title": "${user.name}", "expanded": true, "folder": true, "children": [
+  	{"title": "${user.name}", "expanded": true, "path" : "c:\\drive\\"+"${user.name}" , "folder": true, "children": [
   ]}
   ]
-var updateCounter;
   //fancytree 처음 load
+  // 태그중 id가 tree인것에 적용 됨
   $(function(){
-    // Attach the fancytree widget to an existing <div id="tree"> element
-    // and pass the tree options as an argument to the fancytree() function:
-    	
-    $("#tree").fancytree({
+	
+	  $("#tree").fancytree({
 //     	generateIds: true,
 //         idPrefix: "test_", 
 //     	autoCollapse: true, 자동 접기
@@ -605,23 +609,11 @@ var updateCounter;
           },
         
       extensions: ["dnd5","childcounter"],
-      // titlesTabbable: true,
       source: sour,
     dnd5: {
-        // autoExpandMS: 400,
-        // preventForeignNodes: true,
-        // preventNonNodes: true,
-        // preventRecursiveMoves: true, // Prevent dropping nodes on own descendants
-        // preventVoidMoves: true, // Prevent dropping nodes 'before self', etc.
-        // scroll: true,
-        // scrollSpeed: 7,
-        // scrollSensitivity: 10,
-
         // --- Drag-support:
-
         dragStart: function(node, data) {
           /* This function MUST be defined to enable dragging for the tree.
-           *
            * Return false to cancel dragging of node.
            * data.dataTransfer.setData() and .setDragImage() is available
            * here.
@@ -634,9 +626,8 @@ var updateCounter;
         },
         dragEnd: function(node, data) {
         },
-
+        
         // --- Drop-support:
-
         dragEnter: function(node, data) {
           // node.debug("dragEnter", data);
           data.dataTransfer.dropEffect = "move";
@@ -688,52 +679,10 @@ var updateCounter;
         hideExpanded: true
       },
       activate: function(event, data) {
-    	 	console.log(data.node);
-    	 	var path = data.node.data.path
-    	 	$.ajax({
-    	 		url : '<c:url value="/drive/activateFolder.do" />', 
-    	 		data : {
-    	 			"path" : path
-    	 			}
-    	 	}).done(function(e){
-    	 		$('tbody').empty();
-    	 		
-    	 		 var emoji;
-				 for(var i =0 ; i < e.length ; i++){
-				 var fLength = (e[i].length < 1024) ? "KB" : (e[i].length > Math.pow(1024,3) ? "GB" : "MB");
-				 switch(e[i].folder){
-	 				case true : emoji='fas fa-folder fa-lg';
-	 				break;
-	 				case false : emoji='googleicon';
-	 				break;
-	 				}
-					 
-    	 		 $('tbody').append('<tr>' 
-		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e[i].title+'</span></td>'
-		    		        +  '<td class="owner" class="text-center">'+e[i].path.split("\\")[2]+'</td>'
-		    		        +  '<td class="date" class="text-center">'+e[i].lastModified+'</td>'
-		    		        +  '<td class="val" class="text-center">'+e[i].length+fLength+'</td>'
-		    		        +  '</tr>');
-				 }
-    	 		 
-				if($('tbody').children().length==0){
-    			    
-    			    $('.ft').append(
-    			   		'<div class="picOuter">'
-    			       		 +'<div class="allpicOuter">'
-    			    		 +'<div class="allpic">'
-    			          	 +'<div class="pic1"></div>'
-    			   			 +'<div class="pic2"></div>'
-    			           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
-    			   			 +'</div>'
-    			             +'</div>'
-    			         	 +'</div>')
-    			            $('.picOuter').css("display", "flex");
-    			            } //if
-    	 		
-    	 	})
-    	 	
+    	 	// 클릭이 들어와 있을때
       },
+      
+      
     	  // 부분 로드 및 게으른(트랜지션 줄 수 있음) 폴더 구현할 수 있음 
       lazyLoad: function(event, data) {
     	  node = data.node;
@@ -744,11 +693,10 @@ var updateCounter;
 					"path" : path
 					},
 			})
-			
-      },
+      }, // end lazyLoad 	
       loadChildren: function (event, data) {
         // update node and parent counters after lazy loading
-    	  updateCounter = data.node.updateCounters();
+    	  data.node.updateCounters();
       },
       keydown: function(event, data){
           switch( $.ui.fancytree.eventToString(data.originalEvent) ) {
@@ -757,26 +705,56 @@ var updateCounter;
             data.node.toggleExpanded();
             break;
           }
-        }
-//         dbclick: function(event, data) {
-// //            data.node.toggleSelect();
-// 				console.log(data.node);
-//           }
-      });
+        },
+        click: function(event, data) {
+        	console.log(data.node);
+    	 	var path = data.node.data.path
+    	 	$.ajax({
+    	 		url : '<c:url value="/drive/activateFolder.do" />', 
+    	 		data : {
+    	 			"path" : path
+    	 			}
+    	 	}).done(function(result){
+    	 		$('tbody').empty();
+				 //폴더 아이콘 처리와 파일 용량 처리
+				 EmojiAndFLengthLIST(result);
+				 
+				 //!!!! 함수로 뺄 것 노가다 if
+				if($('tbody').children().length==0){
+    			    $('.ft').append(
+    			   		 '<div class="picOuter" style="display: flex">'
+    			       	+	'<div class="allpicOuter">'
+    			    	+		'<div class="allpic">'
+    			        +			'<div class="pic1"></div>'
+    			   		+			'<div class="pic2"></div>'
+    			        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+    			   		+		'</div>'
+    			        +	'</div>'
+    			        +'</div>').show()
+    			            }else{
+    			            	$('.ft > .picOuter').hide();
+    			            } // 노가다문 end if
+    	 		
+    	 	}) // end function done
+        }//end fancytree click event
+      }); // end fancytree
+      
       // For our demo: toggle auto-collapse mode:
       $("input[name=autoCollapse]").on("change", function(e){
         $.ui.fancytree.getTree().options.autoCollapse = $(this).is(":checked");
       });
     });
 
-//트리 구조 얻어옴
+	//!!!! (임의로 만든거) 로그아웃 버튼 누를시 트리 구조 불러옴 
 		$('.fa-sign-out-alt').on('click', function(){			
 	  var tree = $("#tree").fancytree("getTree");
 	  var d = tree.toDict(true);
    	  alert(JSON.stringify(d));
 		})
 	
-		function nameChange() {	
+	
+	//!!!! 왜 만들었지 이거.....
+	function nameChange() {	
 	$('.changeNameText').on('keyup', function(){
 		console.log($(this).val() == "")
 		if($(this).val() == ""){
@@ -785,33 +763,60 @@ var updateCounter;
 	})
 }
 		
-
+		// drive.do 처음 접속화면 리스트 표현
 		$(document).ready(function(){
-			            
-				 node = $("#tree").fancytree("getRootNode").children[0];
-				 var childlist = ${list};
-				 for(var i=0 ; i< childlist.length; i++){
-					 var e = childlist[i]
-					 var childNode = node.addChildren(e);
-// 					 console.log(childNode);
+				var node = $("#tree").fancytree("getRootNode").children[0];
+				var keyPath;
+				var childlist = ${list};
+				var emoji;
+		 	 	var length;
+				 	for(var i=0 ; i< childlist.length; i++){
+					 	var e = childlist[i]
+					 	var childNode = node.addChildren(e);
+					 		  keyPath = childNode.getKeyPath(false).split('/')[childNode.getKeyPath(false).split('/').length-1]
 
-					 // 아이콘 결정 폴더 or 파일
-					 var emoji;
-					 var fLength = (e.length < 1024) ? "KB" : (e.length > Math.pow(1024,3) ? "GB" : "MB");
-					 switch(e.folder){
-		 				case true : emoji='fas fa-folder fa-lg';
-		 				break;
-		 				case false : emoji='googleicon';
-		 				break;
-		 				}
+						 if(e.length < 1024)
+					 	 {
+		    	 			length = e.length +"Byte";
+		    	 		 }
+		    	 		 else if(e.length > 1024)
+		    	 		 {
+		    	 			length = Math.ceil(e.length/Math.pow(1024,1)) + "KB"
+		    	 		 }
+		    	 		 else if( e.length > 1048576)
+		    	 		 {
+		    	 			length = Math.round(e.length / Math.pow(1024,2)) + "MB"
+		    	 		 }
+		    	 		 else if( e.length > 1073741824)
+		    	 		 {
+		    	 			length = Math.round(e.length / Math.pow(1024,3)) + "GB"
+		    	 		 }
+				 
+					 		 switch(e.folder){
+				 				case true : emoji='fas fa-folder fa-lg';
+				 				break;
+				 				case false : 
+				 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
+				 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
+				 						if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png')
+				 						{
+				 							emoji = 'img';
+				 						}
+				 						if(ext == 'txt' || ext == 'text')
+				 						{
+				 							emoji='txt';
+				 						}
+				 				break;
+				 				}
 					 
-					 $('tbody').append('<tr>' 
-			    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e.title+'</span></td>'
+					 $('tbody').append('<tr path-data ="'+e.path+'" id="'+keyPath+'">' 
+			    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span>'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
-			    		        +  '<td class="val" class="text-center">'+e.length+fLength+'</td>'
+			    		        +  '<td class="val" class="text-center">'+length+'</td>'
 			    		        +  '</tr>');
 				 }
+				 
 					
 			  if($('tbody').children().length==0){
 			    
@@ -827,16 +832,162 @@ var updateCounter;
 			         	 +'</div>')
 			            $('.picOuter').css("display", "flex");
 			            } //if
-				 
-				 
-				 
 			            })
 			            
-			          
+			            // 리스트(테이블)내 tr태그 클릭시(폴더) 하위폴더로 이동
+			            	$(document).on('click', 'tr' ,function(){
+								pathData = $(this).attr('path-data');
+								$.ajax({
+									url : '<c:url value="/drive/trClickToDetail.do" />',
+									data : {
+										path : pathData
+									}
+								}).done(function(result){
+										$('tbody').empty();
+										EmojiAndFLengthLIST(result);
+									
+									if($('tbody').children().length==0){
+					    			    
+					    			    $('.ft').append(
+					    			   		 '<div class="picOuter" style="display: flex">'
+					    			       	+	'<div class="allpicOuter">'
+					    			    	+		'<div class="allpic">'
+					    			        +			'<div class="pic1"></div>'
+					    			   		+			'<div class="pic2"></div>'
+					    			        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+					    			   		+		'</div>'
+					    			        +	'</div>'
+					    			        +'</div>').show()
+					    			            }else{
+					    			            	$('.ft > .picOuter').hide();
+					    			            } //if
+									
+								})
+							 })
+			            	
+			            
+	 var fileIndex = 0;
+    // 등록할 전체 파일 사이즈
+    var totalFileSize = 0;
+    // 파일 리스트
+    var fileList = new Array();
+    // 파일 사이즈 리스트
+    var fileSizeList = new Array();
+    // 등록 가능한 파일 사이즈 MB
+    var uploadSize = 50;
+    // 등록 가능한 총 파일 사이즈 MB
+    var maxUploadSize = 500;
 
+		$(function (){
+        // 파일 드롭 다운
+        fileDropDown();
+    });
+		
+		 function fileDropDown(){
+        var dropZone = $(".tableDiv");
+        //Drag기능 
+        dropZone.on('dragenter',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            // 드롭다운 영역 css
+            dropZone.css('background-color','#E3F2FC');
+        });
+        dropZone.on('dragleave',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            // 드롭다운 영역 css
+            dropZone.css('background-color','#FFFFFF');
+        });
+        dropZone.on('dragover',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            // 드롭다운 영역 css
+            dropZone.css('background-color','#E3F2FC');
+        });
+        dropZone.on('drop',function(e){
+            e.preventDefault();
+            // 드롭다운 영역 css
+            dropZone.css('background-color','#FFFFFF');
+            
+            var files = e.originalEvent.dataTransfer.files;
+            console.log(e.originalEvent.dataTransfer.files[0].path)
+            console.log(files)
+            if(files != null){
+                if(files.length < 1){
+                    alert("폴더 업로드 불가");
+                    return;
+                }
+                selectFile(files)
+            }else{
+                alert("ERROR");
+            }
+        });
+    }
+		 
+		 function selectFile(fileObject){
+		        var files = null;
+		 
+		        if(fileObject != null){
+		            // 파일 Drag 이용하여 등록시
+		            files = fileObject;
+		        }else{
+		            // 직접 파일 등록시
+		            files = $('#multipaartFileList_' + fileIndex)[0].files;
+		        }
+		 }
+
+		 // 앱 아이콘 클릭시 메인으로 이동
 		 function app() {
 			 location.href = "/steach/main/main.do"
 		 }
+		 
+		 // 모듈화 폴더리스트 생성과 용량 및 아이콘을 결정해줌
+		 function EmojiAndFLengthLIST(result){
+			 var emoji;
+			 var length;
+			 for(var i =0 ; i < result.length ; i++){
+    	 		   var e = result[i];
+	    	 		 
+	    	 		 if(e.length < 1024){
+	    	 			length = e.length +"Byte";
+	    	 		 }
+		    	 		 else if(e.length > 1024){
+		    	 			length = Math.ceil(e.length/Math.pow(1024,1)) + "KB"
+		    	 		 }
+		    	 		 else if( e.length > 1048576){
+		    	 			length = Math.round(e.length / Math.pow(1024,2)) + "MB"
+		    	 		 }
+		    	 		 else if( e.length > 1073741824){
+		    	 			length = Math.round(e.length / Math.pow(1024,3)) + "GB"
+		    	 		 }
+			 
+		 						
+	    	 		 switch(e.folder){
+		 				case true : emoji='fas fa-folder fa-lg';
+		 				break;
+		 				case false : 
+		 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
+		 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
+		 						if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png')
+		 						{
+		 							emoji = 'img';
+		 						}
+		 						if(ext == 'txt' || ext == 'text')
+		 						{
+		 							emoji='txt';
+		 						}
+		 				break;
+		 				}
+			 
+	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
+		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e.title+'</span></td>'
+		    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
+		    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
+		    		        +  '<td class="val" class="text-center">'+length+'</td>'
+		    		        +  '</tr>');
+			 }//end for
+			 
+		 }// end function EmojiAndFLengthLIST
 		 
 </script>
 </body>

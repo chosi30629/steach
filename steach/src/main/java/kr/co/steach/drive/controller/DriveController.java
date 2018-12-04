@@ -15,11 +15,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.google.gson.Gson;
 
+import kr.co.steach.repository.domain.FileVO;
 import kr.co.steach.repository.domain.User;
 
 @Controller
@@ -102,6 +106,52 @@ public class DriveController {
 	}
 	
 	/**
+	 * 리스트 테이블 내에 tr태그 클릭시(각각의 폴더 및 파일) 경로 얻어와서 하위 폴더가 있을시 들어가기
+	 * @param path
+	 * @return 
+	 * @throws IOException
+	 */
+	@RequestMapping("/trClickToDetail.do")
+	@ResponseBody
+	public List<Map<String, Object>> trClickToDetail(@RequestParam(value="path")String path ) throws IOException {
+		System.out.println(path);
+		
+		File f =new File(path);
+		List<Map<String,Object>> list = new ArrayList();
+		for(File arrfile : f.listFiles()) {
+			Map<String, Object> fmap = new HashMap<>();
+				fmap.put("title", arrfile.getName());
+				fmap.put("folder",arrfile.isDirectory());
+				fmap.put("lastModified", sdf.format(arrfile.lastModified()));
+				fmap.put("length", arrfile.length());
+				fmap.put("path", arrfile.getCanonicalPath());
+				list.add(fmap);
+		}
+			return list;
+	}
+	
+	@RequestMapping("/rename.do")
+	@ResponseBody
+	public void rename(@RequestParam(value="title")String title) {
+			System.out.println(title);
+	}
+
+	@RequestMapping(value="/fileUpload.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String fileUpload(FileVO vo) throws IllegalStateException, IOException {
+		
+		String path = vo.getId();
+		
+		for(MultipartFile file : vo.getAttach()) {
+			if(file.isEmpty() == true) continue;
+			
+			System.out.println("올린 파일 이름 : " + file.getOriginalFilename());
+			file.transferTo(new File("C:/drive/"+path , file.getOriginalFilename()));
+	}
+		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "drive.do";
+}
+	
+	/**
 	 * 최초 팬시트리 로드시 루트 폴더[사용자 이름] 직속 하위폴더들만 표시
 	 * @param model
 	 * @param request
@@ -114,10 +164,10 @@ public class DriveController {
 		
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
-		System.out.println(user);
-		if(user== null) {
-			response.sendRedirect("/steach/home/home.do");
-		}
+//		if(user.getName()== null) {
+//			System.out.println("들어오는데.... 왜 이동이 안되죠?");
+//			response.sendRedirect("/steach/home/home.do");
+//		}
 				
 				File f= new File(Npath+user.getName());
 				if(f.exists()) {
