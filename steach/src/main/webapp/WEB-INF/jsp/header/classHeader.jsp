@@ -20,7 +20,7 @@
         <div class="navbar-collapse" >
             <ul class="nav navbar-nav">
                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="pull-left myClassName"><a href="#">클래스이름.</a></li>
+                <li class="pull-left myClassName"><a href="#">${clazz.className}</a></li>
                 <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li>
                 <li class="dropdown classCourse">
                     <a href="lecture" class="dropdown-toggle" data-toggle="dropdown">수업</a>

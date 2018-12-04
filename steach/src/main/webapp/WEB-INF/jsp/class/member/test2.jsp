@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		location.href="<c:url value="/class/curriculum/curriculum.do"/>";
-	</script>
+	pageNo = ${pageNo}
+	test2
 </body>
 </html>

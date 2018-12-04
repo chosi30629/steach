@@ -44,6 +44,11 @@ public class ClazzServiceImpl implements ClazzService {
 	public List<Clazz> studying(String id) {
 		return mapper.studying(id);
 	}
+
+	@Override
+	public Clazz selectClassbyClassNo(int classNo) {
+		return mapper.selectClassbyClassNo(classNo);
+	}
 	
 
 	

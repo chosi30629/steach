@@ -2,11 +2,15 @@ package kr.co.steach.clazz.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.CurriculumService;
 import kr.co.steach.repository.domain.ClassSchedule;
 
@@ -23,14 +27,21 @@ public class CurriculumController {
 	@Autowired
 	CurriculumService service;
 	
+	@Autowired
+	ClazzService classService;
 	
 	
 	/**
 	 * Curriculum의 메인 페이지 curriculum.jsp 
 	 */
 	@RequestMapping("/curriculum.do")
-	public void list() {
-
+	public void list(int classNo, Model model,HttpServletRequest request) {
+		request.setAttribute("class", classService.selectClassbyClassNo(classNo));
+		//request.setAttribute("classNo", classNo);
+		//request.addAttribute("class",classService.selectClassbyClassNo(classNo));
+		
+		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
+		System.out.println("list page:"+classService.selectClassbyClassNo(classNo));
 	}
 	
 	
@@ -41,7 +52,7 @@ public class CurriculumController {
 	@RequestMapping("/selectSchbyCNo.do")
 	@ResponseBody
 	public List<ClassSchedule> selectSchbyCNo(int classNo) {
-		System.out.println("clNO:"+classNo);
+		System.out.println("clno:"+classNo);
 		List<ClassSchedule> list = service.selectSchByClassNo(classNo);
 		
 		System.out.println("list:"+list);

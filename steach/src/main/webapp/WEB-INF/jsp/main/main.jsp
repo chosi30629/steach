@@ -64,6 +64,7 @@
 			<h3>강의중인 클래스</h3>
 			<ul id="list-1">
 				<c:forEach var="teach" items="${teaching }">
+		
 					<li>
 						<div class="card--container">
 							<div class="card--section"
@@ -103,7 +104,7 @@
 									<div class="card--section"
 										style="background-color: rgb(74, 202, 106);">
 										<h1>
-											<a href="#">${study.className}</a>
+											<a href="#" data-no="${study.classNo}">${study.className}</a>
 										</h1>
 										<p>${study.beginDate}~ ${study.endDate}</p>
 									</div>
@@ -206,7 +207,7 @@
 								id="subtitle" placeholder="클래스 설명">
 						</div>
 						<div class="form-group">
-							<input type="hidden" name="master" value="${user.id }">
+							<input type="hidden" name="master" value="${user.id}">
 							<div></div>
 						</div>
 						<div class="form-group">
@@ -335,6 +336,14 @@
 		})
 
 	});
+	
+	
+	/* 수강 중인 클래스 이동 */
+	$(document).on("click","a",function(){
+		var cNo = $(this).data("no");
+		alert(cNo);
+		location.href="<c:url value='/class/curriculum/curriculum.do?classNo="+cNo+"'/>";
+	})
 </script>
 </body>
 </html>

@@ -20,4 +20,7 @@ public interface ClazzService {
 	
 	// 메인페이지:수강중인클래스
 	List<Clazz> studying(String id);
+	
+	/* class 번호에 따른 클래스 조회 */
+	Clazz selectClassbyClassNo(int classNo);
 }

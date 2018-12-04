@@ -9,6 +9,12 @@
 <!-- header import -->
 <%-- <c:import url="/WEB-INF/jsp/header/classHeader.jsp" /> --%>
 
+
+
+
+
+
+
 <link rel="stylesheet"
 	href="/steach/resources/css/class/curriculum/seat1.css" />
 <link rel="stylesheet"
@@ -30,7 +36,6 @@
 </head>
 <body>
 
-	<br>
 	<div class="wrapper-tools-tables wrapper-tools-tables--dfp-enabled">
 		<div id="app-tools-grid-menu" class="tools-tables-left ">
 

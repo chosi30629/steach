@@ -8,8 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		location.href="<c:url value="/class/curriculum/curriculum.do"/>";
-	</script>
+	<c:import url="/WEB-INF/jsp/class/member/test2.jsp">
+	<c:param name="pageNo" value="pageNo"/>
+	</c:import>
+	
+	
+	
+	난 test페이지란다.
 </body>
 </html>

@@ -22,5 +22,9 @@ public interface ClassMapper {
 	// 메인페이지:수강중인클래스
 	List<Clazz> studying(String id);
 	
+	
+	/* 클래스 번호 에 따른 클래스 정보가져오기 - curriculum, lecture,homework, */
+	Clazz selectClassbyClassNo(int classNo);
+	
 
 }
