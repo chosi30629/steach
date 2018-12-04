@@ -6,34 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Class MainPage</title>
-
-
-
-
 <!-- header import -->
-<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
-
-<!-- css -->
-
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
+<!-- main css -->
 <link href="/steach/resources/css/class/curriculum/curriculum.css"
 	rel="stylesheet" />
-
-
-
-<!-- scroll bar -->
-<!-- <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
-<script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
-
 
 <!-- fullcalendar -->
 <link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.css'
 	rel='stylesheet' />
 <link href='/steach/resources/fullcalendar-3.9.0/fullcalendar.print.css'
 	rel='stylesheet' media='print' />
-<!-- <link rel="stylesheet" href="https://bootswatch.com/4/Sketchy/bootstrap.min.css"/> -->
 <script src="/steach/resources/fullcalendar-3.9.0/lib/moment.min.js"></script>
 <script src="/steach/resources/fullcalendar-3.9.0/fullcalendar.min.js"></script>
 <script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>
+<!-- <link rel="stylesheet" href="https://bootswatch.com/4/Sketchy/bootstrap.min.css"/> -->
 
 <!-- swAlert.js -->
 <link rel="stylesheet"
@@ -42,7 +29,7 @@
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 
 </head>
-<!-- style= "height: 100vh; overflow: hidden;" -->
+
 <body>
 
 	<!-- calendar modal  -->
@@ -60,7 +47,7 @@
 				</div>
 				<div class="modal-body">
 					<form id="sForm" class="form-horizontal">
-
+						<input type="hidden" name="classNo" value="${clazz.classNo}" />
 						<div class="form-group">
 							<label for="inputTitle" class="col-sm-2 control-label">제목</label>
 							<div class="col-sm-10">
@@ -141,7 +128,7 @@
 		
 		/* 색상 변경 시 color 적용하기 */
 		$("#inputColor").on("change",function(){
-			$("#inputColor").css({color:$("#inputColor > option:selected").val()});
+			$("#inputColor").css({color:$("#inputColor option:selected").val()});
 		});
 	</script>
 
@@ -161,7 +148,6 @@
 			</div>
 
 			<div class="col-md-8 col-md-offset-2">
-
 				<div class="accordion" role="tablist">
 					<!-- calendar -->
 					<div class="card">
@@ -171,7 +157,7 @@
 							</div>
 						</div>
 
-						<div id="collapseOne" role="tabpanel" class="collapse">
+						<div id="collapseOne" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<div id="calendar"></div>
 								<div class="calendar-setting"></div>
@@ -186,7 +172,7 @@
 							</div>
 						</div>
 
-						<div id="collapseTwo" role="tabpanel" class="collapse">
+						<div id="collapseTwo" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<!-- seat-->
 								<div class="seat-section"></div>
@@ -217,7 +203,7 @@
 			$(function(){
 				 $.ajax({
 					  url:"<c:url value='selectSchbyCNo.do'/>",
-					 data:"classNo="+${param.classNo}
+					 data:"classNo="+${clazz.classNo}
 				  }).done(function(data){
 					  console.log(data);
 					  for(var i=0; i<data.length;i++){
@@ -251,32 +237,33 @@
         	obj={};
         	var formData =  $("#sForm").serializeArray();
 
-
-        	obj.title = formData[0].value;
-        	obj.description = formData[1].value;
-        	obj.color= formData[2].value;
-        	obj.start= formData[3].value;
-        	obj.end=formData[4].value;
+			console.dir(formData);
+        	obj.classNo=formData[0].value;
+			obj.title = formData[1].value;
+        	obj.description = formData[2].value;
+        	obj.color= formData[3].value;
+        	obj.start= formData[4].value;
+        	obj.end=formData[5].value;
         	
-        	if(obj.start.lenth>10){
+         	if(obj.start.lenth>10){
         		obj.allDay="false";
         	} else {
         		obj.allDay="true"
         	}    
+         	
         	
-        	
-            $.ajax({
+             $.ajax({
            			 url:"<c:url value='insertSchedule.do'/>",
          	 		 data:obj
             }).done(function(id){
           		$("#formModal").modal('hide');
-          		$("#sForm").find("input").val(""); 
+          		$("#sForm").find("input[type='text']").val(""); 
          		obj.id=id;
          		$("#calendar").fullCalendar('renderEvent',obj);
            }).fail(function(){
          	 	alert("안됬다...ㅠ")
            })
-    		
+    		 
         	
         })//btn end ;
 
@@ -339,7 +326,6 @@
 		            	   }).fail(function(){
 		            		   alert("err");
 		            	   })//ajax end 
-	            	  
 	            	   }//if end 
 	            	 })//then end 
 

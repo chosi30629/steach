@@ -7,27 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>수업 페이지</title>
 <!-- header import -->
-<c:import url="/WEB-INF/jsp/header/classHeader.jsp">
-	<c:param name="no" value="${param.pageNo}"/>
-</c:import>
-<!-- Header -->
-<!-- <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="/steach/resources/css/header/class-header.css">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
- -->
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
 
-<!-- css -->
-<link rel="stylesheet"
-	href="/steach/resources/css/class/lecture/lecture.css" />
-
+<!-- vote draggable -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- date-time-picker css -->
 <link rel="stylesheet"
@@ -36,59 +19,25 @@
 <script
 	src="/steach/resources/Datetime-Picker-Plugin/dist/jquery.datetimepicker.min.js"></script>
 
-
 <!-- dateFormat js  -->
 <script src="/steach/resources/js/jquery-dateformat.js"></script>
-
 
 <!-- swAlert.js -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
+	
+<!-- css -->
+<link rel="stylesheet"
+	href="/steach/resources/css/class/lecture/lecture.css" />
+<style>
 
+
+</style>
 </head>
 <body>
 	<!-- lecture -->
-	<!-- header  -->
-<%-- 	<nav class="navbar navbar-default">
-		<div class="navbar-collapse">
-			<ul class="nav navbar-nav">
-				<li class="pull-left home"><a href="#"><i
-						class="fas fa-home"></i></a></li>
-				<li class="pull-left myClassName"><a href="#">클래스이름.</a></li>
-				<li class="classCurriculum"><a
-					href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li>
-				<li class="dropdown classCourse"><a href="lecture"
-					class="dropdown-toggle" data-toggle="dropdown">수업</a>
-					<ul class="dropdown-menu">
-						<li><a href="<c:url value='/class/lecture/homework.do'/>">과제제출</a></li>
-					</ul></li>
-				<li class="dropdown classUser"><a href="member"
-					class="dropdown-toggle" data-toggle="dropdown">사용자</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">출결현황</a></li>
-						<li class="divider"></li>
-						<li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li>
-					</ul></li>
-				<li class="nbsp"></li>
-				<li class="pull-right dropdown myNotification"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown"><i
-						class="fas fa-user"></i></a>
-					<ul class="dropdown-menu myNotificationMenu">
-						<li><a href="#">마이페이지</a></li>
-						<li class="divider"></li>
-						<li><a href="#">마이드라이브</a></li>
-						<li class="divider"></li>
-						<li><a href="#">로그아웃</a></li>
-					</ul></li>
-				<li class="pull-right myInformation"><a href="#"><i
-						class="fas fa-bell"></i></a></li>
-			</ul>
-		</div>
-	</nav>
-	<!-- header end  -->	 --%>
-
 
 	<!-- form modal 구현해아함!! -->
 	<div id="formModal" class="modal fade">
@@ -146,6 +95,19 @@
 									class='fab fa-google-drive' id="driveAttach"></i>
 							</div>
 						</div>
+						
+						<!-- 투표  -->
+						<div id="form-option-vote" class="form-group" style="display:none">
+							<label for="vote" class="col-sm-2 control-label">투표내용</label>
+
+								<div class="col-sm-10">
+									<div class="vote-list sortable"></div>
+									<div class="vote-add">
+										<a onclick="doAddOption()"><i class="fas fa-plus-circle"></i>
+											<span>추가하기</span></a>
+									</div>
+							</div>
+						</div>
 
 						<!-- 과제 ,투표 -->
 						<div id="form-option-deadline" class="form-group"
@@ -160,6 +122,8 @@
 								<div id="deadlineText" style="display: none"></div>
 							</div>
 						</div>
+						
+						
 
 					</form>
 				</div>
@@ -196,7 +160,7 @@
 				</div>
 
 				<!-- subject title -->
-				<%--     <c:forEach var="sb" items="${list.subjectList}">
+		    <%--  <c:forEach var="sb" items="${list.subjectList}">
                     	<div class="accordion-head">
                     		<div class="title">
                     			<span class="title-name">${sb.subject}</span>
@@ -269,7 +233,7 @@
                     			</div>
                     		</c:if>
                     	</c:forEach> 
-                    </c:forEach>     --%>
+                    </c:forEach>      --%>
 
 			</div>
 			<!-- col end -->
@@ -309,26 +273,7 @@
 
 
 	<script>
-		/* header */
 
-		/* header drop-down */
-		$('ul.nav li.dropdown').hover(
-				function() {
-					$(this).find('.dropdown-menu').stop(true, true).delay(10)
-							.fadeIn(200);
-				},
-				function() {
-					$(this).find('.dropdown-menu').stop(true, true).delay(10)
-							.fadeOut(200);
-				});
-
-		$("a[href='lecture']").click(function() {
-			location.href = "<c:url value='/class/lecture/lecture.do'/>";
-		})
-
-		$("a[href='member']").click(function() {
-			location.href = "<c:url value='/class/member/member.do'/>";
-		})
 
 		$(function() {
 			list();
@@ -361,16 +306,13 @@
 			date : new Date(),
 			viewMode : 'YMDHM',
 			onDateChange : function() {
-				deadline = this.getValue();
+			deadline = this.getValue();
 			}
 		});
 
 		/* date-pick */
-		$(".ok").click(
-				function() {
-					$("#deadlineText").html(
-							$.format.date(deadline,
-									pattern = "yyyy-MM-dd HH:mm")).toggle();
+		$(".ok").click(function() {
+					$("#deadlineText").html($.format.date(deadline,pattern = "yyyy-MM-dd HH:mm")).toggle();
 					$("#deadline").toggle();
 				});
 
@@ -383,24 +325,30 @@
 		$("#inputType").change(function() {
 			switch (parseInt(this.value)) {
 			case 1:
-				$("#form-option-deadline").css({
+				$("#form-option-deadline, #form-option-vote").css({
 					display : "none"
+				});
+				$("#form-option-file").css({
+					display : "block"
 				});
 				break;
 			case 2:
-				$("#form-option-deadline").css({
+				$("#form-option-deadline,#form-option-file").css({
 					display : "block"
 				});
 				break;
 			case 3:
 				$("#form-option-deadline").css({
-					display : "block"
+					display : "none"
 				});
 				break;
 			case 4:
-				$("#form-option-deadline").css({
+				$("#form-option-deadline,#form-option-vote").css({
 					display : "block"
 				});
+				$("#form-option-file").css({
+					display : "none"
+				})
 				break;
 			}
 		});
@@ -592,124 +540,78 @@
 								for (let i = 0; i < subjectList.length; i++) {
 									html.append("<div class='accordion-head'>");
 									html.append("<div class='title'>");
-									html
-											.append("<span class='title-name' id='subject"+subjectList[i].lecNo+"'>"
-													+ subjectList[i].subject
-													+ "</span>");
+									html.append("<span class='title-name' id='subject"+subjectList[i].lecNo+"'>"+ subjectList[i].subject+"</span>");
 									html.append("<div class='menu'>");
-									html
-											.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-									html
-											.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
-									html
-											.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-									html
-											.append("<i class='fas fa-ellipsis-v'></i></a>");
+									html.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
+									html.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
+									html.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
+									html.append("<i class='fas fa-ellipsis-v'></i></a>");
 									html.append("</div>"); //menu end 
 									html.append("</div>"); //title end 
 									html.append("</div>"); //acc-head end 
 
 									for (let j = 0; j < boardList.length; j++) {
 										if (boardList[j].lecNo == subjectList[i].lecNo) {
-											html
-													.append("<div class='accordion' role='tablist'>");
+											html.append("<div class='accordion' role='tablist'>");
 											html.append("<div class='card'>");
-											html
-													.append("<div class='card-header' role='tab' data-toggle='collapse' aria-expanded='false'");
-											html.append("href='#collapse"
-													+ boardList[j].boardNo
-													+ "' ");
-											html.append("id='heading"
-													+ boardList[j].boardNo
-													+ "'>");
-											html
-													.append("<div class='subTitle'>");
+											html.append("<div class='card-header' role='tab' data-toggle='collapse' aria-expanded='false'");
+											html.append("href='#collapse"+ boardList[j].boardNo+ "' ");
+											html.append("id='heading"+ boardList[j].boardNo+ "'>");
+											html.append("<div class='subTitle'>");
 											/* 아이콘 변경 */
 											switch (parseInt(boardList[j].pNo)) {
 											case 1:
-												html
-														.append("<i class='fas fa-book fa-2x'></i>");
+												html.append("<i class='fas fa-book fa-2x'></i>");
 												break;
 											case 2:
-												html
-														.append("<i class='fas fa-edit fa-2x'></i>");
+												html.append("<i class='fas fa-edit fa-2x'></i>");
 												break;
 											case 3:
-												html
-														.append("<i class='fas fa-video fa-2x'></i>");
+												html.append("<i class='fas fa-video fa-2x'></i>");
 												break;
 											case 4:
-												html
-														.append("<i class='fas fa-vote-yea fa-2x'></i>");
+												html.append("<i class='fas fa-vote-yea fa-2x'></i>");
 												break;
 											}//sw end 
 
-											html.append("&nbsp;&nbsp;<a>"
-													+ boardList[j].title
-													+ "</a>");
+											html.append("&nbsp;&nbsp;<a>"+boardList[j].title+"</a>");
 											html.append("<div class='menu'>");
-											html
-													.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
-											html
-													.append("<i class='fas fa-ellipsis-v'></i></a>");
+											html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
+											html.append("<i class='fas fa-ellipsis-v'></i></a>");
 											html.append("</div>"); // menu end 
 											html.append("</div>"); //subtitle end
 											html.append("</div>"); //card header end 
 
-											html
-													.append("<div id='collapse"+boardList[j].boardNo+"' roll='tabpanel' class='collapse'>");
-											html
-													.append("<div class='card-body'>");
-											html
-													.append("<div class='subTitle-time'>");
-											html
-													.append("<span>"
-															+ $.format
-																	.date(
-																			boardList[j].regDate,
-																			pattern = "yyyy-MM-dd HH:mm:ss")
-															+ " 작성됨</span>");
+											html.append("<div id='collapse"+boardList[j].boardNo+"' roll='tabpanel' class='collapse'>");
+											html.append("<div class='card-body'>");
+											html.append("<div class='subTitle-time'>");
+											html.append("<span>"+ $.format.date(boardList[j].regDate,pattern = "yyyy-MM-dd HH:mm:ss")+ " 작성됨</span>");
 											html.append("</div>")//subTitle-time end 
 
-											html
-													.append("<div class='subTitle-context'>");
+											html.append("<div class='subTitle-context'>");
 											html.append("<div class='row'>")
-											html
-													.append("<div class='col-md-8'>");
-											html.append("<span>"
-													+ boardList[j].content
-													+ "</span>");
+											html.append("<div class='col-md-8'>");
+											html.append("<span>"+ boardList[j].content+ "</span>");
 											html.append("</div>");//col-md-8 end 	
 
-											html
-													.append("<div class='count col-md-4'>");
-											html
-													.append("<div class='col-md-6'>");
-											html
-													.append("<div class='submit-cnt-number'>1</div>");
-											html
-													.append("<div class='submit-cnt-text'>제출자 수</div>");
+											html.append("<div class='count col-md-4'>");
+											html.append("<div class='col-md-6'>");
+											html.append("<div class='submit-cnt-number'>1</div>");
+											html.append("<div class='submit-cnt-text'>제출자 수</div>");
 											html.append("</div>");//col-md-6 end 
-											html
-													.append("<div class='col-md-6'>");
-											html
-													.append("<div class='total-cnt-number'>28</div>");
-											html
-													.append("<div class='total-cnt-text'>총 인원수</div>");
+											html.append("<div class='col-md-6'>");
+											html.append("<div class='total-cnt-number'>28</div>");
+											html.append("<div class='total-cnt-text'>총 인원수</div>");
 											html.append("</div>");//col-md-6 end 
 											html.append("</div>");//col-md-4 end 
 											html.append("</div>");//row end 		
 											html.append("</div>");//subTitle-context end 
 
-											html
-													.append("<div class='subTitle-attach'>");
+											html.append("<div class='subTitle-attach'>");
 											html.append("<div class='row'>");
-											html
-													.append("<div class='col-md-6'>")
-											html
-													.append("<span><i class='fas fa-paperclip'></i></span>");
-											html
-													.append("<span><i class='fab fa-google-drive'></i></span>");
+											html.append("<div class='col-md-6'>")
+											html.append("<span><i class='fas fa-paperclip'></i></span>");
+											html.append("<span><i class='fab fa-google-drive'></i></span>");
 											html.append("</div>");//col-md-6 end 
 											html.append("</div>")//row end 
 											html.append("</div>")//subTitle-attach end 
@@ -762,6 +664,51 @@
 			})
 
 		});
+		
+		
+		
+		/* VOTE */
+
+		function doAddOption(){
+			var html = new StringBuffer();
+	
+			html.append("<div class='radio ui-state-default' >");
+			html.append("<i class='fas fa-grip-vertical fa'></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+			html.append("<label>");
+			html.append("<input type='radio' disabled>");
+			html.append("<input type='text' name='select_name' placeholder='내용을 입력하세요' size='48'/>");
+			html.append(" <a><span><i class='fas fa-times'></i></span></a>")
+			html.append("</label>");
+			html.append("</div>");
+		 
+			$(".vote-list").append(html.toString());
+			
+		    $(".sortable" ).sortable();
+		    $(".sortable" ).disableSelection();
+		}
+		
+		
+
+		$(document).on("click",".radio > label > a",function(){
+			$(this).parent().parent().remove();
+		})
+		
+		
+		  $( function() {
+		    $(".sortable" ).sortable();
+		    $(".sortable" ).disableSelection();
+		  } );
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 </body>
 </html>

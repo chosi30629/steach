@@ -1,0 +1,9 @@
+
+- scroll bar design
+	
+<!-- scroll bar -->
+<!-- <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
+<script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
+
+<!-- style= "height: 100vh; overflow: hidden;" -->
+

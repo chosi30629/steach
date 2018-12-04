@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>header</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/steach/resources/css/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="/steach/resources/css/header/class-header.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav">
                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
                 <li class="pull-left myClassName"><a href="#">${clazz.className}</a></li>
-                <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li>
+                <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do?classNo=${clazz.classNo}'/>">커리큘럼</a></li>
                 <li class="dropdown classCourse">
                     <a href="lecture" class="dropdown-toggle" data-toggle="dropdown">수업</a>
                     <ul class="dropdown-menu">

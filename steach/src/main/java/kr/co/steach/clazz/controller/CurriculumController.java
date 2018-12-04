@@ -35,13 +35,8 @@ public class CurriculumController {
 	 * Curriculum의 메인 페이지 curriculum.jsp 
 	 */
 	@RequestMapping("/curriculum.do")
-	public void list(int classNo, Model model,HttpServletRequest request) {
-		request.setAttribute("class", classService.selectClassbyClassNo(classNo));
-		//request.setAttribute("classNo", classNo);
-		//request.addAttribute("class",classService.selectClassbyClassNo(classNo));
-		
+	public void list(int classNo, Model model) {		
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
-		System.out.println("list page:"+classService.selectClassbyClassNo(classNo));
 	}
 	
 	
@@ -64,8 +59,8 @@ public class CurriculumController {
 	@RequestMapping("/insertSchedule.do")
 	@ResponseBody
 	public String insertSchedule(ClassSchedule classSchedule) {
-		System.out.println(classSchedule);
-		classSchedule.setClassNo(1);
+		
+		System.out.println("등록할거 가꼬와!:"+classSchedule);
 		service.insertSchedule(classSchedule);
 		return classSchedule.getId()+"";			//insert한 key 가져오기!1
 	}

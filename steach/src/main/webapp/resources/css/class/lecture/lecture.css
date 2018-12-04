@@ -118,20 +118,20 @@ a:hover,a:active,a:focus{
 #formModal > .modal-dialog{
     margin:0; 
     transition: transform .1s ease-in;
-    top:50%;
+    top:60%;
     left:50%;
     transform:translate(-50%, -50%);
-    widto:auto;
-    display:table;
+
+
 }
 #formModal > .modal-dialog > .modal-content > .modal-body {
 	padding:15px;
 }
 
 
-/* .modal-backdrop{
-    height:100% !important;
-} */
+ .modal-backdrop{
+    height:120% !important;
+} 
 
 /*subTitle */
 .subTitle-context{
@@ -173,4 +173,77 @@ a:hover,a:active,a:focus{
 .count > .col-md-6{
 	padding:0px;
 	border-left:1px solid #eee;
+}
+
+/* vote css */
+/* 
+#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"] + label,
+#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"] + label {
+    vertical-align: middle;
+    color: #7f8c8d;
+}
+
+#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"] + label::before,
+#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"] + label::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 3px #bdc3c7;
+}
+
+#form-option-vote > .col-sm-10 > .vote-list > label[for^="radio"]::before {
+    border-radius: 50%;
+}
+
+#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:checked + label::before,
+#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:checked + label::before {
+    background: #1abc9c;
+    box-shadow: 0 0 0 3px #1abc9c;
+}
+
+#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:checked + label,
+#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:checked + label {
+    color: #1abc9c;
+}
+
+#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:disabled + label::before,
+#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:disabled + label::before {
+    box-shadow: 0 0 0 3px #ecf0f1;
+}
+
+#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:disabled + label,
+#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:disabled + label {
+    color: #ecf0f1;
+} */
+
+/*FORM VOTE*/
+.vote-add {
+	margin-top: 20px; display : inline;
+	float: right;
+	display: inline;
+}
+
+input[type='text'] {
+	border: none;
+	/* border-bottom: 1px solid purple; */
+}
+
+.radio input[type="text"]:focus {
+	border: none;
+	border-bottom: 1px solid purple;
+}
+
+textarea:focus, input:focus {
+	outline: none;
+}
+
+.fa-grip-vertical{
+	color:grey;
+}
+.fa-grip-vertical:hover{
+	color:pink;
 }
