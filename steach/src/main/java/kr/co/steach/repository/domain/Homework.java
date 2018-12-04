@@ -11,4 +11,6 @@ public class Homework {
 	private String id;
 	private String hwContent;
 	private Date regDate;
+	
+	private User user;
 }

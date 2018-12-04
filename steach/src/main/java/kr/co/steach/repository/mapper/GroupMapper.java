@@ -12,7 +12,7 @@ import kr.co.steach.repository.domain.GroupMember;
 
 public interface GroupMapper {
 
-	List<GroupList> listList();
+	List<GroupList> listList(int groupNo);
 	
 	void insertList(GroupList groupList);
 	
@@ -65,5 +65,7 @@ public interface GroupMapper {
 	void memberOrderUpdate(GroupMember groupMember);
 	
 	void updateGroupName(Group group);
+	
+	void initClassGroup(Group group);
 	
 } // end interface

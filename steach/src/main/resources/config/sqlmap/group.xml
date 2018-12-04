@@ -62,8 +62,8 @@
 	</resultMap>
 	
 	<!-- 리스트 목록 -->
-	<select id="listList" resultMap="groupListMap">
-		select * from tb_class_group_list order by list_order
+	<select id="listList" parameterType="int" resultMap="groupListMap">
+		select * from tb_class_group_list where group_no = #{groupNo} order by list_order
 	</select>
 	
 	<!-- 리스트 추가 -->
@@ -261,5 +261,11 @@
 		   set group_name = #{groupName}
 		 where group_no = #{groupNo}  
 	</update>
+	
+	<!-- 클래스 그룹 초기화 -->
+	<delete id="initClassGroup" parameterType="Group">
+		delete from tb_class_group
+	 	 where class_no = #{classNo}
+	</delete>
 	
 </mapper>

@@ -144,14 +144,23 @@ public class UserServiceImpl implements UserService {
 		mapper.updatePass(user);
 	} // userPass
 
+	// 마이페이지
+	public User mypage(String id) {
+		return mapper.mypage(id);
+	}
+
 	// 전화번호 등록.수정
 	@Override
 	public void updatePhone(User user) {
 		mapper.updatePhone(user);
-		
 	}
-
 	
+	// 주소 등록.수정
+	// 전화번호 등록.수정
+		@Override
+		public void updateAddr(User user) {
+			mapper.updateAddr(user);
+		}
 
 //	/**
 //	 * 파일 등록

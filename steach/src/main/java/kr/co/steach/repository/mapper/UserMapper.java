@@ -18,8 +18,14 @@ public interface UserMapper {
 	// 비밀버호 변경
 	void updatePass(User user);
 	
+	
+	// 마이페이지 정보
+	User mypage(String id);
+	
 	// 전화번호 등록.수정
 	void updatePhone(User user);
+	// 주소 등록.수정
+	void updateAddr(User user);
 	
 	
 	
@@ -34,4 +40,6 @@ public interface UserMapper {
 	void deleteFile(User user);
 
 	User selectFile(User user);
+
+	
 }

@@ -73,6 +73,12 @@
 		   set phone = #{phone}
 		 where id = #{id}
 	</update>
+	<!-- 주소 등록 or 수정 -->
+	<update id="updateAddr" parameterType="user" flushCache="true">
+		update tb_user
+		   set addr = #{addr}
+		 where id = #{id}
+	</update>
 
 	<!-- 파일 등록 -->
 	<insert id="insertFile" parameterType="user">
@@ -82,6 +88,13 @@
 		#{id}, #{fileName}, #{uploadPath}
 		)
 	</insert>
+	
+	<!-- 마이페이지 로그인유저 정보 -->
+	<select id="mypage" parameterType="user" resultMap="userMap">
+		select *
+		  from tb_user
+		 where id=#{id}
+	</select>
 
 
 </mapper>

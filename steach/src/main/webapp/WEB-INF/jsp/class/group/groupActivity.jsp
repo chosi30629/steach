@@ -89,7 +89,7 @@
     <div class="modal-div">
 
     </div>
-    <section class="avenue-messenger">
+    <section class="avenue-messenger chat_main">
         <div class="menu">
             <div class="items">
                 <span>
@@ -104,30 +104,45 @@
             <img class="agent circle" src="/steach/resources/images/class/group/pl.png" alt="Jesse Tino"></div>
         </div>
         <div class="chat">
-            <div class="chat-title">
+            <div class="chat-title chat_header">
                 <h1>조성일</h1>
             </div>
             <div class="messages">
-                <div class="messages-content"></div>
+                <div class="messages-content chat_s"></div>
             </div>
-            <div class="message-box">
-                <textarea type="text" class="message-input" placeholder="메시지를 입력하세요"></textarea>
-                <button type="button" class="message-submit">
+            <div class="message-box chat_input">
+                <textarea id="message" type="text" class="message-input chat_text" placeholder="메시지를 입력하세요"></textarea>
+                <button id="sendBtn" type="button" class="message-submit chat_submit fa fa-send">
                     <i class="fas fa-arrow-circle-up"></i>
                 </button>
             </div>
         </div>
     </section>
 
+<!-- 	<div class="chat_main">
+		<div class="chatting">
+			<div class="chat_header">
+			  	병찬
+			    <div class="chat_status">ONLINE</div>
+			</div>
+			<div class="chat_s"></div>
+			<div class="chat_input">
+			    <input id="message" placeholder="Type here..." class="chat_text">
+			    <button id="sendBtn" class="chat_submit fa fa-send">↵</button>
+			</div>
+		</div>
+	</div> -->
     <script>
 		var $parentDrop = $(".parentDrop");
 		var $modalDiv = $(".modal-div");
 		var nextLastListOrder = 0;
+		var groupNo = "${groupNo}";
 		
     	// 리스트 및 카드 목록 표현
     	function listListAndCardList() {
 			$.ajax({
-				url: "/steach/class/group/groupActivityList.do"
+				url: "/steach/class/group/groupActivityList.do",
+				data: {"groupNo": groupNo}
 			})
 			.done(function(result) {
 				var listList = result.listList;
@@ -810,13 +825,12 @@
         $("body").on("click", ".addListBtn", function(e) {
             addListArea(this);
         });
-     	
         // 추가(리스트) 버튼 누를 시
         function addList(onAddList) {
         	var content = $(onAddList).parent().siblings("textarea").val();
-            var groupNo = "${listList[0].groupNo}";
-        	
-            if(content == '') {
+			var groupNo = "${groupNo}";
+
+			if(content == '') {
                 $(onAddList).parent().siblings("textarea").focus();
                 return;
             }
@@ -934,9 +948,6 @@
 
         $(window).load(function() {
             $messages.mCustomScrollbar();
-            // setTimeout(function() {
-            //     fakeMessage();
-            // }, 100);
         });
 
         function updateScrollbar() {
@@ -950,71 +961,70 @@
             d = new Date()
             if (m != d.getMinutes()) {
                 m = d.getMinutes();
+                m = m > 9 ? m : '0' + m;
                 $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));
                 $('<div class="checkmark-sent-delivered">&check;</div>').appendTo($('.message:last'));
                 $('<div class="checkmark-read">&check;</div>').appendTo($('.message:last'));
             }
         };
 
-        function insertMessage() {
-            msg = $('.message-input').val();
-            if ($.trim(msg) == '') {
-                return false;
-            }
-            $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
-            setDate();
-            $('.message-input').val(null);
-            updateScrollbar();
-                // setTimeout(function() {
-                //     fakeMessage();
-                // }, 1000 + (Math.random() * 20) * 100);
-        }
+//         function insertMessage() {
+//             msg = $('.message-input').val();
+//             if ($.trim(msg) == '') {
+//                 return false;
+//             }
+//             $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+//             setDate();
+//             $('.message-input').val(null);
+//             updateScrollbar();
+//         }
 
-        $('.message-submit').click(function() {
-        	insertMessage();
-        });
+//         $('.message-submit').click(function() {
+//         	insertMessage();
+//         });
 
-        $(".chat").on('keydown', function(e) {
-            if (e.which == 13) {
-                insertMessage();
-                return false;
-            } 
-        });
+//         $(".chat").on('keydown', function(e) {
+//             if (e.which == 13) {
+//                 insertMessage();
+//                 return false;
+//             } 
+//         });
 
-        // var Fake = [
-        //     'Hi there, I\'m Jesse and you?',
-        //     'Nice to meet you',
-        //     'How are you?',
-        //     'Not too bad, thanks',
-        //     'What do you do?',
-        //     'That\'s awesome',
-        //     'Codepen is a nice place to stay',
-        //     'I think you\'re a nice person',
-        //     'Why do you think that?',
-        //     'Can you explain?',
-        //     'Anyway I\'ve gotta go now',
-        //     'It was a pleasure chat with you',
-        //     'Time to make a new codepen',
-        //     'Bye',
-        //     ':)'
-        // ];
+//         // var Fake = [
+//         //     'Hi there, I\'m Jesse and you?',
+//         //     'Nice to meet you',
+//         //     'How are you?',
+//         //     'Not too bad, thanks',
+//         //     'What do you do?',
+//         //     'That\'s awesome',
+//         //     'Codepen is a nice place to stay',
+//         //     'I think you\'re a nice person',
+//         //     'Why do you think that?',
+//         //     'Can you explain?',
+//         //     'Anyway I\'ve gotta go now',
+//         //     'It was a pleasure chat with you',
+//         //     'Time to make a new codepen',
+//         //     'Bye',
+//         //     ':)'
+//         // ];
 
-        // function fakeMessage() {
-        //     if ($('.message-input').val() != '') {
-        //         return false;
-        //     }
-        //     $('<div class="message loading new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
-        //     updateScrollbar();
+//         // function fakeMessage() {
+//         //     if ($('.message-input').val() != '') {
+//         //         return false;
+//         //     }
+//         //     $('<div class="message loading new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+//         //     updateScrollbar();
 
-        //     setTimeout(function() {
-        //         $('.message.loading').remove();
-        //         $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
-        //         setDate();
-        //         updateScrollbar();
-        //         i++;
-        //     }, 1000 + (Math.random() * 20) * 100);
-        // };
-
+//         //     setTimeout(function() {
+//         //         $('.message.loading').remove();
+//         //         $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
+//         //         setDate();
+//         //         updateScrollbar();
+//         //         i++;
+//         //     }, 1000 + (Math.random() * 20) * 100);
+//         // };
+		
+		// 채팅창 사이즈 조절
         var chatSize = 0;
 
         $(".chat-button").on("click", function() {
@@ -1031,7 +1041,68 @@
             chatSize = 0;
             return;
         });
+		
+        // 채팅
+       	var ws;
+		$(document).ready(function() {
+			ws = new WebSocket('ws://localhost:8000/steach/chat.do');
+			ws.onopen = function() {
+		        console.log('연결 성공');
+		    };
+		    ws.onmessage = function(evt) {
+		    	console.log(evt);
+				$('<div class="message loading new"><figure class="avatar"><img src="/steach/resources/images/class/group/p1.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+				updateScrollbar();
+				
+				setTimeout(function() {
+				$('.message.loading').remove();
+					$('<div class="message new"><figure class="avatar"><img src="/steach/resources/images/class/group/p1.jpg" /></figure>' + evt.data + '</div>').appendTo($('.mCSB_container')).addClass('new');
+				    setDate();
+				    updateScrollbar();
+				}, 100);
 
+	           $(".chat_s").append('<div class="chat_bubble-1">' + evt.data + '</div>');
+		    };
+		    ws.onerror = function(evt) {
+		    	console.dir(evt.data)
+		    };
+		    ws.onclose = function() {
+		    	console.log("연결을 끊었습니다.");
+		        console.log('close');
+		    };
+			
+			$('#sendBtn').click(function() { 
+				send(); 
+			});
+			
+		    $('#message').keypress(function(event){
+			    var keycode = (event.keyCode ? event.keyCode : event.which);
+			    if(keycode == '13'){
+			         send();
+			    }
+			    event.stopPropagation();
+			});
+		});
+		
+		function send() {
+		    var $msg = $("#message");
+// 		    var sendMsg = $msg.val();
+		    var sendMsg = $('.message-input').val();
+            
+		    if ($.trim(sendMsg) == '') {
+                return false;
+            }
+            
+		    $('<div class="message message-personal">' + sendMsg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+		    setDate();
+		    $('.message-input').val(null);
+		    updateScrollbar();
+		    
+		    ws.send(sendMsg);
+		    $msg.val("");
+// 		    $(".chat_s").append('<div class="chat_bubble-2">' + sendMsg + '</div>');
+		}
+        
         // 파일첨부
         var filenames = [];
         $(document).ready(

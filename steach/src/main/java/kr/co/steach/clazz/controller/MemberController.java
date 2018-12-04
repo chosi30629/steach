@@ -61,6 +61,15 @@ public class MemberController {
 	}
 	
 
+	@RequestMapping("/test.do")
+	public void test() {
+		
+	}
+	
+	@RequestMapping("/test2.do")
+	public void test2() {
+		
+	}
 	
 	
 	

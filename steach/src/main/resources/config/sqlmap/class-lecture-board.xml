@@ -3,6 +3,17 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.steach.repository.mapper.LectureBoardMapper">
 		
+	<resultMap id="userMap" type="User">
+		<result column="id" property="id"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="phone" property="phone"/>
+		<result column="addr" property="addr"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="profile" property="profile"/>
+		<result column="proflie_path" property="profilePath"/>	
+	</resultMap>
+		
 	<resultMap id="lectureMap" type="Lecture">
 		<result column="lec_no" property="lecNo"/>
 		<result column="class_no" property="classNo"/>
@@ -21,6 +32,8 @@
 		<result column="reg_date" property="regDate"/>
 		<result column="deadline" property="deadline"/>
 		<result column="mem_cnt" property="memCnt"/>
+		<result column="count" property="count"/>
+	
 		<collection property="lecture" resultMap="lectureMap"/>
 	</resultMap>
 	
@@ -30,18 +43,27 @@
 		<result column="id" property="id"/>
 		<result column="hw_content" property="hwContent"/>
 		<result column="reg_date" property="regDate"/>
+<!-- 		<collection property="user" resultMap="userMap"/>  -->
+		<collection property="user" column="id" ofType="user" select="selectUserById"/> 
 	</resultMap>
 	
+	<select id="selectUserById" resultMap="userMap">
+		select name,profile,profile_path
+		  from tb_user
+		 where id = #{id}
+	</select>
 	
 	
-<!-- 	<select id="selectBoardByClassNo" parameterType="int" resultMap="lectureBoardMap">
+	
+	
+ <!-- 	<select id="selectBoardByClassNo" parameterType="int" resultMap="lectureBoardMap">
 		select b.board_no,b.lec_no, b.p_no, b.title, b.content, b.reg_date, b.deadline, b.mem_cnt,l.class_no,l.subject,l.master 
 		  from tb_class_lecture_board b,tb_class_lecture l
 		 where l.lec_no = b.lec_no
 		  and  l.class_no=#{classNo}
 		 order by b.reg_date
-	</select> -->
-	
+	</select> 
+	 -->
 	<!-- 클래스 별 주제 가져오기  -->
 	<select id="selectLectureByClassNo" parameterType="int" resultMap="lectureMap">
 		select *
@@ -133,26 +155,49 @@
 	<!-- homework -->
 	
 	<!-- class번호에 해당하는 homework 가져오기  -->
-	<select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
-		select b.*,l.subject 
+	<!-- <select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
+		select b.*,l.subject
 		  from tb_class_lecture_board b, tb_class_lecture l
 		 where b.lec_no=l.lec_no
 		   and l.class_no=#{classNo}
 		   and b.p_no=2
-	</select>
+	</select> -->
 	
+	<!-- count test -->
+	<select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
+		select b.*,l.subject,count(*) as count
+		  from tb_class_lecture_board b, tb_class_lecture l,tb_class_lecture_board_homework h
+		 where b.lec_no=l.lec_no
+		   and h.board_no=b.board_no
+		   and l.class_no=#{classNo}
+		   and b.p_no=2
+		   group by h.board_no
+	</select>
 	
 	<!-- select homework detail by boardNo -->
-	<select id="selectSubmitHomeworkByCNo" parameterType="int" resultMap="homeworkMap">
-		select h.*
-		  from tb_class_lecture_board b, tb_class_lecture l, tb_class_lecture_board_homework h, tb_class c
+	<!-- <select id="selectSubmitHomeworkByCNo" parameterType="int" resultMap="homeworkMap">
+		select h.*,u.name,u.profile,u.profile_path
+		  from tb_class_lecture_board b, tb_class_lecture l, tb_class_lecture_board_homework h,tb_user u
 		 where l.lec_no = b.lec_no
 		   and b.board_no = h.board_no
-		   and c.class_no = #{classNo}
+		   and h.id= u.id
+		   and l.class_no = #{classNo}
 	</select>
+ -->
+	<select id="selectAllHomeworkByCNo" parameterType="map" resultMap="homeworkMap">
+		select u.id, h.board_no, h.hw_no, h.hw_content, h.reg_date
+		  from tb_class_member u 
+		  left outer join (select *
+		                     from tb_class_lecture_board_homework
+								  where board_no = #{boardNo}) h
+		    on u.id = h.id		  
+		 where u.class_no = #{classNo}		
 	
-	
-	
+	  
+	</select>
+
+ 
+		
 	
 	
 	

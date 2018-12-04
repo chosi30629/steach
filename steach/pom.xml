@@ -53,6 +53,13 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 
+		<!-- 스프링 웹소켓 관련 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${spring-framework.version}</version>
+		</dependency>
+		
 		<!-- aspectj -->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
 		<dependency>

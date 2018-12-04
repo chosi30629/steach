@@ -5,16 +5,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>curriculum</title>
+<title>Class MainPage</title>
+
+
 
 
 <!-- header import -->
-<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
 
 <!-- css -->
 
 <link href="/steach/resources/css/class/curriculum/curriculum.css"
 	rel="stylesheet" />
+
+
+
+<!-- scroll bar -->
 <!-- <link rel="stylesheet" href="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.css" />
 <script src="/steach/resources/scrollbarPlugin/jquery.mCustomScrollbar.concat.min.js"></script> -->
 
@@ -34,10 +40,11 @@
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
-	
+
 </head>
 <!-- style= "height: 100vh; overflow: hidden;" -->
 <body>
+
 	<!-- calendar modal  -->
 	<div id="formModal" class="modal fade">
 		<div class="modal-dialog">
@@ -47,7 +54,9 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title"><i class="far fa-edit"></i>일정 등록하기</h4>
+					<h4 class="modal-title">
+						<i class="far fa-edit"></i>일정 등록하기
+					</h4>
 				</div>
 				<div class="modal-body">
 					<form id="sForm" class="form-horizontal">
@@ -134,15 +143,17 @@
 		$("#inputColor").on("change",function(){
 			$("#inputColor").css({color:$("#inputColor > option:selected").val()});
 		});
-		
-		
 	</script>
 
 
-	<div id="a" class="container-fluid">
+	<div class="container-fluid">
 		<div class="row">
 			<!-- bg -->
-			<div class="bg-section"></div>
+			<div class="bg-section">
+				<div class="bg-subTitle">
+					<span>${clazz.classSubname}</span>
+				</div>
+			</div>
 			<div class="bg-button">
 				<button id="prev" type="button" class="btn"><</button>
 				<button id="next" type="button" class="btn">></button>
@@ -160,11 +171,10 @@
 							</div>
 						</div>
 
-						<div id="collapseOne" role="tabpanel" class="collapse in">
+						<div id="collapseOne" role="tabpanel" class="collapse">
 							<div class="card-body">
 								<div id="calendar"></div>
-								<div class="calendar-setting">
-								</div> 
+								<div class="calendar-setting"></div>
 							</div>
 						</div>
 					</div>
@@ -176,7 +186,7 @@
 							</div>
 						</div>
 
-						<div id="collapseTwo" role="tabpanel" class="collapse in">
+						<div id="collapseTwo" role="tabpanel" class="collapse">
 							<div class="card-body">
 								<!-- seat-->
 								<div class="seat-section"></div>
@@ -196,11 +206,7 @@
 	</div>
 
 	<script>
-	  
-	/*   $(function(){
-	  		$("body").mCustomScrollbar({theme:"rounded-dark"});
-	  }) */
-
+  
 
       /* full Calendar */
       var cal = "";
@@ -210,7 +216,8 @@
 		  /* schedule list 불러오기  */
 			$(function(){
 				 $.ajax({
-					  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
+					  url:"<c:url value='selectSchbyCNo.do'/>",
+					 data:"classNo="+${param.classNo}
 				  }).done(function(data){
 					  console.log(data);
 					  for(var i=0; i<data.length;i++){
@@ -220,21 +227,6 @@
 				  });
 				
 			})
-	  
-	/* 		function calendarList(){
-				 $.ajax({
-					  url:"<c:url value='selectSchbyCNo.do?classNo=1'/>"
-				  }).done(function(data){
-					  console.log(data);
-					  for(var i=0; i<data.length;i++){
-					  	eventArray.push(data[i]);
-					  }
-					 	
-				  });
-		 	 }
-			 */
-			
-			
 
         /*bg */
         var i =1; 
@@ -288,10 +280,7 @@
         	
         })//btn end ;
 
- 
-        
-        
-   		function calendar(){
+ 	function calendar(){
  			//console.log(eventArray);
             
  			cal = $('#calendar').fullCalendar({
@@ -303,9 +292,6 @@
 	           /*  theme:true,
 	            themeSystem:"bootstrap4", */
 	            navLinks: true, // can click day/week names to navigate views
-	           	// weekNumbers: true,
-	            //weekNumbersWithinDays: true,
-	            //weekNumberCalculation: 'ISO',
 	            locale: initialLocaleCode,
 	            editable: true,
 	            eventLimit: true, // allow "more" link when too many events
@@ -361,9 +347,6 @@
 	            },
 	            /* drag event 변경하기 */
 	            eventDrop:function(event){
-	            	//console.dir(event);
-	            	//console.dir(event.start.format());
-	            	//console.dir(event.end.format());
 	            	$.ajax({
 	            		url:"<c:url value='updateScheduleDate.do'/>",
 	            		data:{start:event.start.format(),end:event.end.format(),id:event.id}

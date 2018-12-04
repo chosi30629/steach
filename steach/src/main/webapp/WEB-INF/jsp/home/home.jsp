@@ -142,7 +142,7 @@
 			return false;
 		}
 		var formData = new FormData($("#signupForm")[0]);
-		
+// 		console.log(formData)
 		$.ajax({
 			url:"/steach/user/signUp.do",
 			method : "POST",

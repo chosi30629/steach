@@ -21,18 +21,21 @@ import kr.co.steach.repository.mapper.MemberMapper;
 public class GroupServiceImpl implements GroupService {
 	
 	/**
-	 * 매퍼 인터페이스에 대한 멤버 필드
+	 * 그룹 매퍼 인터페이스에 대한 멤버 필드
 	 */
 	@Autowired
 	private GroupMapper mapper;
 	
+	/**
+	 * 클래스 멤버 인터페이스에 대한 멤버 필드
+	 */
 	@Autowired
 	private MemberMapper memberMapper;
 	
 
 	@Override
-	public List<GroupList> listList() {
-		return mapper.listList();
+	public List<GroupList> listList(int groupNo) {
+		return mapper.listList(groupNo);
 	} // listList
 
 	@Override
@@ -221,5 +224,10 @@ public class GroupServiceImpl implements GroupService {
 	public void updateGroupName(Group group) {
 		mapper.updateGroupName(group);
 	} // updateGroupName
+
+	@Override
+	public void initClassGroup(Group group) {
+		mapper.initClassGroup(group);
+	} // initClassGroup
 	
 } // end class
