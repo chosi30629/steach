@@ -244,10 +244,10 @@
 			nPath =	 result;
 	 	}
 	
-		 $('.addFile').click(function(){
-			 $(this).parent().parent().modal('hide');
+		 $('.addFile').off("click").click(function(){
+			 
 		 
- $('.fButton').click(function() {
+ $('.fButton').off("click").click(function() {
 	 
 	 $(this).parent().parent().parent().modal('hide');
 	 	// 현재 페이지의 path경로 가져올거야
@@ -255,10 +255,8 @@
 		var fd = new FormData();
 	 	fd.append("path" , nPath);
 		fd.append("id", $("input[name='id']").val());
-		console.log($("input[name='id']").val())
 		for (var i = 0 ; i< files.length; i++){
 			fd.append("attach", files[i]);
-			console.log("name", "attach" + i, files[i].name);
 		}//for
 		
 		$.ajax({
@@ -271,10 +269,7 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-// 			document.location.hash = "part5";
-// 			location.hash = "part5";
 			$('tbody').empty();
-			console.dir(result);
 			EmojiAndFLengthLIST(result);
 			
 			if($('tbody').children().length==0){
@@ -292,13 +287,11 @@
 			            	$('.ft > .picOuter').hide();
 			            } // 노가다문 end if
 			
-			  
-			            
 		})
 		return false;
 	});
  
-})// 
+})
  // 파일업로드 끝
  
 // 모달의 새로 만들기 버튼 클릭시를 구현할 거예요!
@@ -334,13 +327,26 @@ $('.addFolder').click(function(){
     		alert("이름을 지어주세요!")
     		return false
     	}
-    	
     	var node = $("#tree").fancytree("getActiveNode");
     	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
     	
+    	var key = node.getKeyPath(false).split("/");
+    	console.log(key);
+		var arrpatt= [];
+		for(var i = 1; i< node.getKeyPath(false).split("/").length ; i++ ){			
+    	arrpatt.push($("#tree").fancytree("getTree").getNodeByKey(node.getKeyPath(false).split("/")[i]).title);
+		}
+		
+		var pat = "c:\\drive\\"
+		var patt = arrpatt.join("\\");
+		console.log(pat + patt);
+		
     	var childNode = node.addChildren({
             title: $(".addTextBefore").val(),
-            folder: true
+            folder: true,
+            data : {
+            	path : pat+patt+"\\"+$(".addTextBefore").val()
+            }
          });
     	
     //  path
@@ -351,11 +357,9 @@ $('.addFolder').click(function(){
             	keyPath.push($("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).key)
             }
              var path = arrPath.join('\\');
+             console.log(path);
              var kpath = keyPath.join('\\');
              var keyVal = kpath.substring(kpath.lastIndexOf('\\')+1 , kpath.length) // 마지막 \\ 찾아서 자르기
-    	        console.log(path);
-            	console.log(kpath);
-            	console.log(keyVal);
            
     // ajax 호출하기 makedir 폴더 생성
         	$.ajax({
@@ -364,11 +368,16 @@ $('.addFolder').click(function(){
         			path : path,
         			keyVal : keyVal
         			}
-        	}).done(function(result){
-    			
-    			EmojiAndFLengthLIST(result)
+        	}).done(function(e){
+    			$('tbody').append('<tr path-data="'+e.path+'">' 
+	    		        +  '<td class="folderName"><div class="fas fa-folder fa-lg"></div><span id="">'+e.title+'</span></td>'
+	    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
+	    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
+	    		        +  '<td class="val" class="text-center">-</td>'
+	    		        +  '</tr>');
+    	 		$('tbody').attr('data-path',  e.path.substring(0, e.path.lastIndexOf('\\')) )
         	})
-    	
+        	
     	  $('.picOuter').css("display", "none");
           $('.addTextBefore').val('제목없는 폴더');
           $(this).parent().parent().parent().modal('hide');
@@ -614,7 +623,7 @@ $(document).on('keydown', function(e) {
   
   var subfile = '${subFiles}';
   //fancytree 첫로드시 폴더 트리 구성 소스 ${subFiles}
-var sour = [ 
+var source = [ 
   	{"title": "${user.name}", "expanded": true, "path" : "c:\\drive\\"+"${user.name}" , "folder": true, "children": [
   ]}
   ]
@@ -642,7 +651,7 @@ var sour = [
           },
         
       extensions: ["dnd5","childcounter"],
-      source: sour,
+      source: source,
     dnd5: {
         // --- Drag-support:
         dragStart: function(node, data) {
@@ -750,7 +759,6 @@ var sour = [
     	 			"path" : path
     	 			}
     	 	}).done(function(result){
-    	 		$('tbody').empty();
 				 //폴더 아이콘 처리와 파일 용량 처리
 				 EmojiAndFLengthLIST(result);
 				 
@@ -889,7 +897,6 @@ var sour = [
 										path : pathData
 									}
 								}).done(function(result){
-										$('tbody').empty();
 										EmojiAndFLengthLIST(result);
 									
 									if($('tbody').children().length==0){
@@ -989,6 +996,7 @@ var sour = [
 		 
 		 // 모듈화 폴더리스트 생성과 용량 및 아이콘을 결정해줌
 		 function EmojiAndFLengthLIST(result){
+			 $('tbody').empty();
 			 var emoji;
 			 var length;
 			 for(var i =0 ; i < result.length ; i++){
@@ -1025,7 +1033,6 @@ var sour = [
 		 				break;
 		 				}
 			 
-	    	 		 console.log(e.path.split("\\"))
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
 		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e.title+'</span></td>'
 		    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'

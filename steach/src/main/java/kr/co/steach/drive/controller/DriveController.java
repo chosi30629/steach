@@ -46,10 +46,10 @@ public class DriveController {
 		HashMap<String, Object> file2 = new HashMap<>();
 			file.mkdir();
 			file2.put("keyVal", keyVal);
-			file2.put("name", file.getName());
+			file2.put("title", file.getName());
 			file2.put("length", file.length());
 			file2.put("path", file.getPath());
-			file2.put("modified", sdf.format(file.lastModified()));
+			file2.put("lastModified", sdf.format(file.lastModified()));
 		return file2;
 	}
 	
