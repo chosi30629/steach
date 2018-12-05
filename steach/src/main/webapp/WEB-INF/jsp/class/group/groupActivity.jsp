@@ -46,7 +46,7 @@
                 <li class="dropdown classUser">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">출결현황</a></li>
+                        <li><a href="<c:url value='/class/attend/attend.do'/>">출결현황</a></li>
                         <li class="divider"></li>
                         <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li>
                     </ul>
@@ -57,7 +57,7 @@
                     <ul class="dropdown-menu myNotificationMenu">
                         <li><a href="#">마이페이지</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">마이드라이브</a></li>
+                        <li><a href="<c:url value="/drive/drive.do"/>">마이드라이브</a></li>
                         <li class="divider"></li>
                         <li><a href="#">로그아웃</a></li>
                     </ul>
