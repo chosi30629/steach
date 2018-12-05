@@ -15,6 +15,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+
 @Component("chat")
 public class ChatSocketHandler extends TextWebSocketHandler {
 	FileOutputStream fos = null;
