@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>수업 페이지</title>
 <!-- header import -->
-<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 
 <!-- vote draggable -->
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -27,13 +27,19 @@
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
-	
+
 <!-- css -->
 <link rel="stylesheet"
 	href="/steach/resources/css/class/lecture/lecture.css" />
+	
+<!-- file uploader  -->	
+
+<link rel="stylesheet" href="/steach/resources/Customizable-File-Input-Button/fileinput.css"/>
+<script src="/steach/resources/Customizable-File-Input-Button/fileinput.js"></script>	
+	
+<!-- progress bar -->
+<script src="/steach/resources/ProgressBar-Plugin/simple-skillbar.js"></script>	
 <style>
-
-
 </style>
 </head>
 <body>
@@ -72,7 +78,7 @@
 							<label for="inputTitle" class="col-sm-2 control-label">제목</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="inputTitle"
-									name="title" placeholder="예) n일차 수업자료입니다.">
+									name="title" placeholder="제목을 입력해주세요">
 							</div>
 						</div>
 						<div class="form-group">
@@ -83,29 +89,30 @@
 							</div>
 						</div>
 
-
 						<!-- 자료,과제   -->
 						<div id="form-option-file" class="form-group">
 							<label for="attachFile" class="col-sm-2 control-label">파일첨부</label>
 							<div class="col-sm-10">
 								<input type="file" id="localAttachFile" name="attach"
 									style="display: none"> <input type="file"
-									id="driveAttachFile" style="display: none"> <i
-									class='fas fa-paperclip' id="localAttach"></i> <i
-									class='fab fa-google-drive' id="driveAttach"></i>
+									id="driveAttachFile" style="display: none">
+								<div id="file-icon">
+									<i class='fas fa-paperclip' id="localAttach"></i> <i
+										class='fab fa-google-drive' id="driveAttach"></i>
+								</div>
 							</div>
 						</div>
-						
-						<!-- 투표  -->
-						<div id="form-option-vote" class="form-group" style="display:none">
-							<label for="vote" class="col-sm-2 control-label">투표내용</label>
 
-								<div class="col-sm-10">
-									<div class="vote-list sortable"></div>
-									<div class="vote-add">
-										<a onclick="doAddOption()"><i class="fas fa-plus-circle"></i>
-											<span>추가하기</span></a>
-									</div>
+						<!-- 투표  -->
+						<div id="form-option-vote" class="form-group"
+							style="display: none">
+							<label for="vote" class="col-sm-2 control-label">투표내용</label>
+							<div class="col-sm-10">
+								<div class="vote-list sortable"></div>
+								<div class="vote-add">
+									<a onclick="doAddOption()"><i class="fas fa-plus-circle"></i><span>
+											추가하기</span></a>
+								</div>
 							</div>
 						</div>
 
@@ -122,8 +129,6 @@
 								<div id="deadlineText" style="display: none"></div>
 							</div>
 						</div>
-						
-						
 
 					</form>
 				</div>
@@ -159,81 +164,155 @@
 					<button class="create-btn">CREATE</button>
 				</div>
 
-				<!-- subject title -->
-		    <%--  <c:forEach var="sb" items="${list.subjectList}">
-                    	<div class="accordion-head">
-                    		<div class="title">
-                    			<span class="title-name">${sb.subject}</span>
-                    			<div class="menu">
-                    				<a href="titlePlus" data-toggle="modal" data-target="#titlePlusModal">
-                    					<i class="fas fa-plus"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    					<a href="titleElps" data-toggle="modal" data-target="#titleElpsModal" data-id="titleElps${sb.lecNo}">
-                    					<i class="fas fa-ellipsis-v"></i></a>　
-                    			</div>
-                    		</div><!-- title end -->
-                    	</div><!-- acc-head end -->
-           	 		
-           	 		<!-- board  -->
-           	  		<c:forEach var="b" items="${list.boardList}">
-           	 			<c:if test="${b.lecNo==sb.lecNo}">
-	                    	<div class="accordion" role="tablist">
-	                    		<div class="card">
-	                    			<div class="card-header" role="tab" data-toggle="collapse" 
-	                    				  href="#collapse${b.boardNo}" 
-	                    				  id="heading${b.boardNo}">
-	                    				 <div class="subTitle">
-	                                    	<i class="fas fa-book fa-2x"></i>　
-	                    					<a>${b.title}</a>
-	                    					<div class="menu">
-	                    						<a href="subElps" data-toggle="modal" data-target="#subElpsModal">
-	                    							<i class="fas fa-ellipsis-v"></i>
-	                    						</a>
-	                    					</div>
-	                    				</div>
-	                    			</div>
-	                    			
-	                    			<div id="collapse${b.boardNo}" roll="tabpanel" class="collapse in">
-	                    				<div class="card-body">
-	                    					<div class="subTitle-time">
-	                    						<span>${b.regDate} 작성됨</span>
-	                    					</div>
-	                    					<div class="subTitle-context">
-	                    						<div class="row">
-	                    						<div class="col-md-8">
-	                    							<span>${b.content}</span>
-	                    						</div>
-	                    						<c:if test="${b.pNo ne 1 and b.pNo ne 3}">
-		                    						<div class="count col-md-4">
-		                    							<div class="col-md-6" >
-		                    								<div class="submit-cnt-number">1</div>
-		                    								<div class="submit-cnt-text">제출자 수</div>
-		                    							</div>
-		                    							<div class="col-md-6">
-		                    								<div class="total-cnt-number">28</div>
-		                    								<div class="total-cnt-text">총 인원수</div>
+			 	<!-- subject title -->
+			<%-->	<c:forEach var="sb" items="${list.subjectList}">
+					<div class="accordion-head">
+						<div class="title">
+							<span class="title-name">${sb.subject}</span>
+							<div class="menu">
+								<a href="titlePlus" data-toggle="modal"
+									data-target="#titlePlusModal"> <i class="fas fa-plus"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="titleElps" data-toggle="modal"
+									data-target="#titleElpsModal" data-id="titleElps${sb.lecNo}">
+									<i class="fas fa-ellipsis-v"></i>
+								</a>
+							</div>
+						</div>
+						<!-- title end -->
+					</div>
+					<!-- acc-head end -->
+
+					<!-- board  -->
+					<c:forEach var="b" items="${list.boardList}">
+						<c:if test="${b.lecNo==sb.lecNo}">
+							<div class="accordion" role="tablist">
+								<div class="card">
+									<div class="card-header" role="tab" data-toggle="collapse"
+										href="#collapse${b.boardNo}" id="heading${b.boardNo}">
+										<div class="subTitle">
+											<i class="fas fa-book fa-2x"></i> <a>${b.title}</a>
+											<div class="menu">
+												<a href="subElps" data-toggle="modal"
+													data-target="#subElpsModal"> <i
+													class="fas fa-ellipsis-v"></i>
+												</a>
+											</div>
+										</div>
+									</div>
+
+									<div id="collapse${b.boardNo}" roll="tabpanel"
+										class="collapse in">
+										<div class="card-body">
+											<div class="subTitle-time">
+												<span>${b.regDate} 작성됨</span>
+												<c:if test="${b.pNo eq 2 or b.pNo eq 4}">
+													<span style="float:right"> <i class="fas fa-check"></i> ${b.deadline} 까지</span>
+												</c:if>
+											</div>
+											<div class="subTitle-context">
+
+
+												<div class="row">
+													<div class="col-md-8">
+														<span>${b.content}</span>
+													</div>
+
+													<c:if test="${b.pNo eq 4}">
+														<div class="col-md-8">
+															<div id="vote${b.boardNo}" class="vote-content">
+																<div class='radio'>
+																	<label> <input type='radio' name='vt' value=''>닭갈비
+																		</label>
+																	<div class="progressbar" style="display:none">
+																		<span id="option1" class="vote-result-list" data-width="84" data-background="#FFC107">84%</span>
+																	</div>
+																</div>
+																<div class='radio'>
+																	<label> <input type='radio' name='vt' value=''>양념통닭
+																	</label>
+																	<div class="progressbar" style="display:none">
+																		<span id="option1" class="vote-result-list" data-width="64" data-background="blue">64%</span>
+																	</div>
+																</div>
+																<div class='radio'>
+																	<label> <input type='radio' name='vt' value=''>치즈불닭
+																	</label>
+																	<div class="progressbar" style="display:none">
+																		<span id="option1" class="vote-result-list" data-width="33" data-background="tomato">33%</span>
+																	</div>
+																</div>
+																<div class='radio'>
+																	<label> <input type='radio' name='vt' value=''>피자
+																	</label>
+																	<div class="progressbar" style="display:none">
+																		<span id="option1" class="vote-result-list" data-width="26" data-background="red">26%</span>
+																	</div>
+																</div>
+
+															</div>
+															<div class="col-md-8">
+																<div class="vote-button">
+																	<button class="btn btn-primary" onclick="voteDo(${b.boardNo})">투표하기</button>
+																	<button class="btn btn-primary" onclick="voteView(${b.boardNo})">결과보기</button>
+																</div>
+															</div>
 														</div>
-		                    						</div>
-	                    						</c:if>
-	                    					</div>
-	                    					</div>
-	                    				
-	                    					<c:if test="${b.pNo ne 4}">
-		                    					<div class="subTitle-attach">
-		                    						<div class="row">
-		                    							<div class="col-md-6">
-					                                    <span>subject1.txt <i class="fas fa-paperclip"></i></span>
-					                                   <!--  <span><i class="fab fa-google-drive"></i></span> -->
-					                                    </div>
-				                    				</div>
-			                                	</div>
-		                                	</c:if> 
-	                    				</div>
-	                    			</div>
-	                    		</div>
-                    			</div>
-                    		</c:if>
-                    	</c:forEach> 
-                    </c:forEach>      --%>
+													</c:if>
+												
+													<c:if test="${b.pNo ne 1 and b.pNo ne 3}">
+														<div class="count col-md-4">
+															<div class="col-md-6">
+																<div class="submit-cnt-number">1</div>
+																<div class="submit-cnt-text">제출자 수</div>
+															</div>
+															<div class="col-md-6">
+																<div class="total-cnt-number">28</div>
+																<div class="total-cnt-text">총 인원수</div>
+															</div>
+														</div>
+													</c:if>
+													
+												</div>
+
+
+
+											</div>
+											
+											<!-- 업로드 파일 : 자료, 과제, 보충수업  -->
+											<c:if test="${b.pNo ne 4}">
+												<div class="subTitle-attach">
+													<div class="row">
+														<div class="col-md-6">
+															<span><i class="fas fa-download"></i>　asdklfj.jpg</span>
+														</div>
+													</div>
+												</div>
+											</c:if>
+											
+											<c:if test="${b.pNo eq 1}">
+												<div class="subTitle-upload">
+													<div class="row">
+														<div class="col-md-12">
+															<span><i class="fas fa-upload"></i></span>
+															<form>
+															<input type="file" multiple>
+															<div class="upload-button">
+															<button class="btn btn-primary">제출하기</button>  
+															
+															</div>
+															</form> 
+														</div>
+													</div>
+												</div>
+											</c:if>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
+				</c:forEach> --%>
 
 			</div>
 			<!-- col end -->
@@ -270,19 +349,49 @@
 	</div>
 
 
-
-
 	<script>
-
-
-		$(function() {
-			list();
-		});
-
+		/* Data loading */
 		var lecNo = 0;
 		var boardNo = 0;
-		/* modal 동적 로딩 */
+		var deadline = "";
 
+		/* stringBuffer */
+		var StringBuffer = function() {
+			this.buffer = new Array();
+		};
+		StringBuffer.prototype.append = function(str) {
+			this.buffer.push(str);
+			return this;
+		};
+		StringBuffer.prototype.toString = function() {
+			return this.buffer.join("");
+		};
+
+		/* eventPropagation 해제 accordion 때문에 !! */
+		$(document).on("click", "a", function(e) {
+			e.stopPropagation();
+		});
+
+		/* class 번호에 해당 하는 전체 리스트 불러오기 */
+		$(function() {
+			/* file uploader */
+			
+			list(); 
+			/*vote soartable set */
+			$(".sortable").sortable();
+			$(".sortable").disableSelection();
+			
+		
+			
+			$('.vote-result-list').simpleSkillbar({});
+
+		});
+		
+		
+
+		/* MODAL */
+
+		/* modal 동적 로딩 :: 모달 클릭 시 해당 lecNo,bNo 넣어주기  */
 		$(document).on("click", "a[id='titlePlus']", function(e) {
 			lecNo = $(this).data("lecno");
 			$("#bForm").find("input[class='form-control']").val("");
@@ -292,66 +401,320 @@
 		$(document).on("click", "a[id='subElps']", function(e) {
 			//console.log($(this).data("boardno"));
 			boardNo = $(this).data("boardno");
-
 			$("#subElpsModal >.modal-dialog").css({
 				left : e.clientX,
 				top : e.clientY
 			});
 		});
 
-		/* 등록 폼 */
-		var deadline = ""
-		/* date time picker loading */
-		$("#deadline").datetimepicker({
-			date : new Date(),
-			viewMode : 'YMDHM',
-			onDateChange : function() {
-			deadline = this.getValue();
-			}
+		/* 주제명 변경, 삭제 */
+		$(document).on("click", "a[id='titleElps']", function(e) {
+			//console.log($(this).data("lecno"));
+			lecNo = $(this).data("lecno");
+			$("#titleElpsModal >.modal-dialog").css({
+				left : e.clientX,
+				top : e.clientY
+			});
 		});
 
-		/* date-pick */
-		$(".ok").click(function() {
-					$("#deadlineText").html($.format.date(deadline,pattern = "yyyy-MM-dd HH:mm")).toggle();
-					$("#deadline").toggle();
-				});
+		/* list 만들기 ajax 가즈아!!! */
+		function list() {
+			$.ajax({
+				url : "<c:url value='lectureList.do'/>"
+			}).done(
+				function(data) {
+					var boardList = data.list.boardList;
+					var subjectList = data.list.subjectList;
+					var html = new StringBuffer();
+					/* 주제  list */
+					for (let i = 0; i < subjectList.length; i++) {
+						html.append("<div class='accordion-head'>");
+						html.append("<div class='title'>");
+						html.append("<span class='title-name' id='subject"+subjectList[i].lecNo+"'>"+subjectList[i].subject+"</span>");
+						html.append("<div class='menu'>");
+						html.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
+						html.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
+						html.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
+						html.append("<i class='fas fa-ellipsis-v'></i></a>");
+						html.append("</div>"); //menu end 
+						html.append("</div>"); //title end 
+						html.append("</div>"); //acc-head end 
 
-		/* date-pick toggle */
-		$("#deadlineText").click(function() {
-			$("#deadline").toggle();
-			$("#deadlineText").toggle();
-		})
-		/* form-option */
-		$("#inputType").change(function() {
-			switch (parseInt(this.value)) {
-			case 1:
-				$("#form-option-deadline, #form-option-vote").css({
-					display : "none"
-				});
-				$("#form-option-file").css({
-					display : "block"
-				});
-				break;
-			case 2:
-				$("#form-option-deadline,#form-option-file").css({
-					display : "block"
-				});
-				break;
-			case 3:
-				$("#form-option-deadline").css({
-					display : "none"
-				});
-				break;
-			case 4:
-				$("#form-option-deadline,#form-option-vote").css({
-					display : "block"
-				});
-				$("#form-option-file").css({
-					display : "none"
+						
+						/* board list */
+						for (let j = 0; j < boardList.length; j++) {
+							if (boardList[j].lecNo == subjectList[i].lecNo) {
+								html.append("<div class='accordion' role='tablist'>");
+								html.append("<div class='card'>");
+								html.append("<div class='card-header' role='tab' data-toggle='collapse' aria-expanded='false'");
+								html.append("href='#collapse"+boardList[j].boardNo+"'");
+								html.append("id='heading"+boardList[j].boardNo+"'>");
+								html.append("<div class='subTitle'>");
+								/* 아이콘 변경 */
+								switch (parseInt(boardList[j].pNo)) {
+								case 1:
+									html.append("<i class='fas fa-book fa-2x'></i>");
+									break;
+								case 2:
+									html.append("<i class='fas fa-edit fa-2x'></i>");
+									break;
+								case 3:
+									html.append("<i class='fas fa-video fa-2x'></i>");
+									break;
+								case 4:
+									html.append("<i class='fas fa-vote-yea fa-2x'></i>");
+									break;
+								}//sw end 
+
+								html.append("&nbsp;&nbsp;<a>"+boardList[j].title+"</a>");
+								html.append("<div class='menu'>");
+								html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
+								html.append("<i class='fas fa-ellipsis-v'></i></a>");
+								html.append("</div>"); // menu end 
+								html.append("</div>"); //subtitle end
+								html.append("</div>"); //card header end 
+
+								
+								html.append("<div id='collapse"+boardList[j].boardNo+"' roll='tabpanel' class='collapse'>");
+								html.append("<div class='card-body'>");
+								html.append("<div class='subTitle-time'>");
+								html.append("<span>"+$.format.date(boardList[j].regDate,pattern = "yyyy-MM-dd HH:mm:ss")+" 작성됨</span>");
+								
+								/* 마감일 */
+								if(boardList[j].pNo == 2 || boardList[j].pNo == 4){
+									html.append("<span style='float:right'> <i class='fas fa-check'></i>"+ boardList[j].deadline +" 까지</span>");
+								}
+								
+								html.append("</div>")//subTitle-time end 
+
+								html.append("<div class='subTitle-context'>");
+								html.append("<div class='row'>")
+								html.append("<div class='col-md-8'>");
+								html.append("<span>"+ boardList[j].content+"</span>");
+								html.append("</div>");//col-md-8 end 	
+
+								/* vote */
+								if(boardList[j].pNo == 4 ){
+									html.append("<div class='col-md-8'>");
+									html.append("<div class='vote-content'>");
+									
+									/* 반복되야 할 부분 */
+									html.append("<div class='radio'>");
+									html.append("<label>");
+									html.append("<input type='radio' name='vt' value=''>Option1");
+									html.append("</label>");
+									html.append("</div>"); // radio end  
+									/* end */
+									
+									
+									html.append("</div>")// vote-content end 
+									html.append("<div class='col-md-8'>");
+									html.append("<div class='vote-button'>");
+									html.append("<button class='btn btn-primary' onclick='voteDo("+boardList[j].boardNo+")'>투표하기</button>　");
+									html.append("<button class='btn btn-primary' onclick='voteView("+boardList[j].boardNo+")'>결과보기</button>");
+									html.append("</div>");// vote-button end 
+									html.append("</div>");//col-md-8 end 
+									html.append("</div>");//outer col-md -8 end 
+									
+								}
+								
+								/* 제출자 */
+								if(boardList[j].boardNo==2 || boardList[j].boardNo==4){
+									html.append("<div class='count col-md-4'>");
+									html.append("<div class='col-md-6'>");									
+									html.append("<div class='submit-cnt-number'>숫자</div>");									
+									html.append("<div class='submit-cnt-text'>제출자 수</div>");									
+									html.append("</div>");// col-md-6 end 									
+									html.append("<div class='col-md-6'>");
+									html.append("<div class='total-cnt-number'>"+boardList[j].memCnt+"</div>");									
+									html.append("<div class='total-cnt-text'>총 인원수</div>");	
+									html.append("</div>");// col-md-6 end 									
+									html.append("</div>");//col-md-4 end 									
+								}
+								html.append("</div>")//row end
+								html.append("</div>")//context end 
+								
+								
+								
+								
+								/* html.append("<div class='count col-md-4'>");
+								html.append("<div class='col-md-6'>");
+								html.append("<div class='submit-cnt-number'>1</div>");
+								html.append("<div class='submit-cnt-text'>제출자 수</div>");
+								html.append("</div>");//col-md-6 end 
+								html.append("<div class='col-md-6'>");
+								html.append("<div class='total-cnt-number'>28</div>");
+								html.append("<div class='total-cnt-text'>총 인원수</div>");
+								html.append("</div>");//col-md-6 end 
+								html.append("</div>");//col-md-4 end 
+								html.append("</div>");//row end 		
+								html.append("</div>");//subTitle-context end  */
+
+							/* 	html.append("<div class='subTitle-attach'>");
+								html.append("<div class='row'>");
+								html.append("<div class='col-md-6'>")
+								html.append("<span><i class='fas fa-paperclip'></i></span>");
+								html.append("<span><i class='fab fa-google-drive'></i></span>");
+								html.append("</div>");//col-md-6 end 
+								html.append("</div>")//row end 
+								html.append("</div>")//subTitle-attach end 
+								html.append("</div>");//collapse end
+								html.append("</div>");//card end 
+								html.append("</div>");//acc -end 
+								html.append("</div>") */
+								
+								
+								/* 파일 첨부 */
+								if(boardList[j].pNo != 4 ){
+									html.append("<div class='subTitle-attach'>");
+									html.append("<div class='row'>");
+									html.append("<div class='col-md-6'>");
+									html.append("<span><i class='fas fa-download'></i>　파일명나오겠쬬</span>");
+									html.append("</div>");//col-md-6 end
+									html.append("</div>");//row end
+									html.append("</div>");//attach end 
+								}
+								
+								/* 업로드 */
+								if(boardList[j].pNo == 2 ) {
+									html.append("<div class='subTitle-upload'>");
+									html.append("<div class='row'>");
+									html.append("<div class='col-md-12'>");
+									html.append("<span><i class='fas fa-upload'></i></span>");
+									html.append("<form>");
+									html.append("<input class='uploader' type='file' multiple>");
+									html.append("<div class='upload-button'>");
+									html.append("<button class='btn btn-primary'>제출하기</button>");
+									html.append("</div>");//uploadbuttn end
+									html.append("</form>");
+									html.append("</div>");//12 end 
+									html.append("</div>");//row end
+									html.append("</div>");//upload end
+								
+								}
+							
+								html.append("</div></div></div></div>");
+								
+								
+								
+							}//if end 
+						}//inner for end  
+					}//outer for end 
+
+						$(".create").after(html.toString());
+						
+						$('.uploader').fileinput({
+							  multipleText: '{0} files',
+							  showMultipleNames: true,
+							  buttonClass: 'btn btn-danger',
+							});
+					}).fail(function() {
+				alert("안됬어..")
+			});
+		} // ajax list
+
+		/* subject */
+		/* subject 등록 */
+
+		$(".create-btn").click(function(e) {
+			var classNo = 1;
+			swal({
+				title : '주제추가',
+				input : 'text',
+				inputPlaceholder : "예) Java Programming",
+				inputValidator : function(value) {
+					return !value && '주제를 입력하세요'
+				}
+			}).then(function(text) {
+				/* 주제 만들기 ajax */
+				$.ajax({
+					url : "<c:url value='insertLecture.do'/>",
+					data : {
+						"classNo" : classNo,
+						"subject" : text.value
+					}
+				}).done(function() {
+					swal({
+						type : 'success',
+						html : text.value + " 주제가 생성되었습니다."
+					});
+					$(".accordion-head").remove();
+					$(".accordion").remove();
+					list();
 				})
-				break;
-			}
+			})
+
 		});
+
+		/* subject 수정 */
+		function editSubject() {
+			//alert("글번호:"+lecNo);
+			/* 해당 글의 주제 가져오기 !! */
+			$(".modal").modal('hide');
+			var subject = $("#subject" + lecNo).html();
+			//alert(subject);
+			swal({
+				title : "주제명 변경",
+				input : "text",
+				inputValue : subject,
+				inputValidator : function(value) {
+					return !value && '주제를 입력하세요'
+				}
+			}).then(function(text) {
+				/* 주제 변경 ajax */
+				var classNo = 1
+
+				$.ajax({
+					url : "<c:url value='updateSubject.do'/>",
+					data : {
+						"classNo" : classNo,
+						"subject" : text.value,
+						"lecNo" : lecNo
+					}
+				}).done(function() {
+					swal({
+						type : 'success',
+						html : text.value + " 주제명이 변경되었습니다."
+					});
+					$(".accordion-head").remove();
+					$(".accordion").remove();
+					list();
+
+				})
+			})
+
+		}
+
+		/* subject 삭제  */
+		function deleteLecture() {
+			$(".modal").modal('hide');
+			swal({
+				title : '주제를 삭제하시겠습니까?',
+				text : "주제명: " + $("#subject" + lecNo).html(),
+				type : 'warning',
+				showCancelButton : true,
+				confirmButtonColor : '#3085d6',
+				cancelButtonColor : '#d33',
+				confirmButtonText : 'Yes'
+			}).then(function(result) {
+
+				if (result.value) {
+					$.ajax({
+						url : "<c:url value='deleteLecture.do'/>",
+						data : "lecNo=" + lecNo
+					}).done(function() {
+						swal('주제가 삭제되었습니다.', "", 'success');
+						$(".accordion-head").remove();
+						$(".accordion").remove();
+						list();
+
+					})
+				}
+			})
+		}
+
+		/*  BOARD */
+		/* board 등록  */
 
 		/* insert board */
 		$("#formBtn").click(function() {
@@ -408,6 +771,7 @@
 			})
 		}
 
+		/* board 수정 */
 		function editBoard() {
 			//alert(boardNo)
 			$(".modal").modal('hide');
@@ -419,259 +783,83 @@
 			}).done(
 					function(data) {
 						console.log(data);
-
-						$("select[name='pNo'] option:eq(" + data.pNo + ")")
-								.prev().attr({
+						$("select[name='pNo'] option:eq("+data.pNo+")").prev().attr({
 									"selected" : "selected"
-								});
-
-						alert($(
-								"select[name='pNo'] option:eq(" + data.pNo
-										+ ")").prev().val());
-
+						});
+						alert($("select[name='pNo'] option:eq("+ data.pNo+")").prev().val());
 						$("#formModal").modal('show');
 					})
 
 		}
 
-		function editSubject() {
-			//alert("글번호:"+lecNo);
-			/* 해당 글의 주제 가져오기 !! */
-			$(".modal").modal('hide');
-			var subject = $("#subject" + lecNo).html();
-			//alert(subject);
-			swal({
-				title : "주제명 변경",
-				input : "text",
-				inputValue : subject,
-				inputValidator : function(value) {
-					return !value && '주제를 입력하세요'
-				}
-			}).then(function(text) {
-				/* 주제 변경 ajax */
-				var classNo = 1
+		/* date time picker loading */
+		$("#deadline").datetimepicker({
+			date : new Date(),
+			viewMode : 'YMDHM',
+			onDateChange : function() {
+				deadline = this.getValue();
+			}
+		});
 
-				$.ajax({
-					url : "<c:url value='updateSubject.do'/>",
-					data : {
-						"classNo" : classNo,
-						"subject" : text.value,
-						"lecNo" : lecNo
-					}
-				}).done(function() {
-					swal({
-						type : 'success',
-						html : text.value + " 주제명이 변경되었습니다."
-					});
-					$(".accordion-head").remove();
-					$(".accordion").remove();
-					list();
+		/* date-pick */
+		$(".ok").click(
+				function() {
+					$("#deadlineText").html($.format.date(deadline, pattern = "yyyy-MM-dd HH:mm")).toggle();
+					$("#deadline").toggle();
+				});
 
+		/* date-pick toggle */
+		$("#deadlineText").click(function() {
+			$("#deadline").toggle();
+			$("#deadlineText").toggle();
+		})
+		/* form-option */
+		$("#inputType").change(function() {
+			switch (parseInt(this.value)) {
+			case 1:
+				/* 자료 option file */
+				$("#form-option-file").css({
+					display : "block"
+				});
+				$("#form-option-deadline, #form-option-vote").css({
+					display : "none"
+				});
+				break;
+			case 2:
+				/* 과제 option file , deadline */
+				$("#form-option-deadline, #form-option-file").css({
+					display : "block"
+				});
+				$("#form-option-vote").css({
+					display : "none"
+				});
+				break;
+			case 3:
+				/* 보충수업 option file*/
+				$("#form-option-file").css({
+					display : "block"
+				});
+				$("#form-option-deadline, #form-option-vote").css({
+					display : "none"
+				});
+				break;
+			case 4:
+				/* 투표 option vote ,deadline */
+				$("#form-option-deadline,#form-option-vote").css({
+					display : "block"
+				});
+				$("#form-option-file").css({
+					display : "none"
 				})
-			})
-
-		}
-
-		/* 주제 삭제  */
-		function deleteLecture() {
-			$(".modal").modal('hide');
-			swal({
-				title : '주제를 삭제하시겠습니까?',
-				text : "주제명: " + $("#subject" + lecNo).html(),
-				type : 'warning',
-				showCancelButton : true,
-				confirmButtonColor : '#3085d6',
-				cancelButtonColor : '#d33',
-				confirmButtonText : 'Yes'
-			}).then(function(result) {
-
-				if (result.value) {
-					$.ajax({
-						url : "<c:url value='deleteLecture.do'/>",
-						data : "lecNo=" + lecNo
-					}).done(function() {
-						swal('주제가 삭제되었습니다.', "", 'success');
-						$(".accordion-head").remove();
-						$(".accordion").remove();
-						list();
-
-					})
-				}
-			})
-		}
-
-		/* 주제명 변경, 삭제 */
-		$(document).on("click", "a[id='titleElps']", function(e) {
-			//console.log($(this).data("lecno"));
-			lecNo = $(this).data("lecno");
-			$("#titleElpsModal >.modal-dialog").css({
-				left : e.clientX,
-				top : e.clientY
-			});
+				break;
+			}
 		});
 
-		/* stringBuffer */
-		var StringBuffer = function() {
-			this.buffer = new Array();
-		};
-		StringBuffer.prototype.append = function(str) {
-			this.buffer.push(str);
-			return this;
-		};
-		StringBuffer.prototype.toString = function() {
-			return this.buffer.join("");
-		};
-
-		/* list 만들기 ajax 가즈아!!! */
-		function list() {
-			$
-					.ajax({
-						url : "<c:url value='lectureList.do'/>"
-					})
-					.done(
-							function(data) {
-								//alert("잘됬어!");
-								//console.log(data);
-								var boardList = data.list.boardList;
-								var subjectList = data.list.subjectList;
-								console.log(boardList)
-								var html = new StringBuffer();
-
-								for (let i = 0; i < subjectList.length; i++) {
-									html.append("<div class='accordion-head'>");
-									html.append("<div class='title'>");
-									html.append("<span class='title-name' id='subject"+subjectList[i].lecNo+"'>"+ subjectList[i].subject+"</span>");
-									html.append("<div class='menu'>");
-									html.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-									html.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
-									html.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-									html.append("<i class='fas fa-ellipsis-v'></i></a>");
-									html.append("</div>"); //menu end 
-									html.append("</div>"); //title end 
-									html.append("</div>"); //acc-head end 
-
-									for (let j = 0; j < boardList.length; j++) {
-										if (boardList[j].lecNo == subjectList[i].lecNo) {
-											html.append("<div class='accordion' role='tablist'>");
-											html.append("<div class='card'>");
-											html.append("<div class='card-header' role='tab' data-toggle='collapse' aria-expanded='false'");
-											html.append("href='#collapse"+ boardList[j].boardNo+ "' ");
-											html.append("id='heading"+ boardList[j].boardNo+ "'>");
-											html.append("<div class='subTitle'>");
-											/* 아이콘 변경 */
-											switch (parseInt(boardList[j].pNo)) {
-											case 1:
-												html.append("<i class='fas fa-book fa-2x'></i>");
-												break;
-											case 2:
-												html.append("<i class='fas fa-edit fa-2x'></i>");
-												break;
-											case 3:
-												html.append("<i class='fas fa-video fa-2x'></i>");
-												break;
-											case 4:
-												html.append("<i class='fas fa-vote-yea fa-2x'></i>");
-												break;
-											}//sw end 
-
-											html.append("&nbsp;&nbsp;<a>"+boardList[j].title+"</a>");
-											html.append("<div class='menu'>");
-											html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
-											html.append("<i class='fas fa-ellipsis-v'></i></a>");
-											html.append("</div>"); // menu end 
-											html.append("</div>"); //subtitle end
-											html.append("</div>"); //card header end 
-
-											html.append("<div id='collapse"+boardList[j].boardNo+"' roll='tabpanel' class='collapse'>");
-											html.append("<div class='card-body'>");
-											html.append("<div class='subTitle-time'>");
-											html.append("<span>"+ $.format.date(boardList[j].regDate,pattern = "yyyy-MM-dd HH:mm:ss")+ " 작성됨</span>");
-											html.append("</div>")//subTitle-time end 
-
-											html.append("<div class='subTitle-context'>");
-											html.append("<div class='row'>")
-											html.append("<div class='col-md-8'>");
-											html.append("<span>"+ boardList[j].content+ "</span>");
-											html.append("</div>");//col-md-8 end 	
-
-											html.append("<div class='count col-md-4'>");
-											html.append("<div class='col-md-6'>");
-											html.append("<div class='submit-cnt-number'>1</div>");
-											html.append("<div class='submit-cnt-text'>제출자 수</div>");
-											html.append("</div>");//col-md-6 end 
-											html.append("<div class='col-md-6'>");
-											html.append("<div class='total-cnt-number'>28</div>");
-											html.append("<div class='total-cnt-text'>총 인원수</div>");
-											html.append("</div>");//col-md-6 end 
-											html.append("</div>");//col-md-4 end 
-											html.append("</div>");//row end 		
-											html.append("</div>");//subTitle-context end 
-
-											html.append("<div class='subTitle-attach'>");
-											html.append("<div class='row'>");
-											html.append("<div class='col-md-6'>")
-											html.append("<span><i class='fas fa-paperclip'></i></span>");
-											html.append("<span><i class='fab fa-google-drive'></i></span>");
-											html.append("</div>");//col-md-6 end 
-											html.append("</div>")//row end 
-											html.append("</div>")//subTitle-attach end 
-											html.append("</div>");//collapse end
-											html.append("</div>");//card end 
-											html.append("</div>");//acc -end 
-											html.append("</div>")
-										}//if end 
-									}//inner for end  
-								}//outer for end 
-
-								$(".create").after(html.toString());
-
-							}).fail(function() {
-						alert("안됬어..")
-					});
-		}
-
-		/* eventPropagation 해제 accordion 때문에 !! */
-		$(document).on("click", "a", function(e) {
-			e.stopPropagation();
-		});
-
-		$(".create-btn").click(function(e) {
-			var classNo = 1;
-			swal({
-				title : '주제추가',
-				input : 'text',
-				inputPlaceholder : "예) Java Programming",
-				inputValidator : function(value) {
-					return !value && '주제를 입력하세요'
-				}
-			}).then(function(text) {
-				/* 주제 만들기 ajax */
-				$.ajax({
-					url : "<c:url value='insertLecture.do'/>",
-					data : {
-						"classNo" : classNo,
-						"subject" : text.value
-					}
-				}).done(function() {
-					swal({
-						type : 'success',
-						html : text.value + " 주제가 생성되었습니다."
-					});
-					$(".accordion-head").remove();
-					$(".accordion").remove();
-					list();
-				})
-			})
-
-		});
-		
-		
-		
 		/* VOTE */
 
-		function doAddOption(){
+		function doAddOption() {
 			var html = new StringBuffer();
-	
+
 			html.append("<div class='radio ui-state-default' >");
 			html.append("<i class='fas fa-grip-vertical fa'></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
 			html.append("<label>");
@@ -680,32 +868,14 @@
 			html.append(" <a><span><i class='fas fa-times'></i></span></a>")
 			html.append("</label>");
 			html.append("</div>");
-		 
-			$(".vote-list").append(html.toString());
-			
-		    $(".sortable" ).sortable();
-		    $(".sortable" ).disableSelection();
-		}
-		
-		
 
-		$(document).on("click",".radio > label > a",function(){
+			$(".vote-list").append(html.toString());
+		}
+
+		/* vote list remove */
+		$(document).on("click", ".radio > label > a", function() {
 			$(this).parent().parent().remove();
 		})
-		
-		
-		  $( function() {
-		    $(".sortable" ).sortable();
-		    $(".sortable" ).disableSelection();
-		  } );
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		

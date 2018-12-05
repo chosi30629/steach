@@ -134,25 +134,8 @@
 	</div>
 	<!-- container end -->
 
-	<!-- js -->
-<!-- 	<script>
-		$(function(){
-			$.ajax({
-				url:"/steach/resources/js/class/member/member.js",
-				dataType:"script",
-				async:false
-			}).done(function(){
-				console.log("import success");
-			}).fail(function(){
-				throw new Error("cannot load script");
-			})
-		});
-	</script> -->
 	
 	<script>
-	/**
-	 * 
-	 */
 
 		  /* stringBuffer */
 		    var StringBuffer = function() {
@@ -198,13 +181,14 @@
 	        
 	        /* button 기능 */
 	        function doReader(memNo){
-	    	 	$(".modal").modal('hide');
-	        	$.ajax({
+	        	$("body").removeClass("modal-open").css({padding:"0"});
+	    	 	$.ajax({
 	        		url:"<c:url value='doReader.do'/>",
 	        		data:"memNo="+memNo
 	        	}).done(function(data){
 	        		$(".accordion").children().remove();
 	        		$(".modalSection").children().remove();
+	        		$(".modal").modal('hide');
 	        		swal({
 	        			position:'center-center',
 	        			type:'success',
@@ -212,19 +196,22 @@
 	        			showConfirmbutton:false,
 	        			timer:1500
 	        		});
+	        		
 	        		studentList();
 	        		
 	        	});
 	        };
 	        
 	        function removeReader(memNo){
-	        	$(".modal").modal('hide');
+	        	$("body").removeClass("modal-open").css({padding:"0"});
+	        	
 	        	$.ajax({
 	        		url:"<c:url value='removeReader.do'/>",
 	        		data:"memNo="+memNo
 	        	}).done(function(data){
 	        		$(".accordion").children().remove();
 	        		$(".modalSection").children().remove();
+	        		$(".modal").modal('hide');
 	        		swal({
 	        			position:'center-center',
 	        			type:'success',
@@ -232,19 +219,21 @@
 	        			showConfirmbutton:false,
 	        			timer:1500
 	        		});
+	        		$(".modal").modal('hide');
 	        		studentList();
 	        		
 	        	});
 	        };
 	        
 	        function doIgnore(memNo){
-	        	$(".modal").modal('hide');
+	        	$("body").removeClass("modal-open").css({padding:"0"});
 	        	$.ajax({
 	        		url:"<c:url value='doIgnore.do'/>",
 	        		data:"memNo="+memNo
 	        	}).done(function(data){
 	        		$(".accordion").children().remove();
 	        		$(".modalSection").children().remove();
+	        		$(".modal").modal('hide');
 	        		swal({
 	        			position:'center-center',
 	        			type:'success',
@@ -319,8 +308,7 @@
 	        	    	}
 	        	    	modalHtml.append("<li><a href='#' onclick='doIgnore("+i.memNo+")'>내보내기</a></li>");
 	        	    	modalHtml.append("</ul></div></div></div></div>");
-	        	    	
-	        		    
+	    		    
 	        		}
 	        			$(".accordion").append(html.toString());
 	        			$(".modalSection").append(modalHtml.toString());

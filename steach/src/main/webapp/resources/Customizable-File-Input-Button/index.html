@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Customizable File Input Button Example</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/flatly/bootstrap.min.css">
+<link href="fileinput.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+<div class="container">
+
+<input type="file" name="file" multiple>
+</div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="fileinput.js"></script>
+<script>
+$('input[type="file"]').fileinput({
+  multipleText: '{0} files',
+  showMultipleNames: true,
+  buttonClass: 'btn btn-danger',
+});
+</script>
+
+</body>
+</html>

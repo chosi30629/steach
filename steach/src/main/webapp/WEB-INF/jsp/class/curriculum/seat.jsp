@@ -9,12 +9,6 @@
 <!-- header import -->
 <%-- <c:import url="/WEB-INF/jsp/header/classHeader.jsp" /> --%>
 
-
-
-
-
-
-
 <link rel="stylesheet"
 	href="/steach/resources/css/class/curriculum/seat1.css" />
 <link rel="stylesheet"

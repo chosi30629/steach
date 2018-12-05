@@ -152,5 +152,8 @@ public class LectureController {
 //		model.addAttribute("homework",service.selectHomeworkByCNo(classNo));
 //		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
 //	}
-	
+	@RequestMapping("/vote-result.do")
+	public void voteResult() {
+		
+	}
 }
