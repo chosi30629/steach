@@ -51,4 +51,6 @@ public interface LectureService {
 
     List<LectureBoard> selectHomework(int classNo);
     
+  
+    
 }

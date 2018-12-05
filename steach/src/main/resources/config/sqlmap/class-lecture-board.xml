@@ -53,7 +53,12 @@
 		 where id = #{id}
 	</select>
 	
-	
+	<resultMap id="voteListMap" type="VoteList">
+		<result column="list_no" property="listNo"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="select_no" property="selectNo"/>
+		<result column="select_name" property="selectName"/>
+	</resultMap>
 	
 	
  <!-- 	<select id="selectBoardByClassNo" parameterType="int" resultMap="lectureBoardMap">
@@ -111,7 +116,7 @@
 	
 	
 	<!--  board 등록  -->
-	<insert id="insertLectureBoard" parameterType="LectureBoard">
+	<insert id="insertLectureBoard" parameterType="LectureBoard" useGeneratedKeys="true" keyProperty="boardNo">
 		insert into tb_class_lecture_board(
 										   lec_no,
 										   p_no,
@@ -125,7 +130,8 @@
 										   			#{title},
 										   			#{content},
 										   			#{deadline},
-										   			#{memCnt}
+										   			<!-- #{memCnt} -->
+										   			(select count(*) from tb_class_member where class_no=#{classNo})
 										   						)	
 	</insert>
 	
@@ -174,16 +180,6 @@
 		   group by h.board_no
 	</select>
 	
-	<!-- select homework detail by boardNo -->
-	<!-- <select id="selectSubmitHomeworkByCNo" parameterType="int" resultMap="homeworkMap">
-		select h.*,u.name,u.profile,u.profile_path
-		  from tb_class_lecture_board b, tb_class_lecture l, tb_class_lecture_board_homework h,tb_user u
-		 where l.lec_no = b.lec_no
-		   and b.board_no = h.board_no
-		   and h.id= u.id
-		   and l.class_no = #{classNo}
-	</select>
- -->
 	<select id="selectAllHomeworkByCNo" parameterType="map" resultMap="homeworkMap">
 		select u.id, h.board_no, h.hw_no, h.hw_content, h.reg_date
 		  from tb_class_member u 
@@ -197,10 +193,16 @@
 	</select>
 
  
+ 	<!-- class 별 투표 조회  -->
+ 	<select id="selectVoteListByCNo" parameterType="int" resultMap="voteListMap">
+	select v.*
+		from tb_class_lecture_board_vote_list v, tb_class_lecture_board b, tb_class_lecture l
+		where v.board_no=b.board_no
+		  and b.lec_no = l.lec_no
+		  and l.class_no=#{classNo}
+	</select>		
+	
 		
-	
-	
-	
 	
 	
 	

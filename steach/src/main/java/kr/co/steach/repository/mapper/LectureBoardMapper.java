@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
+import kr.co.steach.repository.domain.VoteList;
 
 public interface LectureBoardMapper {
 	
@@ -46,11 +47,13 @@ public interface LectureBoardMapper {
 	List<LectureBoard>selectHomeworkByCNo(int classNo);
 	
 	
-	/* select homework by boardNo*/
+	/* select homework by classNo*/
 	List<Homework> selectSubmitHomeworkByCNo(int classNo);
 
 	List<Homework> selectAllHomeworkByCNo(Map<String, Object> param);
 	
-
+	
+	/* select vote list by cNo */
+	List<VoteList> selectVoteListByCNo(int classNo);
 	
 }

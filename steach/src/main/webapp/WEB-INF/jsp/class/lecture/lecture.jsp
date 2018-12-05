@@ -61,6 +61,7 @@
 				<div class="modal-body">
 					<form id="bForm" enctype="multipart/form-data"
 						class="form-horizontal">
+						<input type="hidden" name="classNo" value="1">
 						<input type="hidden" name="lecNo" />
 						<div class="form-group">
 							<label for="inputType" class="col-sm-2 control-label">분류</label>
@@ -115,7 +116,6 @@
 								</div>
 							</div>
 						</div>
-
 						<!-- 과제 ,투표 -->
 						<div id="form-option-deadline" class="form-group"
 							style="display: none">
@@ -380,9 +380,9 @@
 			/*vote soartable set */
 			$(".sortable").sortable();
 			$(".sortable").disableSelection();
+	
 			
-		
-			
+			/* 지금 미사용 . */
 			$('.vote-result-list').simpleSkillbar({});
 
 		});
@@ -425,6 +425,7 @@
 				function(data) {
 					var boardList = data.list.boardList;
 					var subjectList = data.list.subjectList;
+					var voteList = data.list.voteList;
 					var html = new StringBuffer();
 					/* 주제  list */
 					for (let i = 0; i < subjectList.length; i++) {
@@ -482,7 +483,7 @@
 								
 								/* 마감일 */
 								if(boardList[j].pNo == 2 || boardList[j].pNo == 4){
-									html.append("<span style='float:right'> <i class='fas fa-check'></i>"+ boardList[j].deadline +" 까지</span>");
+									html.append("<span style='float:right'> <i class='fas fa-check'></i> "+ $.format.date(boardList[j].deadline,pattern="yyyy-MM-dd HH:mm:ss") +" 까지</span>");
 								}
 								
 								html.append("</div>")//subTitle-time end 
@@ -499,12 +500,15 @@
 									html.append("<div class='vote-content'>");
 									
 									/* 반복되야 할 부분 */
-									html.append("<div class='radio'>");
-									html.append("<label>");
-									html.append("<input type='radio' name='vt' value=''>Option1");
-									html.append("</label>");
-									html.append("</div>"); // radio end  
-									/* end */
+									for(var v=0; v < voteList.length; v++){
+										if(voteList[v].boardNo == boardList[j].boardNo){
+											html.append("<div class='radio'>");
+											html.append("<label>");
+											html.append("<input type='radio' name='vt' value='"+voteList[v].selectNo+"'>"+voteList[v].selectName);
+											html.append("</label>");
+											html.append("</div>"); // radio end  
+										}//if end
+									}	//for end 
 									
 									
 									html.append("</div>")// vote-content end 
@@ -519,7 +523,7 @@
 								}
 								
 								/* 제출자 */
-								if(boardList[j].boardNo==2 || boardList[j].boardNo==4){
+								if(boardList[j].pNo==2 || boardList[j].pNo==4){
 									html.append("<div class='count col-md-4'>");
 									html.append("<div class='col-md-6'>");									
 									html.append("<div class='submit-cnt-number'>숫자</div>");									
@@ -533,36 +537,7 @@
 								}
 								html.append("</div>")//row end
 								html.append("</div>")//context end 
-								
-								
-								
-								
-								/* html.append("<div class='count col-md-4'>");
-								html.append("<div class='col-md-6'>");
-								html.append("<div class='submit-cnt-number'>1</div>");
-								html.append("<div class='submit-cnt-text'>제출자 수</div>");
-								html.append("</div>");//col-md-6 end 
-								html.append("<div class='col-md-6'>");
-								html.append("<div class='total-cnt-number'>28</div>");
-								html.append("<div class='total-cnt-text'>총 인원수</div>");
-								html.append("</div>");//col-md-6 end 
-								html.append("</div>");//col-md-4 end 
-								html.append("</div>");//row end 		
-								html.append("</div>");//subTitle-context end  */
-
-							/* 	html.append("<div class='subTitle-attach'>");
-								html.append("<div class='row'>");
-								html.append("<div class='col-md-6'>")
-								html.append("<span><i class='fas fa-paperclip'></i></span>");
-								html.append("<span><i class='fab fa-google-drive'></i></span>");
-								html.append("</div>");//col-md-6 end 
-								html.append("</div>")//row end 
-								html.append("</div>")//subTitle-attach end 
-								html.append("</div>");//collapse end
-								html.append("</div>");//card end 
-								html.append("</div>");//acc -end 
-								html.append("</div>") */
-								
+					
 								
 								/* 파일 첨부 */
 								if(boardList[j].pNo != 4 ){
@@ -719,16 +694,22 @@
 		/* insert board */
 		$("#formBtn").click(function() {
 			/* 넘길 데이터 포멧하기 .. */
+			var pNo = parseInt($("select[name='pNo']").val());
+	
 			$("input[name='lecNo']").val(lecNo);
-			$("input[name='deadline']").val($("#deadlineText").html());
-
+			
+			
+			/*자료, 보충수업 deadline param 전송 X하기 */
+			if(pNo==1 ||pNo==3) $("input[name='deadline']").attr({disabled:"disabled"});	
+			
+			$("input[name='deadline']").val(deadline);
 			/* textarea */
 			var str = $("textarea[name='content']").val();
 			str = str.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 			$("textarea[name='content']").val(str);
 
 			var formData = new FormData($("#bForm")[0]);
-
+			
 			$.ajax({
 				url : "<c:url value='insertLectureBoard.do'/>",
 				method : "POST",
@@ -736,14 +717,33 @@
 				contentType : false,
 				processData : false,
 				data : formData
-			}).done(function() {
+			}).done(function(boardNo) {
+				if(pNo==4){
+					//투표시 insert 하기~~ 
+					var voteSize = $("input[name='select_name']").length;
+					var voteValue = new Array(voteSize);
+					for(var i=0; i<voteSize; i++){
+						voteValue[i] = $("input[name='select_name']")[i].value;
+					}
+					
+					console.log(voteValue)
+				}
+				
+				
 				$(".modal").modal('hide');
 				$(".accordion-head").remove();
 				$(".accordion").remove();
+				/* ajax 수행 후 deadline 활성화 */
+				$("input[name='deadline']").removeAttr("disabled");	
+				
 				list();
 			}).fail(function() {
-				alert(2)
+				alert("err")
 			})
+			
+			
+			
+			
 
 		})
 
@@ -813,6 +813,8 @@
 			$("#deadline").toggle();
 			$("#deadlineText").toggle();
 		})
+		
+		
 		/* form-option */
 		$("#inputType").change(function() {
 			switch (parseInt(this.value)) {
@@ -850,7 +852,7 @@
 				});
 				$("#form-option-file").css({
 					display : "none"
-				})
+				});
 				break;
 			}
 		});

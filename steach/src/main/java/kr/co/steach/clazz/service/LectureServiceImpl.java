@@ -40,8 +40,10 @@ public class LectureServiceImpl implements LectureService {
 		Map<String,Object> map = new HashMap<>();
 		map.put("subjectList", mapper.selectLectureByClassNo(classNo));
 		map.put("boardList", mapper.selectLectureBoardByClassNo(classNo));
+		map.put("voteList", mapper.selectVoteListByCNo(classNo));
 		
 		System.out.println(mapper.selectLectureBoardByClassNo(classNo));
+		System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
 		return map;
 	}
 	/*	@Override
@@ -104,6 +106,8 @@ public class LectureServiceImpl implements LectureService {
 
 		return boardList;
 	}
+
+	
 
 	
 

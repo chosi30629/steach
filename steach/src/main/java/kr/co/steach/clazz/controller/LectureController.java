@@ -95,11 +95,14 @@ public class LectureController {
 	
 	@RequestMapping("/insertLectureBoard.do")
 	@ResponseBody
-	public void insertLectureBoard(LectureBoard lectureBoard,MultipartFile attach) {
+	public String insertLectureBoard(LectureBoard lectureBoard,MultipartFile attach) {
 		/* file 첨부 구현하기 */
 		//System.out.println(attach);
 		//System.out.println("param:"+lectureBoard);
+		System.out.println(lectureBoard);
 		service.insertLectureBoard(lectureBoard);
+		
+		return lectureBoard.getBoardNo()+"";
 	}
 	
 	
@@ -152,6 +155,18 @@ public class LectureController {
 //		model.addAttribute("homework",service.selectHomeworkByCNo(classNo));
 //		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
 //	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("/vote-result.do")
 	public void voteResult() {
 		

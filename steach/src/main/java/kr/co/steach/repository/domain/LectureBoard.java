@@ -19,15 +19,14 @@ public class LectureBoard {
 	private String title;
 	private String content;
 	private Date regDate;
-	private String deadline;
+	private Date deadline;
 	private int memCnt;
 	private List<Homework> homework;
 	private Lecture lecture;
-	
-	/*test */
 	private int count;
+	private int classNo;
 	
-	
+
 	public int getgNo() {
 		return gNo;
 	}
