@@ -276,8 +276,6 @@
 			$('tbody').empty();
 			console.dir(result);
 			EmojiAndFLengthLIST(result);
-			var tree = $('#tree').fancytree('getTree');
-			  tree.reload();
 			
 			if($('tbody').children().length==0){
 			    $('.ft').append(
