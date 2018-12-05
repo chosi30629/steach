@@ -259,16 +259,37 @@
 			url : '<c:url value="/drive/fileUpload.do"/>',
 			data : fd,
 			type : "POST",
-			// fileupload 를 ajax로 전송하기 위한 설정!!!!!!!!!!!!!
+			// fileupload 를 ajax로 전송하기 위한 설정
 			// true 로 설정시 enctype = application/x-www-form-urlencoded 으로 설정되므로
 			// enctype = multipart/form-data 로 하기위해서 하는 설정 false
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-			document.location.hash = "part5";
-			location.hash = "part5";
+// 			document.location.hash = "part5";
+// 			location.hash = "part5";
+			$('tbody').empty();
+			console.dir(result);
+			EmojiAndFLengthLIST(result);
+			
+			if($('tbody').children().length==0){
+			    $('.ft').append(
+			   		 '<div class="picOuter" style="display: flex">'
+			       	+	'<div class="allpicOuter">'
+			    	+		'<div class="allpic">'
+			        +			'<div class="pic1"></div>'
+			   		+			'<div class="pic2"></div>'
+			        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+			   		+		'</div>'
+			        +	'</div>'
+			        +'</div>').show()
+			            }else{
+			            	$('.ft > .picOuter').hide();
+			            } // 노가다문 end if
+			
+			$(this).parent().parent().modal('hide');
+			            
 		})
-		return true;
+		return false;
 	});
  // 파일업로드 끝
  
@@ -1001,6 +1022,7 @@ var sour = [
 		 				break;
 		 				}
 			 
+	    	 		 console.log(e.path.split("\\"))
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
 		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e.title+'</span></td>'
 		    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'

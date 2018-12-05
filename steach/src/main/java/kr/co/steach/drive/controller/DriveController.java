@@ -139,13 +139,14 @@ public class DriveController {
 	/**
 	 * 파일 업로드
 	 * @param vo
+	 * @return 
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/fileUpload.do", method=RequestMethod.POST)
 	@ResponseBody
-	public void fileUpload(FileVO vo) throws IllegalStateException, IOException {
+	public List<Map<String, Object>> fileUpload(FileVO vo) throws IllegalStateException, IOException {
 		
 		String path = vo.getPath();
 		System.out.println("path예요" + path);
@@ -156,7 +157,18 @@ public class DriveController {
 			System.out.println("올린 파일 이름 : " + file.getOriginalFilename());
 			file.transferTo(new File(path+"\\" , file.getOriginalFilename()));
 	}
-//		return UrlBasedViewResolver.REDIRECT_URL_PREFIX + "drive.do";
+		File f =new File(path);
+		List<Map<String,Object>> list = new ArrayList();
+		for(File arrfile : f.listFiles()) {
+			Map<String, Object> fmap = new HashMap<>();
+				fmap.put("title", arrfile.getName());
+				fmap.put("folder",arrfile.isDirectory());
+				fmap.put("lastModified", sdf.format(arrfile.lastModified()));
+				fmap.put("length", arrfile.length());
+				fmap.put("path", arrfile.getCanonicalPath());
+				list.add(fmap);
+		}
+			return list;
 }
 	
 	/**
