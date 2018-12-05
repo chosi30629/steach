@@ -48,7 +48,7 @@ public class DriveController {
 			file2.put("keyVal", keyVal);
 			file2.put("name", file.getName());
 			file2.put("length", file.length());
-			file2.put("patt", file.getPath());
+			file2.put("path", file.getPath());
 			file2.put("modified", sdf.format(file.lastModified()));
 		return file2;
 	}

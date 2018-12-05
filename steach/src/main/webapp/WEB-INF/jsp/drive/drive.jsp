@@ -243,7 +243,13 @@
 		 function nowpath(result){
 			nPath =	 result;
 	 	}
+	
+		 $('.addFile').click(function(){
+			 $(this).parent().parent().modal('hide');
+		 
  $('.fButton').click(function() {
+	 
+	 $(this).parent().parent().parent().modal('hide');
 	 	// 현재 페이지의 path경로 가져올거야
 		var files = $("input[name='attach']")[0].files;
 		var fd = new FormData();
@@ -270,6 +276,8 @@
 			$('tbody').empty();
 			console.dir(result);
 			EmojiAndFLengthLIST(result);
+			var tree = $('#tree').fancytree('getTree');
+			  tree.reload();
 			
 			if($('tbody').children().length==0){
 			    $('.ft').append(
@@ -286,11 +294,13 @@
 			            	$('.ft > .picOuter').hide();
 			            } // 노가다문 end if
 			
-			$(this).parent().parent().modal('hide');
+			  
 			            
 		})
 		return false;
 	});
+ 
+})// 
  // 파일업로드 끝
  
 // 모달의 새로 만들기 버튼 클릭시를 구현할 거예요!
@@ -357,13 +367,8 @@ $('.addFolder').click(function(){
         			keyVal : keyVal
         			}
         	}).done(function(result){
-    			console.log(result.patt);
-        		$('tbody').append('<tr class="ggg" path-data ="'+result.patt+'">'
-        		        +  '<td class="folderName"><i class="fas fa-folder fa-lg"></i><span id="'+result.keyVal+'">'+result.name+'</span></td>'
-        		        +  '<td class="owner" class="text-center">'+result.patt.split("\\")[2]+'</td>'
-        		        +  '<td class="date" class="text-center">'+result.modified+'</td>'
-        		        +  '<td class="val" class="text-center">'+result.length+'</td>'
-        		        +  '</tr>');
+    			
+    			EmojiAndFLengthLIST(result)
         	})
     	
     	  $('.picOuter').css("display", "none");
