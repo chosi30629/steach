@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
 <link rel="stylesheet" href="/steach/resources/css/header/class-header.css">
+<link rel="stylesheet" href="/steach/resources/css/class/lecture/screen.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
@@ -47,26 +48,49 @@
             </ul>
         </div>
     </nav>
- 	<div class="row text-center">
-		<h1>보충수업</h1>
-	</div>
-	<div class="col-md-1">
-	</div>
-	<div class="col-md-8">
+  	<div class="text-center">
+        <h2 class="streaming-title">MySQL 보충수업</h2>
+    </div>
+    <div class="col-md-7" style="margin-left: 90px;">
+        <div class="screen">
+            <div class="case">
+                <div class="webcam"></div>
+                <div class="display">
+                    <div class="app">
+                        <video src="" width="1200" height="675" autoplay="autoplay"
+                       		   style="visibility: hidden; display: none;"></video></video>
+             		    <div style="visibility: hidden; width: 0; height: 0; display: none;">
+				            <canvas id="canvas" width="1200" height="675"></canvas>
+				        </div>
+						<img id="target" width="1200" height="675" style="display: inline;" />
+                    </div>
+                </div>
+            </div>
+            <div class="keyboard-container">
+                <div class="grey-area"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mobile-div">
+        <div class="mobile">
+            <div class="chatBlock">
+                <div class="chatRoom">
+                    <ol class="chatList">
 
-	   <video src="" width="1200" height="800" autoplay="autoplay"
-	   	   style="visibility: hidden; display: none;"></video>
-	   <div style="visibility: hidden; width: 0; height: 0; display: none;">
-	       <canvas id="canvas" width="1200" height="800"></canvas>
-	   </div>
-		<div class="row">
-			<img id="target" width="1200" height="800" style="display: inline;" />
-			<div style="display: inline-block;"></div>
-		</div>
-	</div>	
-	<div class="col-md-3">
-		<div>채팅방</div>
-	</div>
+                    </ol>
+                </div>
+                <div class="chatFoo">
+                    <div class="inputBlock">
+                        <input id="msgInput" type="text" placeholder="메시지를 입력하세요." />
+                        <p class="inputError error">input field doesn't empty!</p>
+                    </div>
+                    <div class="icons plane">
+                        <a class="onSend" href="#"><i class="fa fa-paper-plane" style="color: #ccc; position: relative; top: 14px; left: 20px;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.WebRTC-Experiment.com/getScreenId.js"></script>
     <script>
 	    const video = document.querySelector('video');
@@ -110,7 +134,7 @@
 	    });
 	
 	    timer = setInterval(function() {
-	        ctx.drawImage(video, 0, 0, 1200, 800);
+	        ctx.drawImage(video, 0, 0, 1200, 675);
 	        var data = canvas.toDataURL('image/jpeg', 1.0);
 	        newblob = convertToBinary(data);
 	        ws.send(newblob);
@@ -152,6 +176,87 @@
 	        $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
 	    });
 	    
+	 	// 채팅
+        $(document).ready(function () {
+
+            $('input').blur(function () {
+                $('.plane').removeClass("act");
+            }).focus(function () {
+                $('.plane').addClass("act");
+            });
+
+            $(".onSend").click(function (e) {
+                e.preventDefault();
+                var inputValue = $('#msgInput').val();
+                if (inputValue == null || inputValue == '') {
+                    $(this).addClass('focus');
+                    $('.inputError').addClass('act');
+                    $('.plane').addClass('err');
+                    setTimeout(function () {
+                        $('#msgInput').removeClass('focus');
+                        $('.inputError').removeClass('act');
+                        $('.plane').removeClass('err');
+                    }, 10);
+                    document.querySelector(".chatList").scrollIntoView(false);
+                }
+                else {
+                    $('.inputSending').addClass('act');
+                    appendInput();
+                    $('.plane').addClass("sndng");
+                    customerInput();
+                    setTimeout(function () {
+                        $('.inputSending').removeClass('act');
+                        $('#msgInput').val('');
+                        $('.plane').removeClass("sndng");
+                    }, 10);
+                    document.querySelector(".chatList").scrollIntoView(false);
+                }
+            })
+
+            $('#msgInput').keypress(function (e) {
+                var inputValue = $('#msgInput').val();
+                if (e.keyCode == 13) {
+                    if (inputValue == null || inputValue == '') {
+                        $(this).addClass('focus');
+                        $('.inputError').addClass('act');
+                        $('.plane').addClass('err');
+                        setTimeout(function () {
+                            $('#msgInput').removeClass('focus');
+                            $('.inputError').removeClass('act');
+                            $('.plane').removeClass('err');
+                        }, 10);
+                        document.querySelector(".chatList").scrollIntoView(false);
+                    }
+                    else {
+                        $('.inputSending').addClass('act');
+                        appendInput();
+                        $('.plane').addClass("sndng");
+                        customerInput();
+                        setTimeout(function () {
+                            $('.inputSending').removeClass('act');
+                            $('#msgInput').val('');
+                            $('.plane').removeClass("sndng");
+                        }, 10);
+                        document.querySelector(".chatList").scrollIntoView(false);
+                    }
+                }
+            });
+
+            function appendInput() {
+                $('.chatList').append('<li class="userInput"><span>' + $('#msgInput').val() + ' </span></li>');
+            }
+
+            function customerInput() {
+                var mylist = ['This help line for complaints only', 'Yes Please', 'Ok', 'Sorry', 'I did not get you', 'Checking please wait', 'Seems everything fine from my side', 'contact nearby our stores'];
+                var i = 0;
+
+                setTimeout(function () {
+                    i = Math.floor(Math.random() * (mylist.length));
+                    $('.chatList').append('<img src="./p1.jpg" width="20" height="20" style="border-radius: 100%; position: relative; top: -3px;"/><span>&nbsp;조성일</span><li class="userResponse"><span>' + mylist[i] + ' </span></li>');
+                    document.querySelector(".chatList").scrollIntoView(false);
+                }, 1000);
+            }
+        });
     </script>
 </body>
 </html>

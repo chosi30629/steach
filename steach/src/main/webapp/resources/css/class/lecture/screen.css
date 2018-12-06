@@ -1,0 +1,196 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+html {
+  line-height: 1;
+}
+body {
+  background-color: #fff;
+  color: #333;
+  font-family: 'Lato', arial, sans-serif;
+  font-size: 16px;
+}
+.mobile {
+  position: relative;
+  top: 90px;
+  left: 200px;
+  box-shadow: 0 0 0 2pt grey;
+  height: 674px;
+  width: 400px;
+  overflow: hidden;
+  border: 0 solid black;
+  border-width: 45px 15px 60px;
+  color: #474c57;
+  border-radius: 20px;
+}
+.chatBlock {
+  color: #000;
+  height: 100%;
+  position: relative;
+}
+.chatBlock .chatRoom {
+  height: 100%;
+  overflow-y: auto;
+}
+.chatBlock .chatFoo {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 1px solid black;
+  height: 50px;
+  width: 100%;
+}
+.chatList {
+  padding: 10px;
+  list-style: none;
+  min-height: 100%;
+  margin-bottom: -51px;
+}
+.chatList:after {
+  content: '';
+  display: block;
+  height: 51px;
+}
+.chatList li {
+  margin: 0 0 10px;
+}
+.chatList li span {
+  background-color: #ccc;
+  border-radius: 3px;
+  color: rgba(0,0,0,0.8);
+  display: inline-block;
+  font-size: 15px;
+  padding: 6px 12px;
+}
+.chatList li.userInput {
+  text-align: right;
+}
+.chatList li.userInput span {
+  background-color: #ccc;
+}
+.icons,
+.inputBlock {
+  float: left;
+}
+.icons {
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 50px;
+  text-align: center;
+  width: 10%;
+}
+.icons.plane {
+  cursor: default;
+}
+.icons.plane.sndng {
+  color: rgb(126, 122, 122);
+}
+.inputBlock {
+  margin: 0 auto;
+  width: 80%;
+  position: relative;
+}
+.inputBlock input[type="text"] {
+  border: 0;
+  background-color: #fff;
+  font-size: 15px;
+  margin: 10px 0;
+  height: 30px;
+  padding: 0 10px;
+  width: 100%;
+}
+.inputBlock input[type="text"].focus {
+  border-bottom: 1px solid #c0392b;
+}
+.error,
+.send {
+  display: none;
+  background: #fff;
+  position: absolute;
+  left: 5px;
+  top: 12px;
+  padding: 5px 0;
+  width: 100%;
+}
+.inputError.act,
+.inputSending.act {
+  display: block;
+}
+video {
+    border-radius: 5px;
+    position: relative;
+    top: -63px;
+}
+.screen {
+    width: 1260px;
+    position: relative;
+}
+.case {
+    height: 735px;
+    border: 30px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0 0 0 2pt grey;
+    position: relative;
+}
+.webcam {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #80ff00;
+    position: absolute;
+    top: -23px;
+    left: 49%;
+    z-index: 1;
+    opacity: .8;
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+.keyboard-container {
+    position: relative;
+}
+.keyboard-container:after {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    content: '';
+    height: 30px;
+    width: 1100px;
+    background-color: grey;
+    border-radius: 0px 0px 15px 15px;
+    z-index: 1;
+}
+.grey-area {
+    background-color: lightgrey;
+    width: 100px;
+    height: 20px;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: inset 0px 0px 2px #000;
+    position: relative;
+    margin: 0 auto;
+    z-index: 2;
+}
+.display {
+    width: 100%;
+}
+.app {
+    width: 100%;
+    position: relative;
+}
+.streaming-title {
+    margin-bottom: 20px;
+}
+.mobile-div {
+    position: fixed;
+    left: 1200px;
+}
