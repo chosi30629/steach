@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
+import kr.co.steach.repository.domain.VoteList;
 
 public interface LectureService {
 	/*List<LectureBoard> selectBoardByClassNo(int classNo);*/
@@ -51,6 +52,8 @@ public interface LectureService {
 
     List<LectureBoard> selectHomework(int classNo);
     
+    /* vote list insert */
+    void insertVoteList(VoteList voteList);
   
     
 }

@@ -1,7 +1,6 @@
 package kr.co.steach.clazz.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.LectureService;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
+import kr.co.steach.repository.domain.VoteList;
+import kr.co.steach.repository.domain.VoteListInsert;
 
 @Controller
 @RequestMapping("/class/lecture")
@@ -23,8 +25,14 @@ public class LectureController {
 	@Autowired
 	LectureService service;
 	
+	@Autowired
+	ClazzService classService;
+	
 	@RequestMapping("/lecture.do")
-	public void list(@RequestParam(value="classNo",defaultValue="1")int classNo,Model model) {
+	public void list(int classNo, Model model) {
+		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
+		
+		
 		//model.addAttribute("list",service.selectBoardByClassNo(classNo));
 		//List<LectureBoard> list = service.selectBoardByClassNo(classNo);
 		//System.out.println(list);
@@ -39,7 +47,7 @@ public class LectureController {
 		//model.addAttribute("subjectList",service.selectLectureByClassNo(classNo));
 		//model.addAttribute("boardList",service.selectLectureBoardByClassNo(classNo));
 
-		model.addAttribute("list",service.selectLectureListByClassNo(classNo));
+	//	model.addAttribute("list",service.selectLectureListByClassNo(classNo));
 		
 	
 /*		//test
@@ -51,7 +59,7 @@ public class LectureController {
 	/* ajax List */
 	@RequestMapping("/lectureList.do")
 	@ResponseBody
-	public Map<String,Object> lectureList(@RequestParam(value="classNo",defaultValue="1")int classNo) {
+	public Map<String,Object> lectureList(int classNo) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("list", service.selectLectureListByClassNo(classNo));
 		return map;
@@ -61,12 +69,7 @@ public class LectureController {
 	/* insert lecture */
 	@RequestMapping("/insertLecture.do")
 	@ResponseBody
-	public void insertLecture(@RequestParam(value="classNo",defaultValue="1") int classNo, 
-			@RequestParam(value="master",defaultValue="csi") String master,
-								Lecture lecture ) {
-		lecture.setClassNo(classNo);
-		lecture.setMaster(master);
-		System.out.println(lecture);
+	public void insertLecture(Lecture lecture ) {
 		service.insertLecture(lecture);
 	}
 	
@@ -74,19 +77,13 @@ public class LectureController {
 	/* 주제명 변경 */
 	@RequestMapping("/updateSubject.do")
 	@ResponseBody
-	public void updateLectureSubject(@RequestParam(value="classNo", defaultValue="1") int classNo,
-									 @RequestParam(value="master",defaultValue="csi") String master,
-									 Lecture lecture) {
-		lecture.setClassNo(classNo);
-		lecture.setMaster(master);
-		System.out.println(lecture);
+	public void updateLectureSubject(Lecture lecture) {
 		service.updateLectureSubject(lecture);
 	}
 	
 	@RequestMapping("/deleteLecture.do")
 	@ResponseBody
 	public void deleteSubject(int lecNo) {
-/*		System.out.println("삭제할 lecNo"+lecNo);*/
 		service.deleteLecture(lecNo);
 	}
 	
@@ -122,7 +119,22 @@ public class LectureController {
 	}
 	
 	
+	/* vote insert */
+	@RequestMapping("/insertVoteList.do")
+	@ResponseBody
+	public void insertVoteList(VoteListInsert vli) {
+		//service.insertVoteList(vli);	
+		VoteList vl = new VoteList();
+		for(int i=0;i<vli.getBoardNo().length;i++) {
+			vl.setBoardNo(vli.getBoardNo()[i]);
+			vl.setSelectNo(vli.getSelectNo()[i]);
+			vl.setSelectName(vli.getSelectName()[i]);
+
+			service.insertVoteList(vl);
+		}
 	
+		
+	}
 	
 	
 	

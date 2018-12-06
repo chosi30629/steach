@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
+import kr.co.steach.repository.domain.VoteList;
 import kr.co.steach.repository.mapper.LectureBoardMapper;
 
 @Controller
@@ -38,12 +39,21 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public Map<String,Object> selectLectureListByClassNo(int classNo) {
 		Map<String,Object> map = new HashMap<>();
+		//주제 list 
 		map.put("subjectList", mapper.selectLectureByClassNo(classNo));
+		
+		//게시글 list 
 		map.put("boardList", mapper.selectLectureBoardByClassNo(classNo));
+		
+		//투표 list 
 		map.put("voteList", mapper.selectVoteListByCNo(classNo));
 		
-		System.out.println(mapper.selectLectureBoardByClassNo(classNo));
-		System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
+		map.put("voteCount", mapper.selectVoteCntByCNo(classNo));
+		
+		System.out.println("voteCount"+mapper.selectVoteCntByCNo(classNo));
+		
+		//System.out.println(mapper.selectLectureBoardByClassNo(classNo));
+		//System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
 		return map;
 	}
 	/*	@Override
@@ -105,6 +115,12 @@ public class LectureServiceImpl implements LectureService {
 		}
 
 		return boardList;
+	}
+
+	@Override
+	public void insertVoteList(VoteList voteList) {
+		mapper.insertVoteList(voteList);
+		
 	}
 
 	

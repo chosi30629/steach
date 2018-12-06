@@ -61,7 +61,7 @@
 				<div class="modal-body">
 					<form id="bForm" enctype="multipart/form-data"
 						class="form-horizontal">
-						<input type="hidden" name="classNo" value="1">
+						<input type="hidden" name="classNo" value="${clazz.classNo}">
 						<input type="hidden" name="lecNo" />
 						<div class="form-group">
 							<label for="inputType" class="col-sm-2 control-label">분류</label>
@@ -159,11 +159,11 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<!-- create button -->
-				<div class="create">
-					<!--data-toggle="modal" data-target="#createModal-->
-					<button class="create-btn">CREATE</button>
-				</div>
-
+					<div class="create">
+						<c:if test="${user.id == clazz.master}">
+							<button class="create-btn">CREATE</button>
+						</c:if>
+					</div>
 			 	<!-- subject title -->
 			<%-->	<c:forEach var="sb" items="${list.subjectList}">
 					<div class="accordion-head">
@@ -348,9 +348,11 @@
 		</div>
 	</div>
 
-
 	<script>
+			
 		/* Data loading */
+		var classNo = "${clazz.classNo}";
+		var master ="${clazz.master}";
 		var lecNo = 0;
 		var boardNo = 0;
 		var deadline = "";
@@ -396,6 +398,7 @@
 			lecNo = $(this).data("lecno");
 			$("#bForm").find("input[class='form-control']").val("");
 			$("#bForm").find("textarea").val("");
+			$(".vote-list").children().remove();
 		});
 
 		$(document).on("click", "a[id='subElps']", function(e) {
@@ -419,13 +422,16 @@
 
 		/* list 만들기 ajax 가즈아!!! */
 		function list() {
+		
 			$.ajax({
-				url : "<c:url value='lectureList.do'/>"
+				url : "<c:url value='lectureList.do'/>",
+				data:{classNo:classNo}
 			}).done(
 				function(data) {
 					var boardList = data.list.boardList;
 					var subjectList = data.list.subjectList;
 					var voteList = data.list.voteList;
+					var voteCount = data.list.voteCount; 
 					var html = new StringBuffer();
 					/* 주제  list */
 					for (let i = 0; i < subjectList.length; i++) {
@@ -467,7 +473,7 @@
 									break;
 								}//sw end 
 
-								html.append("&nbsp;&nbsp;<a>"+boardList[j].title+"</a>");
+								html.append("&nbsp;&nbsp;<span>"+boardList[j].title+"</span>");
 								html.append("<div class='menu'>");
 								html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
 								html.append("<i class='fas fa-ellipsis-v'></i></a>");
@@ -502,6 +508,7 @@
 									/* 반복되야 할 부분 */
 									for(var v=0; v < voteList.length; v++){
 										if(voteList[v].boardNo == boardList[j].boardNo){
+											console.log(voteList[v]);
 											html.append("<div class='radio'>");
 											html.append("<label>");
 											html.append("<input type='radio' name='vt' value='"+voteList[v].selectNo+"'>"+voteList[v].selectName);
@@ -526,7 +533,15 @@
 								if(boardList[j].pNo==2 || boardList[j].pNo==4){
 									html.append("<div class='count col-md-4'>");
 									html.append("<div class='col-md-6'>");									
-									html.append("<div class='submit-cnt-number'>숫자</div>");									
+									html.append("<div class='submit-cnt-number'>");
+									/* 게시글에 따른 count */
+									for(var vc=0;vc<voteCount.length;vc++){
+										if(voteCount[vc].boardNo ==boardList[j].boardNo ){
+											html.append(voteCount[vc].count);
+										} 
+									}
+									
+									html.append("</div>");									
 									html.append("<div class='submit-cnt-text'>제출자 수</div>");									
 									html.append("</div>");// col-md-6 end 									
 									html.append("<div class='col-md-6'>");
@@ -592,7 +607,7 @@
 		/* subject 등록 */
 
 		$(".create-btn").click(function(e) {
-			var classNo = 1;
+		
 			swal({
 				title : '주제추가',
 				input : 'text',
@@ -602,11 +617,13 @@
 				}
 			}).then(function(text) {
 				/* 주제 만들기 ajax */
+				
 				$.ajax({
 					url : "<c:url value='insertLecture.do'/>",
 					data : {
 						"classNo" : classNo,
-						"subject" : text.value
+						"subject" : text.value,
+						"master":master
 					}
 				}).done(function() {
 					swal({
@@ -637,7 +654,6 @@
 				}
 			}).then(function(text) {
 				/* 주제 변경 ajax */
-				var classNo = 1
 
 				$.ajax({
 					url : "<c:url value='updateSubject.do'/>",
@@ -722,30 +738,42 @@
 					//투표시 insert 하기~~ 
 					var voteSize = $("input[name='select_name']").length;
 					var voteValue = new Array(voteSize);
+					var obj = {}; 
+					obj.boardNo={};
+					obj.selectNo={};
+					obj.selectName={};
 					for(var i=0; i<voteSize; i++){
-						voteValue[i] = $("input[name='select_name']")[i].value;
-					}
-					
-					console.log(voteValue)
+						obj.boardNo[i]= boardNo;
+						obj.selectNo[i]= i+1;
+						/* voteValue[i] = $("input[name='select_name']")[i].value; */
+						obj.selectName[i]= $("input[name='select_name']")[i].value;
+					}	
+			
+					$.ajax({
+						url:"<c:url value='insertVoteList.do'/>",
+						data:obj 
+					}).done(function(){
+						formEnd();
+					}).fail(function(){
+					});		
+				} else {
+					formEnd();		
 				}
-				
-				
-				$(".modal").modal('hide');
-				$(".accordion-head").remove();
-				$(".accordion").remove();
-				/* ajax 수행 후 deadline 활성화 */
-				$("input[name='deadline']").removeAttr("disabled");	
-				
-				list();
 			}).fail(function() {
-				alert("err")
+				alert("err");
 			})
+		});
+		
+		function formEnd(){
+			$(".modal").modal('hide');
+			$(".accordion-head").remove();
+			$(".accordion").remove();
+			/* ajax 수행 후 deadline 활성화 */
+			$("input[name='deadline']").removeAttr("disabled");	
 			
-			
-			
-			
-
-		})
+			list();
+		}
+		
 
 		/* board delete */
 		function deleteBoard() {
@@ -779,7 +807,7 @@
 			//data 넣어주기 .. 
 			$.ajax({
 				url : "<c:url value='selectLectureBoardByBNo.do'/>",
-				data : "boardNo=" + boardNo
+				data : {"boardNo":boardNo}
 			}).done(
 					function(data) {
 						console.log(data);

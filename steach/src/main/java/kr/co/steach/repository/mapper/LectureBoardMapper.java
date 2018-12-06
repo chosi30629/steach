@@ -3,6 +3,7 @@ package kr.co.steach.repository.mapper;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
@@ -55,5 +56,12 @@ public interface LectureBoardMapper {
 	
 	/* select vote list by cNo */
 	List<VoteList> selectVoteListByCNo(int classNo);
+	
+	List<CounterVO> selectVoteCntByCNo(int classNo);
+	
+	
+	/* insert vote list */
+	
+	void insertVoteList(VoteList voteList);
 	
 }

@@ -136,7 +136,7 @@
 
 	
 	<script>
-
+			var classNo="${clazz.classNo}";
 		  /* stringBuffer */
 		    var StringBuffer = function() {
 			    this.buffer = new Array();
@@ -257,7 +257,8 @@
 	        
 	         function studentList(){
 	        	$.ajax({
-	        		url:"<c:url value='studentList.do'/>"
+	        		url:"<c:url value='studentList.do'/>",
+	        		data:{classNo:classNo}
 	        	}).done(function(data){
 	        		var html = new StringBuffer();
 	        		var modalHtml = new StringBuffer();

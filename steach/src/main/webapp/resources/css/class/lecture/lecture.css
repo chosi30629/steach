@@ -20,7 +20,7 @@ body{
 .subTitle{
     margin-top:-5px;
 }
-.subTitle > a {
+.subTitle > span {
     font-size:1.3em;
 }
 
@@ -61,6 +61,7 @@ a:hover,a:active,a:focus{
 .menu > a > i{
 	color:white;
 }
+
 .menu{
     float:right;
     text-align:right;
@@ -85,6 +86,7 @@ a:hover,a:active,a:focus{
 
 .card-header:hover{
     background-color:#E1F7E7;
+    cursor:pointer;
 }
 .modal-dialog > .modal-content > .modal-body{
     margin:0;
@@ -115,6 +117,7 @@ a:hover,a:active,a:focus{
     display:table;
     transition: transform .1s ease-in;
 }
+
 /* 크기변경 */ 
 #formModal > .modal-dialog{
     margin:0; 
