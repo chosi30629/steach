@@ -39,6 +39,11 @@
 		<result column="g_no" property="gNo" />
 		<result column="off_status" property="offStatus" />
 		<result column="off_time" property="offTime" />
+		
+		<result column="attend_on" property="attendOn" />
+		<result column="attend_late" property="attendLate" />
+		<result column="attend_early" property="attendEarly" />
+		<result column="attend_off" property="attendOff" />
 	</resultMap>
 
 	<!-- 출석부 이름과 날짜 batch -->
@@ -51,12 +56,120 @@
 	</insert>
 	
 	<!-- 출석여부확인 출석/퇴실버튼분류 -->
-	<select id="attendStatus" parameterType="String" resultMap="attendMap">
-		select attend_time
+	<select id="attendStatus" parameterType="Attend" resultMap="attendMap">
+		select attend_time, off_status
 		  from tb_class_attend
 		 where id=#{id}
+		   and class_no=#{classNo}
+		   and attend_date=#{attendDate}
 	</select>
 	
+	<!-- 출석버튼 누를시 -->
+	<update id="attendOn" parameterType="Attend">
+		update tb_class_attend
+  		   set attend_day=dayname(curdate()), attend_time=now(), g_no=#{gNo}
+		 where id=#{id}
+		   and class_no=#{classNo}
+   		   and attend_date=#{attendDate}
+	</update>
+	
+	<!-- 퇴실버튼 누를시 (조퇴) -->
+	<update id="attendearlyOff" parameterType="Attend">
+		update tb_class_attend
+  		   set off_status='y', off_time=now(), g_no=#{gNo}
+		 where id=#{id}
+ 		   and class_no=#{classNo}
+   		   and attend_date=#{attendDate}
+	</update>
+	
+	<!-- 퇴실버튼 누를시 (정상퇴실) -->
+	<update id="attendOff" parameterType="Attend">
+		update tb_class_attend
+  		   set off_status='y', off_time=now()
+		 where id=#{id}
+ 		   and class_no=#{classNo}
+   		   and attend_date=#{attendDate}
+	</update>
+	
+	
+	<!-- 강사가 보는 달력 데이터 -->
+	<select id="attendlistTeacher" parameterType="Attend" resultMap="attendMap">
+		SELECT
+		  DATE(tb1.attend_date) AS attend_date,
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb2
+		    WHERE tb2.attend_date = tb1.attend_date
+		      AND tb2.g_no = '1001'
+		      and tb2.class_no=#{classNo}
+		  ) AS 'attend_on',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb3
+		    WHERE tb3.attend_date = tb1.attend_date
+		      AND tb3.g_no = '1002'
+		       and tb3.class_no=#{classNo}
+		  ) AS 'attend_late',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb4
+		    WHERE tb4.attend_date = tb1.attend_date
+		      AND tb4.g_no = '1003'
+		       and tb4.class_no=#{classNo}
+		  ) AS 'attend_early',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb5
+		    WHERE tb5.attend_date = tb1.attend_date
+		      AND tb5.g_no = '1004'
+		       and tb5.class_no=#{classNo}
+		  ) AS 'attend_off'
+		FROM tb_class_attend tb1
+		WHERE 1=1
+			and tb1.class_no=#{classNo}
+		GROUP BY tb1.attend_date
+	</select>
 
+	<!-- 학생이 보는 달력 데이터 -->
+	<select id="attendlistStudent" parameterType="Attend" resultMap="attendMap">
+		SELECT
+		  DATE(tb1.attend_date) AS attend_date,
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb2
+		    WHERE tb2.attend_date = tb1.attend_date
+		      AND tb2.g_no = '1001'
+		      and tb2.class_no=#{classNo}
+		      and tb2.id=#{id}
+		  ) AS 'attend_on',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb3
+		    WHERE tb3.attend_date = tb1.attend_date
+		      AND tb3.g_no = '1002'
+		       and tb3.class_no=#{classNo}
+		  ) AS 'attend_late',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb4
+		    WHERE tb4.attend_date = tb1.attend_date
+		      AND tb4.g_no = '1003'
+		       and tb4.class_no=#{classNo}
+		       and tb4.id=#{id}
+		  ) AS 'attend_early',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb5
+		    WHERE tb5.attend_date = tb1.attend_date
+		      AND tb5.g_no = '1004'
+		       and tb5.class_no=#{classNo}
+		       and tb5.id=#{id}
+		  ) AS 'attend_off'
+		FROM tb_class_attend tb1
+		WHERE 1=1
+			and tb1.class_no=#{classNo}
+			and tb1.id=#{id}
+		GROUP BY tb1.attend_date
+	</select>
 	
 </mapper>

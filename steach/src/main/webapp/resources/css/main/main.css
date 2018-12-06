@@ -237,7 +237,14 @@ td {
 }
 
 .card--details {
-    padding: 40px;
+    padding: 10px;
+    height: 170px;
+}
+.card--details ul {
+	padding-left: 30px;
+	margin-bottom: 10px;
+	font-size: 18px;
+	
 }
 
 .card--tag {

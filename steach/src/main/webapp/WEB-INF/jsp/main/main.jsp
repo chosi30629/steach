@@ -43,7 +43,7 @@
 					<li><a href='<c:url value="/drive/drive.do"/>'>마이드라이브</a></li>
 					<li class="divider"></li>
 					<li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
-					<%--                         <li><a href="<c:url value="/login/logout.do"/>">로그아웃</a></li> --%>
+					<%--                         <li><a href="<c:url value="/login/logout.do"/>">로그아웃</a></li> --%> 3
 				</ul></li>
 			<li class="pull-right myInformation"><a href="#"><i
 					class="fas fa-bell"></i></a></li>
@@ -64,7 +64,6 @@
 			<h3>강의중인 클래스</h3>
 			<ul id="list-1">
 				<c:forEach var="teach" items="${teaching }">
-		
 					<li>
 						<div class="card--container">
 							<div class="card--section"
@@ -75,16 +74,12 @@
 								<p>${teach.beginDate}~${teach.endDate}</p>
 							</div>
 							<div class="card--details">
-								<table>
-									<tr>
-										<td>Tourist Police</td>
-										<td>1155</td>
-									</tr>
-									<tr>
-										<td>Police</td>
-										<td>191</td>
-									</tr>
-								</table>
+								<ul>
+									<li>과제 - 스프링프레임워크</li>
+									<li>aaa</li>
+									<li>aaa</li>
+									<li>aaa</li>
+								</ul>
 							</div>
 						</div>
 					</li>
@@ -111,12 +106,12 @@
 									<div class="card--details">
 										<table>
 											<tr>
-												<td>Tourist Police</td>
-												<td>1155</td>
+												<td></td>
+												<td></td>
 											</tr>
 											<tr>
-												<td>Police</td>
-												<td>191</td>
+												<td></td>
+												<td></td>
 											</tr>
 										</table>
 									</div>
@@ -343,7 +338,7 @@
 	/* 수강 중인 클래스 이동 */
 	$(document).on("click","h1 > a",function(){
 		var cNo = $(this).data("no");
-		alert(cNo);
+// 		alert(cNo);
 		location.href="<c:url value='/class/curriculum/curriculum.do?classNo="+cNo+"'/>";
 	})
 </script>

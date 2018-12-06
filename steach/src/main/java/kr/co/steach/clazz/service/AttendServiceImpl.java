@@ -1,5 +1,7 @@
 package kr.co.steach.clazz.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +25,35 @@ public class AttendServiceImpl implements AttendService {
 	}
 
 	@Override
-	public Attend attendStatus(String id) {
-		return mapper.attendStatus(id);
+	public Attend attendStatus(Attend attend) {
+		return mapper.attendStatus(attend);
+	}
+
+	@Override
+	public void attendOn(Attend attend) {
+		mapper.attendOn(attend);
+		
+	}
+
+	@Override
+	public void attendearlyOff(Attend attend) {
+		mapper.attendearlyOff(attend);
+		
+	}
+
+	@Override
+	public void attendOff(Attend attend) {
+		mapper.attendOff(attend);
+	}
+
+	@Override
+	public List<Attend> attendlistTeacher(Attend attend) {
+		return mapper.attendlistTeacher(attend);
+	}
+
+	@Override
+	public List<Attend> attendlistStudent(Attend attend) {
+		return mapper.attendlistStudent(attend);
 	}
 
 	

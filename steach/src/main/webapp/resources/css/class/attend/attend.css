@@ -80,13 +80,56 @@ a:visited {
 }
 
 .attendContent {
-	margin-top : 5px;
     vertical-align: center;
 }
 
-.attendContent p {
+.attendContent p.teach {
+	padding-left : 5px;
+	margin-top : 5px;
 	margin-top: 2px;
 	margin-bottom : 2px;
 	text-align: left;
 	color: grey;
+}
+
+.attendContent p.ston {
+	width : 65px;
+	height : 65px;
+	margin: auto;
+	color: white;
+	background-color : #2E64FE;
+	border: dashed 2px white;
+	border-radius: 50px;
+}
+.attendContent p.stlate {
+	width : 65px;
+	height : 65px;
+	margin: auto;
+	color: white;
+	background-color : #01DFA5;
+	border: dashed 2px white;
+	border-radius: 50px;
+}
+.attendContent p.stearly {
+	width : 65px;
+	height : 65px;
+	margin: auto;
+	color: white;
+	background-color : #F79F81;
+	border: dashed 2px white;
+	border-radius: 50px;
+}
+.attendContent p.stoff {
+	width : 65px;
+	height : 65px;
+	margin: auto;
+	color: white;
+	background-color : #FA5858;
+	border: dashed 2px white;
+	border-radius: 50px;
+}
+.attendContent p.ston span,p.stoff span, p.stlate span, p.stearly span {
+	position : relative;
+	top : 15px;
+	font-size: 20px;
 }

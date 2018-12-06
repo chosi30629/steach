@@ -47,7 +47,8 @@
 		<mvc:interceptors>
 			<mvc:interceptor>
 				<mvc:mapping path="/user/myPage.do" />
-				<mvc:mapping path="/main/main.do" />
+				<mvc:mapping path="/main/main.do" /> 
+				<mvc:mapping path="/class/attend/*" /> 
 
 				<bean class="kr.co.steach.home.AuthInterceptor" />
 			</mvc:interceptor>

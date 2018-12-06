@@ -48,14 +48,18 @@
 					</div>
 					<!-- title end -->
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
 
 	<script>
 	var id = "${user.id}";
-	console.log(id)
+// 	console.log(id)
+	var masterid = "${clazz.master}"
+	console.log(master)
+	var teacherlist = "${teacherAttend}"
+// 	console.log(teacherlist)
 
 	function kCalendar(id, date) {
         var kCalendar = document.getElementById(id);
@@ -147,7 +151,12 @@
                 if (dateNum < 10)
                     dateNum = '0' + dateNum;
                 // calendar += '<div class="attendContent" id="'+ currentYear +'-'+ currentMonth +'-'+ dateNum + '"><p></p><p></p></div>' + '</td>';
-                calendar += '<div class="attendContent" data-date="' + currentYear + '-' + currentMonth + '-' + dateNum + '"><p>지각 2</p><p>결석 1</p></div>' + '</td>';
+                calendar += '<div class="attendContent" data-date="' + currentYear + '-' + currentMonth + '-' + dateNum + '">'
+                
+                
+                
+                
+                calendar += '</div>' + '</td>';
 
             }
 
@@ -174,22 +183,61 @@
     }
 
     kCalendar('kCalendar');
-
+	
     
+    function attendData (){
+   		if(id == master){
+		$.ajax({
+			url: "/steach/class/attend/attendlistTeacher.do",
+			data: {
+				classNo:cno
+			}
+		}).done(function(result){
+			console.log(result)
+			var atdata = '';
+			for (var i = 0; i < result.length; i++) {
+				atdata = '<p class="teach">지각 '+result[i].attendLate+'</p><p class="teach">조퇴 '+result[i].attendEarly+'</p><p class="teach">결석 '+result[i].attendOff+'</p>'
+				$('div[data-date="' + result[i].attendDate + '"]').html(atdata)
+			}
+		})
+    	}
+   		else {
+   			$.ajax({
+   				url: "/steach/class/attend/attendlistStudent.do",
+   				data: {
+   					classNo:cno,
+   					id:id
+   				}
+   			}).done(function(result){
+   				console.log(result)
+   				var atdata = '';
+   				for (var i = 0; i < result.length; i++) {
+   					if (result[i].attendLate == 1) {
+   						atdata = '<p class="stlate"><span>지각</span></p>'
+   					}
+   					else if (result[i].attendOn == 1) {
+   						atdata = '<p class="ston"><span>출석</span></p>'
+   					}
+   					else if (result[i].attendEarly == 1) {
+   						atdata = '<p class="stearly"><span>조퇴</span></p>'
+   					}
+   					else if (result[i].attendOff == 1) {
+   						atdata = '<p class="stoff"><span>결석</span></p>'
+   					}
+   					
+   					/* atdata = '<p>지각 '+result[i].attendLate+'</p><p>조퇴 '+result[i].attendEarly+'</p><p>결석 '+result[i].attendOff+'</p>' */
+   					$('div[data-date="' + result[i].attendDate + '"]').html(atdata)
+   				}
+   			})
+   		}
+   	}
+//     function attendData2 (){
+    	
+	
 
-var time = new Date();
+//     }
+    attendData()
 
-var tt = (time.getHours()).toString();
-var mm = (time.getMinutes().toString());
-
-var curtime = tt+mm
-console.log(typeof(curtime))
-console.log(curtime);
-if (curtime > 930) {              
-	console.log("930보다 크다")
-} else {
-	console.log("930보다 작다")
-}
         
     </script>
 </body>
