@@ -238,6 +238,7 @@
       
 
  <script type="text/javascript">
+ var firstload;
  // 파일 업로드 ajax
 	 	var nPath; 
 		 function nowpath(result){
@@ -329,9 +330,15 @@ $('.addFolder').click(function(){
     	}
     	var node = $("#tree").fancytree("getActiveNode");
     	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
+    	if (node.folder==false) {
+    		var prasentPath = $('tbody').attr('data-path');//tbody에 심어둔 현재 경로
+//     		console.log(prasentPath); // c:\drive\parkhanjun\제목없는 폴더
+    		node = node.parent
+    		console.log(node);
+    	}
     	
     	var key = node.getKeyPath(false).split("/");
-    	console.log(key);
+//     	console.log(key);
 		var arrpatt= [];
 		for(var i = 1; i< node.getKeyPath(false).split("/").length ; i++ ){			
     	arrpatt.push($("#tree").fancytree("getTree").getNodeByKey(node.getKeyPath(false).split("/")[i]).title);
@@ -339,7 +346,7 @@ $('.addFolder').click(function(){
 		
 		var pat = "c:\\drive\\"
 		var patt = arrpatt.join("\\");
-		console.log(pat + patt);
+// 		console.log(pat + patt);
 		
     	var childNode = node.addChildren({
             title: $(".addTextBefore").val(),
@@ -357,7 +364,7 @@ $('.addFolder').click(function(){
             	keyPath.push($("#tree").fancytree("getTree").getNodeByKey(childNode.getKeyPath(false).split("/")[i]).key)
             }
              var path = arrPath.join('\\');
-             console.log(path);
+//              console.log(path);
              var kpath = keyPath.join('\\');
              var keyVal = kpath.substring(kpath.lastIndexOf('\\')+1 , kpath.length) // 마지막 \\ 찾아서 자르기
            
@@ -390,11 +397,15 @@ $('.addFolder').click(function(){
       var thii;
       var thiid;
       var google;
-      var findData;
       var find
       var googleval;
       var tree;
+      var needPath;
       $('.contextmenu').children().eq(1).click(function(){
+//     	  console.log("thi", thi);	// ex) google.png
+    	  thiResult = thi.substring(0 , thi.indexOf('.')); // ex)  파일이름 google
+          thiResultEXT = thi.substring(thi.indexOf('.') , thi.length); // ex) 파일확장자 png
+    	  
         $('.myModal2').modal({
            keyboard: true, 
            show: true
@@ -403,16 +414,60 @@ $('.addFolder').click(function(){
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
-         }).find('.changeNameText').val(thi);
+         }).find('.changeNameText').val(thiResult).select();
         
-        tree = $("#tree").fancytree("getTree");
-         googleval = $('.myModal2').find('.changeNameText').val();
-         console.log(googleval);
-   		findData = tree.findAll(googleval)[0].data.id;
-   		 console.log("findData",findData);
-   		find = tree.findAll(googleval)[0];
+         googleval = $('.myModal2').find('.changeNameText').val();	// 모달의 input - value를 가져온다.  
+//          console.log("인풋창의 이름값",googleval);	//ex) google.png
+         
+         var clickedTag = tr.attr('path-data'); //선택한 tr태그의 path-data 를 가져온다 (경로)
+//          console.log("우클릭한 태그의 경로",clickedTag);	// ex ) c:\drive\parkhanjun\제목없는 폴더\google.png
+         
+   		tree = $("#tree").fancytree("getTree");
+   		find = tree.findAll(googleval);
+   		for(var i =0; i < find.length ; i++){
+   			if(find[i].data.path == clickedTag){
+   				// 우클릭한 tr의 경로와 펜시트리에서 같은 경로를 가지고 있는것을 비교
+   				// true일시 태그를 needPath 변수에 담음
+   				needPath = find[i].data.path;
+   			}
+   		}
+   		
       })
-        $('.contextmenu').children().eq(4).click(function(){
+        
+       // 이름 바꾸기 변경 버튼 누를시 !!!!
+       $('.myModal2').find('.AfterChange').click(function(){
+    	   //changeNameText 
+    	google = $(this).parent().parent().find('.changeNameText').val()
+//     	console.log(google, thiResultEXT); // 바꿀 이름  + 확장자
+    	if(google == "" || google.trim() == ""){
+    		alert("이름을 지어주세요!")
+    		return false;
+    	}
+    	
+// 		console.log("네가 찾는것이 이것이니 needPath", needPath);// 바꿀태그와 같은 경로를 가지고 있는  fancytree의 경로 
+		$.ajax({
+			url: '<c:url value="/drive/rename.do" />',
+			data : {
+				path : needPath,
+				title : needPath.substring(0 , needPath.lastIndexOf("\\")+1)+google+thiResultEXT 
+			}	// title 
+		}).done(function(result){
+			console.log(result);
+			firstload
+// 			var node = $("#tree").fancytree("getRootNode").children[0];
+// 			var childlist = ${list};
+// 			 	for(var i=0 ; i< childlist.length; i++){
+// 				 	var e = childlist[i];
+// 				 	var childNode = node.addChildren(e);
+// 			 	}
+		})
+       
+    
+       $(this).parent().parent().parent().modal('hide');
+            })// 이름바꾸기 이벤트 끝
+         
+            //우클릭 메뉴 삭제 눌렀을때
+            $('.contextmenu').children().eq(4).click(function(){
         	tr.remove()
 			tree = $("#tree").fancytree("getTree");
         	 googleval = $('.myModal2').find('.changeNameText').val(thi);
@@ -421,37 +476,8 @@ $('.addFolder').click(function(){
 			tree.activateKey(find.key).remove();
            	
         })
-       
-       // 이름 바꾸기 변경 버튼 누를시 !!!! contextmenu 추후 구현해야 할 것 (이름바꾸기)
-       $('.myModal2').find('.AfterChange').click(function(){
-    	   console.log($(this));
-    	   //changeNameText 
-    	google = $(this).parent().parent().find('.changeNameText').val()
-    	if(google == "" || google.trim() == ""){
-    		alert("이름을 지어주세요!")
-    		return false;
-    	}
-    	
-		console.log("네가 찾는것이 이것이니",google);// span 내용이 뜸
-		$.ajax({
-			url: '<c:url value="/drive/rename.do" />',
-			data : {
-				title : google
-			}
-		}).done(function(){
-			console.log("김성공!");
-		})
-       	
-       // innertext 변경
-       thii.text(google)
-        
-       if(findData == thiid){
-    	   console.log(true);
-    	   find.setTitle(google);
-       }
-       $(this).parent().parent().parent().modal('hide');
-            })
-         
+            
+            
  	
        //contextmenu 동적생성 이벤트 tr태그(폴더) 한정 발생
        $(document).on('contextmenu', 'tr' , function(e){
@@ -459,7 +485,6 @@ $('.addFolder').click(function(){
         thi = $(this)[0].children[0].innerText;
         thii = $(this).find('span');
         thiid = thii.attr('id');
-        console.log(thiid);
         
     //Get window size:
     var winWidth = $(document).width();
@@ -634,9 +659,9 @@ var source = [
 	  $("#tree").fancytree({
 //     	generateIds: true,
 //         idPrefix: "test_", 
-//     	autoCollapse: true, 자동 접기
+    	autoCollapse: true, //자동 접기
         clickFolderMode: 4,
-        selectMode: 1,
+        selectMode: 4,
         icon: function(event, data) {
           return !data.node.isTopLevel();
         },
@@ -728,12 +753,15 @@ var source = [
     	  // 부분 로드 및 게으른(트랜지션 줄 수 있음) 폴더 구현할 수 있음 
       lazyLoad: function(event, data) {
     	  node = data.node;
+//     	  console.log("레이지노드!",node.data)
     	  var path = node.data.path;
 	    		 data.result =	 $.ajax({
 				url : '<c:url value="/drive/detailFolder.do" />',
 				data : {
 					"path" : path
 					},
+			}).done(function(result){
+				console.log(result);
 			})
       }, // end lazyLoad 	
       loadChildren: function (event, data) {
@@ -748,7 +776,7 @@ var source = [
             break;
           }
         },
-        click: function(event, data) {
+        dblclick: function(event, data) {
         	console.log(data.node);
     	 	var path = data.node.data.path
     	 	//파일업로드 경로주기
@@ -808,10 +836,10 @@ var source = [
 		
 		// drive.do 처음 접속화면 리스트 표현
 		// 유저 이름에 해당하는 리스트를 가져와서 뿌린다.
-		$(document).ready(function(){
+		firstLoad = $(document).ready(function(){
 				var node = $("#tree").fancytree("getRootNode").children[0];
-				var keyPath;
 				var childlist = ${list};
+				var keyPath;
 				var emoji;
 		 	 	var length;
 		 	 	
@@ -1034,7 +1062,7 @@ var source = [
 		 				}
 			 
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
-		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="">'+e.title+'</span></td>'
+		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
 		    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 		    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 		    		        +  '<td class="val" class="text-center">'+length+'</td>'

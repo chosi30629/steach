@@ -62,7 +62,7 @@ public class DriveController {
 	@RequestMapping("/detailFolder.do")
 	@ResponseBody
 	public List<Map<String, Object>> detailFolder(@RequestParam(value="path")String path ) {
-//		System.out.println(path);
+//		System.out.println("들어왔나요~!!!!!"+path);
 		File f= new File(path);
 		if(f.isDirectory()) {
 		List<Map<String, Object>> list = new ArrayList<>();
@@ -132,8 +132,12 @@ public class DriveController {
 	
 	@RequestMapping("/rename.do")
 	@ResponseBody
-	public void rename(@RequestParam(value="title")String title) {
+	public void rename(@RequestParam(value="title")String title , @RequestParam(value="path")String path) {
 			System.out.println(title);
+			System.out.println(path);
+			File f = new File(path);
+			File f1 = new File(title);
+			f.renameTo(f1);
 	}
 
 	/**
@@ -200,6 +204,7 @@ public class DriveController {
 
 				List<Map<String, Object>> list = new ArrayList<>();
 				File[] arrfile = f.listFiles();
+				String[] array = {};
 				for(File fInfo : arrfile) {
 					Map<String, Object> fmap = new HashMap<>();
 					fmap.put("path", fInfo.getPath());
