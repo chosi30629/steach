@@ -13,4 +13,9 @@ public class StreamingController {
 		
 	} // streaming
 	
+	@RequestMapping("screen.do")
+	public void screen() {
+		
+	} // screen
+	
 } // end class
