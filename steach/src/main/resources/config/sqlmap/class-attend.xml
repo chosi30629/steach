@@ -17,6 +17,17 @@
 		<result column="seat_name" property="seatName" />
 		<result column="seat_path" property="seatPath" />
 	</resultMap>
+	
+	<resultMap id="userMap" type="user">
+		<result column="id" property="id" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="addr" property="addr" />
+		<result column="reg_date" property="regDate" />
+		<result column="profile" property="profile" />
+		<result column="profile_path" property="profilePath" />
+	</resultMap>
 
 	<resultMap id="memberMap" type="ClassMember">
 		<result column="mem_no" property="memNo" />
@@ -44,6 +55,8 @@
 		<result column="attend_late" property="attendLate" />
 		<result column="attend_early" property="attendEarly" />
 		<result column="attend_off" property="attendOff" />
+		
+		<collection property="user" resultMap="userMap"/>
 	</resultMap>
 
 	<!-- 출석부 이름과 날짜 batch -->
@@ -181,5 +194,34 @@
 		   and attend_date=#{attendDate}
 	</select>
 	
+	<!-- 강사 daily 출석부 지각리스트 -->
+	<select id="attendTeacherLate" parameterType="Attend" resultMap="attendMap">
+		SELECT u.name
+    	  FROM tb_class_attend a, tb_user u
+   		 WHERE a.id=u.id
+	 	   and a.attend_date =#{attendDate}
+		   and a.class_no=#{classNo}
+	   	   AND a.g_no = '1002';
+	</select>
+
+	<!-- 강사 daily 출석부 조퇴리스트 -->
+	<select id="attendTeacherEarly" parameterType="Attend" resultMap="attendMap">
+		SELECT u.name
+    	  FROM tb_class_attend a, tb_user u
+   		 WHERE a.id=u.id
+	 	   and a.attend_date =#{attendDate}
+		   and a.class_no=#{classNo}
+	   	   AND a.g_no = '1003';
+	</select>
+
+	<!-- 강사 daily 출석부 결석리스트 -->
+	<select id="attendTeacherOff" parameterType="Attend" resultMap="attendMap">
+		SELECT u.name
+    	  FROM tb_class_attend a, tb_user u
+   		 WHERE a.id=u.id
+	 	   and a.attend_date =#{attendDate}
+		   and a.class_no=#{classNo}
+	   	   AND a.g_no = '1004';
+	</select>
 	
 </mapper>

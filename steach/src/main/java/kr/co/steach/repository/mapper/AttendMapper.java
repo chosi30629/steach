@@ -26,4 +26,10 @@ public interface AttendMapper {
 
 	// 학생 일별 출석내용
 	Attend attendStudentContent(Attend attend);
+	// 강사 일별 출석내용-지각
+	List<Attend> attendTeacherLate(Attend attend);
+	// 강사 일별 출석내용-조퇴
+	List<Attend> attendTeacherEarly(Attend attend);
+	// 강사 일별 출석내용-결석
+	List<Attend> attendTeacherOff(Attend attend);
 }

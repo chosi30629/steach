@@ -245,7 +245,7 @@
    	}
     attendData()
     
-	$(".attendContent").click(function(){
+	/* $(".attendContent").click(function(){
 		var tttt = $(this).attr("data-date")
 		$("#dailyattTitle").text(tttt +"  출석부")
 		console.log(tttt)
@@ -257,8 +257,8 @@
    					attendDate:tttt
    				}
    			}).done(function(result){
-   				console.log(result)
-   				console.log(typeof(result.gno))
+//    				console.log(result)
+//    				console.log(typeof(result.gno))
    				var dailyat = '';
    				switch (result.gno) {
 				case 1001:
@@ -283,6 +283,69 @@
    				$("#dailyattContent").html("<h3>"+dailyat + "</h3><p>출석시간 : "+$.format.date(result.attendTime, "HH:mm")+"</p><p>퇴실시간 : "+$.format.date(result.offTime, "HH:mm")+"</p>")
    			})
 		
+	}) */
+	
+	$(".attendContent").click(function(){
+		var tttt = $(this).attr("data-date")
+		console.log(tttt)
+		$("#dailyattTitle").text(tttt +"  출석부")
+		$.ajax({
+			url:"/steach/class/attend/attendTeacherContent.do",
+			data:{
+				classNo:cno,
+				attendDate:tttt
+			}
+		}).done(function(result){
+			var latelist = result.list.atlate;
+			var earlylist = result.list.atearly;
+			var offlist = result.list.atoff;
+			
+			var late = "";
+			var early = "";
+			var off = "";
+			
+			if (latelist!="") {
+				for (var i = 0; i < latelist.length; i++) {
+					late += latelist[i].user[0].name + ", "
+				}
+			}
+			var latename = late.substring(0, late.length-2)
+// 			console.log("지각 : "+latename)
+// 			console.log(latename.length)
+			
+			if (earlylist!="") {
+				for (var i = 0; i < earlylist.length; i++) {
+					early += earlylist[i].user[0].name + ", "
+				}
+			}
+			var earlyname = early.substring(0, early.length-2)
+// 			console.log("조퇴 : "+earlyname) 
+// 			console.log(earlyname.length) 
+			
+			if (offlist!="") {
+				for (var i = 0; i < offlist.length; i++) {
+					off += offlist[i].user[0].name + ", "
+				}
+			}
+			var offname = off.substring(0, off.length-2)
+			console.log("결석 : "+offname)
+			console.log(offname.length)
+			
+			var atnamelist = "";
+			if (latename.length != 0) {
+				atnamelist += '<p>지각 : ' + latename + '</p>'
+			}
+			if (earlyname.length != 0) {
+				atnamelist += '<p>조퇴 : ' + earlyname + '</p>'
+			}
+			if (offname.length != 0) {
+				atnamelist += '<p>결석 : ' + offname + '</p>'
+			}
+			
+			
+			$("#dailyattContent").html(atnamelist)
+			
+		})
 	})
 
         

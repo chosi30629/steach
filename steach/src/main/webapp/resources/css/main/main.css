@@ -134,6 +134,10 @@
       margin-top: 0px;
       padding-bottom: 0;
   }
+  
+div.teaching, div.studying {
+	padding: 5px 20px 5px 20px
+}
 
 div.teaching > ul {
     list-style-type: none;

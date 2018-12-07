@@ -1,6 +1,8 @@
 package kr.co.steach.clazz.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,20 @@ public class AttendServiceImpl implements AttendService {
 	public Attend attendStudentContent(Attend attend) {
 		return mapper.attendStudentContent(attend);
 	}
+
+	@Override
+	public Map<String, Object> attendTeacherContent(Attend attend) {
+		Map<String,Object> map = new HashMap<>();
+		// 지각리스트
+		map.put("atlate", mapper.attendTeacherLate(attend));
+		// 조퇴리스트
+		map.put("atearly", mapper.attendTeacherEarly(attend));
+		// 결석리스트
+		map.put("atoff", mapper.attendTeacherOff(attend));
+		
+		return map;
+	}
+
 
 	
 	

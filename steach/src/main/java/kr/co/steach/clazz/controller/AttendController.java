@@ -1,6 +1,8 @@
 package kr.co.steach.clazz.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,11 +66,19 @@ public class AttendController {
 	public void attendOff(Attend attend) {
 		attendservice.attendOff(attend);
 	}
-	
+	// daily 
 	@ResponseBody
 	@RequestMapping("/attendStudentContent.do")
 	public Attend attendStudentContent(Attend attend) {
 		return attendservice.attendStudentContent(attend);
+	}
+
+	@ResponseBody
+	@RequestMapping("/attendTeacherContent.do")
+	public Map<String,Object> attendTeacherContent(Attend attend) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("list", attendservice.attendTeacherContent(attend));
+		return map;
 	}
 //	@Scheduled(cron="*/10 * * * * *") 
 //	public void createClass() {

@@ -1,6 +1,7 @@
 package kr.co.steach.repository.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -20,4 +21,6 @@ public class Attend {
 	private int attendLate;
 	private int attendEarly;
 	private int attendOff;
+	
+	private List<User> user;
 }

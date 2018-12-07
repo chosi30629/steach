@@ -1,6 +1,7 @@
 package kr.co.steach.clazz.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.steach.repository.domain.Attend;
 
@@ -25,4 +26,7 @@ public interface AttendService {
 
 	// 학생 일별 출석내용
 	Attend attendStudentContent(Attend attend);
+
+	// 강사 일별 출석내용-지각/조퇴/결석
+	Map<String,Object> attendTeacherContent(Attend attend);
 }
