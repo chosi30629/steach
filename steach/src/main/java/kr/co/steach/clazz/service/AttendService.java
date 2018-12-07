@@ -22,4 +22,7 @@ public interface AttendService {
 
 	// 학생이 보는 출석부
 	List<Attend> attendlistStudent(Attend attend);
+
+	// 학생 일별 출석내용
+	Attend attendStudentContent(Attend attend);
 }

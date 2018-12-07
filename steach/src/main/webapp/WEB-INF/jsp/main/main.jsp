@@ -43,7 +43,6 @@
 					<li><a href='<c:url value="/drive/drive.do"/>'>마이드라이브</a></li>
 					<li class="divider"></li>
 					<li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
-					<%--                         <li><a href="<c:url value="/login/logout.do"/>">로그아웃</a></li> --%> 3
 				</ul></li>
 			<li class="pull-right myInformation"><a href="#"><i
 					class="fas fa-bell"></i></a></li>
@@ -120,37 +119,6 @@
 						</c:when>
 					</c:choose>
 				</c:forEach>
-				<!-- 				<li> -->
-				<!-- 					<div class="card--container culture"> -->
-				<!-- 						<div class="card--section" style="background-color: red;"> -->
-				<!-- 							<h1> -->
-				<!-- 								<a href="#">빼액</a> -->
-				<!-- 							</h1> -->
-				<!-- 							<p>Thai</p> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="card--details"> -->
-				<!-- 							<p>English is widely spoken in tourist-friendly areas.</p> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 				</li> -->
-				<!-- 				<li> -->
-				<!-- 					<div class="card--container"> -->
-				<!-- 						<div class="card--section" style="background-color: #6936E0;"> -->
-				<!-- 							<h1> -->
-				<!-- 								<a href="#">집에가자</a> -->
-				<!-- 							</h1> -->
-				<!-- 							<p>2018-11-11~2018-11-11</p> -->
-				<!-- 						</div> -->
-				<!-- 						<div class="card--details"> -->
-				<!-- 							<table> -->
-				<!-- 								<tr> -->
-				<!-- 									<td>Tourist Police</td> -->
-				<!-- 									<td>1155</td> -->
-				<!-- 								</tr> -->
-				<!-- 							</table> -->
-				<!-- 						</div> -->
-				<!-- 					</div> -->
-				<!-- 				</li> -->
 
 			</ul>
 		</div>
@@ -167,14 +135,15 @@
 				<div class="modal-header">
 					<h4 class="modal-title" id="exampleModalCenterTitle">수업 참여하기</h4>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="padding-bottom: 0;">
 					<p>선생님으로부터 수업 코드를 받아 여기에 입력하세요.</p>
 					<form id="joinclassForm" method="post">
 						<input type="hidden" name="id" value="${user.id }">
 						<input type="hidden" name="classNo" id="classNo"> 
 						<input type="text" class="form-control" id="classkey" style="width: 100%" placeholder="수업 코드">
+						<p id="joincodeMsg" style="min-height: 25px"></p>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" style="padding-bottom: 10px;">
 					<button class="btn btn-link">참여하기</button>
 					<a class="btn btn-default" data-dismiss="modal">취소</a>
 					</form>
@@ -229,7 +198,7 @@
 								readonly>
 						</div>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer" style="padding-bottom: 10px;">
 					<a class="btn btn-default" id="cancle" data-dismiss="modal">취소</a>
 					<button class="btn btn-link">개설하기</button>
 					</form>
@@ -252,6 +221,8 @@
 
 	$(document).ready(function() {
 		$("#joinclass").on("click", function() {
+			$("#classkey").val("")
+			$("#joincodeMsg").html("")
 			$("#joincodeinput").modal('toggle')
 		});
 		$("#addclass").on("click", function() {
@@ -309,9 +280,10 @@
 				console.log(result)
 				joinkey = result
 				console.log(joinkey.classNo)
+				$("#joincodeMsg").html("<span style='color: green;'>수업코드가 일치합니다.</span>")
 				$("#classNo").attr("value", joinkey.classNo)
 			} else {
-				alert("없음")
+				$("#joincodeMsg").html("<span style='color: red;'>수업코드를 확인해주세요.</span>")
 			}
 
 		})

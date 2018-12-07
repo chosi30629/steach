@@ -15,20 +15,18 @@
 
 <!-- css -->
 
-<link href="/steach/resources/css/class/attend/attend.css"
-	rel="stylesheet" />
-
+<link href="/steach/resources/css/class/attend/attend.css" rel="stylesheet" />
 
 <!-- swAlert.js -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
+<script src="/steach/resources/js/jquery-dateformat.js"></script>
 
 </head>
 <!-- style= "height: 100vh; overflow: hidden;" -->
 <body>
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -39,19 +37,33 @@
 								<a data-toggle="collapse" href="#collapseOne">출결현황</a>
 							</div>
 						</div>
-
 						<div id="collapseOne" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<div id="kCalendar"></div>
 							</div>
 						</div>
 					</div>
-					<!-- title end -->
 				</div>
-
 			</div>
 		</div>
 	</div>
+	
+<!-- Modal -->
+<div class="modal fade" id="dailyattend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="dailyattTitle"></h4>
+      </div>
+      <div class="modal-body" id="dailyattContent">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 	<script>
 	var id = "${user.id}";
@@ -151,7 +163,7 @@
                 if (dateNum < 10)
                     dateNum = '0' + dateNum;
                 // calendar += '<div class="attendContent" id="'+ currentYear +'-'+ currentMonth +'-'+ dateNum + '"><p></p><p></p></div>' + '</td>';
-                calendar += '<div class="attendContent" data-date="' + currentYear + '-' + currentMonth + '-' + dateNum + '">'
+                calendar += '<div class="attendContent" data-toggle="modal" data-target="#dailyattend" data-date="' + currentYear + '-' + currentMonth + '-' + dateNum + '">'
                 
                 
                 
@@ -231,12 +243,47 @@
    			})
    		}
    	}
-//     function attendData2 (){
-    	
-	
-
-//     }
     attendData()
+    
+	$(".attendContent").click(function(){
+		var tttt = $(this).attr("data-date")
+		$("#dailyattTitle").text(tttt +"  출석부")
+		console.log(tttt)
+		$.ajax({
+   				url: "/steach/class/attend/attendStudentContent.do",
+   				data: {
+   					classNo:cno,
+   					id:id,
+   					attendDate:tttt
+   				}
+   			}).done(function(result){
+   				console.log(result)
+   				console.log(typeof(result.gno))
+   				var dailyat = '';
+   				switch (result.gno) {
+				case 1001:
+					dailyat = "출석"
+					break;
+				case 1002:
+					dailyat = "지각"
+					break;
+				case 1003:
+					dailyat = "조퇴"
+					break;
+				case 1004:
+					dailyat = "결석"
+					break;
+				}
+   				console.log("퇴실시간 : " + $.format.date(result.offTime, "HH:mm"))
+   				console.log("퇴실시간2: " + result.offTime)
+   				if (!result.offTime) {
+   					
+					result.offTime = "-"					
+				}
+   				$("#dailyattContent").html("<h3>"+dailyat + "</h3><p>출석시간 : "+$.format.date(result.attendTime, "HH:mm")+"</p><p>퇴실시간 : "+$.format.date(result.offTime, "HH:mm")+"</p>")
+   			})
+		
+	})
 
         
     </script>

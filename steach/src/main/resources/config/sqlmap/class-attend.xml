@@ -172,4 +172,14 @@
 		GROUP BY tb1.attend_date
 	</select>
 	
+	<!-- 학생 daily 출석정보 -->
+	<select id="attendStudentContent" parameterType="Attend" resultMap="attendMap">
+		select *
+		  from tb_class_attend
+		 where id=#{id}
+		   and class_no=#{classNo}
+		   and attend_date=#{attendDate}
+	</select>
+	
+	
 </mapper>

@@ -112,6 +112,12 @@
   #joincodeinput > div.modal-dialog {
     width: 350px;
   }
+  #joincodeinput > div.modal-dialog {
+    width: 350px;
+  }
+  #joincodeinput > div.modal-dialog > div.modal-body {
+    padding-bottom: 0px;
+  }
   #createclass > div.modal-dialog {
     width: 500px;
   }
@@ -126,6 +132,7 @@
 }
   .modal-body {
       margin-top: 0px;
+      padding-bottom: 0;
   }
 
 div.teaching > ul {
@@ -284,4 +291,8 @@ td {
     border-radius: 4px;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+p#joincodeMsg {
+	margin-bottom: 0px;
 }

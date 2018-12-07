@@ -56,6 +56,11 @@ public class AttendServiceImpl implements AttendService {
 		return mapper.attendlistStudent(attend);
 	}
 
+	@Override
+	public Attend attendStudentContent(Attend attend) {
+		return mapper.attendStudentContent(attend);
+	}
+
 	
 	
 

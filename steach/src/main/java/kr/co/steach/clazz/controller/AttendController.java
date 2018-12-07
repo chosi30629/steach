@@ -65,6 +65,11 @@ public class AttendController {
 		attendservice.attendOff(attend);
 	}
 	
+	@ResponseBody
+	@RequestMapping("/attendStudentContent.do")
+	public Attend attendStudentContent(Attend attend) {
+		return attendservice.attendStudentContent(attend);
+	}
 //	@Scheduled(cron="*/10 * * * * *") 
 //	public void createClass() {
 //		System.out.println("batch 수행되는건가?");
