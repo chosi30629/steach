@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.GroupService;
 import kr.co.steach.clazz.service.MemberService;
 import kr.co.steach.repository.domain.ClassMember;
@@ -36,6 +37,12 @@ public class GroupController {
 	private GroupService service;
 	
 	/**
+	 * 클래스 서비스 인터페이스에 대한 멤버 필드
+	 */
+	@Autowired
+	ClazzService classService;
+	
+	/**
 	 * 클래스 멤버 서비스 인터페이스에 대한 멤버 필드
 	 */
 	@Autowired
@@ -43,15 +50,17 @@ public class GroupController {
 	
 	
 	@RequestMapping("groupMain.do")
-	public void groupMain(Model model, Group group) {
+	public void groupMain(Model model, Group group, int classNo) {
 		List<GroupMember> studentList = service.groupMemberList();
 		try {
+			model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", studentList.get(0).getGroupNo());
 			group.setClassNo(1);
 			model.addAttribute("groupList", service.groupList(group));
 			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
 		} catch(Exception e) {
+			model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", "0");
 			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
@@ -132,7 +141,8 @@ public class GroupController {
 	} // initClassGroup
 	
 	@RequestMapping("groupActivity.do")
-	public void groupActivity(Model model, int groupNo) {
+	public void groupActivity(Model model, int groupNo, int classNo) {
+		model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 		model.addAttribute("groupNo", groupNo);
 		model.addAttribute("listList", service.listList(groupNo));
 		model.addAttribute("cardList", service.cardList());

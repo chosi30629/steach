@@ -379,13 +379,17 @@ body {
     bottom: -15px;
     font-size: 10px;
     color: #555;
-    right: 30px;
+    right: 16px;
     /* color: rgba(255, 255, 255, .7);*/
+}
+.timestamp {
+	display: inline-block;
+	width: 32px;
 }
 .messages .message .checkmark-sent-delivered {
     position: absolute;
     bottom: -15px;
-    right: 10px;
+    right: 0px;
     font-size: 12px;
     color: #999;
 }
@@ -393,7 +397,7 @@ body {
     color: blue;
     position: absolute;
     bottom: -15px;
-    right: 16px;
+    right: 6px;
     font-size: 12px;
 }
 .messages .message::before {

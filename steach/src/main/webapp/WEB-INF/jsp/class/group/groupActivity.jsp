@@ -9,15 +9,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>groupActivity</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">  
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">  
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">   -->
+<!--     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">   -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
-    <link rel="stylesheet" href="/steach/resources/css/header/class-header.css">
+    <c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
+<!--     <link rel="stylesheet" href="/steach/resources/css/header/class-header.css"> -->
     <link href="/steach/resources/css/class/group/emoji.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> 
+<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
     <script src="/steach/resources/js/class/group/config.js"></script>
@@ -31,41 +32,41 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="pull-left myClassName"><a href="#">클래스명</a></li>
-                <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li>
-                <li class="dropdown classCourse">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="<c:url value='/class/lecture/homework.do'/>">과제제출</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown classUser">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="<c:url value='/class/attend/attend.do'/>">출결현황</a></li>
-                        <li class="divider"></li>
-                        <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li>
-                    </ul>
-                </li>
-                <li class="nbsp"> </li>
-                <li class="pull-right dropdown myNotification">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
-                    <ul class="dropdown-menu myNotificationMenu">
-                        <li><a href="#">마이페이지</a></li>
-                        <li class="divider"></li>
-                        <li><a href="<c:url value="/drive/drive.do"/>">마이드라이브</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">로그아웃</a></li>
-                    </ul>
-                </li>
-                <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
-            </ul>
-        </div>
-    </nav>
+<!--     <nav class="navbar navbar-default navbar-fixed-top"> -->
+<!--         <div class="navbar-collapse"> -->
+<!--             <ul class="nav navbar-nav"> -->
+<!--                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li> -->
+<%--                 <li class="pull-left myClassName"><a href="#">${clazz.name}</a></li> --%>
+<%--                 <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li> --%>
+<!--                 <li class="dropdown classCourse"> -->
+<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a> -->
+<!--                     <ul class="dropdown-menu"> -->
+<%--                         <li><a href="<c:url value='/class/lecture/homework.do'/>">과제제출</a></li> --%>
+<!--                     </ul> -->
+<!--                 </li> -->
+<!--                 <li class="dropdown classUser"> -->
+<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a> -->
+<!--                     <ul class="dropdown-menu"> -->
+<%--                         <li><a href="<c:url value='/class/attend/attend.do'/>">출결현황</a></li> --%>
+<!--                         <li class="divider"></li> -->
+<%--                         <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li> --%>
+<!--                     </ul> -->
+<!--                 </li> -->
+<!--                 <li class="nbsp"> </li> -->
+<!--                 <li class="pull-right dropdown myNotification"> -->
+<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a> -->
+<!--                     <ul class="dropdown-menu myNotificationMenu"> -->
+<!--                         <li><a href="#">마이페이지</a></li> -->
+<!--                         <li class="divider"></li> -->
+<%--                         <li><a href="<c:url value="/drive/drive.do"/>">마이드라이브</a></li> --%>
+<!--                         <li class="divider"></li> -->
+<!--                         <li><a href="#">로그아웃</a></li> -->
+<!--                     </ul> -->
+<!--                 </li> -->
+<!--                 <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li> -->
+<!--             </ul> -->
+<!--         </div> -->
+<!--     </nav> -->
     <div class="clearfix groupName">
         <h3>비트캠프 2조</h3>
     </div>
@@ -111,7 +112,7 @@
         </div>
         <div class="chat">
             <div class="chat-title chat_header">
-                <h1>조성일</h1>
+                <h1>${user.name}</h1>
             </div>
             <div class="messages">
                 <div class="messages-content chat_s"></div>
@@ -139,6 +140,8 @@
 		</div>
 	</div> -->
     <script>
+    	var userId = "${user.id}";
+    	console.log(userId);
 		var $parentDrop = $(".parentDrop");
 		var $modalDiv = $(".modal-div");
 		var nextLastListOrder = 0;
@@ -245,7 +248,7 @@
 		function checklist(commentCardNo) {
 			$.ajax({
 				url: "/steach/class/group/cardChecklistList.do",
-				data: {"cardNo": commentCardNo }
+				data: {"cardNo": commentCardNo}
 			})
 			.done(function(result) {
 				var checklistList = "";
@@ -290,7 +293,7 @@
 			
 			$.ajax({
 				url: "/steach/class/group/addCardComment.do",
-				data: {"cardNo": commentCardNo, "cardCommentWriter": 'chos', "cardCommentContent": addCommentContent}
+				data: {"cardNo": commentCardNo, "cardCommentWriter": userId, "cardCommentContent": addCommentContent}
 			})
 			.done(function(result) {
 				console.log(result);
@@ -401,7 +404,7 @@
 
 			$.ajax({
 				url: "/steach/class/group/addChecklist.do",
-				data: {"cardNo": checklistCardNo, "cardChecklistTitle": checklistTitle}
+				data: {"cardNo": checklistCardNo, "cardChecklistWriter": userId, "cardChecklistTitle": checklistTitle}
 			})
 			.done(function(result) {
 				console.log(result);
@@ -661,7 +664,7 @@
             
             $.ajax({
             	url: "/steach/class/group/addCard.do",
-            	data: {"listNo" : listNoOfAddCard, "cardTitle": content, "cardOrder": lastCardOrder}
+            	data: {"listNo" : listNoOfAddCard, "cardWriter": userId, "cardTitle": content, "cardOrder": lastCardOrder}
             })
             .done(function(result) {
 				console.log(result);
@@ -887,7 +890,7 @@
             
 			$.ajax({
 				url: "/steach/class/group/addList.do",
-				data: {"groupNo" : groupNo, "listTitle": content, "listOrder": nextLastListOrder}
+				data: {"groupNo" : groupNo, "listWriter": userId, "listTitle": content, "listOrder": nextLastListOrder}
 			})
 			.done(function(result) {
 				console.log(result);
@@ -1032,7 +1035,7 @@
 		
 		// 채팅창 사이즈 조절
         var chatSize = 0;
-
+		
         $(".chat-button").on("click", function() {
             if(chatSize == 0) {
                 $(".avenue-messenger").css("max-height", "85px").css("min-height", "85px");
@@ -1056,17 +1059,19 @@
 		        console.log('연결 성공');
 		    };
 		    ws.onmessage = function(evt) {
-				$('<div class="message loading new"><figure class="avatar"><img src="/steach/resources/images/class/group/p1.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
+		    	var profilePath = evt.data.substring(0, evt.data.indexOf(":"));
+		    	var messageContent = evt.data.substring(evt.data.indexOf(":") + 1);
+				$('<div class="message loading new"><figure class="avatar"><img src="' + profilePath + '" /></figure><span></span></div>').appendTo($('.mCSB_container'));
 				updateScrollbar();
 				
 				setTimeout(function() {
 				$('.message.loading').remove();
-					$('<div class="message new"><figure class="avatar"><img src="/steach/resources/images/class/group/p1.jpg" /></figure>' + evt.data + '</div>').appendTo($('.mCSB_container')).addClass('new');
+					$('<div class="message new"><figure class="avatar"><img src="' + profilePath + '" /></figure>' + messageContent + '</div>').appendTo($('.mCSB_container')).addClass('new');
 				    setDate();
 				    updateScrollbar();
-				}, 100);
+				}, 10);
 
-	           $(".chat_s").append('<div class="chat_bubble-1">' + evt.data + '</div>');
+	           $(".chat_s").append('<div class="chat_bubble-1">' + messageContent+ '</div>');
 		    };
 		    ws.onerror = function(evt) {
 		    	console.dir(evt.data)
@@ -1100,13 +1105,14 @@
 		function send() {
 		    var $msg = $("#message");
 // 		    var sendMsg = $msg.val();
-		    var sendMsg = $('.message-input').val($(".emoji-wysiwyg-editor").html()).val();
+		    var sendMsg = $('.message-input').val("${user.profilePath}:" + $(".emoji-wysiwyg-editor").html()).val();
+	    	var messageContent = sendMsg.substring(sendMsg.indexOf(":") + 1);
             
 		    if ($.trim(sendMsg) == '') {
                 return false;
             }
             
-		    $('<div class="message message-personal">' + sendMsg + '</div>').appendTo($('.mCSB_container')).addClass('new');
+		    $('<div class="message message-personal">' + messageContent + '</div>').appendTo($('.mCSB_container')).addClass('new');
 		    setDate();
 		    $('.message-input').val(null);
 		    $('.emoji-wysiwyg-editor').text('');
@@ -1153,14 +1159,16 @@
             }
         ); 
         
-        // 해더 링크
-       	$("a[href='lecture']").click(function(){
-    		location.href="<c:url value='/class/lecture/lecture.do'/>";
-	    })
+//         // 해더 링크
+//        	$("a[href='lecture']").click(function(){
+//     		location.href="<c:url value='/class/lecture/lecture.do'/>";
+// 	    })
 	    
-	     $("a[href='member']").click(function(){
-	    	location.href="<c:url value='/class/member/member.do'/>";
-	    })
+// 	     $("a[href='member']").click(function(){
+// 	    	location.href="<c:url value='/class/member/member.do'/>";
+// 	    })
+  		// 그룹 활동 페이지 네이비게이션 고정
+        $(".navbar").addClass("navbar-fixed-top");
     </script>
 </body>
 </html>

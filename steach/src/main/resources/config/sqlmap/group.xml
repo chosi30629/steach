@@ -71,7 +71,7 @@
 		insert into tb_class_group_list (
 			group_no, list_writer, list_title, list_order
 		) values (
-			#{groupNo}, 'chos', #{listTitle}, #{listOrder}
+			#{groupNo}, #{listWriter}, #{listTitle}, #{listOrder}
 		)
 	</insert>
 	
@@ -105,7 +105,7 @@
 		insert into tb_class_group_list_card (
 			list_no, card_writer, card_title, card_order
 		) values (
-			#{listNo}, 'chos', #{cardTitle}, #{cardOrder}
+			#{listNo}, #{cardWriter}, #{cardTitle}, #{cardOrder}
 		)
 	</insert>
 	
@@ -142,7 +142,7 @@
 		insert into tb_class_group_list_card_comment (
 			card_no, card_comment_writer, card_comment_content
 		) values (
-			#{cardNo}, 'chos', #{cardCommentContent}
+			#{cardNo}, #{cardCommentWriter}, #{cardCommentContent}
 		)
 	</insert>
 		
@@ -170,7 +170,7 @@
 		insert into tb_class_group_list_card_checklist (
 			card_no, card_checklist_writer, card_checklist_title
 		) values (
-			#{cardNo}, 'chos', #{cardChecklistTitle}
+			#{cardNo}, #{cardChecklistWriter}, #{cardChecklistTitle}
 		)
 	</insert>	 
 	
