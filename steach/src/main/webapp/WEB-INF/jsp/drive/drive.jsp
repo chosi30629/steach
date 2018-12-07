@@ -195,7 +195,7 @@
              <div class="myModal modal fade">
                 <div class="modal4 modal-content col-md-3">                                                   
                     <p class="addFolderBefore">새폴더</p>
-                    <p><input class="addTextBefore form-control" type="text" value="제목없는 폴더" /></p>
+                    <p><input class="addTextBefore form-control" type="text" /></p>
                     <p style="display : flex;flex-direction: row-reverse;">
                       <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
                       <button class="AfterMakeIt form-control" style="width:unset;">만들기</button>
@@ -207,10 +207,10 @@
   <!-- 컨텍스트 메뉴 관련 -->
   <ul class="contextmenu">
       <li><a href="#">색상바꾸기 (나중에)</a></li>
-      <li><a href="#">이름 변경 (완료)</a></li>
+      <li><a href="#">이름 변경</a></li>
       <li><a href="#">공유 (미구현)</a></li>
       <li><a href="#">다운로드 (미구현)</a></li>
-      <li><a href="#">삭제 (완료)</a></li>
+      <li><a href="#">삭제</a></li>
     </ul>
     <!-- 컨텍스트 메뉴 끝 -->
     
@@ -246,7 +246,7 @@
 	 	}
 	
 		 $('.addFile').off("click").click(function(){
-			 
+			 $('.modal').modal('hide');
 		 
  $('.fButton').off("click").click(function() {
 	 
@@ -270,23 +270,23 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-			$('tbody').empty();
+			// tbody 다시 그려줌
+			console.dir(result);
 			EmojiAndFLengthLIST(result);
 			
-			if($('tbody').children().length==0){
-			    $('.ft').append(
-			   		 '<div class="picOuter" style="display: flex">'
-			       	+	'<div class="allpicOuter">'
-			    	+		'<div class="allpic">'
-			        +			'<div class="pic1"></div>'
-			   		+			'<div class="pic2"></div>'
-			        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
-			   		+		'</div>'
-			        +	'</div>'
-			        +'</div>').show()
-			            }else{
-			            	$('.ft > .picOuter').hide();
-			            } // 노가다문 end if
+			if($('tbody').children().length==0 && $('.ft').children().length==1 )
+			{
+		    $('.ft').append(
+		   		 '<div class="picOuter" style="display: flex">'
+		       	+	'<div class="allpicOuter">'
+		    	+		'<div class="allpic">'
+		        +			'<div class="pic1"></div>'
+		   		+			'<div class="pic2"></div>'
+		        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+		   		+		'</div>'
+		        +	'</div>'
+		        +'</div>')
+		     }
 			
 		})
 		return false;
@@ -307,15 +307,16 @@ $('.addFolder').click(function(){
   		  alignItems: 'center',
   		  flexDirection: 'column',
   		  justifyContent: 'center',
-  		})    
+  		})
+  		
+  		$('.modal4').find('.addTextBefore').val("제목없는 폴더").select();
+  		
 
-	// 모달창은 autofocus 안먹혀서 따로 처리
-  	$('.addTextBefore').focus();
-  
-// esc 키다운시 modal4 비활성화
+ // esc 키다운시 modal4 비활성화
  $(document).on('keydown', function(e) { 
       if (e.keyCode == 27) 
-      $('.myModal').modal('hide') 
+      $('.myModal').modal('hide');
+      $('.fileUpload').modal('hide');
   }); 
 })
 
@@ -344,7 +345,7 @@ $('.addFolder').click(function(){
     	arrpatt.push($("#tree").fancytree("getTree").getNodeByKey(node.getKeyPath(false).split("/")[i]).title);
 		}
 		
-		var pat = "c:\\drive\\"
+		var pat = "C:\\drive\\"
 		var patt = arrpatt.join("\\");
 // 		console.log(pat + patt);
 		
@@ -385,7 +386,7 @@ $('.addFolder').click(function(){
     	 		$('tbody').attr('data-path',  e.path.substring(0, e.path.lastIndexOf('\\')) )
         	})
         	
-    	  $('.picOuter').css("display", "none");
+//     	  $('.picOuter').css("display", "none");
           $('.addTextBefore').val('제목없는 폴더');
           $(this).parent().parent().parent().modal('hide');
         
@@ -401,11 +402,18 @@ $('.addFolder').click(function(){
       var googleval;
       var tree;
       var needPath;
-      $('.contextmenu').children().eq(1).click(function(){
+      var thiResult;
+      var thiResultEXT;
+      var resultPath;
+      var needNode;
+      $('.contextmenu').children().eq(1).off('click').click(function(){
 //     	  console.log("thi", thi);	// ex) google.png
-    	  thiResult = thi.substring(0 , thi.indexOf('.')); // ex)  파일이름 google
-          thiResultEXT = thi.substring(thi.indexOf('.') , thi.length); // ex) 파일확장자 png
-    	  
+			if(thi.indexOf('.') != -1){
+    		 thiResult =  thi.substring(0 , thi.indexOf('.')); // 파일이름 google
+    		 thiResultEXT = thi.substring(thi.indexOf('.') , thi.length); // ex) 파일확장자 png
+    		 thi = thiResult;
+				}
+    	  		
         $('.myModal2').modal({
            keyboard: true, 
            show: true
@@ -414,58 +422,68 @@ $('.addFolder').click(function(){
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'
-         }).find('.changeNameText').val(thiResult).select();
+         }).find('.changeNameText').val(thi).select();
         
          googleval = $('.myModal2').find('.changeNameText').val();	// 모달의 input - value를 가져온다.  
-//          console.log("인풋창의 이름값",googleval);	//ex) google.png
+         console.log("인풋창의 이름값",thi);	//ex) google.png
+
+		var clickedTag = tr.attr('path-data'); //선택한 tr태그의 path-data 를 가져온다 (경로)
+         console.log("우클릭한 태그의 경로",clickedTag);	// ex ) c:\drive\parkhanjun\제목없는 폴더\google.png
          
-         var clickedTag = tr.attr('path-data'); //선택한 tr태그의 path-data 를 가져온다 (경로)
-//          console.log("우클릭한 태그의 경로",clickedTag);	// ex ) c:\drive\parkhanjun\제목없는 폴더\google.png
-         
+         if(thiResultEXT == undefined) thiResultEXT ="";
    		tree = $("#tree").fancytree("getTree");
-   		find = tree.findAll(googleval);
+   		console.log( (thi).trim())
+   		find = tree.findAll(thi);
+   		console.log("트리 경로찾을거야",find);
+   		
+   		
    		for(var i =0; i < find.length ; i++){
+   			console.log(find[i].data.path);
+   			console.log(clickedTag);
+   			console.log(find[i].data.path == clickedTag)
    			if(find[i].data.path == clickedTag){
    				// 우클릭한 tr의 경로와 펜시트리에서 같은 경로를 가지고 있는것을 비교
    				// true일시 태그를 needPath 변수에 담음
    				needPath = find[i].data.path;
-   			}
-   		}
+   				needNode =find[i];
+   				
+   			} // end if
+   		}//end for
+   				resultPath = needPath.substring(0 , needPath.lastIndexOf("\\")+1);
+   		
+   	  // 이름 바꾸기 변경 버튼 누를시 !!!!
+        $('.myModal2').find('.AfterChange').off('click').click(function(){
+     	   //changeNameText 
+     	google = $(this).parent().parent().find('.changeNameText').val()
+//      	console.log(google, thiResultEXT); // 바꿀 이름  + 확장자
+     	if(google == "" || google.trim() == ""){
+     		alert("이름을 지어주세요!")
+     		return false;
+     	}
+     	if(thiResultEXT == undefined) thiResultEXT = "";
+     	
+//  		console.log("네가 찾는것이 이것이니 needPath", needPath);// 바꿀태그와 같은 경로를 가지고 있는  fancytree의 경로 
+ 		$.ajax({
+ 			url: '<c:url value="/drive/rename.do" />',
+ 			data : {
+ 				path : thi+thiResultEXT,
+ 				title : resultPath+google+thiResultEXT 
+ 			}	// title 
+ 		}).done(function(result){
+ 			console.log(result);
+ 			EmojiAndFLengthLIST(result);
+ 			needNode.setTitle(google+thiResultEXT)
+//  			$(document).ready(function(){
+//  			console.log('${list}');
+//  			})
+ 		})
+        
+     
+        $(this).parent().parent().parent().modal('hide');
+             })// 이름바꾸기 이벤트 끝
    		
       })
         
-       // 이름 바꾸기 변경 버튼 누를시 !!!!
-       $('.myModal2').find('.AfterChange').click(function(){
-    	   //changeNameText 
-    	google = $(this).parent().parent().find('.changeNameText').val()
-//     	console.log(google, thiResultEXT); // 바꿀 이름  + 확장자
-    	if(google == "" || google.trim() == ""){
-    		alert("이름을 지어주세요!")
-    		return false;
-    	}
-    	
-// 		console.log("네가 찾는것이 이것이니 needPath", needPath);// 바꿀태그와 같은 경로를 가지고 있는  fancytree의 경로 
-		$.ajax({
-			url: '<c:url value="/drive/rename.do" />',
-			data : {
-				path : needPath,
-				title : needPath.substring(0 , needPath.lastIndexOf("\\")+1)+google+thiResultEXT 
-			}	// title 
-		}).done(function(result){
-			console.log(result);
-			firstload
-// 			var node = $("#tree").fancytree("getRootNode").children[0];
-// 			var childlist = ${list};
-// 			 	for(var i=0 ; i< childlist.length; i++){
-// 				 	var e = childlist[i];
-// 				 	var childNode = node.addChildren(e);
-// 			 	}
-		})
-       
-    
-       $(this).parent().parent().parent().modal('hide');
-            })// 이름바꾸기 이벤트 끝
-         
             //우클릭 메뉴 삭제 눌렀을때
             $('.contextmenu').children().eq(4).click(function(){
         	tr.remove()
@@ -646,8 +664,6 @@ $(document).on('keydown', function(e) {
   })
   //------------------------------------------ 모달 과련 끝
   
-  var subfile = '${subFiles}';
-  //fancytree 첫로드시 폴더 트리 구성 소스 ${subFiles}
 var source = [ 
   	{"title": "${user.name}", "expanded": true, "path" : "c:\\drive\\"+"${user.name}" , "folder": true, "children": [
   ]}
@@ -659,7 +675,7 @@ var source = [
 	  $("#tree").fancytree({
 //     	generateIds: true,
 //         idPrefix: "test_", 
-    	autoCollapse: true, //자동 접기
+//     	autoCollapse: true, //자동 접기
         clickFolderMode: 4,
         selectMode: 4,
         icon: function(event, data) {
@@ -791,7 +807,8 @@ var source = [
 				 EmojiAndFLengthLIST(result);
 				 
 				 //!!!! 함수로 뺄 것 노가다 if
-				if($('tbody').children().length==0){
+				if($('tbody').children().length==0 && $('.ft').children().length==1 )
+					{
     			    $('.ft').append(
     			   		 '<div class="picOuter" style="display: flex">'
     			       	+	'<div class="allpicOuter">'
@@ -801,11 +818,9 @@ var source = [
     			        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
     			   		+		'</div>'
     			        +	'</div>'
-    			        +'</div>').show()
-    			            }else{
-    			            	$('.ft > .picOuter').hide();
-    			            } // 노가다문 end if
-    	 		
+    			        +'</div>')
+    			     }
+				 	
     	 	}) // end function done
         }//end fancytree click event
       }); // end fancytree
@@ -836,7 +851,7 @@ var source = [
 		
 		// drive.do 처음 접속화면 리스트 표현
 		// 유저 이름에 해당하는 리스트를 가져와서 뿌린다.
-		firstLoad = $(document).ready(function(){
+			function drive(){
 				var node = $("#tree").fancytree("getRootNode").children[0];
 				var childlist = ${list};
 				var keyPath;
@@ -909,6 +924,10 @@ var source = [
 			         	 +'</div>')
 			            $('.picOuter').css("display", "flex");
 			            } //if
+			            }// end function drive  // 처음 리스트를 불러오는 역할
+			            
+			            $(document).ready(function(){
+			            	drive();
 			            })
 			            
 			            // 리스트(테이블)내 tr태그 클릭시(폴더) 하위폴더로 이동
@@ -925,6 +944,17 @@ var source = [
 										path : pathData
 									}
 								}).done(function(result){
+									tree = $("#tree").fancytree("getTree")
+									dbcNode = pathData.substring(pathData.lastIndexOf('\\')+1 , pathData.length);
+									
+									var findAll = tree.findAll(dbcNode);
+									for(var i =0; i < findAll.length ; i++ ){
+										console.log(findAll[i]);
+										if(findAll[i].data.path == pathData){
+										findAll[i].setExpanded();											
+										}
+									}
+									
 										EmojiAndFLengthLIST(result);
 									
 									if($('tbody').children().length==0){
@@ -1071,6 +1101,11 @@ var source = [
 			 }//end for
 			 
 		 }// end function EmojiAndFLengthLIST
+		 
+		 $('.textheader').click(function(){
+			 location.reload();
+		 })
+		 
 		 
 </script>
 </body>

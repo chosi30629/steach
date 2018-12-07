@@ -30,8 +30,8 @@ import kr.co.steach.repository.domain.User;
 @RequestMapping("/drive")
 public class DriveController {
 
-	 private final String Npath = "c:\\drive\\";		// 저장소 전역변수화
-	 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	 private final String Npath = "C:\\drive\\";		// 저장소 전역변수화
+	 static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	
 	 /**
 	  * 폴더 생성
@@ -74,6 +74,7 @@ public class DriveController {
 			fmap.put("path", fInfo.getPath());
 			if(fInfo.isDirectory() == true && fInfo.listFiles().length != 0) {
 				fmap.put("lazy", true);
+//				fmap.put("children", fInfo.listFiles());
 			}
 			list.add(fmap);
 			}
@@ -132,12 +133,16 @@ public class DriveController {
 	
 	@RequestMapping("/rename.do")
 	@ResponseBody
-	public void rename(@RequestParam(value="title")String title , @RequestParam(value="path")String path) {
-			System.out.println(title);
-			System.out.println(path);
-			File f = new File(path);
-			File f1 = new File(title);
+	public List<Map<String, Object>> rename(@RequestParam(value="title")String title , @RequestParam(value="path")String path) throws IOException {
+			System.out.println(path); // 전
+			System.out.println(title);	// 후
+			System.out.println(title.substring(0, title.lastIndexOf("\\")+1)+path);
+			File f = new File(title.substring(0, title.lastIndexOf("\\")+1)+path);  //전
+			File f1 = new File(title); //후
 			f.renameTo(f1);
+			
+			File f2 = new File(f1.getParent());
+			return listLoad(f2);
 	}
 
 	/**
@@ -162,17 +167,7 @@ public class DriveController {
 			file.transferTo(new File(path+"\\" , file.getOriginalFilename()));
 	}
 		File f =new File(path);
-		List<Map<String,Object>> list = new ArrayList();
-		for(File arrfile : f.listFiles()) {
-			Map<String, Object> fmap = new HashMap<>();
-				fmap.put("title", arrfile.getName());
-				fmap.put("folder",arrfile.isDirectory());
-				fmap.put("lastModified", sdf.format(arrfile.lastModified()));
-				fmap.put("length", arrfile.length());
-				fmap.put("path", arrfile.getCanonicalPath());
-				list.add(fmap);
-		}
-			return list;
+		return listLoad(f);
 }
 	
 	/**
@@ -200,23 +195,6 @@ public class DriveController {
 //					System.out.println(usedSpaece);					
 				}else {
 					f.mkdirs(); 					
-				}
-
-				List<Map<String, Object>> list = new ArrayList<>();
-				File[] arrfile = f.listFiles();
-				String[] array = {};
-				for(File fInfo : arrfile) {
-					Map<String, Object> fmap = new HashMap<>();
-					fmap.put("path", fInfo.getPath());
-					fmap.put("title", fInfo.getName());
-					fmap.put("folder", fInfo.isDirectory());
-					if(fInfo.isDirectory() && fInfo.listFiles().length != 0) {
-						fmap.put("lazy", true);
-						fmap.put("flist", fInfo.listFiles());
-					}
-					fmap.put("lastModified", sdf.format(fInfo.lastModified()));
-					fmap.put("length", fInfo.length());
-					list.add(fmap);
 				}
 				
 				// 경로를 가지고 있는 배열
@@ -259,7 +237,7 @@ public class DriveController {
 		        Gson gson = new Gson();
 		        model.addAttribute("subFiles", subFiles);
 		        model.addAttribute("usableSpace", usableSpace);
-		        model.addAttribute("list", gson.toJson(list));
+		        model.addAttribute("list", gson.toJson(listLoad(f)));
 		        
 		       
 		        return user;
@@ -284,5 +262,25 @@ public class DriveController {
 		
 			
 }
+		    public static List<Map<String, Object>> listLoad(File f)
+		    {
+		    	List<Map<String, Object>> list = new ArrayList<>();
+				File[] arrfile = f.listFiles();
+				for(File fInfo : arrfile) {
+					Map<String, Object> fmap = new HashMap<>();
+					fmap.put("path", fInfo.getPath());
+					fmap.put("title", fInfo.getName());
+					fmap.put("folder", fInfo.isDirectory());
+					if(fInfo.isDirectory() && fInfo.listFiles().length != 0) {
+						fmap.put("lazy", true);
+						fmap.put("flist", fInfo.listFiles());
+					}
+					fmap.put("lastModified", sdf.format(fInfo.lastModified()));
+					fmap.put("length", fInfo.length());
+					list.add(fmap);
+				}
+				return list;
+		    }
+		    
 }
 
