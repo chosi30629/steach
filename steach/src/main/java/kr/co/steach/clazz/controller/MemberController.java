@@ -43,7 +43,10 @@ public class MemberController {
 	@RequestMapping("/studentList.do")
 	@ResponseBody
 	public List<ClassMember> studentList(int classNo){
+		
+		System.out.println(service.selectMemberByClassNo(classNo));
 		return service.selectMemberByClassNo(classNo);
+		
 	}
 	
 	

@@ -3,10 +3,12 @@ package kr.co.steach.clazz.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
+import kr.co.steach.repository.domain.VoteResult;
 
 public interface LectureService {
 	/*List<LectureBoard> selectBoardByClassNo(int classNo);*/
@@ -54,6 +56,13 @@ public interface LectureService {
     
     /* vote list insert */
     void insertVoteList(VoteList voteList);
+    
+    /* 투표하기 */
+    void insertVote(VoteResult voteResult);
+    
+    /*board별 투표 확인하기 */
+    List<CounterVO> selectVoteResultCountByBNo(int boardNo);
+  
   
     
 }

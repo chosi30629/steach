@@ -10,7 +10,8 @@ public class CounterVO {
 	private int boardNo;
 	private int lecNo;
 	private int classNo;
-	
+	private int selectNo;
+	private int selectedNo;
 	private int count; 
 	
 }

@@ -8,6 +8,7 @@ import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
+import kr.co.steach.repository.domain.VoteResult;
 
 public interface LectureBoardMapper {
 	
@@ -57,11 +58,24 @@ public interface LectureBoardMapper {
 	/* select vote list by cNo */
 	List<VoteList> selectVoteListByCNo(int classNo);
 	
+	/*투표 board별 제출자 카운트 */
 	List<CounterVO> selectVoteCntByCNo(int classNo);
 	
 	
 	/* insert vote list */
 	
 	void insertVoteList(VoteList voteList);
+	
+	/*class별 투표 여부 확인 */
+	List<VoteResult> selectVoteResultByCNo(int classNo);
+	
+	
+	/* 투표하기 */
+	void insertVote(VoteResult voteResult);
+	
+/*	투표 선택한 항목에 대한 count 
+	List<CounterVO> selectVoteResultListByCNo(int classNo);*/
+	
+	List<CounterVO> selectVoteResultCountByBNo(int boardNo);
 	
 }

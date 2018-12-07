@@ -1,6 +1,7 @@
 package kr.co.steach.clazz.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.LectureService;
+import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
 import kr.co.steach.repository.domain.VoteListInsert;
+import kr.co.steach.repository.domain.VoteResult;
 
 @Controller
 @RequestMapping("/class/lecture")
@@ -63,7 +66,7 @@ public class LectureController {
 		Map<String,Object> map = new HashMap<>();
 		map.put("list", service.selectLectureListByClassNo(classNo));
 		return map;
-	}
+	} 
 	
 	
 	/* insert lecture */
@@ -168,19 +171,18 @@ public class LectureController {
 //		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
 //	}
 	
+
 	
+	@RequestMapping("/insertVote.do")
+	@ResponseBody
+	public void insertVote(VoteResult voteResult) {
+		service.insertVote(voteResult);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping("/vote-result.do")
-	public void voteResult() {
-		
+	/*vote 결과 확인하기 */
+	@RequestMapping("/voteResult.do")
+	@ResponseBody
+	public List<CounterVO> selectVoteResultCountByBNo(int boardNo) {
+		return service.selectVoteResultCountByBNo(boardNo);
 	}
 }

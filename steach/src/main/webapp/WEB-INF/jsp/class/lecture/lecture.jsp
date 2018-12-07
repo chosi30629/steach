@@ -25,6 +25,8 @@
 <!-- swAlert.js -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
+<link rel="stylesheet"
+ 	href="/steach/resources/css/class/lecture/animate.css"/>
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 
@@ -145,6 +147,7 @@
 
 
 	<script>
+		console.log(new Date());
 		$("#localAttach").click(function() {
 			$("#localAttachFile").click();
 		});
@@ -353,6 +356,7 @@
 		/* Data loading */
 		var classNo = "${clazz.classNo}";
 		var master ="${clazz.master}";
+		var userId = "${user.id}";
 		var lecNo = 0;
 		var boardNo = 0;
 		var deadline = "";
@@ -384,8 +388,7 @@
 			$(".sortable").disableSelection();
 	
 			
-			/* 지금 미사용 . */
-			$('.vote-result-list').simpleSkillbar({});
+			
 
 		});
 		
@@ -432,6 +435,8 @@
 					var subjectList = data.list.subjectList;
 					var voteList = data.list.voteList;
 					var voteCount = data.list.voteCount; 
+					var voteResult = data.list.voteResult;
+					
 					var html = new StringBuffer();
 					/* 주제  list */
 					for (let i = 0; i < subjectList.length; i++) {
@@ -504,25 +509,51 @@
 								if(boardList[j].pNo == 4 ){
 									html.append("<div class='col-md-8'>");
 									html.append("<div class='vote-content'>");
+									html.append("<form id='vrForm"+boardList[j].boardNo+"'>");
 									
 									/* 반복되야 할 부분 */
 									for(var v=0; v < voteList.length; v++){
 										if(voteList[v].boardNo == boardList[j].boardNo){
-											console.log(voteList[v]);
 											html.append("<div class='radio'>");
-											html.append("<label>");
-											html.append("<input type='radio' name='vt' value='"+voteList[v].selectNo+"'>"+voteList[v].selectName);
+											html.append("<label id='vote"+voteList[v].boardNo+"-"+voteList[v].selectNo+"'>");
+											html.append("<input type='radio' name='selectedNo' value='"+voteList[v].selectNo+"'");
+											
+											/* 마감일지났으면  다 disabled */
+										 	if(boardList[j].deadline < new Date()){
+												html.append("disabled");
+											}
+											 
+										 	else{
+												/*투표했으면 selected disabled */
+												for(var vr=0;vr <voteResult.length;vr++){
+													if(voteResult[vr].id==userId && voteResult[vr].boardNo==voteList[v].boardNo && voteResult[vr].selectedNo == voteList[v].selectNo){
+														html.append("checked disabled");
+													} else if (voteResult[vr].id==userId && voteResult[vr].boardNo==voteList[v].boardNo && voteResult[vr].selectedNo != voteList[v].selectNo){
+														html.append("disabled");	
+													} 
+												}
+										 	}
+											
+													
+											html.append(">"+voteList[v].selectName+"</input>");
+										/* 	html.append("<div class='vote-progressbar'>test</div>") */
 											html.append("</label>");
 											html.append("</div>"); // radio end  
 										}//if end
 									}	//for end 
 									
-									
+									html.append("</form>")
 									html.append("</div>")// vote-content end 
 									html.append("<div class='col-md-8'>");
 									html.append("<div class='vote-button'>");
-									html.append("<button class='btn btn-primary' onclick='voteDo("+boardList[j].boardNo+")'>투표하기</button>　");
-									html.append("<button class='btn btn-primary' onclick='voteView("+boardList[j].boardNo+")'>결과보기</button>");
+									/* 현재시간이 마감일보다 크면 결과보기 나오게하기   */
+									
+									if (boardList[j].deadline > new Date()){
+										html.append("<button class='btn btn-primary' onclick='voteDo("+boardList[j].boardNo+")'>투표하기</button>　");	
+									} else {
+										html.append("<button class='btn btn-primary' onclick='voteView("+boardList[j].boardNo+","+boardList[j].memCnt+")'>결과보기</button>");							
+									}
+									
 									html.append("</div>");// vote-button end 
 									html.append("</div>");//col-md-8 end 
 									html.append("</div>");//outer col-md -8 end 
@@ -535,11 +566,14 @@
 									html.append("<div class='col-md-6'>");									
 									html.append("<div class='submit-cnt-number'>");
 									/* 게시글에 따른 count */
-									for(var vc=0;vc<voteCount.length;vc++){
-										if(voteCount[vc].boardNo ==boardList[j].boardNo ){
-											html.append(voteCount[vc].count);
-										} 
+				
+								 	for(var vc=0;vc<voteCount.length;vc++){
+										if(voteCount[vc].boardNo == boardList[j].boardNo ){
+											html.append(voteCount[vc].count );
+ 										} 
 									}
+									
+									
 									
 									html.append("</div>");									
 									html.append("<div class='submit-cnt-text'>제출자 수</div>");									
@@ -599,7 +633,7 @@
 							  buttonClass: 'btn btn-danger',
 							});
 					}).fail(function() {
-				alert("안됬어..")
+				alert("list ajax loading fail ")
 			});
 		} // ajax list
 
@@ -894,7 +928,7 @@
 			html.append("<i class='fas fa-grip-vertical fa'></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
 			html.append("<label>");
 			html.append("<input type='radio' disabled>");
-			html.append("<input type='text' name='select_name' placeholder='내용을 입력하세요' size='48'/>");
+			html.append("<input type='text' name='select_name' placeholder='내용을 입력하세요' size='40'/>");
 			html.append(" <a><span><i class='fas fa-times'></i></span></a>")
 			html.append("</label>");
 			html.append("</div>");
@@ -908,6 +942,62 @@
 		})
 		
 		
+		/*vote 결과 넘기기 */ 
+		function voteDo(boardNo){
+			var obj={};
+			//alert(boardNo);
+			/* 선택번호 */
+			var selectedNo = $("#vrForm"+boardNo).serializeArray();
+			//console.log(selectedNo[0].value);
+			//console.log(userId);
+			//console.log(boardNo);
+			obj.boardNo=boardNo;
+			obj.selectedNo=selectedNo[0].value;
+			obj.id=userId;
+			$.ajax({
+				url:"<c:url value='insertVote.do'/>",
+				data:obj
+			}).done(function(){
+				Swal({
+					  title: "투표가 완료되었습니다!",
+			 		  animation: false, 
+					  customClass: 'animated bounce',
+					  position:'center-center',
+	        		  type:'success',
+	        		  showConfirmbutton:false,
+	        		  timer:1500
+					});
+				$(".accordion-head").remove();
+				$(".accordion").remove();
+				list();
+					
+			}).fail(function(){
+				alert("fail!")
+			})
+			
+		}
+		
+		function voteView(boardNo,memCnt){
+			
+		
+			 $.ajax({
+				url:"<c:url value='voteResult.do'/>",
+				data:{boardNo:boardNo}
+			}).done(function(data){
+				console.log(data);
+				for(var i =0; i<data.length; i++){
+					console.log(data[i].count)
+					var html="";
+					html="<div class='vote-progressbar' data-width='40%'>"+data[i].count*100+"</div>";
+					$("#vote"+boardNo+"-"+(i+1)).append(html);
+					
+				}//for end 
+				$('.vote-progressbar').simpleSkillbar({});			
+			}); 
+			
+		}
+		
+		/* 지금 미사용 . */
 		
 	</script>
 </body>

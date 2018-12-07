@@ -7,10 +7,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
+import kr.co.steach.repository.domain.VoteResult;
 import kr.co.steach.repository.mapper.LectureBoardMapper;
 
 @Controller
@@ -50,8 +52,15 @@ public class LectureServiceImpl implements LectureService {
 		
 		map.put("voteCount", mapper.selectVoteCntByCNo(classNo));
 		
-		System.out.println("voteCount"+mapper.selectVoteCntByCNo(classNo));
+		//투표자 명단 list 
+		map.put("voteResult",mapper.selectVoteResultByCNo(classNo));
 		
+		//map.put("voteResultCount",mapper.selectVoteResultListByCNo(classNo));
+		
+		
+		System.out.println("voteCount"+mapper.selectVoteCntByCNo(classNo));
+		System.out.println("voteResult"+mapper.selectVoteResultByCNo(classNo));
+		//System.out.println("voteResultCount"+mapper.selectVoteResultListByCNo(classNo));
 		//System.out.println(mapper.selectLectureBoardByClassNo(classNo));
 		//System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
 		return map;
@@ -121,6 +130,16 @@ public class LectureServiceImpl implements LectureService {
 	public void insertVoteList(VoteList voteList) {
 		mapper.insertVoteList(voteList);
 		
+	}
+
+	@Override
+	public void insertVote(VoteResult voteResult) {
+		mapper.insertVote(voteResult);
+	}
+
+	@Override
+	public List<CounterVO> selectVoteResultCountByBNo(int boardNo) {
+		return mapper.selectVoteResultCountByBNo(boardNo);
 	}
 
 	
