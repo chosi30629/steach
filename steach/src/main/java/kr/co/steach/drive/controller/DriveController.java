@@ -170,6 +170,14 @@ public class DriveController {
 		return listLoad(f);
 }
 	
+	
+	@RequestMapping(value="/delete.do")
+	@ResponseBody
+	public void delete() {
+		
+	}
+	
+	
 	/**
 	 * 최초 팬시트리 로드시 루트 폴더[사용자 이름] 직속 하위폴더들만 표시
 	 * @param model

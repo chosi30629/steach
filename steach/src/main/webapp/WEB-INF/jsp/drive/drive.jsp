@@ -486,6 +486,12 @@ $('.addFolder').click(function(){
         
             //우클릭 메뉴 삭제 눌렀을때
             $('.contextmenu').children().eq(4).click(function(){
+            	
+            	$.ajax({
+            		url : '<c:url value="/drive/delete.do" />',
+//             		data : 
+            	})
+            	
         	tr.remove()
 			tree = $("#tree").fancytree("getTree");
         	 googleval = $('.myModal2').find('.changeNameText').val(thi);
@@ -677,7 +683,7 @@ var source = [
 //         idPrefix: "test_", 
 //     	autoCollapse: true, //자동 접기
         clickFolderMode: 4,
-        selectMode: 4,
+        selectMode: 1,
         icon: function(event, data) {
           return !data.node.isTopLevel();
         },
@@ -792,8 +798,15 @@ var source = [
             break;
           }
         },
-        dblclick: function(event, data) {
+        dblclick: function(event,data){
+        	console.log(data.node.isExpanded());
+        	
+        },
+        click: function(event, data) {
         	console.log(data.node);
+        	if(data.node.isLazy() == true){
+        	data.node.lazyLoad();        		
+        	}
     	 	var path = data.node.data.path
     	 	//파일업로드 경로주기
     	 	nowpath(path);
@@ -807,7 +820,7 @@ var source = [
 				 EmojiAndFLengthLIST(result);
 				 
 				 //!!!! 함수로 뺄 것 노가다 if
-				if($('tbody').children().length==0 && $('.ft').children().length==1 )
+				if($('tbody').children().isEmptyObject == true)
 					{
     			    $('.ft').append(
     			   		 '<div class="picOuter" style="display: flex">'
@@ -819,6 +832,8 @@ var source = [
     			   		+		'</div>'
     			        +	'</div>'
     			        +'</div>')
+    			     }else {
+    			    	 $('.picOuter').hide();
     			     }
 				 	
     	 	}) // end function done
@@ -931,7 +946,7 @@ var source = [
 			            })
 			            
 			            // 리스트(테이블)내 tr태그 클릭시(폴더) 하위폴더로 이동
-			            	$(document).on('dblclick', 'tr' ,function(){
+			            	$(document).on('click', 'tr' ,function(){
 								pathData = $(this).attr('path-data');
 								
 								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
