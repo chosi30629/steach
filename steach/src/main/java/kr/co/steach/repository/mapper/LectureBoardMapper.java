@@ -54,6 +54,8 @@ public interface LectureBoardMapper {
 
 	List<Homework> selectAllHomeworkByCNo(Map<String, Object> param);
 	
+	/* select count 과제 제출자 list by classNO*/
+	List<CounterVO> selectHWCountByCNo(int classNo);
 	
 	/* select vote list by cNo */
 	List<VoteList> selectVoteListByCNo(int classNo);

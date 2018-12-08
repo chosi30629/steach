@@ -163,43 +163,7 @@
 		 where board_no=#{boardNo}
 	</update>
 	
-	
-	
-	<!-- homework -->
-	
-	<!-- class번호에 해당하는 homework 가져오기  -->
-	<!-- <select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
-		select b.*,l.subject
-		  from tb_class_lecture_board b, tb_class_lecture l
-		 where b.lec_no=l.lec_no
-		   and l.class_no=#{classNo}
-		   and b.p_no=2
-	</select> -->
-	
-	<!-- count test -->
-	<select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
-		select b.*,l.subject,count(*) as count
-		  from tb_class_lecture_board b, tb_class_lecture l,tb_class_lecture_board_homework h
-		 where b.lec_no=l.lec_no
-		   and h.board_no=b.board_no
-		   and l.class_no=#{classNo}
-		   and b.p_no=2
-		   group by h.board_no
-	</select>
-	
-	<select id="selectAllHomeworkByCNo" parameterType="map" resultMap="homeworkMap">
-		select u.id, h.board_no, h.hw_no, h.hw_content, h.reg_date
-		  from tb_class_member u   <!--  클래스 내의 회원들이 있는 DB (회원아이디 ) -->
-		  left outer join (select *
-		                     from tb_class_lecture_board_homework
-								  where board_no = #{boardNo}) h  <!-- 클래스 내 게시글에 과제를 제출한 인원의 정보가 있는 DB  -->
-		    on u.id = h.id	<!-- 조인할 컬럼이 id  -->	  
-		 where u.class_no = #{classNo}		<!-- where절은 해당 클래스 번호인데 넌 필요없을듯  -->
-	
-	</select>
-
- 
- 	<!-- class 별 투표 조회  -->
+	<!-- class 별 투표 조회  -->
  	<select id="selectVoteListByCNo" parameterType="int" resultMap="voteListMap">
 	select v.*
 		from tb_class_lecture_board_vote_list v, tb_class_lecture_board b, tb_class_lecture l
@@ -257,17 +221,6 @@
 	</insert>
 	
 	
-	<!-- 클래스별 투표 결과 뽑기  -->
-	<!-- board별로 테스트해볼까영?  -->
-<!-- 	<select id="selectVoteResultListByCNo" parameterType="int" resultType="CounterVO">
-		 select r.board_no as boardNo , r.selected_no as selectedNo ,count(r.selected_no) as count
-		  from tb_class_lecture_board_vote_result r, tb_class_lecture_board b, tb_class_lecture l
-		 where r.board_no=b.board_no
-		   and b.lec_no = l.lec_no 
-		   and l.class_no=#{classNo}
-		  group by r.board_no,r.selected_no
-	</select> -->
-	
 	<!-- BOARD 별 투표 결과  -->
 	<select id="selectVoteResultCountByBNo" parameterType="int" resultType="CounterVO">
 		 select l.board_no as boardNo, l.select_no as selectNo, COALESCE(r.count,0) as count
@@ -280,5 +233,44 @@
 		   and l.select_no = r.selected_no
 		  where l.board_no=#{boardNo}
 	</select>
+	
+	<!-- board 별 과제 count  -->
+	<select id="selectHWCountByCNo" parameterType="int" resultType="CounterVO">
+		select b.board_no as boardNo,count(r.id) as count 
+			  from tb_class_lecture_board b
+			  left join tb_class_lecture_board_homework r
+			     on b.board_no = r.board_no, tb_class_lecture l
+			 where b.lec_no = l.lec_no
+			   and b.p_no=2
+			   and l.class_no=#{classNo}
+			group by b.board_no
+		
+	</select>
+	
+	
+	<!-- homework - count test -->
+	<select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
+		select b.*,l.subject,count(*) as count
+		  from tb_class_lecture_board b, tb_class_lecture l,tb_class_lecture_board_homework h
+		 where b.lec_no=l.lec_no
+		   and h.board_no=b.board_no
+		   and l.class_no=#{classNo}
+		   and b.p_no=2
+		   group by h.board_no
+	</select>
+	
+	<select id="selectAllHomeworkByCNo" parameterType="map" resultMap="homeworkMap">
+		select u.id, h.board_no, h.hw_no, h.hw_content, h.reg_date
+		  from tb_class_member u   <!--  클래스 내의 회원들이 있는 DB (회원아이디 ) -->
+		  left outer join (select *
+		                     from tb_class_lecture_board_homework
+								  where board_no = #{boardNo}) h  <!-- 클래스 내 게시글에 과제를 제출한 인원의 정보가 있는 DB  -->
+		    on u.id = h.id	<!-- 조인할 컬럼이 id  -->	  
+		 where u.class_no = #{classNo}		<!-- where절은 해당 클래스 번호인데 넌 필요없을듯  -->
+	
+	</select>
+
+ 
+ 	
 	
 </mapper>

@@ -436,6 +436,7 @@
 					var voteList = data.list.voteList;
 					var voteCount = data.list.voteCount; 
 					var voteResult = data.list.voteResult;
+					var hwCount = data.list.hwCount;
 					
 					var html = new StringBuffer();
 					/* 주제  list */
@@ -560,8 +561,8 @@
 									
 								}
 								
-								/* 제출자 */
-								if(boardList[j].pNo==2 || boardList[j].pNo==4){
+								/* 투표 제출자  */
+								if(boardList[j].pNo==4){
 									html.append("<div class='count col-md-4'>");
 									html.append("<div class='col-md-6'>");									
 									html.append("<div class='submit-cnt-number'>");
@@ -576,6 +577,30 @@
 									
 									
 									html.append("</div>");									
+									html.append("<div class='submit-cnt-text'>투표 수</div>");									
+									html.append("</div>");// col-md-6 end 									
+									html.append("<div class='col-md-6'>");
+									html.append("<div class='total-cnt-number'>"+boardList[j].memCnt+"</div>");									
+									html.append("<div class='total-cnt-text'>총 인원수</div>");	
+									html.append("</div>");// col-md-6 end 									
+									html.append("</div>");//col-md-4 end 									
+								} /* 투표 제출자 END */
+								
+								
+								/*과제 제출자!! */
+								if(boardList[j].pNo==2){
+									html.append("<div class='count col-md-4'>");
+									html.append("<div class='col-md-6'>");									
+									html.append("<div class='submit-cnt-number'>");
+									/* 게시글에 따른 count */
+				
+									for(var hc=0;hc<hwCount.length;hc++){
+										if(hwCount[hc].boardNo == boardList[j].boardNo ){
+											html.append(hwCount[hc].count );
+ 										} 
+									}
+									
+									html.append("</div>");									
 									html.append("<div class='submit-cnt-text'>제출자 수</div>");									
 									html.append("</div>");// col-md-6 end 									
 									html.append("<div class='col-md-6'>");
@@ -584,6 +609,8 @@
 									html.append("</div>");// col-md-6 end 									
 									html.append("</div>");//col-md-4 end 									
 								}
+								
+								
 								html.append("</div>")//row end
 								html.append("</div>")//context end 
 					
@@ -601,20 +628,24 @@
 								
 								/* 업로드 */
 								if(boardList[j].pNo == 2 ) {
-									html.append("<div class='subTitle-upload'>");
-									html.append("<div class='row'>");
-									html.append("<div class='col-md-12'>");
-									html.append("<span><i class='fas fa-upload'></i></span>");
-									html.append("<form>");
-									html.append("<input class='uploader' type='file' multiple>");
-									html.append("<div class='upload-button'>");
-									html.append("<button class='btn btn-primary'>제출하기</button>");
-									html.append("</div>");//uploadbuttn end
-									html.append("</form>");
-									html.append("</div>");//12 end 
-									html.append("</div>");//row end
-									html.append("</div>");//upload end
-								
+									if(boardList[j].deadline > new Date()){
+										html.append("<div class='subTitle-upload'>");
+										html.append("<div class='row'>");
+										html.append("<div class='col-md-12'>");
+										html.append("<span><i class='fas fa-upload'></i></span>");
+										html.append("<form>");
+										html.append("<input class='uploader' type='file' multiple>");
+										html.append("<div class='hwContent'><i class='far fa-comment'></i> <input type='text' class='form-control' name='hwContent' placeholder='제출 시 남길 말을 입력해주세요' style='width:80%;display:inline-block;margin-left:10px;'></div>");
+										html.append("<div class='upload-button'>");
+										html.append("<button class='btn btn-primary'>제출하기</button>");
+										html.append("</div>");//uploadbuttn end
+										html.append("</form>");
+										html.append("</div>");//12 end 
+										html.append("</div>");//row end
+										html.append("</div>");//upload end
+	 								} else {
+	 									html.append("<div><span style='color:red'>제출 시간이 종료되었습니다.</span></div>")
+	 								}
 								}
 							
 								html.append("</div></div></div></div>");

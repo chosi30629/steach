@@ -47,9 +47,12 @@ public class LectureServiceImpl implements LectureService {
 		//게시글 list 
 		map.put("boardList", mapper.selectLectureBoardByClassNo(classNo));
 		
+		//hw count 
+		map.put("hwCount",mapper.selectHWCountByCNo(classNo));
+		
 		//투표 list 
 		map.put("voteList", mapper.selectVoteListByCNo(classNo));
-		
+		//투표 count 
 		map.put("voteCount", mapper.selectVoteCntByCNo(classNo));
 		
 		//투표자 명단 list 
