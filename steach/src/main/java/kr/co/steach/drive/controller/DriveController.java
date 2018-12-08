@@ -173,7 +173,11 @@ public class DriveController {
 	
 	@RequestMapping(value="/delete.do")
 	@ResponseBody
-	public void delete() {
+	public String delete(@RequestParam(value="path")String path) {
+		System.out.println(path);
+		File f = new File(path);
+		f.delete();
+		return "성공이요";
 		
 	}
 	
@@ -270,13 +274,13 @@ public class DriveController {
 		
 			
 }
-		    public static List<Map<String, Object>> listLoad(File f)
+		    public static List<Map<String, Object>> listLoad(File f) throws IOException
 		    {
 		    	List<Map<String, Object>> list = new ArrayList<>();
 				File[] arrfile = f.listFiles();
 				for(File fInfo : arrfile) {
 					Map<String, Object> fmap = new HashMap<>();
-					fmap.put("path", fInfo.getPath());
+					fmap.put("path", fInfo.getCanonicalPath());
 					fmap.put("title", fInfo.getName());
 					fmap.put("folder", fInfo.isDirectory());
 					if(fInfo.isDirectory() && fInfo.listFiles().length != 0) {

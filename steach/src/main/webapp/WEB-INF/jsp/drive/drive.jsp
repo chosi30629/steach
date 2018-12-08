@@ -393,24 +393,23 @@ $('.addFolder').click(function(){
       })//end 폴더 추가하기
   
 //----------------- // 동적으로 만든 tr(폴더) 태그의 contextmenu 
-      var tr;
-      var thi;
-      var thii;
-      var thiid;
-      var google;
-      var find
-      var googleval;
-      var tree;
-      var needPath;
-      var thiResult;
-      var thiResultEXT;
-      var resultPath;
+      var tr;		// 우클릭한 tr의 $(this);
+      var thi;  // 우클릭한 tr의 이름 (폴더명 and 파일명) ex) google.png
+      var clickedTag;  //선택한 tr태그의 path-data 를 가져온다 (경로)
+      var google; // 모달의 input창 value 기존값
+      var googleval; // input창 value의 바뀐값
+      var tree;	
+      var find // 우클릭한 tr태그와 플러그인에서 같은 이름을 가진 것들을 찾는다.
+      var needPath; //우클릭한 tr의 경로와 펜시트리에서 같은 경로를 가지고 있는것을 비교 // true일시  needPath 변수에 담음
+      var thiResult;  // 파일이름  ex) google
+      var thiResultEXT;  // 파일확장자 ex) .png
+      var resultPath; // 
       var needNode;
       $('.contextmenu').children().eq(1).off('click').click(function(){
-//     	  console.log("thi", thi);	// ex) google.png
+//     	  console.log("thi", thi);
 			if(thi.indexOf('.') != -1){
-    		 thiResult =  thi.substring(0 , thi.indexOf('.')); // 파일이름 google
-    		 thiResultEXT = thi.substring(thi.indexOf('.') , thi.length); // ex) 파일확장자 png
+    		 thiResult =  thi.substring(0 , thi.indexOf('.'));
+    		 thiResultEXT = thi.substring(thi.indexOf('.') , thi.length);
     		 thi = thiResult;
 				}
     	  		
@@ -425,10 +424,9 @@ $('.addFolder').click(function(){
          }).find('.changeNameText').val(thi).select();
         
          googleval = $('.myModal2').find('.changeNameText').val();	// 모달의 input - value를 가져온다.  
-         console.log("인풋창의 이름값",thi);	//ex) google.png
+         console.log("기존 이름",thi);	
 
-		var clickedTag = tr.attr('path-data'); //선택한 tr태그의 path-data 를 가져온다 (경로)
-         console.log("우클릭한 태그의 경로",clickedTag);	// ex ) c:\drive\parkhanjun\제목없는 폴더\google.png
+         console.log("우클릭한 태그의 경로",clickedTag);	// ex ) C:\drive\parkhanjun\제목없는 폴더\google.png  
          
          if(thiResultEXT == undefined) thiResultEXT ="";
    		tree = $("#tree").fancytree("getTree");
@@ -436,17 +434,13 @@ $('.addFolder').click(function(){
    		find = tree.findAll(thi);
    		console.log("트리 경로찾을거야",find);
    		
-   		
    		for(var i =0; i < find.length ; i++){
    			console.log(find[i].data.path);
    			console.log(clickedTag);
    			console.log(find[i].data.path == clickedTag)
    			if(find[i].data.path == clickedTag){
-   				// 우클릭한 tr의 경로와 펜시트리에서 같은 경로를 가지고 있는것을 비교
-   				// true일시 태그를 needPath 변수에 담음
    				needPath = find[i].data.path;
    				needNode =find[i];
-   				
    			} // end if
    		}//end for
    				resultPath = needPath.substring(0 , needPath.lastIndexOf("\\")+1);
@@ -460,25 +454,23 @@ $('.addFolder').click(function(){
      		alert("이름을 지어주세요!")
      		return false;
      	}
-     	if(thiResultEXT == undefined) thiResultEXT = "";
+     	if(thiResultEXT == undefined) thiResultEXT = "";	// 확장자가 없는것일(폴더) 경우 undefinedㄱ 
      	
-//  		console.log("네가 찾는것이 이것이니 needPath", needPath);// 바꿀태그와 같은 경로를 가지고 있는  fancytree의 경로 
  		$.ajax({
  			url: '<c:url value="/drive/rename.do" />',
  			data : {
  				path : thi+thiResultEXT,
  				title : resultPath+google+thiResultEXT 
- 			}	// title 
+ 			}
  		}).done(function(result){
  			console.log(result);
  			EmojiAndFLengthLIST(result);
  			needNode.setTitle(google+thiResultEXT)
-//  			$(document).ready(function(){
-//  			console.log('${list}');
-//  			})
+ 			console.log(needNode.data.path);
+ 			needNode.data.path = resultPath+google+thiResultEXT
  		})
-        
-     
+
+ 		// 띄워진 모달창 숨김
         $(this).parent().parent().parent().modal('hide');
              })// 이름바꾸기 이벤트 끝
    		
@@ -486,19 +478,30 @@ $('.addFolder').click(function(){
         
             //우클릭 메뉴 삭제 눌렀을때
             $('.contextmenu').children().eq(4).click(function(){
-            	
+                console.log(clickedTag);  
             	$.ajax({
             		url : '<c:url value="/drive/delete.do" />',
-//             		data : 
+            		data : {path : clickedTag} 
+            	}).done(function(result){
+            		console.log(result);
+        	tr.remove() // 우클릭한 태그 삭제
+			tree = $("#tree").fancytree("getTree"); // 트리 구조 불러오기
+        	googleval = $('.myModal2').find('.changeNameText').val(thi);
+        	console.log(googleval);
+        	find = tree.findAll(thi)	// 트리에서 thi를 가지고 있는 하위목록 가져오기
+        	console.log(find)
+			for(var i =0 ; i < find.length ; i++)
+			{
+				console.log(clickedTag = find[i]);
+				if(clickedTag == find[i])
+				{
+					var needNode = find[i]
+					console.log(needNode);
+				}
+			}
+			tree.activateKey(needNode.key).remove();
+
             	})
-            	
-        	tr.remove()
-			tree = $("#tree").fancytree("getTree");
-        	 googleval = $('.myModal2').find('.changeNameText').val(thi);
-			console.log(googleval);        	 
-			find = tree.findAll(thi)[0];
-			tree.activateKey(find.key).remove();
-           	
         })
             
             
@@ -507,8 +510,7 @@ $('.addFolder').click(function(){
        $(document).on('contextmenu', 'tr' , function(e){
     	tr = $(this);
         thi = $(this)[0].children[0].innerText;
-        thii = $(this).find('span');
-        thiid = thii.attr('id');
+        clickedTag = tr.attr('path-data');
         
     //Get window size:
     var winWidth = $(document).width();
@@ -671,7 +673,7 @@ $(document).on('keydown', function(e) {
   //------------------------------------------ 모달 과련 끝
   
 var source = [ 
-  	{"title": "${user.name}", "expanded": true, "path" : "c:\\drive\\"+"${user.name}" , "folder": true, "children": [
+  	{"title": "${user.name}", "expanded": true, "path" : "C:\\drive\\"+"${user.name}" , "folder": true, "children": [
   ]}
   ]
   //fancytree 최초에 load
