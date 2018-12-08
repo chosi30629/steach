@@ -108,7 +108,7 @@
         </div>
         <div class="agent-face">
             <div class="half">
-            <img class="agent circle" src="/steach/resources/images/class/group/pl.png" alt="Jesse Tino"></div>
+            <img class="agent circle" src="${user.profilePath}" alt="Jesse Tino"></div>
         </div>
         <div class="chat">
             <div class="chat-title chat_header">
@@ -141,7 +141,6 @@
 	</div> -->
     <script>
     	var userId = "${user.id}";
-    	console.log(userId);
 		var $parentDrop = $(".parentDrop");
 		var $modalDiv = $(".modal-div");
 		var nextLastListOrder = 0;
@@ -1054,9 +1053,10 @@
         // 채팅
        	var ws;
 		$(document).ready(function() {
-			ws = new WebSocket('ws://localhost:8000/steach/chat.do');
+			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
 			ws.onopen = function() {
 		        console.log('연결 성공');
+		        ws.send(groupNo);
 		    };
 		    ws.onmessage = function(evt) {
 		    	var profilePath = evt.data.substring(0, evt.data.indexOf(":"));

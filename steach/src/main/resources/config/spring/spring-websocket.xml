@@ -15,6 +15,7 @@
 
 	<websocket:handlers>
 	    <websocket:mapping handler="chat" path="/chat.do" />
+	    <websocket:mapping handler="streamingChat" path="/streamingChat.do" />
 <!-- 	    <websocket:mapping handler="file" path="/file.do" /> -->
 		<!-- 
 			WebSocketHandler에 접근하기 전에 HttpSession에 접근하여 저장된 값을

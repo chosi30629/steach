@@ -79,7 +79,7 @@
                         <span class="button__line"></span>
                     </div>
                 </div>
-                <div id="studentList" class="clearfix">
+                <div id="studentList" class="clearfix" style="display:none;">
                 	<ul class="studentList student-list clearfix text-center" style="width: 70% !important; padding: 0 0 0 0; list-style-type: none; display: inline-block;">
                 		<c:forEach var="member" items="${classMember}" varStatus="loop">
 	                		<li class="ui-state-default clearfix" style="margin: 0 15px; background-image: url('/steach/resources/images/class/group/p1.jpg');">
@@ -170,7 +170,11 @@ l0,-61 L40,28" />
         
         // 클래스 멤버 textarea(랜덤 설정 해주는 곳)에 뿌리기
         if(${groupNo} != 0) {
-        	$("#studentList, .parentDrop").toggle();
+        	$(".parentDrop").show();
+        	$("#studentList").hide();
+        } else {
+        	$("#studentList").show();
+        	$(".parentDrop").hide();
         }
         var students = "";
 		<c:forEach var="student" items="${classMember}" varStatus="loop">

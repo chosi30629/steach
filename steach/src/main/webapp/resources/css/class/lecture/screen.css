@@ -13,15 +13,18 @@ html {
   line-height: 1;
 }
 body {
-  background-color: #fff;
+  background-image: url('/steach/resources/images/class/streaming/wood-table.jpg');
+  height: 938px;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #333;
   font-family: 'Lato', arial, sans-serif;
   font-size: 16px;
 }
 .mobile {
   position: relative;
-  top: 90px;
-  left: 200px;
+  top: 87px;
+  left: 205px;
   box-shadow: 0 0 0 2pt grey;
   height: 674px;
   width: 400px;
@@ -66,7 +69,7 @@ body {
 .chatList li span {
   background-color: #ccc;
   border-radius: 3px;
-  color: rgba(0,0,0,0.8);
+  color: white;
   display: inline-block;
   font-size: 15px;
   padding: 6px 12px;
@@ -75,7 +78,7 @@ body {
   text-align: right;
 }
 .chatList li.userInput span {
-  background-color: #ccc;
+  background-color: rgba(0,0,0,0.45);
 }
 .icons,
 .inputBlock {
@@ -188,9 +191,30 @@ video {
     position: relative;
 }
 .streaming-title {
+	color: white;
     margin-bottom: 20px;
+}
+.chatList .userResponse span {
+	background-color: rgba(0,0,0,0.65);
+}
+.chatList .userResponse span {
+	color: white;
 }
 .mobile-div {
     position: fixed;
     left: 1200px;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #dfe3e6;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: gray;
+    border-radius: 10px;
+}​
+::-webkit-scrollbar-track-piece {
+    background: rgba(9,45,66,.08);
 }
