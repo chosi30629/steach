@@ -1053,13 +1053,14 @@
         // 채팅
        	var ws;
 		$(document).ready(function() {
-			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
+// 			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
+			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
 			ws.onopen = function() {
 		        console.log('연결 성공');
-		        ws.send(groupNo);
+		        ws.send("groupNo:" + groupNo);
 		    };
 		    ws.onmessage = function(evt) {
-		    	var profilePath = evt.data.substring(0, evt.data.indexOf(":"));
+		    	var profilePath = evt.data.substring((evt.data.indexOf(",") + 1), evt.data.indexOf(":"));
 		    	var messageContent = evt.data.substring(evt.data.indexOf(":") + 1);
 				$('<div class="message loading new"><figure class="avatar"><img src="' + profilePath + '" /></figure><span></span></div>').appendTo($('.mCSB_container'));
 				updateScrollbar();
@@ -1077,6 +1078,7 @@
 		    	console.dir(evt.data)
 		    };
 		    ws.onclose = function() {
+		        ws.send("close:" + groupNo);
 		    	console.log("연결을 끊었습니다.");
 		        console.log('close');
 		    };
@@ -1105,7 +1107,7 @@
 		function send() {
 		    var $msg = $("#message");
 // 		    var sendMsg = $msg.val();
-		    var sendMsg = $('.message-input').val("${user.profilePath}:" + $(".emoji-wysiwyg-editor").html()).val();
+		    var sendMsg = $('.message-input').val(groupNo + ",${user.profilePath}:" + $(".emoji-wysiwyg-editor").html()).val();
 	    	var messageContent = sendMsg.substring(sendMsg.indexOf(":") + 1);
             
 		    if ($.trim(sendMsg) == '') {
