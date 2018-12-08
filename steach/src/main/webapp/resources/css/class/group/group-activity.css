@@ -930,6 +930,7 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none; appearance: none; 
     float: left;
+    overflow-x: hidden; 
 }
 .modal-title > .btn-group {
 	border-radius: 3px;
