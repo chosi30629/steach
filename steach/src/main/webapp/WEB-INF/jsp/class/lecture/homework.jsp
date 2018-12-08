@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,7 +39,7 @@
 											<span class="homework-name">${board.title}</span>
 										</div>
 										<div class="col-md-3">
-											<span>마감일 </span> <span class="homework-deadline">${board.deadline}</span>
+											<span>마감일 </span> <span class="homework-deadline"><fmt:formatDate value='${board.deadline}' pattern='yyyy-MM-dd HH:mm:ss'/></span>
 										</div>
 									</div>
 
@@ -58,9 +59,12 @@
 														<div class="user-info">
 															<div class="user-pic">${j.user.profile}</div>
 															<div class="user-name">
-																<a href="#"><span>${j.user.name}</span></a> Comment: <span>${j.hwContent}</span>
+																<a href="#"><span>${j.user.name}</span></a>
+																<span><i class="far fa-comment"></i> ${j.hwContent}</span>
+																
 															</div>
 															<div class="user-file">
+																<span style="margin-right:40px;"><i class="far fa-clock"></i> <fmt:formatDate value='${j.regDate}' pattern='yyyy-MM-dd HH:mm:ss'/></span>
 																<a><span><i class="fas fa-paperclip"></i></span></a>
 															</div>
 														</div>

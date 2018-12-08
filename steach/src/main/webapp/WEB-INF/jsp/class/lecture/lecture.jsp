@@ -978,8 +978,7 @@
 		}
 		
 		function voteView(boardNo,memCnt){
-			
-		
+				
 			 $.ajax({
 				url:"<c:url value='voteResult.do'/>",
 				data:{boardNo:boardNo}
@@ -988,16 +987,20 @@
 				for(var i =0; i<data.length; i++){
 					console.log(data[i].count)
 					var html="";
-					html="<div class='vote-progressbar' data-width='40%'>"+data[i].count*100+"</div>";
-					$("#vote"+boardNo+"-"+(i+1)).append(html);
+					html="<div class='vote-progressbar' data-width='";
+			 		html+=((data[i].count == 0 ? 1 : data[i].count/memCnt*100));
+			 		html+="'>"+data[i].count+"명</div>";
+					$("#vote"+boardNo+"-"+(i+1)).after(html);
 					
 				}//for end 
-				$('.vote-progressbar').simpleSkillbar({});			
+				$('.vote-progressbar').simpleSkillbar({
+					height:20
+				});			
 			}); 
 			
 		}
 		
-		/* 지금 미사용 . */
+	
 		
 	</script>
 </body>

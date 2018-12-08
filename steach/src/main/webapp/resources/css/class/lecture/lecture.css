@@ -282,4 +282,5 @@ textarea:focus, input:focus {
 	font-size: 1em;
     padding: 0;
     margin: 0;
+/*     min-width:100px; */
 }
