@@ -86,7 +86,7 @@ public class CurriculumController {
 	 * Curriculum 자리배치 페이지..
 	 */
 	@RequestMapping("/seat.do")
-	public void seat() {
-		
+	public void seat(int classNo,Model model) {
+		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
 	}
 }

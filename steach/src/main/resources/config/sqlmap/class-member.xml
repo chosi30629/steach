@@ -22,7 +22,7 @@
 		<result column="addr" property="addr"/>
 		<result column="reg_date" property="regDate"/>
 		<result column="profile" property="profile"/>
-		<result column="proflie_path" property="profilePath"/>	
+		<result column="profile_path" property="profilePath"/>	
 	</resultMap>
 	
 	<resultMap id="classMap" type="Clazz">

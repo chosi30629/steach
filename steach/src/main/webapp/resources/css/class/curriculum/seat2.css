@@ -14420,7 +14420,6 @@ input.jcrop-keymgr{
     -ms-flex-direction:row;
     flex-direction:row;
     position:relative;
-    margin-top:-20px;
     max-width:100%;
     overflow:hidden
 }
@@ -14528,7 +14527,9 @@ input.jcrop-keymgr{
 .tools-tables-left-title{
     font-size:18px;
     line-height:27px;
-    font-weight:600
+    font-weight:600;
+    text-align:center;
+    margin-top:5px;
 }
 .tools-tables-left-switch{
     text-align:right;
@@ -16321,7 +16322,7 @@ html[lang=fr-FR] .contest-widget-description{
     width:100%
 }
 .guests-stats-progress-meter,.guests-stats-progress-value{
-    transition:1.5s ease-in .2s;
+    transition:0.5s ease-in .2s;
     fill:none
 }
 .guests-stats-progress-meter{

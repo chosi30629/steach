@@ -7,16 +7,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>자리배치 페이지</title>
 <!-- header import -->
-<%-- <c:import url="/WEB-INF/jsp/header/classHeader.jsp" /> --%>
+<c:import url="/WEB-INF/jsp/header/classHeader.jsp" />  
 
 <link rel="stylesheet"
 	href="/steach/resources/css/class/curriculum/seat1.css" />
 <link rel="stylesheet"
 	href="/steach/resources/css/class/curriculum/seat2.css" />
-<script src="/steach/resources/js/jquery/jquery-2.1.0.min.js"></script>
+<!-- <script src="/steach/resources/js/jquery/jquery-2.1.0.min.js"></script>  -->
 <script src="/steach/resources/js/jquery/jquery-ui.js"></script>
-<script src="/steach/resources/js/bootstrap.js"></script>
-
+<!-- <script src="/steach/resources/js/bootstrap.js"></script>
+ -->
 <!-- 화면저장 canvas2 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="/steach/resources/js/class/curriculum/seat/canvas2image.js"></script>
