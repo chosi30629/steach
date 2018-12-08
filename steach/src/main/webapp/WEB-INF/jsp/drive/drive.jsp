@@ -85,7 +85,7 @@
        
             <!-- Modal content -->
             <div class="modal1 modal-content" style="width : 20%;">                                                   
-                <div class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</div>
+                <div class="addFolder"><i class="emoji fas fa-folder-plus fa-2x"></i>　폴더 추가하기</div>
                 <hr>
                 <div class="addFile" data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</div>
             </div>
@@ -142,7 +142,7 @@
          <div id="myModal2" class="modal fade">
            	  <!-- Modal content -->
 	          <div class="modal2 modal-content " style="width : 20%;">                                                   
-	              <div class="addFolder"><i class="fas fa-folder-plus fa-2x"></i>　폴더 추가하기</div>
+	              <div class="addFolder"><i class="emoji fas fa-folder-plus fa-2x"></i>　폴더 추가하기</div>
 	              <hr>
 	              <div class="addFile"  data-toggle="modal" data-target=".fileUpload"><i class="fas fa-file-upload fa-2x"></i>　파일 업로드</div>
 	          </div>
@@ -166,7 +166,7 @@
          <!-- 우측 사이드바 관련태그 시작 -->
         <div class="detailside col-md-2 sidebar" style="width: 20%; padding-left: 0px; padding-right: 0px; bottom: 1px;">
                 <div class="trClick">
-                  <div class="TrIcon"><i class="fas fa-folder fa-lg"></i></div>
+                  <div class="TrIcon"><i class="emoji fas fa-folder fa-lg"></i></div>
                   <div class="TrName">내 드라이브</div>
                 </div>
                 <div class="trClickDetail">
@@ -239,6 +239,8 @@
 
  <script type="text/javascript">
  var firstload;
+ var fileInfo = [];
+ var clickToLazy;
  // 파일 업로드 ajax
 	 	var nPath; 
 		 function nowpath(result){
@@ -249,15 +251,20 @@
 			 $('.modal').modal('hide');
 		 
  $('.fButton').off("click").click(function() {
-	 
+	 // Contextmenu 모달 숨기기
 	 $(this).parent().parent().parent().modal('hide');
-	 	// 현재 페이지의 path경로 가져올거야
+	 	
+	 	var file = $("input[name='attach']");
+	 	console.log(file);
 		var files = $("input[name='attach']")[0].files;
+		
 		var fd = new FormData();
+	 	// 현재 페이지의 path경로 가져올거야
 	 	fd.append("path" , nPath);
 		fd.append("id", $("input[name='id']").val());
 		for (var i = 0 ; i< files.length; i++){
 			fd.append("attach", files[i]);
+			fileInfo.push(files[i].name); 
 		}//for
 		
 		$.ajax({
@@ -270,9 +277,28 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-			// tbody 다시 그려줌
-			console.dir(result);
-			EmojiAndFLengthLIST(result);
+		
+			console.log(nPath);
+			var node = $("#tree").fancytree("getActiveNode");
+	    	if (!node) node = clickToLazy;
+	    	
+	    	node.lazy = true;
+	    	node.expanded = true;
+// 	    	console.log(result);
+// 	    	console.log(node);
+	    	
+			for(var i =0 ; i < result.length ; i++){
+				
+	    	node.addChildren({
+	            title : result[i].title,
+	            folder : result[i].folder,
+	            data : {
+	            	path : nPath+"\\"+result[i].title
+	            }
+	         });
+			
+			EmojiAndFLengthLIST(result[i].list);
+			}
 			
 			if($('tbody').children().length==0 && $('.ft').children().length==1 )
 			{
@@ -378,7 +404,7 @@ $('.addFolder').click(function(){
         			}
         	}).done(function(e){
     			$('tbody').append('<tr path-data="'+e.path+'">' 
-	    		        +  '<td class="folderName"><div class="fas fa-folder fa-lg"></div><span id="">'+e.title+'</span></td>'
+	    		        +  '<td class="folderName"><div class="emoji fas fa-folder fa-lg"></div><span id="">'+e.title+'</span></td>'
 	    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 	    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 	    		        +  '<td class="val" class="text-center">-</td>'
@@ -785,7 +811,7 @@ var source = [
 					"path" : path
 					},
 			}).done(function(result){
-				console.log(result);
+// 				console.log(result);
 			})
       }, // end lazyLoad 	
       loadChildren: function (event, data) {
@@ -898,7 +924,7 @@ var source = [
 		    	 		 }
 				 
 					 		 switch(e.folder){
-				 				case true : emoji='fas fa-folder fa-lg';
+				 				case true : emoji='emoji fas fa-folder fa-lg';
 				 				break;
 				 				case false : 
 				 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
@@ -915,7 +941,7 @@ var source = [
 				 				}
 					 
 					 $('tbody').append('<tr path-data ="'+e.path+'" id="'+keyPath+'">' 
-			    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span>'+e.title+'</span></td>'
+			    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span>'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 			    		        +  '<td class="val" class="text-center">'+length+'</td>'
@@ -949,12 +975,23 @@ var source = [
 			            
 			            // 리스트(테이블)내 tr태그 클릭시(폴더) 하위폴더로 이동
 			            	$(document).on('click', 'tr' ,function(){
-								pathData = $(this).attr('path-data');
-								
+								pathData = $(this).attr('path-data');	// 클릭한 태그의 path-data 속성을 가져옴
+								var isFolder = $(this).find('.emoji')[0].className.indexOf('fas fa-folder'); // 클릭한 태그의 클래스를 가져와서 폴더인지 아닌지 판단	
+								console.log(pathData);
 								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
 	 					 	 	nowpath(pathData);
-					 
-								console.log("dbclick", pathData);
+	 					 	 	
+								// indexOf가 -1 반환시	 //파일을 읽어오는 역할 수행
+								if(isFolder == -1)
+								{
+									alert('폴더가 아니죠 ');
+										  var fileReader = new FileReader();
+										  fileReader.readAsText(e.target.files[0]);
+										  fileReader.onload = function(e) 
+										  {
+										    console.log(e.target.result);
+										  }
+								}else{
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',
 									data : {
@@ -966,14 +1003,16 @@ var source = [
 									
 									var findAll = tree.findAll(dbcNode);
 									for(var i =0; i < findAll.length ; i++ ){
-										console.log(findAll[i]);
+// 										console.log(findAll[i]);
 										if(findAll[i].data.path == pathData){
-										findAll[i].setExpanded();											
+											clickToLazy = findAll[i];
+											findAll[i].setExpanded();											
 										}
 									}
-									
+										
 										EmojiAndFLengthLIST(result);
 									
+										//!!!! 오류 유발 수정 필요
 									if($('tbody').children().length==0){
 					    			    
 					    			    $('.ft').append(
@@ -988,10 +1027,11 @@ var source = [
 					    			        +'</div>').show()
 					    			            }else{
 					    			            	$('.ft > .picOuter').hide();
-					    			            } //if
+					    			            } //end 
 									
-								})
-							 })
+									}) //end ajax function .done
+								} //end else 폴더일시 수행
+							 })//end function
 			            	
 			            
 	 var fileIndex = 0;
@@ -1092,7 +1132,7 @@ var source = [
 			 
 		 						
 	    	 		 switch(e.folder){
-		 				case true : emoji='fas fa-folder fa-lg';
+		 				case true : emoji='emoji fas fa-folder fa-lg';
 		 				break;
 		 				case false : 
 		 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
@@ -1109,7 +1149,7 @@ var source = [
 		 				}
 			 
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
-		    		        +  '<td class="folderName"><div class="'+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
+		    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
 		    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 		    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 		    		        +  '<td class="val" class="text-center">'+length+'</td>'
