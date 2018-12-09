@@ -63,7 +63,10 @@ a:hover,a:active,a:focus{
     float:right;
     text-align:right;
 }
-
+.homework-deadline{
+	font-size:1.0em;
+	font-weight:300;
+}
 
 
 /* accordion 내 css  */

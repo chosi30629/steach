@@ -39,7 +39,7 @@
 											<span class="homework-name">${board.title}</span>
 										</div>
 										<div class="col-md-3">
-											<span>마감일 </span> <span class="homework-deadline"><fmt:formatDate value='${board.deadline}' pattern='yyyy-MM-dd HH:mm:ss'/></span>
+											 <span class="homework-deadline"><i class="fas fa-check"></i>  <fmt:formatDate value='${board.deadline}' pattern='yyyy-MM-dd HH:mm:ss'/> 까지</span>
 										</div>
 									</div>
 

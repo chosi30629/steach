@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,142 +63,25 @@
 			<div class="tools-tables-left-content">
 				<div class="tools-tables-left-guests app-tables-guest-list">
 					<div class="app-tools-tables-group">
-						<p
-							class="app-tools-tables-group-title tools-tables-left-guests-family-title">학생</p>
-						<!-- list 학생 1 -->
-						<!-- 불필요 data remove... test -->
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="김" data-apellidos="해동" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item">
-
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">김
-									해동</span> <i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li	data-nombre="김" data-apellidos="병관" data-seat-id="" 
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">김
-									병관</span> <i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="박" data-apellidos="한준" data-seat-id="" 
-							    class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">박
-									한준 </span> <i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="조" data-apellidos="성일" data-seat-id="" 
-							    class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">조
-									성일</span> <i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="안" data-apellidos="규영" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">안 규영</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="이" data-apellidos="원재" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">이 원재</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="박" data-apellidos="아란" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">박 아란</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="오" data-apellidos="수진" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">오 수진</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="이" data-apellidos="경" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">이 경</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="조" data-apellidos="용제" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">조 용제</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="박" data-apellidos="태환" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">박 태환</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="나" data-apellidos="원석" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">나 원석</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
-						<ul
-							class="app-tools-tables-group-family tools-tables-left-guests-family">
-							<li data-nombre="방" data-apellidos="진웅" data-seat-id=""
-								class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item ">
-								<span
-								class="app-tables-guest-name tools-tables-left-guests-name  parent ">방 진웅</span>
-								<i
-								class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
-							</li>
-						</ul>
+						<p class="app-tools-tables-group-title tools-tables-left-guests-family-title">학생</p>
+		
+		
+						<c:forEach var="st" items="${memberList}">
+							<!-- 성이름 자르기  -->
+							<c:set var="name" value="${st.user.name}"/>
+							<c:set var="length" value="${fn:length(st.user.name)}"/>
+									
+							<ul
+								class="app-tools-tables-group-family tools-tables-left-guests-family">
+								<li data-nombre="${fn:substring(name,0,1)}" data-apellidos="${fn:substring(name,1,length)}" data-seat-id=""
+									class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item">
+	
+									<span
+									class="app-tables-guest-name tools-tables-left-guests-name  parent ">${st.user.name}(${st.user.id})</span> <i
+									class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
+								</li>
+							</ul>
+						</c:forEach>
 					</div>
 
 
@@ -530,25 +414,9 @@
                      html+="<span>"+lName+"</span><span>"+fName+"</span></div></div>";
            
 	                $(this).append(html);
+	                $(this).css({border:"none"});
 	                $(ui.draggable).remove();
-	                
 	      
-	                
-	               /*  
-	                $(".list-draggable").draggable({
-	                    //helper:"clone",
-	                    revert:"invalid",
-	                    opacity:0.7,
-	                    start:function(){
-	                  	  $(".tools-tables-left-guests").css({"overflow-y":"unset"});
-	                        $(this).addClass("shine");
-	                    },
-	                    stop:function(){
-	                        $(this).removeClass("shine");
-	                        $(".tools-tables-left-guests").css({"overflow-y":"auto"});   
-	      
-	                    }
-	                }); */
                  }
              })
 
@@ -559,6 +427,7 @@
          
          /* capture */
          function  saveImage(){
+          
 		  var canvas ="";
 		  html2canvas($(".app-tables-viewbox"), {
 		  onrendered: function(canvas) {

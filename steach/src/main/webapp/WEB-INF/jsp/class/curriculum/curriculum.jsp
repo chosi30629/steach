@@ -178,7 +178,7 @@
 								<div class="seat-section"></div>
 								<div class="seat-setting">
 									<button type="button" class="btn"
-										onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do"/>'">수정하기</button>
+										onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do?classNo=${clazz.classNo}"/>'">수정하기</button>
 								</div>
 							</div>
 						</div>

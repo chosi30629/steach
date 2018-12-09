@@ -14586,7 +14586,7 @@ input.jcrop-keymgr{
     white-space:nowrap;
     line-height:30px;
     overflow:hidden;
-    max-width:75%;
+    max-width:80%;
     display:block;
     float:left
 }
@@ -14791,10 +14791,11 @@ input.jcrop-keymgr{
     line-height:21px;
     font-weight:400;
     color:#8c8c8c;
-    text-overflow:ellipsis;
+    text-overflow:ellipsis !important;
     display:block;
     width:100%;
-    overflow:hidden
+    overflow:hidden;
+    white-space:nowrap;
 }
 .tools-tables-gridItem-squareLabel.rotate{
     -webkit-transform:translate(-50%,-50%) rotate(90deg);
@@ -14974,13 +14975,13 @@ input.jcrop-keymgr{
 .ui-resizable-e,.ui-resizable-s{
     display:none!important
 }
-.tools-tables-guests-empty{
+/* .tools-tables-guests-empty{
     font-weight:400;
     background:url(https://cdn1.weddingwire.com/assets/img/tools/tables/tables-guestlist-empty.png) no-repeat right center;
     background-size:50% auto;
     padding:90px 190px 40px 25px;
     color:#8c8c8c
-}
+} */
 .tools-tables-guests-empty strong{
     color:#222;
     margin-bottom:5px
@@ -14999,7 +15000,7 @@ input.jcrop-keymgr{
         font-size:11px;
         line-height:16px
     }
-}
+}/* 
 .contest-hero{
     height:215px;
     padding:15px 0;
@@ -15069,7 +15070,7 @@ input.jcrop-keymgr{
 }
 .contest-hero-cover-img{
     margin:40px 90px
-}
+} */
 .tools-title-contest{
     margin-bottom:15px
 }

@@ -2,8 +2,6 @@ package kr.co.steach.clazz.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.CurriculumService;
+import kr.co.steach.clazz.service.MemberService;
 import kr.co.steach.repository.domain.ClassSchedule;
 
 
@@ -30,6 +29,8 @@ public class CurriculumController {
 	@Autowired
 	ClazzService classService;
 	
+	@Autowired
+	MemberService memberService;
 	
 	/**
 	 * Curriculum의 메인 페이지 curriculum.jsp 
@@ -88,5 +89,7 @@ public class CurriculumController {
 	@RequestMapping("/seat.do")
 	public void seat(int classNo,Model model) {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
+		model.addAttribute("memberList",memberService.selectMemberByClassNo(classNo));
+		System.out.println(memberService.selectMemberByClassNo(classNo));
 	}
 }

@@ -24,6 +24,7 @@ body{
     font-size:1.3em;
 }
 
+
 .accordion-head{
     height:50px;
     /* background:#426e92; */
@@ -185,50 +186,7 @@ a:hover,a:active,a:focus{
     position: relative;
     top: 6px;
 }
-/* vote css */
-/* 
-#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"] + label,
-#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"] + label {
-    vertical-align: middle;
-    color: #7f8c8d;
-}
 
-#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"] + label::before,
-#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"] + label::before {
-    content: "";
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    margin-right: 8px;
-    vertical-align: middle;
-    border: 3px solid #ffffff;
-    box-shadow: 0 0 0 3px #bdc3c7;
-}
-
-#form-option-vote > .col-sm-10 > .vote-list > label[for^="radio"]::before {
-    border-radius: 50%;
-}
-
-#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:checked + label::before,
-#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:checked + label::before {
-    background: #1abc9c;
-    box-shadow: 0 0 0 3px #1abc9c;
-}
-
-#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:checked + label,
-#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:checked + label {
-    color: #1abc9c;
-}
-
-#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:disabled + label::before,
-#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:disabled + label::before {
-    box-shadow: 0 0 0 3px #ecf0f1;
-}
-
-#form-option-vote > .col-sm-10 > .vote-list > input[type="radio"]:disabled + label,
-#form-option-vote > .col-sm-10 > .vote-list > input[type="checkbox"]:disabled + label {
-    color: #ecf0f1;
-} */
 
 /*FORM VOTE*/
 .vote-add {
@@ -286,11 +244,21 @@ textarea:focus, input:focus {
 }
 
 .deadlineText {
-position: relative;
+    position: relative;
     top: 7px;
 }
 
 .hwContent{
 	font-size:1.2em;
 	margin:10px;
+}
+
+.subTitle > .menu > a > i {
+	color:rgba(0,0,0,0.8); 
+}
+
+/* progressbar color */
+.sb_bar {
+	background-color:#FA8124 !important;
+	
 }

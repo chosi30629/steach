@@ -261,12 +261,13 @@
 	
 	<select id="selectAllHomeworkByCNo" parameterType="map" resultMap="homeworkMap">
 		select u.id, h.board_no, h.hw_no, h.hw_content, h.reg_date
-		  from tb_class_member u   <!--  클래스 내의 회원들이 있는 DB (회원아이디 ) -->
+		  from tb_class_member u 
 		  left outer join (select *
 		                     from tb_class_lecture_board_homework
-								  where board_no = #{boardNo}) h  <!-- 클래스 내 게시글에 과제를 제출한 인원의 정보가 있는 DB  -->
-		    on u.id = h.id	<!-- 조인할 컬럼이 id  -->	  
-		 where u.class_no = #{classNo}		<!-- where절은 해당 클래스 번호인데 넌 필요없을듯  -->
+								  where board_no = #{boardNo}) h  
+		    on u.id = h.id	  
+		 where u.class_no = #{classNo}
+		 order by board_no asc	
 	
 	</select>
 

@@ -1021,8 +1021,7 @@
 					html="<div class='vote-progressbar' data-width='";
 			 		html+=((data[i].count == 0 ? 1 : data[i].count/memCnt*100));
 			 		html+="'>"+data[i].count+"명</div>";
-					$("#vote"+boardNo+"-"+(i+1)).after(html);
-					
+					$("#vote"+boardNo+"-"+(i+1)).after(html);					
 				}//for end 
 				$('.vote-progressbar').simpleSkillbar({
 					height:20
