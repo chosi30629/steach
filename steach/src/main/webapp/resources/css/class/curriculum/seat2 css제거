@@ -1,0 +1,96 @@
+/* 
+.contest-hero{
+    height:215px;
+    padding:15px 0;
+    border-top:1px solid #fff;
+    background:url(https://cdn1.weddingwire.com/assets/img/tools/contest/bg-hero.jpg) no-repeat scroll 50% 50% #e9e8ed;
+    background-size:cover
+}
+.contest-hero-claim{
+    font-size:20px;
+    line-height:26px;
+    font-weight:600;
+    text-transform:uppercase;
+    text-align:center;
+    color:#fff;
+    margin:40px 30px;
+    width:40%
+}
+.contest-hero-claim strong{
+    display:inline-block;
+    font-size:48px;
+    line-height:60px;
+    text-transform:none;
+    background:rgba(0,0,0,.6);
+    padding:0 10px;
+    margin:10px 0
+}
+.contest-hero-box{
+    border:1px solid #d9d9d9;
+    min-height:215px;
+    padding:15px 35px;
+    background:#fff;
+    text-align:center;
+    position:relative
+}
+.contest-hero-box .btn-flat{
+    font-size:14px;
+    display:block;
+    padding:15px 15px
+}
+.contest-hero-editiontag{
+    padding:5px 15px;
+    font-weight:600;
+    color:#fff;
+    background-color:#19b5bc;
+    top:-15px;
+    right:-10px;
+    position:absolute;
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    transform:rotate(5deg)
+}
+.contest-hero-tickets{
+    text-align:center;
+    margin-bottom:10px
+}
+.contest-hero-tickets-total{
+    font-size:42px;
+    line-height:52px;
+    font-weight:300;
+    margin-right:10px
+}
+.contest-hero-tickets span{
+    display:inline-block;
+    vertical-align:middle;
+    text-transform:uppercase;
+    font-weight:600
+}
+.contest-hero-cover-img{
+    margin:40px 90px
+} */
+
+.guests-invitation-importMail .icon-button-gmail{
+    background-image:url(data:image/png;
+    base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAMAAABgOjJdAAAAHlBMVEUAAAD2X2T2X2T2X2T2X2T2X2T2X2T2X2T2X2T2X2RvcFhTAAAACXRSTlMAQBrPj73qZDAmekzQAAAAq0lEQVR4AbWUQW4AIQhFFRTh/hduJtig4E+66VuOL6j4mXbTPxqCBpvDg57rdjI1C8My4y4wrcJ0CGwvZhjTnox6Bl5fYVqcBDJHVrRFQog9RK+jHwIVAXRiNQh7iYbJJbRfUOtuUBzrpv8acdH/NAga9S5zI76A+7G/M+7p2gmA76J7E0Jvq3zGTGs+lpijKWOyMyYlh2xvGGcdjwMUwMwldIK5/fvs4//HD9FkEdRPVOukAAAAAElFTkSuQmCC)
+}
+.guests-invitation-importMail .icon-button-outlook{
+    background-image:url(data:image/png;
+    base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAhCAMAAACLDYleAAAAHlBMVEUAAAD2X2T2X2T2X2T2X2T2X2T2X2T2X2T2X2T2X2RvcFhTAAAACXRSTlMAQoTFEOljpivwRxGxAAAAt0lEQVR4AbXTUW7EIAyE4RlsY3z/C1d1FSdpa7FZaf9XPiFDCJ6npKKNc4hFhOCfVi5W+N2UqBoS8SGirLQhjCPHjkxgFfEFUO7ECPWRJHnmV2ILKnGQAeRkkJOIYlkcxL552ARYxBW0KDLgkRKwJLkyI05CjYyA/JAJjLgR3ski1CPrdkHOlnWz5FGy9kQX0d/LWX+7f0l9o55U75C5fXV88e36nuSPtiEZh1tPqsXcTrCJVDzuC5N8FCaK2kcKAAAAAElFTkSuQmCC)
+}
+.guests-invitation-importMail .icon-button-hotmail{
+    background-image:url(data:image/png;
+    base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAiCAMAAADmrkDzAAAAHlBMVEUAAAD2X2T2X2T2X2T2X2T2X2T2X2T2X2T2X2T2X2RvcFhTAAAACXRSTlMAQL/rEnlZMJS3GdIhAAAAoklEQVR42s2QWw6FMAgFoTwq+9/wDQRDiNK/mzgfxtrh4YHvIGtGXFh2YgFsM1oTZLYBzRAG4tIfOhqaxjUaVxqG85A0aL8Km9JwReGJkt2GJyLPID2NNDAO3O45yvA2fGJfJj+UESWkbQVvWkb8egZT782ouurXjJqNgLVTN7LYiVbdaBlENqMBLCIMg1H8xxCcEDfYzjCAHoXIlnGG4TP8AIrMCldXU7xtAAAAAElFTkSuQmCC)
+}
+.guests-invitation-importMail button:hover .icon-button-gmail{
+    background-image:url(data:image/png;
+    base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAMAAABgOjJdAAAAHlBMVEX///////////////////////////////////////8V2MxSAAAACXRSTlMAGjBAZI+9z+ohl8M4AAAArElEQVR42rWUQQ7EIAhFBVHg/heeNDJBRDLpYt6yvlCkn7ZIf2gVMFgXPOB6rjsTT2HoyYgFpmYYNoH1xnRj6pWRe2CCpyLxIYCdC/lYxAV/h2BofRMgCcUkqJXwKtFqzhLYA9D6MsDbivSv4Rf9pwGlke8yDVkH9TzsOdczJUtA+V1QrL/q2yLvMcOcDxJd4JExsYxJyiHrHU5Zf7sODL93LoIz7e3b3a//Hx+jaxIqjy+fWwAAAABJRU5ErkJggg==)
+}
+.guests-invitation-importMail button:hover .icon-button-outlook{
+    background-image:url(data:image/png;
+    base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAhCAMAAACLDYleAAAAHlBMVEX///////////////////////////////////////8V2MxSAAAACXRSTlMAECtCY4SmxemO8hh/AAAAt0lEQVR4AbXTbW7EIAyE4TED/rj/hau6ipO0tdistO9fHiFDCJ4npKCNc5lHhOGfRi5W+N20qBoS8SEirKQhjCPFjkxgFNEB0O7ECdGVJHmmV+IDYnGQBeRksJOYYHgcxL95+ARYRAX0KLKgkRLwJLkyI05CiYyA/ZAJrLgR3skgRCPrdkHOlnWz5FGy9kQX0d/LWX+7f0l9o55U75C5fXV88e3qnuSPtiEZl3pPqsHczrCJFDzuC/t6FMpwPFfNAAAAAElFTkSuQmCC)
+}
+.guests-invitation-importMail button:hover .icon-button-hotmail{
+    background-image:url(data:image/png;
+    base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAiCAMAAADmrkDzAAAAHlBMVEX///////////////////////////////////////8V2MxSAAAACXRSTlMAEjBAWXmUv+tnatnOAAAAoUlEQVR42s2Qyw6EMAhFoYCF///hCQRDiNLdJJ6Fsfbw8MJ3kD0jLmw7sQGWme4JNVtAZgQDcekPHg1O4xqNKw2jeUgaul6FpWm4wvCE1W7DE5FnkJ5GGhQHbPcYZXQbPrEvkx/KiBLltoI3LSN+PYOp92ZUXfVrRs0moNqpG1nsRKtutAwim9EAFBGEwSj+YwhNiBtoZxCAj0JkizSD8Bl+SLgMaVxKHz8AAAAASUVORK5CYII=)
+}

@@ -26,6 +26,7 @@
 .tools-tables-gridItem:hover .tools-tables-gridItem-settings {
 	display: block !important;
 }
+
 </style>
 
 </head>
@@ -399,14 +400,14 @@
                 //var lName= ui.helper.prevObject[0].parentElement.dataset.nombre; //성
                 //var fName=ui.helper.prevObject[0].parentElement.dataset.apellidos;//이름
 				//console.dir(ui);
+                
+                /* 성 + 이름 붙이기 */
                  var lName= ui.helper[0].parentElement.dataset.nombre;
                  var fName= ui.helper[0].parentElement.dataset.apellidos;
                  
-              
+              	/* list 에서 제거하기 */
                  ui.helper[0].parentElement.remove();
-                 //alert(lName);
-		
-                 
+                  
                  var html= "<div class='app-tables-persona app-seated-guest' style='display: block;'>";
                      html+="<div class='tools-tables-gridItem-guest'>";
                      html+="<i class='app-tables-guest-icon icon-tools icon-tools-avatar-guest-adult-small-fulfilled list-draggable'></i></div>";
@@ -415,14 +416,27 @@
            
 	                $(this).append(html);
 	                $(this).css({border:"none"});
-	                $(ui.draggable).remove();
+	               /*  $(ui.draggable).remove(); */
 	      
                  }
              })
 
          }
-
+		
+         /* table 삭제. */
+         $(document).on("click",".icon-tools-tables-trash-hover",function(e){
+        	 
+        	 
+        	 
+        	 
+        	 /* table 삭제 */
+        	 $(this).parents().parents()[1].remove();
+         });
          
+         /* table 수정. --미구현 ..  */
+          $(document).on("click",".icon-tools-tables-edit-hover",function(e){
+        	 alert(2);
+         });
          
          
          /* capture */
