@@ -1,7 +1,10 @@
 package kr.co.steach.drive.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import com.google.gson.Gson;
 
@@ -58,52 +60,54 @@ public class DriveController {
 	 * 펼치기 및 더블클릭 시 가시화
 	 * @param path
 	 * @return
+	 * @throws IOException 
 	 */
 	@RequestMapping("/detailFolder.do")
 	@ResponseBody
-	public List<Map<String, Object>> detailFolder(@RequestParam(value="path")String path ) {
+	public List<Map<String, Object>> detailFolder(@RequestParam(value="path")String path ) throws IOException {
 //		System.out.println("들어왔나요~!!!!!"+path);
 		File f= new File(path);
-		if(f.isDirectory()) {
-		List<Map<String, Object>> list = new ArrayList<>();
-		File[] arrfile = f.listFiles();
-		for(File fInfo : arrfile) {
-			Map<String, Object> fmap = new HashMap<>();
-			fmap.put("title", fInfo.getName());
-			fmap.put("folder", fInfo.isDirectory());
-			fmap.put("path", fInfo.getPath());
-			if(fInfo.isDirectory() == true && fInfo.listFiles().length != 0) {
-				fmap.put("lazy", true);
-//				fmap.put("children", fInfo.listFiles());
-			}
-			list.add(fmap);
-			}
-			return list;
-		}
-		return null;
+//		if(f.isDirectory()) {
+//		List<Map<String, Object>> list = new ArrayList<>();
+//		File[] arrfile = f.listFiles();
+//		for(File fInfo : arrfile) {
+//			Map<String, Object> fmap = new HashMap<>();
+//			fmap.put("title", fInfo.getName());
+//			fmap.put("folder", fInfo.isDirectory());
+//			fmap.put("path", fInfo.getPath());
+//			if(fInfo.isDirectory() == true && fInfo.listFiles().length != 0) {
+//				fmap.put("lazy", true);
+////				fmap.put("children", fInfo.listFiles());
+//			}
+//			list.add(fmap);
+//			}
+//			return list;
+//		}
+		return listLoad(f);
 	}
 	
 	/**
 	 * 플러그인 폴더 클릭(activate속성 걸릴 시 )시 해당 폴더 내부표현(하위폴더 및 파일들)
 	 * @return 
 	 * @return 
+	 * @throws IOException 
 	 */
 	@RequestMapping("/activateFolder.do")
 	@ResponseBody
-	public List<Map<String, Object>> activateFolder(@RequestParam(value="path")String path) {
+	public List<Map<String, Object>> activateFolder(@RequestParam(value="path")String path) throws IOException {
 //		System.out.println(path);
 		File f = new File(path);
-		List<Map<String,Object>> list = new ArrayList<>();
-		for(File fInfo : f.listFiles()) {
-			Map<String,Object> fmap = new HashMap<>();
-			fmap.put("title", fInfo.getName());
-			fmap.put("folder", fInfo.isDirectory());
-			fmap.put("lastModified", sdf.format(fInfo.lastModified()));
-			fmap.put("length", fInfo.length());
-			fmap.put("path", fInfo.getPath());
-			list.add(fmap);
-		}
-			return list;
+//		List<Map<String,Object>> list = new ArrayList<>();
+//		for(File fInfo : f.listFiles()) {
+//			Map<String,Object> fmap = new HashMap<>();
+//			fmap.put("title", fInfo.getName());
+//			fmap.put("folder", fInfo.isDirectory());
+//			fmap.put("lastModified", sdf.format(fInfo.lastModified()));
+//			fmap.put("length", fInfo.length());
+//			fmap.put("path", fInfo.getPath());
+//			list.add(fmap);
+//		}
+			return listLoad(f);
 	}
 	
 	/**
@@ -115,20 +119,20 @@ public class DriveController {
 	@RequestMapping("/trClickToDetail.do")
 	@ResponseBody
 	public List<Map<String, Object>> trClickToDetail(@RequestParam(value="path")String path ) throws IOException {
-//		System.out.println(path);
+		System.out.println("클릭"+path);
 		
 		File f =new File(path);
-		List<Map<String,Object>> list = new ArrayList();
-		for(File arrfile : f.listFiles()) {
-			Map<String, Object> fmap = new HashMap<>();
-				fmap.put("title", arrfile.getName());
-				fmap.put("folder",arrfile.isDirectory());
-				fmap.put("lastModified", sdf.format(arrfile.lastModified()));
-				fmap.put("length", arrfile.length());
-				fmap.put("path", arrfile.getCanonicalPath());
-				list.add(fmap);
-		}
-			return list;
+//		List<Map<String,Object>> list = new ArrayList();
+//		for(File arrfile : f.listFiles()) {
+//			Map<String, Object> fmap = new HashMap<>();
+//				fmap.put("title", arrfile.getName());
+//				fmap.put("folder",arrfile.isDirectory());
+//				fmap.put("lastModified", sdf.format(arrfile.lastModified()));
+//				fmap.put("length", arrfile.length());
+//				fmap.put("path", arrfile.getCanonicalPath());
+//				list.add(fmap);
+//		}
+			return listLoad(f);
 	}
 	
 	@RequestMapping("/rename.do")
@@ -283,9 +287,21 @@ public class DriveController {
 		    public static List<Map<String, Object>> listLoad(File f) throws IOException
 		    {
 		    	List<Map<String, Object>> list = new ArrayList<>();
-				File[] arrfile = f.listFiles();
+		    	File[] arrfile = f.listFiles();
 				for(File fInfo : arrfile) {
 					Map<String, Object> fmap = new HashMap<>();
+					
+					if(!fInfo.isDirectory()) {
+						BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fInfo), "UTF-8"));
+						while(true) {
+							String line = br.readLine();
+							if (line==null) break;
+//							System.out.println(line);
+							fmap.put("line", line);
+						}
+						br.close();
+				    	}
+					
 					fmap.put("path", fInfo.getCanonicalPath());
 					fmap.put("title", fInfo.getName());
 					fmap.put("folder", fInfo.isDirectory());

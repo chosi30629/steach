@@ -36,7 +36,7 @@
        		<div class="imgheader">
        			<img class="headerimg" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/drive_48dp.png 2x " style="width:40px;height:40px">    
       		</div>
-     		<div class="textheader">&nbsp;스티치 드라이브  </div>
+     		<div class="textheader">&nbsp;구글 드라이브  </div>
 		</div>
       
       	<form class="formrow">
@@ -241,6 +241,7 @@
  var firstload;
  var fileInfo = [];
  var clickToLazy;
+ var activeNode;
  // 파일 업로드 ajax
 	 	var nPath; 
 		 function nowpath(result){
@@ -277,18 +278,19 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-		
-			console.log(nPath);
-			var node = $("#tree").fancytree("getActiveNode");
-	    	if (!node) node = clickToLazy;
+			console.dir(result);
+			
+			activeNode = $("#tree").fancytree("getActiveNode");
+	    	if (!node) {
+	    		node = clickToLazy;
+	    	}
+	    	else if(node == null) {
+	    		node = $("#tree").fancytree("getRootNode").children[0]
+				console.log("getRootNode",node);
+	    	}
 	    	
-	    	node.lazy = true;
-	    	node.expanded = true;
-// 	    	console.log(result);
-// 	    	console.log(node);
 	    	
 			for(var i =0 ; i < result.length ; i++){
-				
 	    	node.addChildren({
 	            title : result[i].title,
 	            folder : result[i].folder,
@@ -297,6 +299,10 @@
 	            }
 	         });
 			
+	    	node.load(true).done(function(){
+	    		  node.setExpanded();
+	    		});
+	    	
 			EmojiAndFLengthLIST(result[i].list);
 			}
 			
@@ -355,11 +361,10 @@ $('.addFolder').click(function(){
     		alert("이름을 지어주세요!")
     		return false
     	}
+    	console.log(nPath);
     	var node = $("#tree").fancytree("getActiveNode");
     	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
     	if (node.folder==false) {
-    		var prasentPath = $('tbody').attr('data-path');//tbody에 심어둔 현재 경로
-//     		console.log(prasentPath); // c:\drive\parkhanjun\제목없는 폴더
     		node = node.parent
     		console.log(node);
     	}
@@ -383,6 +388,8 @@ $('.addFolder').click(function(){
             }
          });
     	
+    	node.setExpanded = true;
+    	
     //  path
     		 var arrPath = [];
     		 var keyPath = [];
@@ -404,7 +411,7 @@ $('.addFolder').click(function(){
         			}
         	}).done(function(e){
     			$('tbody').append('<tr path-data="'+e.path+'">' 
-	    		        +  '<td class="folderName"><div class="emoji fas fa-folder fa-lg"></div><span id="">'+e.title+'</span></td>'
+	    		        +  '<td class="folderName"><div class="emoji fas fa-folder fa-lg"></div><span id="'+keyVal+'">'+e.title+'</span></td>'
 	    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 	    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 	    		        +  '<td class="val" class="text-center">-</td>'
@@ -461,9 +468,9 @@ $('.addFolder').click(function(){
    		console.log("트리 경로찾을거야",find);
    		
    		for(var i =0; i < find.length ; i++){
-   			console.log(find[i].data.path);
-   			console.log(clickedTag);
-   			console.log(find[i].data.path == clickedTag)
+//    			console.log(find[i].data.path);
+//    			console.log(clickedTag);
+//    			console.log(find[i].data.path == clickedTag)
    			if(find[i].data.path == clickedTag){
    				needPath = find[i].data.path;
    				needNode =find[i];
@@ -513,13 +520,13 @@ $('.addFolder').click(function(){
         	tr.remove() // 우클릭한 태그 삭제
 			tree = $("#tree").fancytree("getTree"); // 트리 구조 불러오기
         	googleval = $('.myModal2').find('.changeNameText').val(thi);
-        	console.log(googleval);
         	find = tree.findAll(thi)	// 트리에서 thi를 가지고 있는 하위목록 가져오기
-        	console.log(find)
+//         	console.log(find)
 			for(var i =0 ; i < find.length ; i++)
 			{
-				console.log(clickedTag = find[i]);
-				if(clickedTag == find[i])
+// 				console.log("클릭태그",clickedTag);
+// 				console.log("똑같",find[i].data.path);
+				if(clickedTag == find[i].data.path)
 				{
 					var needNode = find[i]
 					console.log(needNode);
@@ -798,12 +805,15 @@ var source = [
       activate: function(event, data) {
     	 	// 클릭이 들어와 있을때
       },
-      
-      
     	  // 부분 로드 및 게으른(트랜지션 줄 수 있음) 폴더 구현할 수 있음 
       lazyLoad: function(event, data) {
+    	  
     	  node = data.node;
-//     	  console.log("레이지노드!",node.data)
+//     	  node.load(true).done(function(){
+//     		  node.setExpanded();
+//     		});
+    	  
+//     	  console.log("레이지노드!",node)
     	  var path = node.data.path;
 	    		 data.result =	 $.ajax({
 				url : '<c:url value="/drive/detailFolder.do" />',
@@ -811,12 +821,11 @@ var source = [
 					"path" : path
 					},
 			}).done(function(result){
-// 				console.log(result);
 			})
       }, // end lazyLoad 	
       loadChildren: function (event, data) {
         // update node and parent counters after lazy loading
-    	  data.node.updateCounters();
+    		            data.node.updateCounters();
       },
       keydown: function(event, data){
           switch( $.ui.fancytree.eventToString(data.originalEvent) ) {
@@ -831,10 +840,7 @@ var source = [
         	
         },
         click: function(event, data) {
-        	console.log(data.node);
-        	if(data.node.isLazy() == true){
-        	data.node.lazyLoad();        		
-        	}
+        	console.dir(data.node);
     	 	var path = data.node.data.path
     	 	//파일업로드 경로주기
     	 	nowpath(path);
@@ -941,10 +947,11 @@ var source = [
 				 				}
 					 
 					 $('tbody').append('<tr path-data ="'+e.path+'" id="'+keyPath+'">' 
-			    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span>'+e.title+'</span></td>'
+			    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="">'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 			    		        +  '<td class="val" class="text-center">'+length+'</td>'
+			    		        +  '<input type="hidden" class="eLine" value="'+e.line+'">'
 			    		        +  '</tr>');
 					 $('tbody').attr('data-path',  childlist[0].path.substring(0, childlist[0].path.lastIndexOf('\\')) )
 					 
@@ -984,13 +991,7 @@ var source = [
 								// indexOf가 -1 반환시	 //파일을 읽어오는 역할 수행
 								if(isFolder == -1)
 								{
-									alert('폴더가 아니죠 ');
-										  var fileReader = new FileReader();
-										  fileReader.readAsText(e.target.files[0]);
-										  fileReader.onload = function(e) 
-										  {
-										    console.log(e.target.result);
-										  }
+									console.log($(this).find('.eLine').val());
 								}else{
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',
@@ -998,6 +999,8 @@ var source = [
 										path : pathData
 									}
 								}).done(function(result){
+									console.dir(result);
+									EmojiAndFLengthLIST(result);
 									tree = $("#tree").fancytree("getTree")
 									dbcNode = pathData.substring(pathData.lastIndexOf('\\')+1 , pathData.length);
 									
@@ -1006,11 +1009,12 @@ var source = [
 // 										console.log(findAll[i]);
 										if(findAll[i].data.path == pathData){
 											clickToLazy = findAll[i];
-											findAll[i].setExpanded();											
+											console.log(clickToLazy);
+											clickToLazy.resetLazy();
+											if(clickToLazy.isLazy() == true)	clickToLazy.lazyLoad();											
 										}
 									}
-										
-										EmojiAndFLengthLIST(result);
+
 									
 										//!!!! 오류 유발 수정 필요
 									if($('tbody').children().length==0){
@@ -1147,12 +1151,15 @@ var source = [
 		 						}
 		 				break;
 		 				}
+	    	 		 
+	    	 		 
 			 
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
 		    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
-		    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
-		    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
-		    		        +  '<td class="val" class="text-center">'+length+'</td>'
+		    		        +  '<td class="owner text-center">'+e.path.split("\\")[2]+'</td>'
+		    		        +  '<td class="date text-center">'+e.lastModified+'</td>'
+		    		        +  '<td class="val text-center">'+length+'</td>'
+		    		        +  '<input type="hidden" class="eLine" value="'+e.line+'">'
 		    		        +  '</tr>');
 	    	 		$('tbody').attr('data-path',  result[0].path.substring(0, result[0].path.lastIndexOf('\\')) )
 			 }//end for
