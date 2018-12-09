@@ -15,14 +15,20 @@
 
 <!-- css -->
 
-<link href="/steach/resources/css/class/attend/attend.css" rel="stylesheet" />
+<link href="/steach/resources/css/class/attend/attend.css"
+	rel="stylesheet" />
 
 <!-- swAlert.js -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 <script src="/steach/resources/js/jquery-dateformat.js"></script>
+
 
 </head>
 <!-- style= "height: 100vh; overflow: hidden;" -->
@@ -45,33 +51,49 @@
 					</div>
 				</div>
 			</div>
+			<div style="width: 60%; margin: auto">
+				<div id="chartarea">
+				<canvas id="line-chart"></canvas>
+				</div>
+			</div>
 		</div>
 	</div>
-	
-<!-- Modal -->
-<div class="modal fade" id="dailyattend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="dailyattTitle"></h4>
-      </div>
-      <div class="modal-body" id="dailyattContent">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="dailyattend" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dailyattTitle"></h4>
+				</div>
+				<div class="modal-body" id="dailyattContent"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script>
-	var id = "${user.id}";
-// 	console.log(id)
-	var masterid = "${clazz.master}"
+	var userid = "${user.id}";
+	console.log(userid)
+	var master = "${clazz.master}"
 	console.log(master)
 	var teacherlist = "${teacherAttend}"
-// 	console.log(teacherlist)
+
+	var time = new Date();
+    var curY = time.getFullYear();
+    var curM = time.getMonth() + 1;
+    var curD = time.getDate();
+    if (curM < 10)
+    	curM = '0' + currentMonth;
 
 	function kCalendar(id, date) {
         var kCalendar = document.getElementById(id);
@@ -91,6 +113,7 @@
 
         var currentMonth = date.getMonth() + 1;
         //연을 구함. 월은 0부터 시작하므로 +1, 12월은 11을 출력
+        
 
         var currentDate = date.getDate();
         //오늘 일자.
@@ -129,9 +152,9 @@
         var calendar = '';
 
         calendar += '<div id="header">';
-        calendar += '			<span><a href="#" class="button left" onclick="kCalendar(\'' + id + '\', \'' + prevDate + '\')"><</a></span>';
+        calendar += '			<span><span class="button left" onclick="kCalendar(\'' + id + '\', \'' + prevDate + '\')"><</span></span>';
         calendar += '			<span id="date">' + currentYear + '년 ' + currentMonth + '월</span>';
-        calendar += '			<span><a href="#" class="button right" onclick="kCalendar(\'' + id + '\', \'' + nextDate + '\')">></a></span>';
+        calendar += '			<span><span class="button right" onclick="kCalendar(\'' + id + '\', \'' + nextDate + '\')">></span></span>';
         calendar += '		</div>';
         calendar += '		</div>';
         calendar += '		<table align="center" border="0" cellspacing="0" cellpadding="0">';
@@ -179,10 +202,7 @@
 
         kCalendar.innerHTML = calendar;
         
-        var time = new Date();
-        var curY = time.getFullYear();
-        var curM = time.getMonth() + 1;
-        var curD = time.getDate();
+        
         var today;
 
         if (curD < 10) {
@@ -192,13 +212,118 @@
         }
         $('div[data-date="' + today + '"]').parent().css("background-color", "#fcf8e3");
         
+        
+        attendData ()
+
+        
+        $(".attendContent").click(function(){
+        
+		var tttt = $(this).attr("data-date")
+		console.log(tttt)
+		$("#dailyattTitle").text(tttt +"  출석부")
+// 		console.log("teacher여부확인id"+ userid)
+// 		console.log("teacher여부확인master"+ master)
+		
+		if (userid==master) {
+			console.log("강사다")
+		$.ajax({
+			url:"/steach/class/attend/attendTeacherContent.do",
+			data:{
+				classNo:cno,
+				attendDate:tttt
+			}
+		}).done(function(result){
+			var latelist = result.list.atlate;
+			var earlylist = result.list.atearly;
+			var offlist = result.list.atoff;
+			
+			var late = "";
+			var early = "";
+			var off = "";
+			
+			if (latelist!="") {
+				for (var i = 0; i < latelist.length; i++) {
+					late += latelist[i].user[0].name + ", "
+				}
+			}
+			var latename = late.substring(0, late.length-2)
+			
+			if (earlylist!="") {
+				for (var i = 0; i < earlylist.length; i++) {
+					early += earlylist[i].user[0].name + ", "
+				}
+			}
+			var earlyname = early.substring(0, early.length-2)
+			
+			if (offlist!="") {
+				for (var i = 0; i < offlist.length; i++) {
+					off += offlist[i].user[0].name + ", "
+				}
+			}
+			var offname = off.substring(0, off.length-2)
+			
+			var atnamelist = "";
+			if (latename.length != 0) {
+				atnamelist += '<p>지각 : ' + latename + '</p>'
+			}
+			if (earlyname.length != 0) {
+				atnamelist += '<p>조퇴 : ' + earlyname + '</p>'
+			}
+			if (offname.length != 0) {
+				atnamelist += '<p>결석 : ' + offname + '</p>'
+			}
+			
+			
+			$("#dailyattContent").html(atnamelist)
+			
+		})
+		}
+		else {
+// 			console.log("학생이다")
+			
+			$.ajax({
+   				url: "/steach/class/attend/attendStudentContent.do",
+   				data: {
+   					classNo:cno,
+   					id:userid,
+   					attendDate:tttt
+   				}
+   			}).done(function(result){
+   				var dailyat = '';
+   				switch (result.gno) {
+				case 1001:
+					dailyat = "출석"
+					break;
+				case 1002:
+					dailyat = "지각"
+					break;
+				case 1003:
+					dailyat = "조퇴"
+					break;
+				case 1004:
+					dailyat = "결석"
+					break;
+				}
+//    				console.log("퇴실시간 : " + $.format.date(result.offTime, "HH:mm"))
+//    				console.log("퇴실시간2: " + result.offTime)
+   				if (!result.offTime) {
+   					
+					result.offTime = "-"					
+				}
+   				$("#dailyattContent").html("<h3 style='margin-top: 0px'>"+dailyat + "</h3><p>출석시간 : "+$.format.date(result.attendTime, "HH:mm")+"</p><p>퇴실시간 : "+$.format.date(result.offTime, "HH:mm")+"</p>")
+   			})
+		}
+	})
+	
+	
+	
     }
 
     kCalendar('kCalendar');
 	
     
     function attendData (){
-   		if(id == master){
+   		if(userid == master){
 		$.ajax({
 			url: "/steach/class/attend/attendlistTeacher.do",
 			data: {
@@ -210,10 +335,89 @@
 			for (var i = 0; i < result.length; i++) {
 				atdata = '<p class="teach">지각 '+result[i].attendLate+'</p><p class="teach">조퇴 '+result[i].attendEarly+'</p><p class="teach">결석 '+result[i].attendOff+'</p>'
 				$('div[data-date="' + result[i].attendDate + '"]').html(atdata)
+				
 			}
 		})
+		var calmonth = $("span#date").text()
+		var calmonthtitle = $("span#date").text()
+	   	calmonth = calmonth.replace("년 ", "-")
+	   	calmonth = calmonth.replace("월", "")
+		$.ajax({
+        		url: "/steach/class/attend/attendchart.do",
+    			data: {
+    				chartMonth:calmonth,
+    				classNo:cno
+    			}
+        	}).done(function(result){
+//         		console.log(result)
+        		var datearray= new Array()
+    			var onarray = new Array()
+    			var latearray = new Array()
+    			var earlyarray = new Array()
+    			var offarray = new Array()
+        		
+        		for (var i = 0; i < result.length; i++) {
+    				datearray.push((result[i].attendDate).substr(5))
+    				onarray.push(result[i].attendOn)
+    				latearray.push(result[i].attendLate)
+    				earlyarray.push(result[i].attendEarly)
+    				offarray.push(result[i].attendOff)
+    			}
+        		var ctx = document.getElementById("line-chart").getContext("2d");
+//         		ctx.canvas.width = 900;
+//         		ctx.canvas.height = 480;
+        		var myChart = new Chart(ctx, {
+    				type: 'line',
+    				data: {
+    					labels: datearray,
+    					datasets: [{
+    						data: onarray,
+    						label: "출석",
+    						borderColor: "#2E64FE",
+    						fill: false
+    					}, {
+    						data: latearray,
+    						label: "지각",
+    						borderColor: "#01DFA5",
+    						fill: false
+    					}, {
+    						data: earlyarray,
+    						label: "조퇴",
+    						borderColor: "#F79F81",
+    						fill: false
+    					}, {
+    						data: offarray,
+    						label: "결석",
+    						borderColor: "#FA5858",
+    						fill: false
+    					}
+    					]
+    				},
+    				options: {
+    					responsive: true,
+    				    maintainAspectRatio: true,
+//                         width:1000,
+//                         height:300,
+    					title: {
+    						fontSize: 20,
+    						display: true,
+    						text: calmonthtitle+" 출석현황"
+    					},
+    					scales: {
+    				        yAxes: [{
+    				            ticks: {
+    				            	beginAtZero: true,
+    				                fixedStepSize: 5
+    				            }
+    				        }],
+    				    }
+    				}
+    			});
+        		
+        	})
     	}
    		else {
+   			$("#chartarea").css("display", "none");
    			$.ajax({
    				url: "/steach/class/attend/attendlistStudent.do",
    				data: {
@@ -221,7 +425,8 @@
    					id:id
    				}
    			}).done(function(result){
-   				console.log(result)
+   				console.log("AAAAA")
+//    				console.log(result)
    				var atdata = '';
    				for (var i = 0; i < result.length; i++) {
    					if (result[i].attendLate == 1) {
@@ -243,7 +448,7 @@
    			})
    		}
    	}
-    attendData()
+//     attendData()
     
 	/* $(".attendContent").click(function(){
 		var tttt = $(this).attr("data-date")
@@ -285,68 +490,137 @@
 		
 	}) */
 	
-	$(".attendContent").click(function(){
-		var tttt = $(this).attr("data-date")
-		console.log(tttt)
-		$("#dailyattTitle").text(tttt +"  출석부")
-		$.ajax({
-			url:"/steach/class/attend/attendTeacherContent.do",
-			data:{
-				classNo:cno,
-				attendDate:tttt
-			}
-		}).done(function(result){
-			var latelist = result.list.atlate;
-			var earlylist = result.list.atearly;
-			var offlist = result.list.atoff;
+// 	$(".attendContent").click(function(){
+// 		var tttt = $(this).attr("data-date")
+// 		console.log(tttt)
+// 		$("#dailyattTitle").text(tttt +"  출석부")
+// 		$.ajax({
+// 			url:"/steach/class/attend/attendTeacherContent.do",
+// 			data:{
+// 				classNo:cno,
+// 				attendDate:tttt
+// 			}
+// 		}).done(function(result){
+// 			var latelist = result.list.atlate;
+// 			var earlylist = result.list.atearly;
+// 			var offlist = result.list.atoff;
 			
-			var late = "";
-			var early = "";
-			var off = "";
+// 			var late = "";
+// 			var early = "";
+// 			var off = "";
 			
-			if (latelist!="") {
-				for (var i = 0; i < latelist.length; i++) {
-					late += latelist[i].user[0].name + ", "
-				}
-			}
-			var latename = late.substring(0, late.length-2)
-// 			console.log("지각 : "+latename)
-// 			console.log(latename.length)
+// 			if (latelist!="") {
+// 				for (var i = 0; i < latelist.length; i++) {
+// 					late += latelist[i].user[0].name + ", "
+// 				}
+// 			}
+// 			var latename = late.substring(0, late.length-2)
 			
-			if (earlylist!="") {
-				for (var i = 0; i < earlylist.length; i++) {
-					early += earlylist[i].user[0].name + ", "
-				}
-			}
-			var earlyname = early.substring(0, early.length-2)
-// 			console.log("조퇴 : "+earlyname) 
-// 			console.log(earlyname.length) 
+// 			if (earlylist!="") {
+// 				for (var i = 0; i < earlylist.length; i++) {
+// 					early += earlylist[i].user[0].name + ", "
+// 				}
+// 			}
+// 			var earlyname = early.substring(0, early.length-2)
 			
-			if (offlist!="") {
-				for (var i = 0; i < offlist.length; i++) {
-					off += offlist[i].user[0].name + ", "
-				}
-			}
-			var offname = off.substring(0, off.length-2)
-			console.log("결석 : "+offname)
-			console.log(offname.length)
+// 			if (offlist!="") {
+// 				for (var i = 0; i < offlist.length; i++) {
+// 					off += offlist[i].user[0].name + ", "
+// 				}
+// 			}
+// 			var offname = off.substring(0, off.length-2)
 			
-			var atnamelist = "";
-			if (latename.length != 0) {
-				atnamelist += '<p>지각 : ' + latename + '</p>'
-			}
-			if (earlyname.length != 0) {
-				atnamelist += '<p>조퇴 : ' + earlyname + '</p>'
-			}
-			if (offname.length != 0) {
-				atnamelist += '<p>결석 : ' + offname + '</p>'
-			}
+// 			var atnamelist = "";
+// 			if (latename.length != 0) {
+// 				atnamelist += '<p>지각 : ' + latename + '</p>'
+// 			}
+// 			if (earlyname.length != 0) {
+// 				atnamelist += '<p>조퇴 : ' + earlyname + '</p>'
+// 			}
+// 			if (offname.length != 0) {
+// 				atnamelist += '<p>결석 : ' + offname + '</p>'
+// 			}
 			
 			
-			$("#dailyattContent").html(atnamelist)
+// 			$("#dailyattContent").html(atnamelist)
 			
-		})
+// 		})
+// 	})
+	
+	/* $("a.left, a.right").click(function(){
+		attendData ()
+		var calmonth = $("span#date").text()
+    	calmonth = calmonth.replace("년 ", "-")
+    	calmonth = calmonth.replace("월", "")
+    	console.log("a"+calmonth)
+    	var thismonth = "" + curY + "-" + curM
+    	console.log("b"+thismonth)
+    	if(id == master){
+	
+        	$.ajax({
+        		url: "/steach/class/attend/attendchart.do",
+    			data: {
+    				chartMonth:calmonth,
+    				classNo:cno
+    			}
+        	}).done(function(result){
+        		console.log(result)
+        		var datearray= new Array()
+    			var onarray = new Array()
+    			var latearray = new Array()
+    			var earlyarray = new Array()
+    			var offarray = new Array()
+        		
+        		for (var i = 0; i < result.length; i++) {
+    				datearray.push((result[i].attendDate).substr(5))
+    				onarray.push(result[i].attendOn)
+    				latearray.push(result[i].attendLate)
+    				earlyarray.push(result[i].attendEarly)
+    				offarray.push(result[i].attendOff)
+    			}
+        		
+        		var myChart = new Chart(document.getElementById("line-chart"), {
+    				type: 'line',
+    				data: {
+    					labels: datearray,
+    					datasets: [{
+    						data: onarray,
+    						label: "출석",
+    						borderColor: "#2E64FE",
+    						fill: false
+    					}, {
+    						data: latearray,
+    						label: "지각",
+    						borderColor: "#01DFA5",
+    						fill: false
+    					}, {
+    						data: earlyarray,
+    						label: "조퇴",
+    						borderColor: "#F79F81",
+    						fill: false
+    					}, {
+    						data: offarray,
+    						label: "결석",
+    						borderColor: "#FA5858",
+    						fill: false
+    					}
+    					]
+    				},
+    				options: {
+    					title: {
+    						display: true,
+    						text: '12월 출석현황'
+    					}
+    				}
+    			});
+        		
+        	})
+        	
+        }
 	})
+	function atchart(){
+    	
+    } */
 
         
     </script>

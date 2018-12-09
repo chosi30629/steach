@@ -76,6 +76,11 @@ public class AttendServiceImpl implements AttendService {
 		return map;
 	}
 
+	@Override
+	public List<Attend> attendchart(Attend attend) {
+		return mapper.attendchart(attend);
+	}
+
 
 	
 	

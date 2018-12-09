@@ -16,6 +16,7 @@ public class Attend {
 	private int gNo;	    		//출석상태코드
 	private String offStatus;		//퇴실여부
 	private Date offTime;		   	//퇴실시간
+	private String chartMonth;		//월별출석 차트를 보여주기위한
 	
 	private int attendOn;
 	private int attendLate;

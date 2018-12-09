@@ -29,4 +29,7 @@ public interface AttendService {
 
 	// 강사 일별 출석내용-지각/조퇴/결석
 	Map<String,Object> attendTeacherContent(Attend attend);
+
+	// 강사 월별 차트
+	List<Attend> attendchart(Attend attend);
 }

@@ -28,7 +28,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		User user = (User)session.getAttribute("user");	
-		System.out.println("user:" + user);
+//		System.out.println("user:" + user);
 		if(user != null) {										
 			return true;			
 		} // if

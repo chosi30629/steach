@@ -32,17 +32,26 @@ public class AttendController {
 //		model.addAttribute("teacherAttend",attendservice.attendlistTeacher(attend));
 	}
 	
+	// 강사가 보는 출결현황
 	@ResponseBody
 	@RequestMapping("/attendlistTeacher.do")
 	public List<Attend> attend2(Attend attend, Model model) {
-//		attend.setClassNo(classNo);
 		return attendservice.attendlistTeacher(attend);
 	}
+	
+	//학생이 보는 출결현황
 	@ResponseBody
 	@RequestMapping("/attendlistStudent.do")
 	public List<Attend> attend3(int classNo, Attend attend, Model model) {
 		attend.setClassNo(classNo);
 		return attendservice.attendlistTeacher(attend);
+	}
+
+	// 월별차트
+	@ResponseBody
+	@RequestMapping("/attendchart.do")
+	public List<Attend> attendchart(Attend attend, Model model) {
+		return attendservice.attendchart(attend);
 	}
 
 	@ResponseBody

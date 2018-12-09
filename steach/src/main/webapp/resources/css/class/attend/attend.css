@@ -6,12 +6,12 @@
 
 /* #kCalendar { border: 1px solid black; text-align: center} */
 
-/* .accordion {
-	box-shadow: 1px 1px 1px 1px #ddd;
-} */
+.accordion {
+	margin-bottom: 5px;
+}
 
 .title{
-	margin-top:20px;
+	margin-top:40px;
     background-color:navy;
     height:35px;
     border-radius: 8px
@@ -52,8 +52,8 @@ td {
 
 
 #kCalendar td.sun, td.mon, td.tue, td.wed, td.thu, td.fri, td.sat {
-    width: 120px;
-    height: 100px;
+    width: 130px;
+    height: 110px;
     vertical-align: top;
     border : solid 1px #ddd;
 }
@@ -134,6 +134,9 @@ a:visited {
 	font-size: 20px;
 }
 
+div#dailyattContent p:last-child {
+	margin-bottom: 0px;
+}
 
 .modal {
     text-align: center;
@@ -153,3 +156,4 @@ a:visited {
     text-align: left;
     vertical-align: middle;
   }
+  

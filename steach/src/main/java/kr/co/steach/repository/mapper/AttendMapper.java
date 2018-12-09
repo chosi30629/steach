@@ -32,4 +32,7 @@ public interface AttendMapper {
 	List<Attend> attendTeacherEarly(Attend attend);
 	// 강사 일별 출석내용-결석
 	List<Attend> attendTeacherOff(Attend attend);
+
+	// 강사 월별 차트
+	List<Attend> attendchart(Attend attend);
 }

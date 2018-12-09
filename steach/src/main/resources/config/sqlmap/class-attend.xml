@@ -142,6 +142,49 @@
 			and tb1.class_no=#{classNo}
 		GROUP BY tb1.attend_date
 	</select>
+	
+	<!--강사가 보는 월별 차트 -->
+	<select id="attendchart" parameterType="Attend" resultMap="attendMap">
+		SELECT
+		  DATE(tb1.attend_date) AS attend_date,
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb2
+		    WHERE tb2.attend_date = tb1.attend_date
+		      AND tb2.g_no = '1001'
+		      and tb2.class_no=#{classNo}
+		      and tb2.attend_date like concat('%',#{chartMonth},'%')
+		  ) AS 'attend_on',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb3
+		    WHERE tb3.attend_date = tb1.attend_date
+		      AND tb3.g_no = '1002'
+		       and tb3.class_no=#{classNo}
+		       and tb3.attend_date like concat('%',#{chartMonth},'%')
+		  ) AS 'attend_late',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb4
+		    WHERE tb4.attend_date = tb1.attend_date
+		      AND tb4.g_no = '1003'
+		       and tb4.class_no=#{classNo}
+		       and tb4.attend_date like concat('%',#{chartMonth},'%')
+		  ) AS 'attend_early',
+		  (
+		    SELECT COUNT(*) AS cnt
+		    FROM tb_class_attend tb5
+		    WHERE tb5.attend_date = tb1.attend_date
+		      AND tb5.g_no = '1004'
+		       and tb5.class_no=#{classNo}
+		       and tb5.attend_date like concat('%',#{chartMonth},'%')
+		  ) AS 'attend_off'
+		FROM tb_class_attend tb1
+		WHERE 1=1
+			and tb1.class_no=#{classNo}
+			and tb1.attend_date like concat('%',#{chartMonth},'%')
+		GROUP BY tb1.attend_date
+	</select>
 
 	<!-- 학생이 보는 달력 데이터 -->
 	<select id="attendlistStudent" parameterType="Attend" resultMap="attendMap">
@@ -186,7 +229,7 @@
 	</select>
 	
 	<!-- 학생 daily 출석정보 -->
-	<select id="attendStudentContent" parameterType="Attend" resultMap="attendMap">
+	<select id="attendStudentContent" parameterType="Attend" resultMap="attendMap" flushCache="true">
 		select *
 		  from tb_class_attend
 		 where id=#{id}
@@ -195,7 +238,7 @@
 	</select>
 	
 	<!-- 강사 daily 출석부 지각리스트 -->
-	<select id="attendTeacherLate" parameterType="Attend" resultMap="attendMap">
+	<select id="attendTeacherLate" parameterType="Attend" resultMap="attendMap" flushCache="true">
 		SELECT u.name
     	  FROM tb_class_attend a, tb_user u
    		 WHERE a.id=u.id
@@ -205,7 +248,7 @@
 	</select>
 
 	<!-- 강사 daily 출석부 조퇴리스트 -->
-	<select id="attendTeacherEarly" parameterType="Attend" resultMap="attendMap">
+	<select id="attendTeacherEarly" parameterType="Attend" resultMap="attendMap" flushCache="true">
 		SELECT u.name
     	  FROM tb_class_attend a, tb_user u
    		 WHERE a.id=u.id
@@ -215,7 +258,7 @@
 	</select>
 
 	<!-- 강사 daily 출석부 결석리스트 -->
-	<select id="attendTeacherOff" parameterType="Attend" resultMap="attendMap">
+	<select id="attendTeacherOff" parameterType="Attend" resultMap="attendMap" flushCache="true">
 		SELECT u.name
     	  FROM tb_class_attend a, tb_user u
    		 WHERE a.id=u.id
