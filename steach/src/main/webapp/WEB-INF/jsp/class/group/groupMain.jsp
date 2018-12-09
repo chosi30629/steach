@@ -82,7 +82,7 @@
                 <div id="studentList" class="clearfix" style="display:none;">
                 	<ul class="studentList student-list clearfix text-center" style="width: 70% !important; padding: 0 0 0 0; list-style-type: none; display: inline-block;">
                 		<c:forEach var="member" items="${classMember}" varStatus="loop">
-	                		<li class="ui-state-default clearfix" style="margin: 0 15px; background-image: url('/steach/resources/images/class/group/p1.jpg');">
+	                		<li class="ui-state-default clearfix" style="margin: 0 15px; background-image: url('${member.user.profilePath}');">
 	                			<span class="student-name">${member.user.name}</span>
 	                		</li>
                 		</c:forEach>
@@ -168,6 +168,16 @@ l0,-61 L40,28" />
         // wow.js
         new WOW().init();
         
+        var classNo = "${classNo}";        
+        
+        <c:forEach var="studentId" items="${classMember}">
+        	<c:if test="${user.id == studentId.id}">
+	        	$(".wrapper").hide();
+        	</c:if>
+        </c:forEach>
+        
+//         console.log("${classMember}");
+        
         // 클래스 멤버 textarea(랜덤 설정 해주는 곳)에 뿌리기
         if(${groupNo} != 0) {
         	$(".parentDrop").show();
@@ -186,7 +196,8 @@ l0,-61 L40,28" />
 		
 		$("#students").text(students);
 		
-		// 그룹 뿌려주기
+		console.log("${groupList}");
+		// 그룹 뿌려주기 
 		group();
 		function group() {
 			var group = "";
@@ -284,8 +295,8 @@ l0,-61 L40,28" />
             $.ajax({
             	url: "/steach/class/group/randomGroup.do",
             	data: {
-            		groupSize: $(".numgroups").val(),
-            		classNo: 1
+            		"groupSize": $(".numgroups").val(),
+            		"classNo": classNo
             	}
             })
             .done(function(result) {
@@ -359,7 +370,7 @@ l0,-61 L40,28" />
             
             $.ajax({
             	url: "/steach/class/group/initClassGroup.do",
-               	data: {"classNo": 1}
+               	data: {"classNo": classNo}
             })
             .done(function(result) {
 				console.log(result);

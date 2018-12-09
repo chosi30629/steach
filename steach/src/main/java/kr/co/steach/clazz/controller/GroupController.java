@@ -54,16 +54,19 @@ public class GroupController {
 		List<GroupMember> studentList = service.groupMemberList();
 		try {
 			model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
+			model.addAttribute("classNo", classNo);
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", studentList.get(0).getGroupNo());
-			group.setClassNo(1);
+			group.setClassNo(classNo);
 			model.addAttribute("groupList", service.groupList(group));
-			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
+			model.addAttribute("classMember", memberService.selectMemberByClassNo(classNo));
 		} catch(Exception e) {
+			model.addAttribute("classNo", classNo);
 			model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", "0");
-			model.addAttribute("classMember", memberService.selectMemberByClassNo(1));
+			model.addAttribute("classMember", memberService.selectMemberByClassNo(classNo));
+			e.printStackTrace();
 		}
 	} // groupMain
 	

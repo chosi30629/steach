@@ -13,6 +13,6 @@ public class GroupMember {
 	private int groupMemberOrder;
 	private int groupSequence;
 	private String name;
-	
+	private User user;
 	
 } // end class
