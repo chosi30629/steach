@@ -133,8 +133,9 @@
 	
 	<!-- 카드 댓글 목록 -->
 	<select id="cardCommentList" resultMap="groupCommentMap">
-		select * from tb_class_group_list_card_comment
+		select c.*, u.name from tb_class_group_list_card_comment c, tb_user u
 		 where card_no = #{cardNo}
+		   and c.card_comment_writer = u.id
 	</select>
 		
 	<!-- 카드 댓글 추가 -->
@@ -254,6 +255,21 @@
 		       group_no = #{groupNo}
 		 where group_member_no = #{groupMemberNo}  
 	</update>
+	
+	<!-- 그룹 조회 -->
+	<select id="selectGroupByNo" parameterType="int" resultMap="groupMap">
+		select *
+		  from tb_class_group
+		 where group_no = #{groupNo}
+	</select>
+	
+	<!-- 자기에 맞는 그룹 -->
+	<select id="selectGroupById" parameterType="string" resultMap="groupMap">
+		select u.* 
+		  from tb_class_group u, tb_class_group_member g
+		 where u.group_no = g.group_no
+		   and g.group_member_id = #{groupMemberId}
+	</select>
 	
 	<!-- 그룹 이름 변경 -->
 	<update id="updateGroupName" parameterType="Group">

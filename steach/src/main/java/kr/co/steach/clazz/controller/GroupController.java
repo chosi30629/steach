@@ -147,6 +147,7 @@ public class GroupController {
 	public void groupActivity(Model model, int groupNo, int classNo) {
 		model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 		model.addAttribute("groupNo", groupNo);
+		model.addAttribute("group", service.selectGroupByNo(groupNo));
 		model.addAttribute("listList", service.listList(groupNo));
 		model.addAttribute("cardList", service.cardList());
 	} // groupActivity

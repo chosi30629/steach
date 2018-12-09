@@ -52,6 +52,8 @@ public interface GroupService {
 
 	List<Group> groupList(Group group);
 
+	Group selectGroupByNo(int groupNo);
+	
 	List<GroupMember> groupMember(GroupMember groupMember);
 	
 	List<GroupMember> groupMemberList();

@@ -196,7 +196,6 @@ l0,-61 L40,28" />
 		
 		$("#students").text(students);
 		
-		console.log("${groupList}");
 		// 그룹 뿌려주기 
 		group();
 		function group() {
@@ -215,7 +214,7 @@ l0,-61 L40,28" />
 		            + '<ul class="connectedSortable childDrop">'
 		                　		+ '　'
 		           	+ ' <c:forEach var="member" items="${groupList[loop.index].groupMember}">  '  
-		                　		+      '<li class="ui-state-default clearfix" data-groupNo="${member.groupNo}" data-index="${member.groupMemberNo}" data-order="${member.groupMemberOrder}" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
+		                　		+      '<li class="ui-state-default clearfix" data-groupNo="${member.groupNo}" data-index="${member.groupMemberNo}" data-order="${member.groupMemberOrder}" data-id="${member.groupMemberId}" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
 		                　		+         '<span class="student-name">${member.name}</span>'
 		                　		+     '</li>'
 		            + ' </c:forEach>'  
@@ -224,6 +223,11 @@ l0,-61 L40,28" />
 		            + '</li>'
 	    	</c:forEach>
 			$(".parentDrop").html(group);
+			$(".parentDrag").hide();
+			$(".ui-state-default[data-id='${user.id}']").parents(".parentDrag").show();
+			if("${clazz.master}" == "${user.id}") {
+				$(".parentDrag").show();
+			}
 		};
         
         $(function () {

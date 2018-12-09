@@ -12,6 +12,7 @@ public class GroupComment {
 	private String cardCommentWriter;
 	private String cardCommentContent;
 	private Date cardCommentRegDate;
+	private String name;
 	
 	
 } // end class

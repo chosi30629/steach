@@ -68,7 +68,7 @@
 <!--         </div> -->
 <!--     </nav> -->
     <div class="clearfix groupName">
-        <h3>비트캠프 2조</h3>
+        <h3>${group.groupName}</h3>
     </div>
     <div class="wrapper clearfix">
         <ul class="connectedSortables parentDrop clearfix">
@@ -227,14 +227,18 @@
 				
 				for(var c = 0; c < result.length; c++) {
 					commentList += "<tr><td><div>";
-					commentList += result[c].cardCommentWriter + "&nbsp;&nbsp;<span>";
+					commentList += result[c].name + "&nbsp;&nbsp;<span>";
 					commentList += $.format.date(result[c].cardCommentRegDate, "yyyy-MM-dd HH:mm:ss");
 					commentList += "</span></div><div class='comment-content-div' style='white-space: pre-line;'>";
 					commentList += result[c].cardCommentContent;
 					commentList += "</div><input type='hidden' class='commentNo' value='" + result[c].cardCommentNo + "'/>";
 					commentList += "<div class='comment-update-form' style='display: none;'><textarea class='modify-content'>" + result[c].cardCommentContent + "</textarea></div>";
-					commentList += "<div class='comment-btn'><button class='btn btn-default btn-xs comment-delete-btn'>삭제</button>";
-					commentList += "<button class='btn btn-default btn-xs comment-update-btn'>수정</button></div>";
+					if("${user.id}" == result[c].cardCommentWriter) {
+						commentList += "<div class='comment-btn'><button class='btn btn-default btn-xs comment-delete-btn'>삭제</button>";
+						commentList += "<button class='btn btn-default btn-xs comment-update-btn'>수정</button></div>";
+					} else {
+						commentList += "<div class='comment-btn'></div>"
+					}
 					commentList += "<div class='comment-form-btn' style='display: none;'><button class='btn btn-default btn-xs comment-cancel-btn'>취소</button>";
 					commentList += "<button class='btn btn-default btn-xs comment-onUpdate-btn'>수정</button></div></td></tr>";
 				}
@@ -694,7 +698,7 @@
         // 카드내용 Null 일시 자동 수정 버튼 클릭 
         $("body").on("click", ".cardContent-null", function(e) {
         	e.preventDefault();
-			$(".modifyCard").click();
+			$(this).parents(".cardContent-div").siblings(".modal-title").find(".modifyCard").click();
 		});
         
         // ... 카드 수정 버튼 누를 시
@@ -1054,7 +1058,8 @@
        	var ws;
 		$(document).ready(function() {
 // 			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
-			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
+// 			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
+			ws = new WebSocket('wss://192.168.1.2:8443/steach/chat.do');
 			ws.onopen = function() {
 		        console.log('연결 성공');
 		        ws.send("groupNo:" + groupNo);
@@ -1095,7 +1100,7 @@
 // 			    event.stopPropagation();
 // 			});
 
-	        $(window).on('keydown', function (e) {
+	        $(".chat_input").on('keydown', function (e) {
 	            if (e.originalEvent.keyCode == 13) {
 
 	                send();
