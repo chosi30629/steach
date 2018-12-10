@@ -267,4 +267,14 @@
 	   	   AND a.g_no = '1004';
 	</select>
 	
+	<!-- 강사 날짜 클릭 일일전체 출석부 -->
+	<select id="attendDailyDetail" parameterType="Attend" resultMap="attendMap">
+		SELECT u.name, a.*
+    	  FROM tb_class_attend a, tb_user u
+   		 WHERE a.id=u.id
+	 	   and a.attend_date =#{attendDate}
+		   and a.class_no=#{classNo}
+		   order by u.name
+	</select>
+	
 </mapper>

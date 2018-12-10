@@ -7,6 +7,7 @@ import kr.co.steach.repository.domain.Attend;
 
 public interface AttendService {
 
+	// 스프링 배치
 	void insertattend();
 	
 	Attend attendStatus(Attend attend);
@@ -32,4 +33,7 @@ public interface AttendService {
 
 	// 강사 월별 차트
 	List<Attend> attendchart(Attend attend);
+
+	// 일일 전체 출석부
+	List<Attend> attendDailyDetail(Attend attend);
 }

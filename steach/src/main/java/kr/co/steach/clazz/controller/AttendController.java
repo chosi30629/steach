@@ -53,6 +53,13 @@ public class AttendController {
 	public List<Attend> attendchart(Attend attend, Model model) {
 		return attendservice.attendchart(attend);
 	}
+	
+	// 일일 전체 출석현황
+	@ResponseBody
+	@RequestMapping("/attendDailyDetail.do")
+	public List<Attend> attendDailyDetail(Attend attend, Model model) {
+		return attendservice.attendDailyDetail(attend);
+	}
 
 	@ResponseBody
 	@RequestMapping("/attendStatus.do")

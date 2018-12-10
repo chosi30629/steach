@@ -76,9 +76,16 @@ public class AttendServiceImpl implements AttendService {
 		return map;
 	}
 
+	// 차트 데이터
 	@Override
 	public List<Attend> attendchart(Attend attend) {
 		return mapper.attendchart(attend);
+	}
+
+	// 일일 전체출석부
+	@Override
+	public List<Attend> attendDailyDetail(Attend attend) {
+		return mapper.attendDailyDetail(attend);
 	}
 
 

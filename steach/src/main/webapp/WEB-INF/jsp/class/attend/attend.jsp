@@ -80,12 +80,28 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="dailydetail" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="dailydetailTitle"></h4>
+				</div>
+				<div class="modal-body" id="dailydetailContent"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<script>
 	var userid = "${user.id}";
-	console.log(userid)
 	var master = "${clazz.master}"
-	console.log(master)
 	var teacherlist = "${teacherAttend}"
 
 	var time = new Date();
@@ -182,7 +198,7 @@
                     calendar += '<td class="' + dateString[j] + '"> </td>';
                     continue;
                 }
-                calendar += '<td class="' + dateString[j] + '">' + '<div class="dateNum" style="height:20px"><a href="#">' + dateNum + '</a></div>'
+                calendar += '<td class="' + dateString[j] + '">' + '<div class="dateNum" style="height:20px"><a href="#" data-toggle="modal" data-target="#dailydetail">' + dateNum + '</a></div>'
                 if (dateNum < 10)
                     dateNum = '0' + dateNum;
                 // calendar += '<div class="attendContent" id="'+ currentYear +'-'+ currentMonth +'-'+ dateNum + '"><p></p><p></p></div>' + '</td>';
@@ -315,6 +331,78 @@
 		}
 	})
 	
+	$("div.dateNum a").click(function(){
+		if (userid==master) {
+		var datadate = $(this).parent().next().attr("data-date")
+		var atcheck = $(this).parent().next().html()
+		console.log(atcheck)
+		if (atcheck=="") {
+			return false;
+		}
+		$("#dailydetailTitle").text(datadate +"  출석부")
+		var dailytable = '';
+
+		dailytable += '		<table class="table table-bordered" align="center" border="0" cellspacing="0" cellpadding="0">';
+		dailytable += '			<thead>';
+		dailytable += '				<tr>';
+		dailytable += '				  <th>　</th>';
+		dailytable += '				  <th>이름</th>';
+		dailytable += '				  <th>출석일</th>';
+		dailytable += '				  <th>출결여부</th>';
+        dailytable += '				  <th>출석시간</th>';
+        dailytable += '				  <th>퇴실시간</th>';
+        dailytable += '				</tr>';
+        dailytable += '			</thead>';
+        dailytable += '			<tbody>';
+		console.log(cno)
+		
+		$.ajax({
+   				url: "/steach/class/attend/attendDailyDetail.do",
+   				data: {
+   					classNo:cno,
+   					attendDate:datadate
+   				}
+   			}).done(function(result){
+   				var atcode;
+   				var formatAttendtime
+   				var formatOfftime
+   				for (var i = 0; i < result.length; i++) {
+   					switch (result[i].gno) {
+					case 1001:
+						atcode = "출석"
+						break;
+					case 1002:
+						atcode = "지각"
+						break;
+					case 1003:
+						atcode = "조퇴"
+						break;
+					case 1004:
+						atcode = "결석"
+						break;
+					}
+   					if (!result[i].attendTime || !result[i].offTime) {
+   						formatAttendtime = "-"
+ 						formatOfftime = "-"
+					} else {
+						formatAttendtime = $.format.date(result[i].attendTime, "HH:mm")
+						formatOfftime = $.format.date(result[i].attendTime, "HH:mm")
+					}
+   					dailytable +='<tr>'
+					dailytable +='<td>'+(i+1)+'</td><td>'+result[i].user[0].name+'</td><td>'+result[i].attendDate+'</td>'
+					dailytable +='<td>'+atcode+'</td><td>'+formatAttendtime+'</td><td>'+formatOfftime+'</td>'
+   					dailytable +='</tr>'
+				}
+   				dailytable += '</tbody>';
+   				dailytable += '</table>';
+   				$("#dailydetailContent").html(dailytable)
+   			})
+		}
+		else {
+			return false;
+		}
+	})
+	
 	
 	
     }
@@ -349,7 +437,6 @@
     				classNo:cno
     			}
         	}).done(function(result){
-//         		console.log(result)
         		var datearray= new Array()
     			var onarray = new Array()
     			var latearray = new Array()
@@ -364,8 +451,6 @@
     				offarray.push(result[i].attendOff)
     			}
         		var ctx = document.getElementById("line-chart").getContext("2d");
-//         		ctx.canvas.width = 900;
-//         		ctx.canvas.height = 480;
         		var myChart = new Chart(ctx, {
     				type: 'line',
     				data: {
@@ -396,8 +481,6 @@
     				options: {
     					responsive: true,
     				    maintainAspectRatio: true,
-//                         width:1000,
-//                         height:300,
     					title: {
     						fontSize: 20,
     						display: true,
@@ -425,8 +508,6 @@
    					id:id
    				}
    			}).done(function(result){
-   				console.log("AAAAA")
-//    				console.log(result)
    				var atdata = '';
    				for (var i = 0; i < result.length; i++) {
    					if (result[i].attendLate == 1) {
