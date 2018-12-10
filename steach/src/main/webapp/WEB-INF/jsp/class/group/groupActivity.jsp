@@ -1155,22 +1155,17 @@
        
         $(document).on('change', '.upload-hidden', function() { 
         	upload = $(this);
-        	
+        	var myHard = upload.siblings(".my-hard-file");
+        	myHard.empty();
         	var fileModalId = $(this).parents(".modal").attr("id");
 			var fileCardNo = $("li[data-target='#" + fileModalId + "']").attr("data-index");
         	
-//         	$(this).siblings('.upload-name').empty();
             if(window.FileReader) {  
                 for(var i = 0; i < $(this)[0].files.length; i++) {
                 	filenames.push($(this)[0].files[i].name + '<br>'); 
                 }
             } 
             
-            for(let j = 0; j < filenames.length; j++) {
-            	upload.siblings('.my-hard-file').append('<h5>' + filenames[j] + '</h5>'); 
-            }
-            
-            console.log($(this)[0].files);
             var formData = new FormData();
 			for(var i=0; i<$(this)[0].files.length; i++) {
 				formData.append("uploadFile", $(this)[0].files[i]);	
@@ -1184,10 +1179,12 @@
 				type: "POST"
 			})
 			.done(function(result) {
-				console.log(result);
+				for(let j = 0; j < result.length; j++) {
+					myHard.append('<h5><a href="/steach/class/group/fileload.do?cardFilePath=' +  result[j].cardFilePath + '&cardFileName=' + result[j].cardFileName + ' ">' + result[j].cardFileName + '</a></h5>'); 
+	            }
+	            filenames = [];
 			}); 
 			
-            filenames = [];
         }); 
         
         // 파일 리스트
@@ -1202,7 +1199,7 @@
 			.done(function(result) {
 	            for(let j = 0; j < result.length; j++) {
 	            	console.log(modalId);
-	            	$(modalId).find(".my-hard-file").append('<h5>' + result[j].cardFileName + '</h5>'); 
+	            	$(modalId).find(".my-hard-file").append('<h5><a href="/steach/class/group/fileload.do?cardFilePath=' +  result[j].cardFilePath + '&cardFileName=' + result[j].cardFileName + ' ">' + result[j].cardFileName + '</a></h5>'); 
 	            }
 			});
 		});

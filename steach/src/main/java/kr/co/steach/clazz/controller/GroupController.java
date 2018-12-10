@@ -1,6 +1,10 @@
 package kr.co.steach.clazz.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,8 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -331,10 +334,10 @@ public class GroupController {
 	
 	@RequestMapping(value="cardFileUpload.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String cardFileUpload(List<MultipartFile> uploadFile, GroupFile groupFile) throws Exception {	
+	public List<GroupFile> cardFileUpload(List<MultipartFile> uploadFile, GroupFile groupFile) throws Exception {	
 		
 		for(MultipartFile uFile : uploadFile) {
-			if(uFile.isEmpty() == true) return "업로드 파일 없음";
+			if(uFile.isEmpty() == true) return null;
 			
 			// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
 			String uploadPath = "C:/app/upload";
@@ -362,7 +365,7 @@ public class GroupController {
 			service.insertCardFile(groupFile);	
 		} // for
 		
-		return "파일 업로드 성공";
+		return service.selectFileByCardNo(groupFile.getCardNo());
 	} // cardFileUpload
 	
 	@RequestMapping("cardFileList.do")
@@ -371,27 +374,31 @@ public class GroupController {
 		return service.selectFileByCardNo(cardNo);
 	} // cardFileList	
 	
+	@RequestMapping("fileload.do")
+	public void fileDownload(HttpServletResponse response, String cardFilePath, String cardFileName) throws Exception {
+		cardFilePath = cardFilePath.replace("/local_img", "c:/app/upload");
+		
+		response.setHeader("Content-Type", "application/octet-stream");	
+		cardFileName = new String(cardFileName.getBytes("utf-8"),"8859_1");  // 사용자가 보내준 파라미터를 utf-8 바이트 형태로 보냄 (한글 처리시) 
+		
+		response.setHeader("Content-Disposition","attachment;filename="+cardFileName);
+		
+		File f = new File(cardFilePath);
+		
+		FileInputStream fis = new FileInputStream(f);
+		BufferedInputStream bis = new BufferedInputStream(fis);	
+		
+		OutputStream out = response.getOutputStream(); 
+		BufferedOutputStream bos = new BufferedOutputStream(out);
+		
+		while(true) {
+			int ch = bis.read();
+			if (ch == -1) break;
+			
+			bos.write(ch);
+		} // while
+		
+		bis.close(); fis.close();bos.close();out.close();
+	} // fileDownload
+	
 } // end class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
