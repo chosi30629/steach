@@ -48,6 +48,15 @@
 		<result column="group_sequence" property="groupSequence"/>
 	</resultMap>
 	
+	<resultMap type="GroupFile" id="groupFileMap">
+		<result column="card_file_no" property="cardFileNo"/>
+		<result column="card_no" property="cardNo"/>
+		<result column="card_file_writer" property="cardFileWriter"/>
+		<result column="card_file_name" property="cardFileName"/>
+		<result column="card_file_path" property="cardFilePath"/>
+		<result column="card_file_reg_date" property="cardFileRegDate"/>
+	</resultMap>
+	
 	<resultMap type="Group" id="groupMap">
 		<result column="group_no" property="groupNo"/>
 		<result column="class_no" property="classNo"/>
@@ -290,5 +299,21 @@
 		delete from tb_class_group
 	 	 where class_no = #{classNo}
 	</delete>
+	
+	<!-- 파일 업로드 -->
+	<insert id="insertCardFile" parameterType="GroupFile">
+		insert into tb_class_group_list_card_file(
+			card_no, card_file_writer, card_file_name, card_file_path
+		) values (
+			#{cardNo}, #{cardFileWriter}, #{cardFileName}, #{cardFilePath}	
+		)
+	</insert>
+	
+	<!-- 파일 리스트 -->
+	<select id="selectFileByCardNo" parameterType="int" resultMap="groupFileMap">
+		select *
+		  from tb_class_group_list_card_file 
+		  where card_no = #{cardNo}
+	</select>
 	
 </mapper>

@@ -11,6 +11,7 @@ import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
+import kr.co.steach.repository.domain.GroupFile;
 import kr.co.steach.repository.domain.GroupList;
 import kr.co.steach.repository.domain.GroupMember;
 import kr.co.steach.repository.mapper.GroupMapper;
@@ -239,5 +240,15 @@ public class GroupServiceImpl implements GroupService {
 	public int groupCountByClassNo(int classNo) {
 		return mapper.groupCountByClassNo(classNo);
 	} // groupCountByClassNo
+
+	@Override
+	public void insertCardFile(GroupFile groupFile) {
+		mapper.insertCardFile(groupFile);
+	} // insertCardFile
+
+	@Override
+	public List<GroupFile> selectFileByCardNo(int cardNo) {
+		return mapper.selectFileByCardNo(cardNo);
+	} // selectFileByCardNo
 	
 } // end class

@@ -6,6 +6,7 @@ import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
+import kr.co.steach.repository.domain.GroupFile;
 import kr.co.steach.repository.domain.GroupList;
 import kr.co.steach.repository.domain.GroupMember;
 
@@ -73,5 +74,9 @@ public interface GroupService {
 	void updateGroupName(Group group);
 
 	void initClassGroup(Group group);
+
+	void insertCardFile(GroupFile groupFile);
+	
+	List<GroupFile> selectFileByCardNo(int cardNo);
 	
 } // end interface

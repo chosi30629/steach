@@ -1,15 +1,24 @@
 package kr.co.steach.clazz.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,11 +26,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.GroupService;
 import kr.co.steach.clazz.service.MemberService;
-import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Group;
 import kr.co.steach.repository.domain.GroupCard;
 import kr.co.steach.repository.domain.GroupChecklist;
 import kr.co.steach.repository.domain.GroupComment;
+import kr.co.steach.repository.domain.GroupFile;
 import kr.co.steach.repository.domain.GroupList;
 import kr.co.steach.repository.domain.GroupMember;
 
@@ -52,6 +61,7 @@ public class GroupController {
 	@RequestMapping("groupMain.do")
 	public void groupMain(Model model, Group group, int classNo) {
 		List<GroupMember> studentList = service.groupMemberList();
+		
 		try {
 			model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 			model.addAttribute("classNo", classNo);
@@ -69,15 +79,8 @@ public class GroupController {
 			model.addAttribute("groupCount", service.groupCountByClassNo(classNo));
 			model.addAttribute("classMember", memberService.selectMemberByClassNo(classNo));
 			e.printStackTrace();
-		}
+		} // try-catch
 	} // groupMain
-	
-/*	@RequestMapping("classStudentList.do")
-	@ResponseBody
-	public List<ClassMember> classStudentList(){
-		return memberService.selectMemberByClassNo(1);
-	} // classStudentList
-*/	
 	
 	@RequestMapping("updateGroupCurrentAt.do")
 	@ResponseBody
@@ -103,7 +106,6 @@ public class GroupController {
 	@RequestMapping("modifyMemberOrder.do")
 	@ResponseBody
 	public String modifyMemberOrder(@RequestParam(value="orders") String orders) {
-//		System.out.println(orders);
 		GroupMember groupMember = new GroupMember();
 		
 		try {
@@ -111,11 +113,9 @@ public class GroupController {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object[]> map = new HashMap<String, Object[]>();
 			map = mapper.readValue(orders, new TypeReference<Map<String, String[]>>(){});
-//			System.out.println(map);
 			
 			// Map의 키와 값 분류
 			for(Map.Entry<String, Object[]> entry : map.entrySet()){
-//				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue()[0] + " , listNo : " + entry.getValue()[1]);
 				
 				// 카드 순서 업데이트
 				groupMember.setGroupMemberNo(Integer.parseInt(entry.getKey()));
@@ -210,7 +210,6 @@ public class GroupController {
 	@RequestMapping("orderUpdate.do")
 	@ResponseBody
 	public String orderUpdate(@RequestParam(value="orders") String orders) {
-//		System.out.println(orders);
 		GroupCard groupCard = new GroupCard();
 		
 		try {
@@ -218,11 +217,9 @@ public class GroupController {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object[]> map = new HashMap<String, Object[]>();
 			map = mapper.readValue(orders, new TypeReference<Map<String, String[]>>(){});
-//			System.out.println(map);
 			
 			// Map의 키와 값 분류
 			for(Map.Entry<String, Object[]> entry : map.entrySet()){
-//				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue()[0] + " , listNo : " + entry.getValue()[1]);
 				
 				// 카드 순서 업데이트
 				groupCard.setCardNo(Integer.parseInt(entry.getKey()));
@@ -248,11 +245,9 @@ public class GroupController {
 			ObjectMapper mapper = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map = mapper.readValue(listOrders, new TypeReference<Map<String, String>>(){});
-//			System.out.println(map);
 			
 			// Map의 키와 값 분류
 			for(Map.Entry<String, Object> entry : map.entrySet()){
-//				System.out.println("cardNo : " + entry.getKey() + " , order : " + entry.getValue());
 				
 				// 리스트 순서 업데이트
 				groupList.setListNo(Integer.parseInt(entry.getKey()));
@@ -332,7 +327,50 @@ public class GroupController {
 	@ResponseBody
 	public List<Group> randomGroup(Group group) {
 		return service.randomGroup(group);
-	}
+	} // randomGroup
+	
+	@RequestMapping(value="cardFileUpload.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String cardFileUpload(List<MultipartFile> uploadFile, GroupFile groupFile) throws Exception {	
+		
+		for(MultipartFile uFile : uploadFile) {
+			if(uFile.isEmpty() == true) return "업로드 파일 없음";
+			
+			// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+			String uploadPath = "C:/app/upload";
+			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+			String datePath = sdf.format(new Date());
+			String ext = "";
+			int index = uFile.getOriginalFilename().lastIndexOf(".");
+			
+			if(index != -1) {
+				ext = uFile.getOriginalFilename().substring(index);
+			} // if
+			
+			File file = new File(uploadPath + datePath); 
+			if(file.exists() == false) {
+				file.mkdirs();
+			} // if
+			
+			// 이미지 이름 중복 방지를 위한 파일이름 랜덤생성
+			String uName = UUID.randomUUID().toString();
+			uFile.transferTo(new File(uploadPath + datePath, uName + ext));		
+			
+			groupFile.setCardFileName(uFile.getOriginalFilename());
+			groupFile.setCardFilePath("/local_img" + datePath + "/" + uName + ext);
+			
+			service.insertCardFile(groupFile);	
+		} // for
+		
+		return "파일 업로드 성공";
+	} // cardFileUpload
+	
+	@RequestMapping("cardFileList.do")
+	@ResponseBody
+	public List<GroupFile> cardFileList(int cardNo) throws Exception {	
+		return service.selectFileByCardNo(cardNo);
+	} // cardFileList	
+	
 } // end class
 
 
