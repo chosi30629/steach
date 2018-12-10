@@ -17,6 +17,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import kr.co.steach.repository.domain.User;
+
 
 @Component("chat")
 public class ChatSocketHandler extends TextWebSocketHandler {
@@ -98,7 +100,7 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 //		}
 		
 		Map<String, Object> map = session.getAttributes();
-		System.out.println(map);
+		System.out.println(((User)map.get("user")).getId());
 		
 		log("보내온 메세지 : " + message.getPayload());
 		log("보낸 사람 아이디 : " + session.getId());

@@ -26,9 +26,9 @@
     <script src="/steach/resources/js/class/group/jquery.emojiarea.js"></script>
     <script src="/steach/resources/js/class/group/emoji-picker.js"></script>
     <style type="text/css">
-    .modal-backdrop {
-    	position: fixed;
-    }
+	    .modal-backdrop {
+	    	position: fixed;
+	    }
     </style>
 </head>
 <body>
@@ -68,7 +68,17 @@
 <!--         </div> -->
 <!--     </nav> -->
     <div class="clearfix groupName">
-        <h3>${group.groupName}</h3>
+        <h3>
+	        <span>${group.groupName}</span>
+			<ul>
+		        <c:forEach var="member" items="${groupMember}">
+					<li class="member-list" tabindex="0"  role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="${member.groupMemberId}&nbsp;(${member.name})" data-content="${member.phone}">
+						<img src="${member.profilePath}" width="40" height="40">
+						<span>d</span>
+					</li>		
+	   		    </c:forEach>
+			</ul>   
+		</h3>     	
     </div>
     <div class="wrapper clearfix">
         <ul class="connectedSortables parentDrop clearfix">
@@ -1205,6 +1215,8 @@
 		});
         
         $(".navbar").addClass("navbar-fixed-top");
+        
+        $('.member-list').popover('hide');
     </script>
 </body>
 </html>

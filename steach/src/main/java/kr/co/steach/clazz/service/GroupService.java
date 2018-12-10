@@ -78,5 +78,7 @@ public interface GroupService {
 	void insertCardFile(GroupFile groupFile);
 	
 	List<GroupFile> selectFileByCardNo(int cardNo);
+
+	List<GroupMember> selectMemberByGroupNo(int groupNo);
 	
 } // end interface

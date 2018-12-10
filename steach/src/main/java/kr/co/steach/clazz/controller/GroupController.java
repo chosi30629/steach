@@ -155,6 +155,7 @@ public class GroupController {
 		model.addAttribute("group", service.selectGroupByNo(groupNo));
 		model.addAttribute("listList", service.listList(groupNo));
 		model.addAttribute("cardList", service.cardList());
+		model.addAttribute("groupMember", service.selectMemberByGroupNo(groupNo));
 	} // groupActivity
 	
 	@RequestMapping("groupActivityList.do")

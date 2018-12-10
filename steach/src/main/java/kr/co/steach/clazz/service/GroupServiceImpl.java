@@ -250,5 +250,10 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupFile> selectFileByCardNo(int cardNo) {
 		return mapper.selectFileByCardNo(cardNo);
 	} // selectFileByCardNo
+
+	@Override
+	public List<GroupMember> selectMemberByGroupNo(int groupNo) {
+		return mapper.selectMemberByGroupNo(groupNo);
+	} // selectMemberByGroupNo
 	
 } // end class

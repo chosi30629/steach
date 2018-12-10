@@ -14,5 +14,9 @@ public class GroupMember {
 	private int groupSequence;
 	private String name;
 	private User user;
+	private String profilePath;
+	private String phone;
+	private String addr;
+	
 	
 } // end class

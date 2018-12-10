@@ -69,7 +69,8 @@
 	    };
 		
 	 	// 아이피 관리 해야함
-		var ws = new WebSocket("wss://192.168.0.82:8443/steach/screen");
+// 		var ws = new WebSocket("wss://192.168.0.82:8443/steach/screen");
+		var ws = new WebSocket("wss://192.168.1.126:8443/steach/screen");
 		ws.onopen = function() {
 			console.log("Openened connection to websocket");
 		}
@@ -127,16 +128,7 @@
 			return bb;
 		}
 	    
-	 	// 해더 링크
-	   	$("a[href='lecture']").click(function(){
-			location.href="<c:url value='/class/lecture/lecture.do'/>";
-	    })
-	    
-	     $("a[href='member']").click(function(){
-	    	location.href="<c:url value='/class/member/member.do'/>";
-	    })
-	    
-	     // 헤더 드랍다운 효과
+	    // 헤더 드랍다운 효과
 	    $('ul.nav li.dropdown').hover(function() {
 	    $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(200);
 	    }, function() {
@@ -152,7 +144,8 @@
 	            $('.plane').addClass("act");
          	});
 			
-			wss = new WebSocket('wss://192.168.0.82:8443/steach/streamingChat.do');
+// 			wss = new WebSocket('wss://192.168.0.82:8443/steach/streamingChat.do');
+			wss = new WebSocket('wss://192.168.1.126:8443/steach/streamingChat.do');
 			wss.onopen = function() {
 		        console.log('연결 성공');
 		    };

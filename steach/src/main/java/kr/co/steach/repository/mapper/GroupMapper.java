@@ -77,4 +77,6 @@ public interface GroupMapper {
 	
 	List<GroupFile> selectFileByCardNo(int cardNo);
 	
+	List<GroupMember> selectMemberByGroupNo(int groupNo);
+	
 } // end interface

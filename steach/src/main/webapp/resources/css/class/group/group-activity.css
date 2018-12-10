@@ -1100,3 +1100,24 @@ body {
 	font-weight: bold;
 	font-size: 16px;
 }
+.groupName > h3 {
+	display: inline-block;
+}
+.groupName > h3 > span {
+	position: relative;
+	top: -9px;
+}
+.groupName > h3 > ul {
+	display: inline-block;
+	margin-bottom: 0;
+}
+.groupName > h3 > ul > .member-list {
+	cursor: pointer;
+	list-style: none;
+	float: left;
+	margin-left: 10px;
+	outline: none;
+}
+.groupName > h3 > ul > .member-list > img {
+	border-radius: 100%;
+}

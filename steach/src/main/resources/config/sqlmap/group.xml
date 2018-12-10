@@ -46,6 +46,10 @@
 		<result column="group_member_id" property="groupMemberId"/>
 		<result column="group_member_order" property="groupMemberOrder"/>
 		<result column="group_sequence" property="groupSequence"/>
+		<result column="profile_path" property="profilePath"/>
+		<result column="name" property="name"/>
+		<result column="phone" property="phone"/>
+		<result column="addr" property="addr"/>
 	</resultMap>
 	
 	<resultMap type="GroupFile" id="groupFileMap">
@@ -299,6 +303,14 @@
 		delete from tb_class_group
 	 	 where class_no = #{classNo}
 	</delete>
+	
+	<!-- 그룹별 멤버 -->
+	<select id="selectMemberByGroupNo" parameterType="int" resultMap="groupMemberMap">
+		select m.*, u.name, u.phone, u.addr, u.profile_path
+		  from tb_class_group_member m, tb_user u
+		 where m.group_member_id = u.id
+		   and m.group_no = #{groupNo}  
+	</select>
 	
 	<!-- 파일 업로드 -->
 	<insert id="insertCardFile" parameterType="GroupFile">
