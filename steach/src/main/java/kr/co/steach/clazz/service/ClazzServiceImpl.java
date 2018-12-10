@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Clazz;
 import kr.co.steach.repository.mapper.ClassMapper;
+import kr.co.steach.util.DriverUtil;
 
 
 
@@ -23,6 +24,7 @@ public class ClazzServiceImpl implements ClazzService {
 	@Override
 	public void createClass(Clazz clazz) {
 		mapper.createClass(clazz);
+		DriverUtil.makeDrive("class//"+clazz.getClassNo());
 	}
 
 	@Override

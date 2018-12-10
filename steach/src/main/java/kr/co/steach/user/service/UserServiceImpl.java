@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.steach.repository.domain.User;
 import kr.co.steach.repository.mapper.UserMapper;
+import kr.co.steach.util.DriverUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +35,10 @@ public class UserServiceImpl implements UserService {
 	public void register(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		mapper.registerUser(user);
+		
+		/* 개인 drive 생성 */
+		DriverUtil.makeDrive(user.getId());
+		
 	} // register
 
 	/**
