@@ -229,7 +229,7 @@
     <div class="fileUpload modal fade">
       	<div class="modal-content col-md-3">
 			<form id="upload_form" method="post" enctype="multipart/form-data">
-				<input type="hidden" name="id" value="${user.name}"><br>
+				<input type="hidden" name="id" value="${user.id}"><br>
 				<input type="file" name=attach multiple /><br>
 				<button class="fButton">업로드</button>
 			</form>
@@ -706,7 +706,7 @@ $(document).on('keydown', function(e) {
   //------------------------------------------ 모달 과련 끝
   
 var source = [ 
-  	{"title": "${user.name}", "expanded": true, "path" : "C:\\drive\\"+"${user.name}" , "folder": true, "children": [
+  	{"title": "${user.id}", "expanded": true, "path" : "C:\\drive\\"+"${user.id}" , "folder": true, "children": [
   ]}
   ]
   //fancytree 최초에 load

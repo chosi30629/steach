@@ -34,7 +34,7 @@ public class DriveController {
 
 	 private final String Npath = "C:\\drive\\";		// 저장소 전역변수화
 	 static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	
+	 static Gson gson = new Gson();
 	 /**
 	  * 폴더 생성
 	  * @param path
@@ -210,7 +210,7 @@ public class DriveController {
 //			response.sendRedirect("/steach/home/home.do");
 //		}
 				
-				File f= new File(Npath+user.getName());
+				File f= new File(Npath+user.getId());
 				if(f.exists()) {
 					String len = (f.length() < 1024) ? "KB" : (f.length() > Math.pow(1024, 3) ? "GB" : "MB");
 					String usedSpaece = f.length()+len;
@@ -256,7 +256,6 @@ public class DriveController {
 		        
 		        //subFiles 경로 배열 
 		        //usableSpace 사용 가능한 용량
-		        Gson gson = new Gson();
 		        model.addAttribute("subFiles", subFiles);
 		        model.addAttribute("usableSpace", usableSpace);
 		        model.addAttribute("list", gson.toJson(listLoad(f)));
