@@ -1005,7 +1005,7 @@ var source = [
 								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
 	 					 	 	nowpath(pathData);
 	 					 	 	
-								// indexOf가 -1 반환시	 //파일을 읽어오는 역할 수행   // 여기야!
+								// emoji 속성을 보고 폴더인지 파악 -> indexOf가 -1 반환시	 //파일일시 읽어오는 역할 수행   //
 								if(isFolder == -1)
 								{
 									$('#fileReader').modal('show'); // 모달 보이기

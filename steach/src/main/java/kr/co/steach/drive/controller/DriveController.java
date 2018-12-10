@@ -285,19 +285,22 @@ public class DriveController {
 }
 		    public static List<Map<String, Object>> listLoad(File f) throws IOException
 		    {
+		    	
 		    	List<Map<String, Object>> list = new ArrayList<>();
 		    	File[] arrfile = f.listFiles();
+		    	BufferedReader br = null;
+		    	String temp = "";
 				for(File fInfo : arrfile) {
 					Map<String, Object> fmap = new HashMap<>();
 					
 					if(!fInfo.isDirectory()) {
-						BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fInfo), "UTF-8"));
+						br = new BufferedReader(new InputStreamReader(new FileInputStream(fInfo), "UTF-8"));
 						while(true) {
 							String line = br.readLine();
 							if (line==null) break;
-//							System.out.println(line);
-							fmap.put("line", line);
+							temp += line +"\r\n";
 						}
+						fmap.put("line", temp);
 						br.close();
 				    	}
 					

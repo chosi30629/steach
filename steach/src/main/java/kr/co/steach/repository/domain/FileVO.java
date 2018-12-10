@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class FileVO {
+public class FileVO  {
 
 		private String id;
 		private List<MultipartFile> attach;
