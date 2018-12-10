@@ -235,6 +235,26 @@
 			</form>
       	</div>    
     </div>
+    
+    <!-- 파일읽기 모달 -->
+    <div id="fileReader" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <p></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    
       
 
  <script type="text/javascript">
@@ -300,7 +320,8 @@
 	         });
 			
 	    	node.load(true).done(function(){
-	    		  node.setExpanded();
+	    		node.resetLazy();  
+	    		node.setExpanded();
 	    		});
 	    	
 			EmojiAndFLengthLIST(result[i].list);
@@ -809,9 +830,6 @@ var source = [
       lazyLoad: function(event, data) {
     	  
     	  node = data.node;
-//     	  node.load(true).done(function(){
-//     		  node.setExpanded();
-//     		});
     	  
 //     	  console.log("레이지노드!",node)
     	  var path = node.data.path;
@@ -837,7 +855,6 @@ var source = [
         },
         dblclick: function(event,data){
         	console.log(data.node.isExpanded());
-        	
         },
         click: function(event, data) {
         	console.dir(data.node);
@@ -988,10 +1005,14 @@ var source = [
 								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
 	 					 	 	nowpath(pathData);
 	 					 	 	
-								// indexOf가 -1 반환시	 //파일을 읽어오는 역할 수행
+								// indexOf가 -1 반환시	 //파일을 읽어오는 역할 수행   // 여기야!
 								if(isFolder == -1)
 								{
-									console.log($(this).find('.eLine').val());
+									$('#fileReader').modal('show'); // 모달 보이기
+									var title = $(this).find('span')[0].textContent // 파일의 제목
+									var eLine = $(this).find('.eLine').val() // 파일의 내용
+									$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
+									$('.modal-body').children()[0].innerText= eLine; // 모달에 내용 넣기
 								}else{
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',
