@@ -175,7 +175,7 @@
 						<div id="collapseTwo" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<!-- seat-->
-								<div class="seat-section"></div>
+								<div class="seat-section" style="background:url('/steach/resources/images/class/curriculum/seat.png'); background-size:cover"></div>
 								<div class="seat-setting">
 									<button type="button" class="btn"
 										onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do?classNo=${clazz.classNo}"/>'">수정하기</button>
@@ -211,8 +211,8 @@
 					  }
 					  calendar();
 				  });
-				
-			})
+				 
+			});
 
         /*bg */
         var i =1; 

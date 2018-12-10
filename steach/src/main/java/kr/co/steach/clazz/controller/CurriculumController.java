@@ -1,5 +1,9 @@
 package kr.co.steach.clazz.controller;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +94,21 @@ public class CurriculumController {
 	public void seat(int classNo,Model model) {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
 		model.addAttribute("memberList",memberService.selectMemberByClassNo(classNo));
-		System.out.println(memberService.selectMemberByClassNo(classNo));
+		//System.out.println(memberService.selectMemberByClassNo(classNo));
+	}
+	
+	/* base64 문자열을 image로 저장하기  */
+	@RequestMapping("/seatSetting.do")
+	@ResponseBody
+	public void seatSetting(String base64data){
+		try(FileOutputStream imageOutFile = new FileOutputStream("c://app//upload//seat.png")){
+			base64data = base64data.substring("data:image/png;base64,".length()); //앞의 문자열 자르기 
+			byte[] imageByteArray = Base64.getDecoder().decode(base64data);
+			imageOutFile.write(imageByteArray);
+		} catch(FileNotFoundException e) {
+			System.out.println("image not found"+e);
+		} catch(IOException ioe) {
+			System.out.println("io exception"+ioe);
+		}
 	}
 }

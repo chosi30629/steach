@@ -11,6 +11,10 @@ body{
     /* 배경 가득 채움 */
     background-size: cover;
 }
+.seat-section{
+	height:300px;
+	background-size:cover;
+}
 .bg-button {
 	position: absolute;
     top: 335px;

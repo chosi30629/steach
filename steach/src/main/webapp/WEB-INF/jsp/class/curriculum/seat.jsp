@@ -19,8 +19,10 @@
 <!-- <script src="/steach/resources/js/bootstrap.js"></script>
  -->
 <!-- 화면저장 canvas2 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+<script src="/steach/resources/js/class/curriculum/seat/html2canvas4.js"></script>
 <script src="/steach/resources/js/class/curriculum/seat/canvas2image.js"></script>
+<script src="/steach/resources/js/download.js"></script>
 
 <style>
 .tools-tables-gridItem:hover .tools-tables-gridItem-settings {
@@ -94,8 +96,8 @@
 
 				<div class="tools-toggle">
 					<span onclick="saveImage()"
-						class="app-open-layer-pdf tools-toggle-item" data-section="main"><i
-						class="icon-tools icon-tools-download icon-left"></i> Capture</span>
+					class="app-open-layer-pdf tools-toggle-item" data-section="main">
+					<i class="far fa-arrow-alt-circle-down"></i> Capture</span>
 				</div>
 			</div>
 			<div class="app-tables-viewbox tools-tables-viewbox">
@@ -110,9 +112,49 @@
 
 	</div>
 	
-	<image id="image"></image>
-
 	
+
+	<!-- 자리있는 seat - modal -->
+	<div tabindex="-1" role="dialog" aria-hidden="false" class="modal fade"
+		id="preview-modal">
+		<div class="modal-dialog modal-fullsize">
+			<div class="modal-content">
+				<div class="modal-header modal-headerTools">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<p class="modal-headerTools-title">미리보기</p>
+				</div>
+					<div class="modalAddTable__content">
+						<div class="pure-g">
+							<img id="image"></img> 
+						</div>
+						
+						<form id="seatForm" method="post">
+							<input type="hidden" name="seat-data" id="seatData"/>
+						</form>
+					</div>
+					<div class="modalAddTable__footer">
+						<button type="button" class="btn-flat red" value="Add"
+							onclick="doDownload()">파일로 저장하기</button>
+						<button type="button" class="btn-flat red" value="Add"
+							onclick="saveToServer()">SAVE</button>
+					</div>
+			</div>
+		</div>
+
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -152,6 +194,7 @@
 					<div class="modalAddTable__footer">
 						<button type="button" class="btn-flat red" value="Add "
 							onclick="createTable()">Save</button>
+						
 					</div>
 				</form>
 			</div>
@@ -203,15 +246,22 @@
 		/* data 구조화  */
 		
 		/* 동적 생성 테이블의 index */
+		//var classNo = "${clazz.classNo}";
 		var i=0;
 		
 		/*seat table size */
-		const squareCommonHeight="50px";
+		/* const squareCommonHeight="50px";
 		const square1SeatWidth="50px";
 		const square2SeatWidth="100px";
 		const square3SeatWidth="150px";
 		const square4SeatWidth="200px";
-		
+		 */
+		 const squareCommonHeight="100px";
+			const square1SeatWidth="100px";
+			const square2SeatWidth="200px";
+			const square3SeatWidth="300px";
+			const square4SeatWidth="400px";
+	
 		/* create table original position */
 		const tableCommonTop="45px";
 		const tableEmptyLeft="30px";
@@ -259,7 +309,7 @@
             	  html+="<div class='tools-tables-gridItem-table tools-tables-gridItem-square' style='height:"+squareCommonHeight+"; width:"+square1SeatWidth+";'>";
             	  html+="<div class='tools-tables-gridItem-squareLabel' id='table"+i+"'>&nbsp;"+tName+"&nbsp;</div></div>";
             	  html+="<div style='height:34px; margin-top:-4px;'>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div></div></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div></div></div>";
             	  
  	  		$("#result").append(html);
 /*  	  	$(".ui-draggable").draggable();
@@ -287,8 +337,8 @@
             	  html+="<div class='tools-tables-gridItem-table tools-tables-gridItem-square' style='height:"+squareCommonHeight+"; width:"+square2SeatWidth+";'>";
             	  html+="<div class='tools-tables-gridItem-squareLabel' id='table"+i+"'>&nbsp;"+tName+"&nbsp;</div></div>";
             	  html+="<div style='height:34px; margin-top:-4px;'>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s2'></div></div></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s2'></div></div></div>";
 	            	  
 	 	  		$("#result").append(html);
 	 	  	/* 	$(".ui-draggable").draggable();
@@ -306,9 +356,9 @@
             	  html+="<div class='tools-tables-gridItem-table tools-tables-gridItem-square' style='height:"+squareCommonHeight+"; width:"+square3SeatWidth+";'>";
             	  html+="<div class='tools-tables-gridItem-squareLabel' id='table"+i+"'>&nbsp;"+tName+"&nbsp;</div></div>";
             	  html+="<div style='height:34px; margin-top:-4px;'>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s2'></div>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s3'></div></div></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s2'></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s3'></div></div></div>";
 	            	  
 	 	  		$("#result").append(html);
 	 	/*   		$(".ui-draggable").draggable();
@@ -327,10 +377,10 @@
             	  html+="<div class='tools-tables-gridItem-table tools-tables-gridItem-square' style='height:"+squareCommonHeight+"; width:"+square4SeatWidth+";'>";
             	  html+="<div class='tools-tables-gridItem-squareLabel' id='table"+i+"'>&nbsp;"+tName+"&nbsp;</div></div>";
             	  html+="<div style='height:34px; margin-top:-4px;'>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s2'></div>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s3'></div>";
-            	  html+="<div style='margin: 0px 7px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s4'></div></div></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s1'></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s2'></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s3'></div>";
+            	  html+="<div style='margin: -22px 16px; float:left;opacity:1;' class='app-table-seat tools-tables-gridItem-seat ui-droppable' id='table"+i+"_s4'></div></div></div>";
             	  
 	 	  		$("#result").append(html);
 	/*  	  		$(".ui-draggable").draggable();
@@ -361,7 +411,7 @@
 		       	 html+= "<i class='icon-tools icon-tools-tables-trash'></i><i class='icon-tools icon-tools-tables-trash-hover dnone'></i></div>";
 		       	 html+= "<div class='app-table-edit mb15' data-id='table"+i+"'>";
 		       	 html+= "<i class='icon-tools icon-tools-tables-edit'></i><i class='icon-tools icon-tools-tables-edit-hover dnone'></i></div></div>";
-		     	 html+= "<div class='flex'><div class='tools-tables-gridItem-table tools-tables-gridItem-square flex-va-center' style='height:px;width:px;'>";
+		     	 html+= "<div class='flex'><div class='tools-tables-gridItem-table tools-tables-gridItem-square flex-va-center' style='min-height:100px;min-width:100px;'>";
 		     	 html+= "<div class='tools-tables-gridItem-squareLabel' id='table"+i+"_label'>"+tName+"</div></div></div></div>";
 	
 		        $("#result").append(html);
@@ -396,11 +446,16 @@
              $(".ui-droppable").droppable({
              accept:$(".list-draggable"),
              drop:function(event,ui){
+            	 
+            	/*  if($(this).children().size()!=0){
+            		 return;
+            	 }
+            	  */
                  /* clone 시 */
                 //var lName= ui.helper.prevObject[0].parentElement.dataset.nombre; //성
                 //var fName=ui.helper.prevObject[0].parentElement.dataset.apellidos;//이름
 				//console.dir(ui);
-                
+                 
                 /* 성 + 이름 붙이기 */
                  var lName= ui.helper[0].parentElement.dataset.nombre;
                  var fName= ui.helper[0].parentElement.dataset.apellidos;
@@ -410,12 +465,15 @@
                   
                  var html= "<div class='app-tables-persona app-seated-guest' style='display: block;'>";
                      html+="<div class='tools-tables-gridItem-guest'>";
-                     html+="<i class='app-tables-guest-icon icon-tools icon-tools-avatar-guest-adult-small-fulfilled list-draggable'></i></div>";
+                 /*     html+="<i class='app-tables-guest-icon icon-tools icon-tools-avatar-guest-adult-small-fulfilled list-draggable'></i></div>"; */
+                 	 html+="<div class='profile' style='background:url(/steach/resources/images/common/default.jpg);background-size:cover;z-index:99999999999999999999'></div></div>";
                      html+="<div class='app-tables-persona-name tools-tables-gridItem-guestName' title='"+lName+" "+fName+"' style='display:block;'>";
-                     html+="<span>"+lName+"</span><span>"+fName+"</span></div></div>";
+                     html+="<span>"+lName+fName+"</span></div></div>";
            
 	                $(this).append(html);
-	                $(this).css({border:"none"});
+	              $(this).css({border:"none"}); 
+	               console.log($(this).children().size());
+	         
 	               /*  $(ui.draggable).remove(); */
 	      
                  }
@@ -439,19 +497,47 @@
          });
          
          
+         
+    
+         
+ 	     var canvasData ="";
          /* capture */
-         function  saveImage(){
-          
-		  var canvas ="";
+         function saveImage(){
+       		$("#preview-modal").modal('show'); 	 	 
+		 
 		  html2canvas($(".app-tables-viewbox"), {
-		  onrendered: function(canvas) {
-		  // canvas is the final rendered <canvas> element
-		   document.getElementById("image").src = canvas.toDataURL();
-		     //Canvas2Image.saveAsPNG(canvas);
-		  }
+		  	onrendered: function(canvas) {
+		   	$("#image").attr("src",canvas.toDataURL("image/png"));
+		  		canvasData = canvas.toDataURL("image/png");	
+		  	}			
 		  });
-		  //alert(document.getElementById("SavePart").innerHTML);
 		}
+         
+        function doDownload(){
+        	/*file download */
+        	download($("#image").attr("src"),"자리배치도.png","image/png");
+
+        	
+        }
+        function saveToServer(){   	
+        	//var seatData = $("#seatData").val(canvasData);
+     	
+        	//console.log($("#seatData").val());
+        	$.ajax({
+        		url:"<c:url value='seatSetting.do'/>",
+        		type:"POST",
+  			  	dataType:"text",
+  			 	data:{
+  				  base64data:canvasData
+  			  }
+        	}).done(function(data){
+        		alert(1);
+        	})
+        	
+        	
+        }
+         
+        
     </script>
       
 
