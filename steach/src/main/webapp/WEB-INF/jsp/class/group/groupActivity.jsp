@@ -1059,7 +1059,7 @@
 		$(document).ready(function() {
 // 			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
 // 			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
-			ws = new WebSocket('wss://192.168.1.2:8443/steach/chat.do');
+			ws = new WebSocket('wss://192.168.1.126:8443/steach/chat.do');
 			ws.onopen = function() {
 		        console.log('연결 성공');
 		        ws.send("groupNo:" + groupNo);

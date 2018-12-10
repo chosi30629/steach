@@ -234,5 +234,10 @@ public class GroupServiceImpl implements GroupService {
 	public Group selectGroupByNo(int groupNo) {
 		return mapper.selectGroupByNo(groupNo);
 	} // selectGroupByNo
+
+	@Override
+	public int groupCountByClassNo(int classNo) {
+		return mapper.groupCountByClassNo(classNo);
+	} // groupCountByClassNo
 	
 } // end class

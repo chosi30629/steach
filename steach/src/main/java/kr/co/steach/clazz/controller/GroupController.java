@@ -58,6 +58,7 @@ public class GroupController {
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", studentList.get(0).getGroupNo());
 			group.setClassNo(classNo);
+			model.addAttribute("groupCount", service.groupCountByClassNo(classNo));
 			model.addAttribute("groupList", service.groupList(group));
 			model.addAttribute("classMember", memberService.selectMemberByClassNo(classNo));
 		} catch(Exception e) {
@@ -65,6 +66,7 @@ public class GroupController {
 			model.addAttribute("clazz", classService.selectClassbyClassNo(classNo));
 			model.addAttribute("studentList", studentList);
 			model.addAttribute("groupNo", "0");
+			model.addAttribute("groupCount", service.groupCountByClassNo(classNo));
 			model.addAttribute("classMember", memberService.selectMemberByClassNo(classNo));
 			e.printStackTrace();
 		}

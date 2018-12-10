@@ -224,6 +224,13 @@
 		 order by m.group_no, m.group_member_order
 	</select>
 	
+	<!-- 클래스의 그룹 수 -->
+	<select id="groupCountByClassNo" parameterType="int" resultType="int">
+		select count(*) 
+		  from tb_class_group 
+		 where class_no = #{classNo}
+	</select>
+	
 	<!-- 조 생성 -->
 	<insert id="insertGroup" parameterType="Group" useGeneratedKeys="true" keyProperty="groupNo">
 		insert into tb_class_group (

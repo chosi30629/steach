@@ -58,6 +58,8 @@ public interface GroupMapper {
 	
 	List<GroupMember> groupMemberList();
 	
+	int groupCountByClassNo(int classNo);
+	
 	void insertGroup(Group group);
 	
 	void insertGroupMember(GroupMember groupMember);
