@@ -246,7 +246,7 @@
       </div>
       <div class="modal-body">
         <p></p>
-        <img id="fileimage" width="100%" height="100%">
+        <img id="fileimage">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1011,11 +1011,13 @@ var source = [
 								var emojiTest = $(this).find('.emoji')[0].className;
 								var title = $(this).find('span')[0].textContent // 파일의 제목
 								
-								$('.modal-body').children()[0].innerText = "";
-								$('.modal-body').children()[1].src="";
+								$('.modal-body').children()[0].textContent = "";
+								$('#fileimage').attr('src' , "").css({
+									width : "",
+									height : ""
+								});
 								if(isFolder == -1 && emojiTest == "emoji txt")
 								{
-									console.log(emojiTest)
 									var eLine = $(this).find('.eLine').val() // 파일의 내용
 									$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
 									$('.modal-body').children()[0].innerText= eLine; // 모달에 내용 넣기
@@ -1023,7 +1025,6 @@ var source = [
 								}
 								else if(emojiTest == 'emoji img')
 								{
-									console.log(emojiTest)
 									$.ajax({
 										url : '<c:url value="/drive/imageRead.do" />',
 										data : {
@@ -1032,10 +1033,14 @@ var source = [
 									}).done(function(result)
 										{
 										$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
-										$('#fileimage').attr('src' , result);
+										$('#fileimage').attr('src' , result).css({
+											width : 'auto',
+											height : 'auto',
+											maxWidth: '100%', 
+										  	maxHeight: '100%'
+										});
 										$('#fileReader').modal('show'); // 모달 보이기
 										})
-									
 								}else{
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',
