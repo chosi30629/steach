@@ -245,7 +245,7 @@
         	obj.start= formData[4].value;
         	obj.end=formData[5].value;
         	
-         	if(obj.start.lenth>10){
+         	if(obj.start.length>10){
         		obj.allDay="false";
         	} else {
         		obj.allDay="true"
@@ -256,6 +256,7 @@
            			 url:"<c:url value='insertSchedule.do'/>",
          	 		 data:obj
             }).done(function(id){
+            	alert(1)
           		$("#formModal").modal('hide');
           		$("#sForm").find("input[type='text']").val(""); 
          		obj.id=id;

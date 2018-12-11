@@ -24,7 +24,6 @@ public class ClazzServiceImpl implements ClazzService {
 	@Override
 	public void createClass(Clazz clazz) {
 		mapper.createClass(clazz);
-		DriverUtil.makeDrive("class//"+clazz.getClassNo());
 	}
 
 	@Override

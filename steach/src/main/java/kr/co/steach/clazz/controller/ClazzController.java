@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Clazz;
+import kr.co.steach.util.DriverUtil;
 
 @Controller
 @RequestMapping("/class")
@@ -21,6 +22,9 @@ public class ClazzController {
 	@RequestMapping("/createClass.do")
 	public void createClass(Clazz clazz) {
 		service.createClass(clazz);
+		/* class 생성 시 class drive 생성하기 
+		 * 경로: c://drive/class/ 클래스번호 */
+		DriverUtil.makeDrive("class//"+clazz.getClassNo());
 	}
 
 	@ResponseBody

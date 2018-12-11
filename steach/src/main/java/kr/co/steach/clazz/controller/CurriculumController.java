@@ -52,10 +52,10 @@ public class CurriculumController {
 	@RequestMapping("/selectSchbyCNo.do")
 	@ResponseBody
 	public List<ClassSchedule> selectSchbyCNo(int classNo) {
-		System.out.println("clno:"+classNo);
+		//System.out.println("clno:"+classNo);
 		List<ClassSchedule> list = service.selectSchByClassNo(classNo);
 		
-		System.out.println("list:"+list);
+		//System.out.println("list:"+list);
 		return service.selectSchByClassNo(classNo);
 	}
 	
@@ -64,8 +64,8 @@ public class CurriculumController {
 	@RequestMapping("/insertSchedule.do")
 	@ResponseBody
 	public String insertSchedule(ClassSchedule classSchedule) {
-		
-		System.out.println("등록할거 가꼬와!:"+classSchedule);
+		System.out.println("insert "+classSchedule);
+		//System.out.println("등록할거 가꼬와!:"+classSchedule);
 		service.insertSchedule(classSchedule);
 		return classSchedule.getId()+"";			//insert한 key 가져오기!1
 	}

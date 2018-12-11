@@ -30,7 +30,7 @@
 	</resultMap>
 	
 	<!-- 클래스개설하기 -->
-	<insert id="createClass" parameterType="Clazz">
+	<insert id="createClass" parameterType="Clazz" useGeneratedKeys="true" keyProperty="classNo">
 		insert into tb_class(
 		master, class_name, class_subname, begin_date, end_date, start_time, end_time, class_key
 		) values (
