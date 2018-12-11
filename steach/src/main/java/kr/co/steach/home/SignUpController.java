@@ -54,7 +54,7 @@ public class SignUpController {
 		
 		user.setProfile(uploadFile.getOriginalFilename());
 		user.setProfilePath("/local_img" + datePath + "/" + uName + ext);		
-		System.out.println(user);
+//		System.out.println(user);
 		service.register(user);
 		
 //		return "redirect:/home/home.do";

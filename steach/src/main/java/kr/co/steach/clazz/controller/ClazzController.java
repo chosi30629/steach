@@ -30,7 +30,6 @@ public class ClazzController {
 	@ResponseBody
 	@RequestMapping("/findClass.do")
 	public Clazz findClass(String classKey) {
-		System.out.println(service.findclass(classKey));
 		return service.findclass(classKey);
 	}
 	

@@ -1,5 +1,11 @@
 package kr.co.steach.user.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.repository.domain.User;
 import kr.co.steach.user.service.UserService;
 
@@ -22,6 +31,8 @@ public class MyPageController {
 	 */
 	@Autowired
 	private UserService service;
+	@Autowired
+	private ClazzService clazzservice;
 	
 	/**
 	 * 비밀번호 암호화 처리에 대한 멤버 필드
@@ -34,6 +45,8 @@ public class MyPageController {
 	public void myPage(String id, Model model, HttpSession session) {
 		User user = (User) session.getAttribute("user");
 		model.addAttribute("mypage", service.mypage(user.getId()));
+		model.addAttribute("teaching", clazzservice.teaching(user.getId()));
+		model.addAttribute("studying", clazzservice.studying(user.getId()));
 	}
 	
 	
@@ -52,45 +65,29 @@ public class MyPageController {
 		service.updateAddr(user);
 	}
 
-
-//	/**
-//	 * 마이페이지
-//	 * @param pageNo, model, session
-//	 * 	- 프로필사진, 닉네임, 랭킹, 포인트, 최근활동
-//	 */
-//	@RequestMapping("myPage.do")
-//	public void myPage(@RequestParam(value="pageNo", defaultValue="1")int pageNo, Model model, HttpSession session) {
-//		User user = (User) session.getAttribute("user");
-//		
-//		
-//		
-//	} // myPage
-//	
-//	/**
-//	 * 비밀번호 수정 시 현재 비밀번호 확인
-//	 * @param user, id, oriPassword
-//	 */
-//	@RequestMapping("passCheck.do")
-//	@ResponseBody
-//	public User oriPassCk(User user, String id, String oriPassword) {
-//		try {
-//			user = service.checkPass(id);
-//			String encoded = user.getPassword();
-//			
-//			// 사용자가 입력한 비밀번호와 암호화 저장된 데이터베이스내의 비밀번호 확인 
-//			if(passwordEncoder.matches(oriPassword, encoded)) {
-//				return user;
-//			} else {
-//				user = null;
-//			} // if-else
-//		} catch(Exception e) {
-//			
-//			return user;
-//		} // try-catch	
-//		
-//		return user;
-//	} // oriPassCk
-//	
+	// 현재 비밀번호 확인
+	@RequestMapping("/passCheck.do")
+	@ResponseBody
+	public User curPassCk(User user, String id, String curpass) {
+		// 세션아이디
+		// 현재 비밀번호 확인할 아이디
+		user = service.checkPass(id);
+		String encoded = user.getPassword();
+		if (passwordEncoder.matches(curpass, encoded)) {
+			return user;
+		} else {
+			user = null;
+		}
+		return user;
+	}
+	
+	@RequestMapping("/modipass.do")
+	@ResponseBody
+	public void modipass(User user) {
+		service.updatePass(user);
+	} // modipass
+	
+	
 //	/**
 //	 * 비밀번호 수정
 //	 * @param user, session
@@ -104,49 +101,47 @@ public class MyPageController {
 //		return "redirect:/main/main.do";
 //	} // updatePass
 	
-//	/**
-//	 * 프로필 사진 수정
-//	 * @param uploadFile, request
-//	 */
-//	@RequestMapping(value="profileImg.do", method=RequestMethod.POST)
-//	@ResponseBody
-//	public String profileImg(MultipartFile uploadFile, HttpServletRequest request) throws Exception {	
-//		HttpSession session = request.getSession();
-//		User user = (User)session.getAttribute("user");
-//		
-//		if(uploadFile.isEmpty() == true) return "redirect:myPage.do";
-//		
-//		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
-//		String uploadPath = "C:/app/steachprofile";
-//		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
-//		String datePath = sdf.format(new Date());
-//		String ext = "";
-//		int index = uploadFile.getOriginalFilename().lastIndexOf(".");
-//		
-//		if(index != -1) {
-//			ext = uploadFile.getOriginalFilename().substring(index);
-//		} // if
-//		
-//		File file = new File(uploadPath + datePath); 
-//		if(file.exists() == false) {
-//			file.mkdirs();
-//		} // if
-//		
-//		// 이미지 이름 중복 방지를 위한 파일이름 랜덤생성
-//		String uName = UUID.randomUUID().toString();
-//		uploadFile.transferTo(new File(uploadPath + datePath, uName + ext));		
-//		
-//		UserFile userfile = new UserFile();
-//		userfile.setId(user.getId());
-//		userfile.setFileName(uploadFile.getOriginalFilename());
-//		userfile.setUploadPath("/local_img" + datePath + "/" + uName + ext);
-//		
-//		// 프로필 사진 수정시 데이터베이스에서 기존 파일정보를 삭제하고 새로 등록한 파일정보 추가
-//		service.deleteFile(userfile);
+	/**
+	 * 프로필 사진 수정
+	 * @param uploadFile, request
+	 */
+	@RequestMapping(value="/profileImg.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String profileImg(MultipartFile uploadFile, HttpServletRequest request) throws Exception {	
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		
+		
+		if(uploadFile.isEmpty() == true) return "redirect:myPage.do";
+		
+		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+		String uploadPath = "C:/app/steachprofile";
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+		String datePath = sdf.format(new Date());
+		String ext = "";
+		int index = uploadFile.getOriginalFilename().lastIndexOf(".");
+		
+		if(index != -1) {
+			ext = uploadFile.getOriginalFilename().substring(index);
+		} // if
+		
+		File file = new File(uploadPath + datePath); 
+		if(file.exists() == false) {
+			file.mkdirs();
+		} // if
+		
+		// 이미지 이름 중복 방지를 위한 파일이름 랜덤생성
+		String uName = UUID.randomUUID().toString();
+		uploadFile.transferTo(new File(uploadPath + datePath, uName + ext));		
+		
+		user.setProfile(uploadFile.getOriginalFilename());
+		user.setProfilePath("/local_img" + datePath + "/" + uName + ext);
+		
+		service.profileImg(user);
 //		service.insertFile(userfile);
-//		
-//		return "성공";
-//	} // profileImg
+		
+		return "이미지가 변경되었습니다.";
+	} // profileImg
 	
 //	/**
 //	 * 노출된 닉네임에 대한 프로필

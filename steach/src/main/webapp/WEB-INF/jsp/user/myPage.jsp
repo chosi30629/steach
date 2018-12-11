@@ -65,7 +65,7 @@
                                 <dd class="pic_desc">
                                     <a href="#">
                                     <c:choose>
-		                            	<c:when test="${mypage.profile == null}">
+		                            	<c:when test="${empty mypage.profile}">
 	        	                            <img id="profile" class="media-object" src="/steach/resources/images/main/profile.jpg" alt="프로필"/>
 	    	                        	</c:when>
 		                            	<c:otherwise>
@@ -95,32 +95,31 @@
                     <div class="sh_group">
                         <div class="sh_header">
                             <h2><i class="fas fa-book-reader"></i> 강의중인 클래스</h2>
-                            
                         </div>
                         <div class="sh_content">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                    <th>
-                                        클래스명
-                                    </th>
-                                    <th>
-                                        과정기간
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="#">응용소프트웨어</a></td>
-                                        <td class="time">2018.11.11　~　2018.11.11</td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#">웹앱만들기</a></td>
-                                        <td>2018-11-11　~　2018-11-11</td>
-                                    </tr>
-                                </tbody>
-
-                            </table>
+                                <c:choose>
+	                                <c:when test="${empty teaching}">
+	                                	<p class="contxt">현재 강의중인 클래스가 없습니다.</p>
+	                                </c:when>
+	                                <c:otherwise>
+	        	                    	<table class="table">
+		                                	<thead>
+		                                    	<tr>
+		                                    		<th>클래스명</th>
+		                                    		<th>과정기간</th>
+		                                		</tr>
+		                                	</thead>
+		                                	<tbody>
+		                                <c:forEach var="teach" items="${teaching }">
+											<tr>
+		                                        <td><a href="#" data-no="${teach.classNo}">${teach.className}</a></td>
+		                                        <td class="time">${teach.beginDate}　~　${teach.endDate}</td>
+		                                    </tr>
+										</c:forEach>
+										</tbody>
+										</table>
+    	                        	</c:otherwise>
+                                </c:choose>
 
                         </div>
                     
@@ -194,9 +193,30 @@
                                 <h2><i class="fas fa-book-reader"></i> 수강중인 클래스</h2>
                             </div>
                             <div class="sh_content">
-                                <p class="contxt">
-                                        현재 수강중인 클래스가 없습니다.
-                                </p>
+                            	<c:choose>
+	                                <c:when test="${empty studying }">
+	                                	<p class="contxt">현재 수강중인 클래스가 없습니다.</p>
+			                        	
+	                                </c:when>
+	                                <c:otherwise>
+										<table class="table">
+		                                	<thead>
+		                                    	<tr>
+		                                    		<th>클래스명</th>
+		                                    		<th>과정기간</th>
+		                                		</tr>
+		                                	</thead>
+		                                	<tbody>
+		                                <c:forEach var="study" items="${studying }">
+											<tr>
+		                                        <td><a href="#" data-no="${study.classNo}">${study.className}</a></td>
+		                                        <td class="time">${study.beginDate}　~　${study.endDate}</td>
+		                                    </tr>
+										</c:forEach>
+										</tbody>
+										</table>
+    	                        	</c:otherwise>
+                                </c:choose>
                             </div>
                         
                         </div>
@@ -228,12 +248,10 @@
 
                 </div>
                 <div class="modal-body">
-                    <input type="text" class="form-control" id="pwd1" style="width: 100%" placeholder="현재 비밀번호">
-                    <br>
-                    <input type="text" class="form-control" id="pwd2" style="width: 100%" placeholder="새로운 비밀번호">
-                    <br>
-                    <input type="text" class="form-control" id="pwd22" style="width: 100%" placeholder="새로운 비밀번호 확인">
-                    <p id="password_message">비밀번호 수정 문구 출력.</p>
+                    <input type="password" class="form-control" id="pwd1" style="width: 100%; margin-bottom:5px;" placeholder="현재 비밀번호">
+                    <input type="password" class="form-control" id="pwd2" style="width: 100%; margin-bottom:5px;" placeholder="새로운 비밀번호">
+                    <input type="password" class="form-control" id="pwd22" style="width: 100%" placeholder="새로운 비밀번호 확인">
+                    <p id="password_message"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="submit_pwd">수정하기</button>
@@ -247,6 +265,11 @@
 <script>
 	var id = "${user.id}";
 	var phone = "${mypage.phone}"
+	
+	var teaching = "${teaching}";
+	console.log(teaching)
+	var studying = "${studying}";
+	console.dir(studying)
 
 
     $('ul.nav li.dropdown').hover(function () {
@@ -295,20 +318,22 @@
 
               var formData = new FormData();
               var inputFile = $("input[name='uploadFile']")
+              console.log(inputFile)
               var files = inputFile[0].files;
 //               var id = $("#userId").val();
               formData.append("uploadFile", files[0]);
               console.log(formData)
-//               $.ajax({
-//                 url: "/cocain/user/profileImg.do",
-//                 processData: false,
-//                 contentType: false,
-//                 data: formData,
-//                 type: "POST"
-//               })
-//                 .done(function (result) {
-//                   location.href = "myPage.do";
-//                 });
+              $.ajax({
+                url: "/steach/user/profileImg.do",
+                processData: false,
+                contentType: false,
+                data: formData,
+                type: "POST"
+              })
+                .done(function (result) {
+                	alert("수정되었습니다.")
+                  location.href = "myPage.do";
+                });
             }, 10)
         }
     });
@@ -378,32 +403,95 @@
         $(".addr1").css("display", "block");
     })
 
-    $(document).on("click", '#submit_password', function () {
-    	var $pwd1 = $('#pwd1');
-    	var $pwd2 = $('#pwd2');
-        var $pwd22 = $('#pwd22');
+	
+    // 현재비밀번호 확인
+    $("#pwd1").on("input", function() {
+	var curpass = $("#pwd1").val();
+		console.log(curpass)
+		$.ajax({
+			url : "/steach/user/passCheck.do",
+			type:"post",
+			data : {
+				id:id,
+				curpass:curpass
+			}
+		}).done(function(result) {
+			console.log(result)
+			if (result) {
+				$("#password_message").html("<span style='color: green;'>비밀번호가 일치합니다.</span>")
+			} else {
+				$("#password_message").html("<span style='color: red;'>현재 비밀번호를 입력해주세요.</span>")
+			}
 
-    	if  ( !$pwd1.val() )
+		})
+
+	});
+ // 변경비밀번호 입력
+	$("#pwd2").on("input", function() {
+		var password = $("#pwd2").val();
+		var passwordchk = $("#pwd22").val();
+		if(password.length < 8 || password.length > 16) {
+			$("#password_message").html("<span style='color: red;'>비밀번호를 8~16자까지 입력해주세요.</span>");
+
+			return false;
+		} else {
+			$("#password_message").html("<span style='color: green;'>사용 가능한 비밀번호입니다.</span>");
+		}
+		
+	});
+	
+	// 변경비밀번호 확인 입력
+	$("#pwd22").on("input", function() {
+		var password = $("#pwd2").val();
+		var passwordchk = $("#pwd22").val();
+		if(password == passwordchk) {
+			$("#password_message").html("<span style='color: green;'>비밀번호가 확인되었습니다.</span>");
+		} else {
+			$("#password_message").html("<span style='color: red;'>비밀번호가 일치하지 않습니다.</span>");
+
+			return false;
+		}
+	});
+    
+    // 비밀번호 수정하기
+    $(document).on("click", '#submit_pwd', function () {
+    	var pwd1 = $('#pwd1').val();
+    	console.log(pwd1)
+    	var pwd2 = $('#pwd2').val();
+        var pwd22 = $('#pwd22').val();
+
+    	if  ( !pwd1 )
         {
-    		$("#password_message").text("현재 비밀번호를 입력해주세요.");
+    		$("#password_message").html("<span style='color: red;'>현재 비밀번호를 입력해주세요.</span>");
 	        $pwd1.focus();
 	        return ;
 	    }
-    	if  ( !$pwd2.val() )
+    	if  ( !pwd2 )
         {
-    		$("#password_message").text("새로운 비밀번호를 입력해주세요.");
+    		$("#password_message").html("<span style='color: red;'>새로운 비밀번호를 입력해주세요.</span>");
 	        $pwd2.focus();
 	        return ;
 	    }
-    	if  ( !$pwd22.val() )
+    	if  ( !pwd22 )
         {
-    		$("#password_message").text("새로운 비밀번호를 한번더 입력해주세요.");
+    		$("#password_message").html("<span style='color: red;'>새로운 비밀번호를 한번더 입력해주세요.</span>");
 	        $pwd22.focus();
 	        return ;
 	    }
-        check_password();
-        check_password1();
+    	$.ajax({
+ 			url:"/steach/user/modipass.do",
+ 			data:{
+ 				id:id,
+ 				password:pwd2
+ 			}
+ 		}).done(function(result){
+ 			$('#pwd1').val("");
+ 	    	$('#pwd2').val("");
+ 	        $('#pwd22').val("");
+ 	       $("#password_message").html("")
+ 	        $("#modipassword").modal("hide")
 
+ 		})
     });
     // 비번체크
     var passwordChkResult = false;

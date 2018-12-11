@@ -23,7 +23,7 @@ public class Main {
 		model.addAttribute("teaching", service.teaching(user.getId()));
 		model.addAttribute("studying", service.studying(user.getId()));
 		
-		System.out.println(service.studying(user.getId()));
+//		System.out.println(service.studying(user.getId()));
 	}
 	
 	

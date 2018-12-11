@@ -192,16 +192,47 @@
     $("#findpassForm").submit(function(e){
     	e.preventDefault();
     	console.log($(this).serialize());
+    	console.log($(this))
+    	var findpassname = $("#find-name").val()
+    	var findpassid = $("#find-email").val()
     	
+    	
+    	
+    	//////////////////////////////////////////
     	$.ajax({
-    		url:"/steach/login/sendMail.do",
-    		data:$(this).serialize()
-    	}).done(function(){
-    		swal('임시 비밀번호가 이메일로 전송되었습니다. \n비밀번호 변경을 진행해주세요',"success");
-    	}).fail(function(){
-    		swal("입력하신 정보에 해당하는 아이디가 없습니다.", "error")
-    		$("#find-name").focus();
-    	})
+			url: "/steach/login/checkpassId.do",
+			data: $(this).serialize()
+		})
+		.done(function(result) {
+			console.log(result)
+			if(result == "0") {
+				swal("입력하신 정보에 해당하는 아이디가 없습니다.", "error")
+				$("#find-name").focus();
+			} else {
+// 				console.log($(this).serialize())
+				$.ajax({
+		    		url:"/steach/login/sendMail.do",
+		    		data:{
+		    			id:findpassid,
+		    			name:findpassname
+		    		}
+		    	}).done(function(){
+		    		swal('임시 비밀번호가 이메일로 전송되었습니다. \n비밀번호 변경을 진행해주세요','success');
+		    	})
+			}
+		})
+    	////////////////////////////////////////////////////
+    	
+    	
+//     	$.ajax({
+//     		url:"/steach/login/sendMail.do",
+//     		data:$(this).serialize()
+//     	}).done(function(){
+//     		swal('임시 비밀번호가 이메일로 전송되었습니다. \n비밀번호 변경을 진행해주세요','success');
+//     	}).fail(function(){
+//     		swal("입력하신 정보에 해당하는 아이디가 없습니다.", "error")
+//     		$("#find-name").focus();
+//     	})
       	/* swal("임시 비밀번호가 등록된 메일로 전송되었습니다."); */
     });
     

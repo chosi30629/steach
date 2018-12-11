@@ -50,6 +50,7 @@
                 <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
                 <li class="pull-right attend attendon" style="display: none"><a href="#" id="atton"><i class="fas fa-calendar-check"></i></a></li>
                 <li class="pull-right attend attendoff" style="display: none"><a href="#" id="attoff"><i class="fas fa-door-open"></i></a></li>
+                <li class="pull-right attend attendcomplete" style="display: none"><a href="#" id="attcomplete"><i class="fas fa-check"></i></a></li>
             </ul>
         </div>
     </nav>
@@ -96,6 +97,8 @@
 	} */
     console.log("오늘날짜 : " + today)
     // 출석 결석 버튼 구분
+    var offstatus;
+	
     function attStatus(){
 		if (id != master) {
     	$.ajax({
@@ -106,19 +109,25 @@
  				attendDate:today
  			}
  		}).done(function(result){
+ 			offstatus = result.offStatus;
 //  			console.log(result)
 // 			console.log(result.attendTime)
 // 			console.log(result.offStatus)
 //  			console.log((result.attendTime != "") && (result.offStatus != 'y'))
-        	if(!result.attendTime || (result.offStatus =='y')){
+        	if(!result.attendTime){
 	 			$(".attendon").css("display", "block");
         	}
-        	else if((result.attendTime != "") && (result.offStatus != 'y'))
+        	else if((result.attendTime != "") && (result.offStatus != 'y')){
         		$(".attendoff").css("display", "block");
+        	}
+        	else if(result.offStatus =='y'){
+        		$(".attendcomplete").css("display", "block");
+        	}
         });
 		}
     }
     attStatus();
+    console.log(offstatus)
     
     var startTime = "${clazz.startTime}"
     var endTime = "${clazz.endTime}"
@@ -171,8 +180,8 @@
      			}
         	}).done(function(){
         		alert("퇴실되었습니다.")
- 				$(".attendon").css("display", "block");
-				$(".attendoff").css("display", "none");
+        		$(".attendcomplete").css("display", "none");
+        		$(".attendoff").css("display", "none");
         	})
     	} else {
     		$.ajax({
@@ -184,7 +193,7 @@
      			}
         	}).done(function(){
         		alert("퇴실되었습니다.")
- 				$(".attendon").css("display", "block");
+ 				$(".attendcomplete").css("display", "block");
 				$(".attendoff").css("display", "none");
         	})
     	}

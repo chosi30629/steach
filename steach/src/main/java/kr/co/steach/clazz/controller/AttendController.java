@@ -44,7 +44,7 @@ public class AttendController {
 	@RequestMapping("/attendlistStudent.do")
 	public List<Attend> attend3(int classNo, Attend attend, Model model) {
 		attend.setClassNo(classNo);
-		return attendservice.attendlistTeacher(attend);
+		return attendservice.attendlistStudent(attend);
 	}
 
 	// 월별차트

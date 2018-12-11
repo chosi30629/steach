@@ -306,6 +306,8 @@
    				}
    			}).done(function(result){
    				var dailyat = '';
+   				var atontime;
+   				var atofftime;
    				switch (result.gno) {
 				case 1001:
 					dailyat = "출석"
@@ -322,11 +324,24 @@
 				}
 //    				console.log("퇴실시간 : " + $.format.date(result.offTime, "HH:mm"))
 //    				console.log("퇴실시간2: " + result.offTime)
-   				if (!result.offTime) {
-   					
-					result.offTime = "-"					
-				}
-   				$("#dailyattContent").html("<h3 style='margin-top: 0px'>"+dailyat + "</h3><p>출석시간 : "+$.format.date(result.attendTime, "HH:mm")+"</p><p>퇴실시간 : "+$.format.date(result.offTime, "HH:mm")+"</p>")
+   				if (!result.attendTime || !result.offTime) {
+   					atontime = "-"
+  					atofftime = "-"
+					} 
+   				else {
+   					atontime = $.format.date(result.attendTime, "HH:mm")
+					atofftime = $.format.date(result.offTime, "HH:mm")
+					}
+   				
+   				
+//    				if (!result.attendTime) {
+//    					atontime = $.format.date(result.attendTime, "HH:mm")
+// 				}
+//    				if (!result.offTime) {
+// 					atofftime = $.format.date(result.offTime, "HH:mm")					
+// 				}
+				
+   				$("#dailyattContent").html("<h3 style='margin-top: 0px'>"+dailyat + "</h3><p>출석시간 : "+atontime+"</p><p>퇴실시간 : "+atofftime+"</p>")
    			})
 		}
 	})
@@ -508,6 +523,7 @@
    					id:id
    				}
    			}).done(function(result){
+   				console.log(result)
    				var atdata = '';
    				for (var i = 0; i < result.length; i++) {
    					if (result[i].attendLate == 1) {

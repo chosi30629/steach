@@ -96,7 +96,7 @@
 							<li>
 								<div class="card--container">
 									<div class="card--section"
-										style="background-color: rgb(74, 202, 106);">
+										style="background-color: #0080FF;">
 										<h1>
 											<a href="#" data-no="${study.classNo}">${study.className}</a>
 										</h1>
@@ -211,7 +211,7 @@
 	var teaching = "${teaching}";
 	console.log(teaching)
 	var studying = "${studying}";
-	console.log(studying.master)
+	console.log(studying)
 
 	$('ul.nav li.dropdown').hover(function() {
 		$(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(200);

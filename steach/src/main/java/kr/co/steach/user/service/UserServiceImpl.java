@@ -130,10 +130,8 @@ public class UserServiceImpl implements UserService {
 		return mapper.userLogin(user);
 	} // userLogin
 
-	/**
-	 * 현재 비밀번호 확인
-	 * @param id
-	 */
+
+	// 현재 비밀번호 확인
 	@Override
 	public User checkPass(String id) {
 		return mapper.checkPass(id);
@@ -162,10 +160,16 @@ public class UserServiceImpl implements UserService {
 	
 	// 주소 등록.수정
 	// 전화번호 등록.수정
-		@Override
-		public void updateAddr(User user) {
-			mapper.updateAddr(user);
-		}
+	@Override
+	public void updateAddr(User user) {
+		mapper.updateAddr(user);
+	}
+
+	// 프로필 수정
+	@Override
+	public void profileImg(User user) {
+		mapper.profileImg(user);
+	}
 
 //	/**
 //	 * 파일 등록

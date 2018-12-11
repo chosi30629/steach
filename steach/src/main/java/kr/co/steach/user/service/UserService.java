@@ -36,10 +36,7 @@ public interface UserService {
 	 */
 	void updatePass(User user);
 	
-	/**
-	 * 현재 비밀번호 확인
-	 * @param id
-	 */
+	// 현재 비밀번호 확인할 아이디
 	User checkPass(String id);
 	
 
@@ -52,5 +49,7 @@ public interface UserService {
 	// 주소 등록.수정
 	void updateAddr(User user);
 	
+	// 프로필 이미지 수정
+	void profileImg(User user);
 
 }

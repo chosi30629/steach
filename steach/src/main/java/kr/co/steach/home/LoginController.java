@@ -71,6 +71,16 @@ public class LoginController {
 		return "redirect:/home/home.do";
 	} // logout
 	
+	@RequestMapping("checkpassId.do")
+	@ResponseBody
+	public String checkId(User user) {
+		return Integer.toString(service.checkId(user));
+	} // checkId
+	
+	
+	
+	
+	
 	/**
 	 * 인증코드 메일 보내기
 	 * @param user

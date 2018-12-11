@@ -32,10 +32,11 @@ public interface UserMapper {
 	
 	int checkId(User user);
 
+	// 현재 비밀번호 확인할 아이디
 	User checkPass(String id);
 
-
-	void insertFile(User user);
+	// 프로필이미지 수정
+	void profileImg(User user);
 
 	void deleteFile(User user);
 
