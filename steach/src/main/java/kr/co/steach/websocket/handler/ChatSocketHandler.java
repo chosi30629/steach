@@ -24,7 +24,7 @@ import kr.co.steach.repository.domain.User;
 public class ChatSocketHandler extends TextWebSocketHandler {
 	FileOutputStream fos = null;
 	Map<String, List<WebSocketSession>> users = new HashMap<>();
-
+	List<String> memberId = new ArrayList<>();
 	
 	public ChatSocketHandler() {
 		System.out.println("객체 생성");
@@ -38,9 +38,17 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(
 			WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println("나간 아이디 : " + ((User)session.getAttributes().get("user")).getId());
+		memberId.remove(((User)session.getAttributes().get("user")).getId());
+		System.out.println("멤버리스트 : " + memberId.toString());
+
 		Set<String> keys = users.keySet();
 		for(String key : keys) {
 			users.get(key).remove(session);
+			List<WebSocketSession> wss = users.get(key);
+			for(WebSocketSession ws : wss) {
+				ws.sendMessage(new TextMessage("memberList:" + memberId.toString()));
+			} 
 		} // for
 		
 		log(session.getId() + " 연결 종료됨");
@@ -71,6 +79,7 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String msg = message.getPayload();
+		System.out.println("메시지 내용 : " + msg);
 //		if (msg.startsWith("filename:")) {
 //			try {
 //				fos = new FileOutputStream(
@@ -83,13 +92,20 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 		
 		if (msg.startsWith("groupNo:")) {
 			try {
-				if(!users.containsKey(msg.substring(msg.indexOf(":") + 1))) {
-					users.put(msg.substring(msg.indexOf(":") + 1), new ArrayList<>());
-					users.get(msg.substring(msg.indexOf(":") + 1)).add(session);
+				if(!users.containsKey(msg.substring(msg.indexOf(":") + 1, msg.indexOf(",")))) {
+					users.put(msg.substring(msg.indexOf(":") + 1, msg.indexOf(",")), new ArrayList<>());
+					users.get(msg.substring(msg.indexOf(":") + 1, msg.indexOf(","))).add(session);
 				} else {
-					users.get(msg.substring(msg.indexOf(":") + 1)).add(session);
+					users.get(msg.substring(msg.indexOf(":") + 1, msg.indexOf(","))).add(session);
 				} // inner if-else
 				System.out.println(users.toString());
+				System.out.println(msg.substring(msg.lastIndexOf(":") + 1));
+				memberId.add(msg.substring(msg.lastIndexOf(":") + 1));
+				
+				List<WebSocketSession> wss = users.get(msg.substring(msg.indexOf(":") + 1, msg.indexOf(",")));
+				for(WebSocketSession ws : wss) {
+						ws.sendMessage(new TextMessage("memberList:" + memberId.toString()));
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} // try-catch
@@ -100,7 +116,7 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 //		}
 		
 		Map<String, Object> map = session.getAttributes();
-		System.out.println(((User)map.get("user")).getId());
+//		System.out.println(((User)map.get("user")).getId());
 		
 		log("보내온 메세지 : " + message.getPayload());
 		log("보낸 사람 아이디 : " + session.getId());

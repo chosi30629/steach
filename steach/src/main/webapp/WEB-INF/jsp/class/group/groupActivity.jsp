@@ -72,9 +72,9 @@
 	        <span>${group.groupName}</span>
 			<ul>
 		        <c:forEach var="member" items="${groupMember}">
-					<li class="member-list" tabindex="0"  role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="${member.groupMemberId}&nbsp;(${member.name})" data-content="${member.phone}">
+					<li class="member-list" tabindex="0" data-memberid="${member.groupMemberId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="${member.groupMemberId}&nbsp;(${member.name})" data-content="${member.phone}">
+			        	<div class="dot green"><span><span></span></span></div>
 						<img src="${member.profilePath}" width="40" height="40">
-						<span>d</span>
 					</li>		
 	   		    </c:forEach>
 			</ul>   
@@ -1071,10 +1071,23 @@
 // 			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
 			ws = new WebSocket('wss://192.168.1.126:8443/steach/chat.do');
 			ws.onopen = function() {
-		        console.log('연결 성공');
-		        ws.send("groupNo:" + groupNo);
+			    console.log('연결 성공');
+		        var memberId = "${user.id}";
+		        ws.send("groupNo:" + groupNo + ",memberId:" + memberId);
 		    };
 		    ws.onmessage = function(evt) {
+		    	if(evt.data.startsWith("memberList:")) {
+// 			        $(".member-list[data-memberid='" + memberId + "']").css("display", "none");
+		    		var evtString = evt.data.substring(evt.data.indexOf(":") + 2, evt.data.lastIndexOf("]"));
+		    		var evtArr = evtString.split(", ");
+		    		console.log(evtArr);
+		    		$(".dot").css("visibility", "hidden");
+					for(let i = 0; i < evtArr.length; i++) {
+				        $(".member-list[data-memberid='" + evtArr[i] + "']").find(".dot").css("visibility", "visible");
+					}
+		    		
+		    		return;
+		    	}
 		    	var profilePath = evt.data.substring((evt.data.indexOf(",") + 1), evt.data.indexOf(":"));
 		    	var messageContent = evt.data.substring(evt.data.indexOf(":") + 1);
 				$('<div class="message loading new"><figure class="avatar"><img src="' + profilePath + '" /></figure><span></span></div>').appendTo($('.mCSB_container'));
