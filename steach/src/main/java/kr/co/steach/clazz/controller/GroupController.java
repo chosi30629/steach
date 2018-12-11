@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -401,5 +402,41 @@ public class GroupController {
 		
 		bis.close(); fis.close();bos.close();out.close();
 	} // fileDownload
+	
+	@RequestMapping("modifyGroupBg.do")
+	@ResponseBody
+	public String modifyGroupBg(MultipartFile uploadFile, int groupNo) {
+		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+		String uploadPath = "C:/app/upload";
+		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+		String datePath = sdf.format(new Date());
+		String ext = "";
+		int index = uploadFile.getOriginalFilename().lastIndexOf(".");
+		
+		if(index != -1) {
+			ext = uploadFile.getOriginalFilename().substring(index);
+		} // if
+		
+		File file = new File(uploadPath + datePath); 
+		if(file.exists() == false) {
+			file.mkdirs();
+		} // if
+		
+		// 이미지 이름 중복 방지를 위한 파일이름 랜덤생성
+		String uName = UUID.randomUUID().toString();
+		try {
+			uploadFile.transferTo(new File(uploadPath + datePath, uName + ext));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		Group group = new Group();
+		group.setGroupNo(groupNo);
+		group.setGroupBg("/local_img" + datePath + "/" + uName + ext);
+		
+		service.updateGroupBg(group);
+		
+		return "배경화면 변경 성공";
+	} // modifyGroupBg
 	
 } // end class

@@ -20,17 +20,12 @@
     <script src="/steach/resources/js/class/group/util.js"></script>
     <script src="/steach/resources/js/class/group/jquery.emojiarea.js"></script>
     <script src="/steach/resources/js/class/group/emoji-picker.js"></script>
-    <style type="text/css">
-	    .modal-backdrop {
-	    	position: fixed;
-	    }
-    </style>
 </head>
-<body>
+<body style="background-image: url('${group.groupBg}')">
     <div class="clearfix groupName">
         <h3>
 	        <span>${group.groupName}</span>
-			<ul>
+			<ul class="group-info">
 		        <c:forEach var="member" items="${groupMember}">
 					<li class="member-list" tabindex="0" data-memberid="${member.groupMemberId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="${member.groupMemberId}&nbsp;(${member.name})" data-content="${member.phone}">
 			        	<div class="dot green"><span><span></span></span></div>
@@ -38,6 +33,11 @@
 					</li>		
 	   		    </c:forEach>
 			</ul>   
+			<span class="modify-bg" data-toggle="tooltip" data-placement="bottom" title="배경화면 변경">　
+			  	<label class="bg-label"><i class="fas fa-images"></i>
+	            	<input type="file" class="bg-file">
+	        	</label>
+			</span>
 		</h3>     	
     </div>
     <div class="wrapper clearfix">
@@ -1090,6 +1090,60 @@
 			});
 		});
         
+     // 확장자 제한
+		function checkFile(f){
+			// files로 해당 파일 정보 얻기
+			var file = f.files;
+
+			// file[0].name 은 파일명
+			// 정규식으로 확장자 체크
+			if(!/(gif|jpg|jpeg|png)$/i.test(file[0].name)) {
+				alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+				return false;
+			} else {
+				return;
+			}
+		} 
+
+		// 그룹활동 배경화면 수정
+		$(".bg-file").change(function(e) {
+			 if(checkFile(this) == false) {
+				 return;
+			 }
+			 
+			 var fileReader = new FileReader();
+			 var conf = null;
+			 fileReader.readAsDataURL(e.target.files[0]);
+			 
+			 fileReader.onload = function(e) {       
+			    $('body').css("background-image", "url('" + e.target.result + "')");
+			 	
+			    setTimeout(function() {
+			 		conf = confirm("배경화면을 수정하시겠습니까?");
+					if(conf == false) {
+						$('body').css("background-image", "url('${group.groupBg}')");
+						return;
+					}
+		 			
+					var formData = new FormData();
+					var inputFile = $(".bg-file");
+					var files = inputFile[0].files;
+					formData.append("uploadFile", files[0]);
+					
+					$.ajax({
+						url: "/steach/class/group/modifyGroupBg.do?groupNo=${group.groupNo}",
+						processData: false,
+						contentType: false,
+						data: formData,
+						type: "POST"
+					})
+					.done(function(result) {
+						console.log(result);
+					});   
+				}, 10)
+			 }  
+		});
+
         $(".navbar").addClass("navbar-fixed-top");
         
         $('.member-list').popover('hide');

@@ -255,5 +255,10 @@ public class GroupServiceImpl implements GroupService {
 	public List<GroupMember> selectMemberByGroupNo(int groupNo) {
 		return mapper.selectMemberByGroupNo(groupNo);
 	} // selectMemberByGroupNo
+
+	@Override
+	public void updateGroupBg(Group group) {
+		mapper.updateGroupBg(group);
+	} // updateGroupBg
 	
 } // end class

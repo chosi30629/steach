@@ -15,7 +15,7 @@ html {
 }
 body {
     width: max-content;
-    background-image: url("/steach/resources/images/class/group/p5.jpg");
+/*     background-image: url("/steach/resources/images/class/group/p5.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -1160,4 +1160,23 @@ body {
 }
 .dot.green span:after {
 	background-color: rgba(110, 255, 122, 0.4);
+}
+.modal > .modal-backdrop {
+	position: fixed;
+}
+.modify-bg {
+	cursor: pointer;
+}
+.groupName > h3 > .group-info {
+	position: relative;
+	top: -2px;
+}
+.groupName > h3 > .modify-bg > .bg-label {
+    padding: 10px;
+    display: inline !important;
+    color: black;
+    cursor: pointer;
+}
+.groupName > h3 > .modify-bg > .bg-label > .bg-file {
+    display: none !important;
 }

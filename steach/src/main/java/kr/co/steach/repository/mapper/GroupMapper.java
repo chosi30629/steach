@@ -79,4 +79,6 @@ public interface GroupMapper {
 	
 	List<GroupMember> selectMemberByGroupNo(int groupNo);
 	
+	void updateGroupBg(Group group);
+	
 } // end interface

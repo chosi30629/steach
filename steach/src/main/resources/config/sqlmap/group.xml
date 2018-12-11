@@ -69,6 +69,7 @@
 		<result column="group_name" property="groupName"/>
 		<result column="group_reg_date" property="groupRegDate"/>
 		<result column="current_at" property="currentAt"/>
+		<result column="group_bg" property="groupBg"/>
 		<association property="groupMember"
 			 column="group_no"
 			 select="groupMember"></association>
@@ -327,5 +328,12 @@
 		  from tb_class_group_list_card_file 
 		  where card_no = #{cardNo}
 	</select>
+	
+	<!-- 그룹 활동 배경화면 변경 -->
+	<update id="updateGroupBg" parameterType="Group">
+		update tb_class_group
+		   set group_bg = #{groupBg}
+		 where group_no = #{groupNo}  
+	</update>
 	
 </mapper>

@@ -80,5 +80,7 @@ public interface GroupService {
 	List<GroupFile> selectFileByCardNo(int cardNo);
 
 	List<GroupMember> selectMemberByGroupNo(int groupNo);
+
+	void updateGroupBg(Group group);
 	
 } // end interface
