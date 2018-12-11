@@ -230,7 +230,7 @@
       	<div class="modal-content col-md-3">
 			<form id="upload_form" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="id" value="${user.id}"><br>
-				<input type="file" name=attach multiple /><br>
+				<input type="file"  id="getfile" name="attach" multiple /><br>
 				<button class="fButton">업로드</button>
 			</form>
       	</div>    
@@ -246,6 +246,7 @@
       </div>
       <div class="modal-body">
         <p></p>
+        <img id="fileimage" src="none">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -259,7 +260,6 @@
 
  <script type="text/javascript">
  var firstload;
- var fileInfo = [];
  var clickToLazy;
  var activeNode;
  // 파일 업로드 ajax
@@ -276,16 +276,16 @@
 	 $(this).parent().parent().parent().modal('hide');
 	 	
 	 	var file = $("input[name='attach']");
-	 	console.log(file);
 		var files = $("input[name='attach']")[0].files;
+		var path = $('tbody').attr('data-path')
+		
 		
 		var fd = new FormData();
 	 	// 현재 페이지의 path경로 가져올거야
-	 	fd.append("path" , nPath);
+	 	fd.append("path" , path);
 		fd.append("id", $("input[name='id']").val());
 		for (var i = 0 ; i< files.length; i++){
 			fd.append("attach", files[i]);
-			fileInfo.push(files[i].name); 
 		}//for
 		
 		$.ajax({
@@ -298,13 +298,13 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-			console.dir(result);
 			
-			activeNode = $("#tree").fancytree("getActiveNode");
+			var node  = $("#tree").fancytree("getActiveNode");
 	    	if (!node) {
 	    		node = clickToLazy;
+	    		console.log("clilckToLazy",node);
 	    	}
-	    	else if(node == null) {
+	    	if(node == undefined) {
 	    		node = $("#tree").fancytree("getRootNode").children[0]
 				console.log("getRootNode",node);
 	    	}
@@ -319,10 +319,12 @@
 	            }
 	         });
 			
+	    	if(node.key != "_1"){
 	    	node.load(true).done(function(){
 	    		node.resetLazy();  
 	    		node.setExpanded();
 	    		});
+	    	}
 	    	
 			EmojiAndFLengthLIST(result[i].list);
 			}
@@ -998,7 +1000,7 @@ var source = [
 			            })
 			            
 			            // 리스트(테이블)내 tr태그 클릭시(폴더) 하위폴더로 이동
-			            	$(document).on('click', 'tr' ,function(){
+			            	$(document).on('dblclick', 'tr' ,function(){
 								pathData = $(this).attr('path-data');	// 클릭한 태그의 path-data 속성을 가져옴
 								var isFolder = $(this).find('.emoji')[0].className.indexOf('fas fa-folder'); // 클릭한 태그의 클래스를 가져와서 폴더인지 아닌지 판단	
 								console.log(pathData);
@@ -1006,13 +1008,31 @@ var source = [
 	 					 	 	nowpath(pathData);
 	 					 	 	
 								// emoji 속성을 보고 폴더인지 파악 -> indexOf가 -1 반환시	 //파일일시 읽어오는 역할 수행   //
-								if(isFolder == -1)
+								var emojiTest = $(this).find('.emoji')[0].className;
+								var title = $(this).find('span')[0].textContent // 파일의 제목
+								
+								if(isFolder == -1 && emojiTest == "emoji txt")
 								{
 									$('#fileReader').modal('show'); // 모달 보이기
-									var title = $(this).find('span')[0].textContent // 파일의 제목
 									var eLine = $(this).find('.eLine').val() // 파일의 내용
+									console.log(eLine);
 									$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
 									$('.modal-body').children()[0].innerText= eLine; // 모달에 내용 넣기
+								}
+								else if(emojiTest == 'emoji img')
+								{
+									$.ajax({
+										url : '<c:url value="/drive/imageRead.do" />',
+										data : {
+											path : pathData
+										}
+									}).done(function(result)
+										{
+										$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
+										$('#fileimage').attr('src' , 'data:image/png;base64,'+result);
+										$('#fileReader').modal('show'); // 모달 보이기
+										})
+									
 								}else{
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',

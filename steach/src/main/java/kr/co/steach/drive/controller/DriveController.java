@@ -1,10 +1,13 @@
 package kr.co.steach.drive.controller;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,11 +25,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.google.gson.Gson;
 
 import kr.co.steach.repository.domain.FileVO;
 import kr.co.steach.repository.domain.User;
+import sun.misc.BASE64Encoder;
 
 @Controller
 @RequestMapping("/drive")
@@ -65,24 +68,7 @@ public class DriveController {
 	@RequestMapping("/detailFolder.do")
 	@ResponseBody
 	public List<Map<String, Object>> detailFolder(@RequestParam(value="path")String path ) throws IOException {
-//		System.out.println("들어왔나요~!!!!!"+path);
 		File f= new File(path);
-//		if(f.isDirectory()) {
-//		List<Map<String, Object>> list = new ArrayList<>();
-//		File[] arrfile = f.listFiles();
-//		for(File fInfo : arrfile) {
-//			Map<String, Object> fmap = new HashMap<>();
-//			fmap.put("title", fInfo.getName());
-//			fmap.put("folder", fInfo.isDirectory());
-//			fmap.put("path", fInfo.getPath());
-//			if(fInfo.isDirectory() == true && fInfo.listFiles().length != 0) {
-//				fmap.put("lazy", true);
-////				fmap.put("children", fInfo.listFiles());
-//			}
-//			list.add(fmap);
-//			}
-//			return list;
-//		}
 		return listLoad(f);
 	}
 	
@@ -95,18 +81,7 @@ public class DriveController {
 	@RequestMapping("/activateFolder.do")
 	@ResponseBody
 	public List<Map<String, Object>> activateFolder(@RequestParam(value="path")String path) throws IOException {
-//		System.out.println(path);
 		File f = new File(path);
-//		List<Map<String,Object>> list = new ArrayList<>();
-//		for(File fInfo : f.listFiles()) {
-//			Map<String,Object> fmap = new HashMap<>();
-//			fmap.put("title", fInfo.getName());
-//			fmap.put("folder", fInfo.isDirectory());
-//			fmap.put("lastModified", sdf.format(fInfo.lastModified()));
-//			fmap.put("length", fInfo.length());
-//			fmap.put("path", fInfo.getPath());
-//			list.add(fmap);
-//		}
 			return listLoad(f);
 	}
 	
@@ -120,19 +95,26 @@ public class DriveController {
 	@ResponseBody
 	public List<Map<String, Object>> trClickToDetail(@RequestParam(value="path")String path ) throws IOException {
 		System.out.println("클릭"+path);
-		
 		File f =new File(path);
-//		List<Map<String,Object>> list = new ArrayList();
-//		for(File arrfile : f.listFiles()) {
-//			Map<String, Object> fmap = new HashMap<>();
-//				fmap.put("title", arrfile.getName());
-//				fmap.put("folder",arrfile.isDirectory());
-//				fmap.put("lastModified", sdf.format(arrfile.lastModified()));
-//				fmap.put("length", arrfile.length());
-//				fmap.put("path", arrfile.getCanonicalPath());
-//				list.add(fmap);
-//		}
 			return listLoad(f);
+	}
+	@RequestMapping("/imageRead.do")
+	@ResponseBody
+	public String imageRead(@RequestParam(value="path")String path ) throws IOException {
+		System.out.println("클릭"+path);
+	
+		BASE64Encoder base64Encoder = new BASE64Encoder();
+        InputStream in = new FileInputStream(new File(path));
+        ByteArrayOutputStream byteOutStream=new ByteArrayOutputStream();
+        int len=0;
+        byte[] buf = new byte[1024];
+        while((len=in.read(buf)) != -1){
+        	byteOutStream.write(buf, 0, len);
+        }
+        byte fileArray[]=byteOutStream.toByteArray();
+        String encodeString=base64Encoder.encodeBuffer(fileArray);
+		in.close();
+		return encodeString;
 	}
 	
 	@RequestMapping("/rename.do")
@@ -214,7 +196,6 @@ public class DriveController {
 				if(f.exists()) {
 					String len = (f.length() < 1024) ? "KB" : (f.length() > Math.pow(1024, 3) ? "GB" : "MB");
 					String usedSpaece = f.length()+len;
-//					System.out.println(usedSpaece);					
 				}else {
 					f.mkdirs(); 					
 				}
@@ -223,7 +204,6 @@ public class DriveController {
 				ArrayList<File> subFiles= new ArrayList<File>();
 		        // 드라이브 사용 가능한 용량
 				String usableSpace = Math.round(f.getUsableSpace()/Math.pow(1024, 3))+"GB";
-//		        System.out.println(usableSpace);
 		        
 		        if(!f.exists()) 
 		        { 
@@ -237,30 +217,16 @@ public class DriveController {
 		        { 
 		            if(file.isFile()) 
 		            { 
-//		                System.out.println("파일 이름 : "+file.getName()); 
-//		                System.out.println("파일 경로 : "+file.getCanonicalPath()); 
-//		                System.out.println("파일 크기 : "+file.length()); 
-//		                System.out.println("———————————-");
-		            
 		            } 
 		            else if(file.isDirectory()) 
 		            { 
-//		            	System.out.println("최종 수정 날짜"+ sdf.format(file.lastModified()));
-//		                System.out.println("디렉토리 이름 : "+file.getName()); 
-//		                System.out.println("디렉토리 경로 : "+file.getCanonicalPath()); 
-//		                System.out.println("디렉토리  : "+file.length());
-//		                System.out.println("———————————-"); 
-		               
 		            } 
 		        } 
-		        
-		        //subFiles 경로 배열 
-		        //usableSpace 사용 가능한 용량
-		        model.addAttribute("subFiles", subFiles);
-		        model.addAttribute("usableSpace", usableSpace);
+
+		        model.addAttribute("subFiles", subFiles); //  경로 배열  // 사용 안함
+		        model.addAttribute("usableSpace", usableSpace); // 사용 가능한 용량
 		        model.addAttribute("list", gson.toJson(listLoad(f)));
 		        
-		       
 		        return user;
 		    } 
 		     
@@ -279,26 +245,24 @@ public class DriveController {
 		                findSubFiles(childFile, subFiles); 
 		            } 
 		        } 
-		
-		
-			
-}
+		    }
 		    public static List<Map<String, Object>> listLoad(File f) throws IOException
 		    {
 		    	
 		    	List<Map<String, Object>> list = new ArrayList<>();
 		    	File[] arrfile = f.listFiles();
 		    	BufferedReader br = null;
-		    	String temp = "";
+		    	
 				for(File fInfo : arrfile) {
 					Map<String, Object> fmap = new HashMap<>();
 					
 					if(!fInfo.isDirectory()) {
 						br = new BufferedReader(new InputStreamReader(new FileInputStream(fInfo), "UTF-8"));
+						String temp = "";
 						while(true) {
 							String line = br.readLine();
 							if (line==null) break;
-							temp += line +"\r\n";
+							temp += line;
 						}
 						fmap.put("line", temp);
 						br.close();
