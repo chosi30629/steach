@@ -48,8 +48,8 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 			List<WebSocketSession> wss = users.get(key);
 			for(WebSocketSession ws : wss) {
 				ws.sendMessage(new TextMessage("memberList:" + memberId.toString()));
-			} 
-		} // for
+			} // inner for
+		} // outer for
 		
 		log(session.getId() + " 연결 종료됨");
 	} // afterConnectionClosed
@@ -105,7 +105,7 @@ public class ChatSocketHandler extends TextWebSocketHandler {
 				List<WebSocketSession> wss = users.get(msg.substring(msg.indexOf(":") + 1, msg.indexOf(",")));
 				for(WebSocketSession ws : wss) {
 						ws.sendMessage(new TextMessage("memberList:" + memberId.toString()));
-				}
+				} // for
 			} catch (Exception e) {
 				e.printStackTrace();
 			} // try-catch

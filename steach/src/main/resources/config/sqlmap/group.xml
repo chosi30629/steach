@@ -221,7 +221,7 @@
 	
 	<!-- 조별 메인 그룹 인원 -->
 	<select id="groupMember" parameterType="groupMember" resultMap="groupMemberMap">
-		select m.*, u.name 
+		select m.*, u.name, u.profile_path  
 		  from tb_class_group_member m, tb_user u 
 		   where m.group_member_id = u.id
 		     and m.group_no = #{groupNo}
@@ -230,7 +230,7 @@
 	
 	<!-- 조별 메인 그룹 인원 -->
 	<select id="groupMemberList" resultMap="groupMemberMap">
-		select m.*,  g.name 
+		select m.*, g.name 
 		  from tb_class_group_member m
 		 inner join tb_user g
 		    on m.group_member_id = g.id

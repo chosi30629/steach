@@ -9,56 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!--     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" -->
-<!--         crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
-<!--     <link rel="stylesheet" href="/steach/resources/css/header/class-header.css"> -->
 	<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-main.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/animate.css">
-<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
     <script src="/steach/resources/js/class/group/wow.min.js"></script>
     <title>GroupMain</title>
 </head>
 <body>
-<!--     <nav class="navbar navbar-default navbar-fixed-top"> -->
-<!--         <div class="navbar-collapse"> -->
-<!--             <ul class="nav navbar-nav"> -->
-<!--                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li> -->
-<%--                 <li class="pull-left myClassName"><a href="#">${clazz.className}</a></li> --%>
-<%--                 <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li> --%>
-<!--                 <li class="dropdown classCourse"> -->
-<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a> -->
-<!--                     <ul class="dropdown-menu"> -->
-<%--                         <li><a href="<c:url value='/class/lecture/homework.do'/>">과제제출</a></li> --%>
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--                 <li class="dropdown classUser"> -->
-<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a> -->
-<!--                     <ul class="dropdown-menu"> -->
-<%--                         <li><a href="<c:url value='/class/attend/attend.do'/>">출결현황</a></li> --%>
-<!--                         <li class="divider"></li> -->
-<%--                         <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li> --%>
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--                 <li class="nbsp"> </li> -->
-<!--                 <li class="pull-right dropdown myNotification"> -->
-<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a> -->
-<!--                     <ul class="dropdown-menu myNotificationMenu"> -->
-<!--                         <li><a href="#">마이페이지</a></li> -->
-<!--                         <li class="divider"></li> -->
-<%--                         <li><a href="<c:url value="/drive/drive.do"/>">마이드라이브</a></li> --%>
-<!--                         <li class="divider"></li> -->
-<!--                         <li><a href="#">로그아웃</a></li> -->
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--                 <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li> -->
-<!--             </ul> -->
-<!--         </div> -->
-<!--     </nav> -->
     <div class="container clearfix">
         <h3 class="group-main-title">
             &nbsp;<i class="fas fa-users"></i>&nbsp;&nbsp;조별 활동
@@ -89,24 +48,6 @@
                 	</ul>
                 </div>
                 <ul class="connectedSortables parentDrop clearfix" style="display: none;">
-                	<%-- <c:forEach var="group" items="${groupList}" varStatus="loop">
-	                    <li class="parentDrag">
-	                        <div class="listTitle">
-	                            <div class="listSubject">
-	                                ${group.groupName}
-	                            </div>
-	                        </div>
-	                        <ul class="connectedSortable childDrop">
-	                            　				
- 							<c:forEach var="member" items="${groupList[loop.index].groupMember}">    
- 	                            <li class="ui-state-default clearfix" style="background-image: url('/steach/resources/images/class/group/p1.jpg');">
-	                                <span class="student-name">${member.name}</span>
-	                            </li> 
-	                        </c:forEach>      
-	                        </ul>
-	                        <div>　</div>
-	                    </li>
-                    </c:forEach> --%>
                 </ul>
             </div>
         </div>
@@ -194,6 +135,8 @@ l0,-61 L40,28" />
 		
 		$("#students").text(students);
 		
+		console.log("${groupList}");
+		
 		// 그룹 뿌려주기 
 		group();
 		function group() {
@@ -212,7 +155,7 @@ l0,-61 L40,28" />
 		            + '<ul class="connectedSortable childDrop">'
 		                　		+ '　'
 		           	+ ' <c:forEach var="member" items="${groupList[loop.index].groupMember}">  '  
-		                　		+      '<li class="ui-state-default clearfix" data-groupNo="${member.groupNo}" data-index="${member.groupMemberNo}" data-order="${member.groupMemberOrder}" data-id="${member.groupMemberId}" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
+		                　		+      '<li class="ui-state-default clearfix" data-groupNo="${member.groupNo}" data-index="${member.groupMemberNo}" data-order="${member.groupMemberOrder}" data-id="${member.groupMemberId}" style="background-image: url(${member.profilePath});">'
 		                　		+         '<span class="student-name">${member.name}</span>'
 		                　		+     '</li>'
 		            + ' </c:forEach>'  
@@ -323,7 +266,7 @@ l0,-61 L40,28" />
 			        var groupMemberList = group.groupMember;
 			        for (let k = 0; k < groupMemberList.length; k++) {
 			        	groupMemberList[k]     		
-			            html += '<li class="ui-state-default clearfix" data-groupNo="' + groupMemberList[k].groupNo + '" data-index="' + groupMemberList[k].groupMemberNo + '" data-order="' + groupMemberList[k].groupMemberOrder + '" style="background-image: url(/steach/resources/images/class/group/p1.jpg);">'
+			            html += '<li class="ui-state-default clearfix" data-groupNo="' + groupMemberList[k].groupNo + '" data-index="' + groupMemberList[k].groupMemberNo + '" data-order="' + groupMemberList[k].groupMemberOrder + '" style="background-image: url(' + groupMemberList[k].profilePath + ');">'
 			          		 +         '<span class="student-name">' + groupMemberList[k].name + '</span>'
 			                　			 +     '</li>';
 			        }
@@ -332,9 +275,6 @@ l0,-61 L40,28" />
 			             + '</li>';
 				}
 				
-				// console.log("-----------------------------");
-				// console.log(html)
-				// console.log("88888888888888888888888888888888888888888888888888888888888888888888888888");
 				$(".parentDrop").prepend(html);
 	            
 	            $(function () {
@@ -381,7 +321,7 @@ l0,-61 L40,28" />
 			});
         });
 
-        // function to trigger animation
+        // 애니메이션
         document.querySelector('.button').addEventListener('click', () => {
         document.querySelector('.menu__list')
             .classList.toggle('menu__list--animate');

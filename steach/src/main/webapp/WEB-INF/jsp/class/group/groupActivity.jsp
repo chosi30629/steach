@@ -9,16 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>groupActivity</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">   -->
-<!--     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">   -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
     <c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
-<!--     <link rel="stylesheet" href="/steach/resources/css/header/class-header.css"> -->
     <link href="/steach/resources/css/class/group/emoji.css" rel="stylesheet">
-<!--     <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<!--     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/steach/resources/js/jquery-dateformat.js"></script>
     <script src="/steach/resources/js/class/group/config.js"></script>
@@ -32,41 +27,6 @@
     </style>
 </head>
 <body>
-<!--     <nav class="navbar navbar-default navbar-fixed-top"> -->
-<!--         <div class="navbar-collapse"> -->
-<!--             <ul class="nav navbar-nav"> -->
-<!--                 <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li> -->
-<%--                 <li class="pull-left myClassName"><a href="#">${clazz.name}</a></li> --%>
-<%--                 <li class="classCurriculum"><a href="<c:url value='/class/curriculum/curriculum.do'/>">커리큘럼</a></li> --%>
-<!--                 <li class="dropdown classCourse"> -->
-<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a> -->
-<!--                     <ul class="dropdown-menu"> -->
-<%--                         <li><a href="<c:url value='/class/lecture/homework.do'/>">과제제출</a></li> --%>
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--                 <li class="dropdown classUser"> -->
-<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a> -->
-<!--                     <ul class="dropdown-menu"> -->
-<%--                         <li><a href="<c:url value='/class/attend/attend.do'/>">출결현황</a></li> --%>
-<!--                         <li class="divider"></li> -->
-<%--                         <li><a href="<c:url value='/class/group/groupMain.do'/>">조별활동</a></li> --%>
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--                 <li class="nbsp"> </li> -->
-<!--                 <li class="pull-right dropdown myNotification"> -->
-<!--                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a> -->
-<!--                     <ul class="dropdown-menu myNotificationMenu"> -->
-<!--                         <li><a href="#">마이페이지</a></li> -->
-<!--                         <li class="divider"></li> -->
-<%--                         <li><a href="<c:url value="/drive/drive.do"/>">마이드라이브</a></li> --%>
-<!--                         <li class="divider"></li> -->
-<!--                         <li><a href="#">로그아웃</a></li> -->
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--                 <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li> -->
-<!--             </ul> -->
-<!--         </div> -->
-<!--     </nav> -->
     <div class="clearfix groupName">
         <h3>
 	        <span>${group.groupName}</span>
@@ -136,19 +96,6 @@
         </div>
     </section>
 
-<!-- 	<div class="chat_main">
-		<div class="chatting">
-			<div class="chat_header">
-			  	병찬
-			    <div class="chat_status">ONLINE</div>
-			</div>
-			<div class="chat_s"></div>
-			<div class="chat_input">
-			    <input id="message" placeholder="Type here..." class="chat_text">
-			    <button id="sendBtn" class="chat_submit fa fa-send">↵</button>
-			</div>
-		</div>
-	</div> -->
     <script>
     	var userId = "${user.id}";
 		var $parentDrop = $(".parentDrop");
@@ -179,7 +126,6 @@
 							cardList[j].cardContent = "<a class='cardContent-null' href='#'>내용을 등록하세요.</a>";	
 						}
 						if(listList[i].listNo == cardList[j].listNo) {
-							// $("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
 							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a id="modifyCard' + j + '" class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span id="cardContent' + j + '" class="cardContent-span" style="white-space: pre-line;">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea id="cardContent-textarea' + j + '" class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button id="onModifyCardContent' + j + '" class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name my-hard-file" disabled="disabled"></div><label for="my_filename' + j + '"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename' + j + '" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled"></div><label for="drive_filename' + j + '"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename' + j + '" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control addChecklist-form" placeholder="체크리스트 추가"><span class="input-group-btn addChecklist-group"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
 						}
@@ -201,7 +147,6 @@
 		                update: function(event, ui) {
 							$(this).children().each(function(index) {
 								$(this).attr("data-order", (index + 1)).addClass("updated");
-								//console.log(index);
 							});
 							
 							saveNewCardOrders();
@@ -296,8 +241,6 @@
 			var commentModalId = $(this).parents(".modal").attr("id");
 			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
 			var addCommentContent = $(this).siblings(".comment-textarea").val();
-			
-			// addCommentContent = addCommentContent.replace(/(?:\r\n|\r|\n)/g, '<br/>');
 			
             if(addCommentContent == '') {
             	$(this).siblings(".comment-textarea").focus();
@@ -781,7 +724,6 @@
 				$(".modal").modal("hide");
 				
 	            listListAndCardList();
-	            
 			});
 		});
         
@@ -945,18 +887,6 @@
 	            listListAndCardList();
 			}); 
         });
-
-        // 카드 머리 꺾기
-        // $("body").on("mousedown", ".childDrop > li", function() {
-        //         $(this).css("transform", "skewY(3deg)");
-        // });
-        // $("body").on("mouseup", ".childDrop > li", function() {
-        //     $(this).css("transform", "skewY(0deg)");
-        // });
-
-        /*  보완해야 할 점
-            빈공간에서 드래그 시 스크롤 이동 기능 추가해야함
-        */
         
         // 헤더 드랍다운 효과
         $('ul.nav li.dropdown').hover(function() {
@@ -990,62 +920,6 @@
             }
         };
 
-//         function insertMessage() {
-//             msg = $('.message-input').val();
-//             if ($.trim(msg) == '') {
-//                 return false;
-//             }
-//             $('<div class="message message-personal">' + msg + '</div>').appendTo($('.mCSB_container')).addClass('new');
-//             setDate();
-//             $('.message-input').val(null);
-//             updateScrollbar();
-//         }
-
-//         $('.message-submit').click(function() {
-//         	insertMessage();
-//         });
-
-//         $(".chat").on('keydown', function(e) {
-//             if (e.which == 13) {
-//                 insertMessage();
-//                 return false;
-//             } 
-//         });
-
-//         // var Fake = [
-//         //     'Hi there, I\'m Jesse and you?',
-//         //     'Nice to meet you',
-//         //     'How are you?',
-//         //     'Not too bad, thanks',
-//         //     'What do you do?',
-//         //     'That\'s awesome',
-//         //     'Codepen is a nice place to stay',
-//         //     'I think you\'re a nice person',
-//         //     'Why do you think that?',
-//         //     'Can you explain?',
-//         //     'Anyway I\'ve gotta go now',
-//         //     'It was a pleasure chat with you',
-//         //     'Time to make a new codepen',
-//         //     'Bye',
-//         //     ':)'
-//         // ];
-
-//         // function fakeMessage() {
-//         //     if ($('.message-input').val() != '') {
-//         //         return false;
-//         //     }
-//         //     $('<div class="message loading new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure><span></span></div>').appendTo($('.mCSB_container'));
-//         //     updateScrollbar();
-
-//         //     setTimeout(function() {
-//         //         $('.message.loading').remove();
-//         //         $('<div class="message new"><figure class="avatar"><img src="http://askavenue.com/img/17.jpg" /></figure>' + Fake[i] + '</div>').appendTo($('.mCSB_container')).addClass('new');
-//         //         setDate();
-//         //         updateScrollbar();
-//         //         i++;
-//         //     }, 1000 + (Math.random() * 20) * 100);
-//         // };
-		
 		// 채팅창 사이즈 조절
         var chatSize = 0;
 		
@@ -1077,7 +951,6 @@
 		    };
 		    ws.onmessage = function(evt) {
 		    	if(evt.data.startsWith("memberList:")) {
-// 			        $(".member-list[data-memberid='" + memberId + "']").css("display", "none");
 		    		var evtString = evt.data.substring(evt.data.indexOf(":") + 2, evt.data.lastIndexOf("]"));
 		    		var evtArr = evtString.split(", ");
 		    		console.log(evtArr);
@@ -1115,14 +988,6 @@
 				send(); 
 			});
 			
-// 		    $('#message').keypress(function(event){
-// 			    var keycode = (event.keyCode ? event.keyCode : event.which);
-// 			    if(keycode == '13'){
-// 			         send();
-// 			    }
-// 			    event.stopPropagation();
-// 			});
-
 	        $(".chat_input").on('keydown', function (e) {
 	            if (e.originalEvent.keyCode == 13) {
 
@@ -1134,11 +999,10 @@
 		
 		function send() {
 		    var $msg = $("#message");
-// 		    var sendMsg = $msg.val();
 		    var sendMsg = $('.message-input').val(groupNo + ",${user.profilePath}:" + $(".emoji-wysiwyg-editor").html()).val();
 	    	var messageContent = sendMsg.substring(sendMsg.indexOf(":") + 1);
             
-		    if ($.trim(sendMsg) == '') {
+		    if ($.trim(messageContent) == '') {
                 return false;
             }
             
@@ -1150,7 +1014,6 @@
 		    
 		    ws.send(sendMsg);
 		    $msg.val("");
-// 		    $(".chat_s").append('<div class="chat_bubble-2">' + sendMsg + '</div>');
 		}
         
 		// 채팅 이모티콘
