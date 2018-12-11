@@ -114,7 +114,7 @@ public class DriveController {
         byte fileArray[]=byteOutStream.toByteArray();
         String encodeString=base64Encoder.encodeBuffer(fileArray);
 		in.close();
-		return encodeString;
+		return "data:image/png;base64,"+encodeString;
 	}
 	
 	@RequestMapping("/rename.do")
@@ -262,7 +262,7 @@ public class DriveController {
 						while(true) {
 							String line = br.readLine();
 							if (line==null) break;
-							temp += line;
+							temp += line +"\n";
 						}
 						fmap.put("line", temp);
 						br.close();

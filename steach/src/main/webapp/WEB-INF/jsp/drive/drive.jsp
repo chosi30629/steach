@@ -246,7 +246,7 @@
       </div>
       <div class="modal-body">
         <p></p>
-        <img id="fileimage" src="none">
+        <img id="fileimage" width="100%" height="100%">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1007,20 +1007,23 @@ var source = [
 								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
 	 					 	 	nowpath(pathData);
 	 					 	 	
-								// emoji 속성을 보고 폴더인지 파악 -> indexOf가 -1 반환시	 //파일일시 읽어오는 역할 수행   //
+								// emoji 속성을 보고 폴더인지 파악 -> indexOf가 -1 반환시	 //파일일시 읽어오는 역할 수행 
 								var emojiTest = $(this).find('.emoji')[0].className;
 								var title = $(this).find('span')[0].textContent // 파일의 제목
 								
+								$('.modal-body').children()[0].innerText = "";
+								$('.modal-body').children()[1].src="";
 								if(isFolder == -1 && emojiTest == "emoji txt")
 								{
-									$('#fileReader').modal('show'); // 모달 보이기
+									console.log(emojiTest)
 									var eLine = $(this).find('.eLine').val() // 파일의 내용
-									console.log(eLine);
 									$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
 									$('.modal-body').children()[0].innerText= eLine; // 모달에 내용 넣기
+									$('#fileReader').modal('show'); // 모달 보이기
 								}
 								else if(emojiTest == 'emoji img')
 								{
+									console.log(emojiTest)
 									$.ajax({
 										url : '<c:url value="/drive/imageRead.do" />',
 										data : {
@@ -1029,7 +1032,7 @@ var source = [
 									}).done(function(result)
 										{
 										$('.modal-header > .modal-title')[0].innerText= title; // 모달에 제목 넣기
-										$('#fileimage').attr('src' , 'data:image/png;base64,'+result);
+										$('#fileimage').attr('src' , result);
 										$('#fileReader').modal('show'); // 모달 보이기
 										})
 									
@@ -1047,7 +1050,6 @@ var source = [
 									
 									var findAll = tree.findAll(dbcNode);
 									for(var i =0; i < findAll.length ; i++ ){
-// 										console.log(findAll[i]);
 										if(findAll[i].data.path == pathData){
 											clickToLazy = findAll[i];
 											console.log(clickToLazy);
