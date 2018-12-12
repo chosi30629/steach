@@ -361,10 +361,40 @@
 	            /* description 가져오기 */
 	            eventRender: function (event, element, view) {
 	                element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px">'+event.description+'</span></div>');
+	            	
+	                /*double click delete*/
+	                element.bind('dblclick', function() {
+	                	swal({
+	 	            	   title: '일정을 삭제하시겠습니까?',
+	 	            	   text: "이벤트 제목 :"+event.title,
+	 	            	   type: 'warning',
+	 	            	   showCancelButton: true,
+	 	            	   confirmButtonColor: '#3085d6',
+	 	            	   cancelButtonColor: '#d33',
+	 	            	   confirmButtonText: 'Yes'
+	 	            	 })
+	 	            	 .then((result) => {
+	 	            	   if (result.value) {
+	 	            		   $.ajax({
+	 		            		   url:"<c:url value='deleteSchedule.do'/>",
+	 		            		   data:"id="+event.id
+	 		            	   }).done(function(){
+	 		            		   swal(
+	 		    	            	       'Deleted!',
+	 		    	            	       'Your file has been deleted.',
+	 		    	            	       'success'
+	 		    	            	     );
+	 		            		   $("#calendar").fullCalendar('removeEvents',event._id);   
+	 		            	   }).fail(function(){
+	 		            		   alert("err");
+	 		            	   })//ajax end 
+	 	            	   }//if end 
+	 	            	 })
+	                 });
 	            },
 	            /* click 삭제하기 */
 	            eventClick: function(event){  
-	               swal({
+	             /*   swal({
 	            	   title: '일정을 삭제하시겠습니까?',
 	            	   text: "이벤트 제목 :"+event.title,
 	            	   type: 'warning',
@@ -389,7 +419,7 @@
 		            		   alert("err");
 		            	   })//ajax end 
 	            	   }//if end 
-	            	 })//then end 
+	            	 })//then end  */
 
 	               
 	            },
