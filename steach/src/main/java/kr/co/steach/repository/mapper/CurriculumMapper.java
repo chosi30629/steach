@@ -17,4 +17,7 @@ public interface CurriculumMapper {
 	
 	/* 기간 변경하기 */
 	void updateScheduleDate(ClassSchedule classSchedule);
+	
+	
+
 }

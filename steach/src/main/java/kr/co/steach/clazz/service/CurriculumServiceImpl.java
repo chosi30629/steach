@@ -38,6 +38,9 @@ public class CurriculumServiceImpl implements CurriculumService {
 		mapper.updateScheduleDate(classSchedule);
 		
 	}
+
+
+	
 	
 	
 }

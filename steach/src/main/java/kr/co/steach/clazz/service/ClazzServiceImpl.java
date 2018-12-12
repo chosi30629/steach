@@ -52,6 +52,16 @@ public class ClazzServiceImpl implements ClazzService {
 	}
 	
 
+	@Override
+	public void updateSeatSetting(int classNo) {
+		mapper.updateSeatSetting(classNo);
+	}
+
+	@Override
+	public void updateBG(Clazz clazz) {
+		mapper.updateBG(clazz);
+	}
 	
 
+	
 } // end class

@@ -20,13 +20,10 @@
 <script src="/steach/resources/fullcalendar-3.9.0/lib/moment.min.js"></script>
 <script src="/steach/resources/fullcalendar-3.9.0/fullcalendar.min.js"></script>
 <script src="/steach/resources/fullcalendar-3.9.0/locale-all.js"></script>
-<!-- <link rel="stylesheet" href="https://bootswatch.com/4/Sketchy/bootstrap.min.css"/> -->
 
 <!-- swAlert.js -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 
 </head>
 
@@ -136,16 +133,26 @@
 	<div class="container-fluid">
 		<div class="row">
 			<!-- bg -->
-			<div class="bg-section">
+			<div class="bg-section"
+			<c:if test="${clazz.bgName ne null}">
+				style="background:url('/steach/resources/images/class/curriculum/bg/${clazz.bgName}'); background-size:cover;"
+			</c:if>
+			>
 				<div class="bg-subTitle">
-					<span>${clazz.classSubname}</span>
+					<h1>${clazz.className}</h1>
+					<h3>${clazz.classSubname}</h3>
+				</div>
+				<div class="bg-button" style="display:none">
+				    <nav>
+				        <ul class="bg-nav">
+				          <li><a id="prev"><i class="fas fa-chevron-left"></i></a></li>
+				          <li><a id="lock"><i class="fas fa-lock"></i></a></li>
+				          <li><a id="next"><i class="fas fa-chevron-right"></i></a></li>
+				        </ul>
+				    </nav>
 				</div>
 			</div>
-			<div class="bg-button">
-				<button id="prev" type="button" class="btn"><</button>
-				<button id="next" type="button" class="btn">></button>
-
-			</div>
+			
 
 			<div class="col-md-8 col-md-offset-2">
 				<div class="accordion" role="tablist">
@@ -175,7 +182,16 @@
 						<div id="collapseTwo" role="tabpanel" class="collapse in">
 							<div class="card-body">
 								<!-- seat-->
-								<div class="seat-section" style="background:url('/steach/resources/images/class/curriculum/seat.png'); background-size:cover"></div>
+								<div class="seat-section" 
+									<c:choose>
+										<c:when test="${clazz.seatName eq null}">
+										style="background:url('/steach/resources/images/class/curriculum/empty-classroom.jpg'); background-size:cover;"
+										</c:when>
+										<c:otherwise>
+										style="background:url('/local_img/class/${clazz.classNo}/seat.png');background-size:cover;"
+										</c:otherwise>
+									</c:choose>
+								></div>
 								<div class="seat-setting">
 									<button type="button" class="btn"
 										onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do?classNo=${clazz.classNo}"/>'">수정하기</button>
@@ -192,8 +208,71 @@
 	</div>
 
 	<script>
+ 		
+	var i =1;
+	var classNo="${clazz.classNo}";
+	/*bg button event */
+    $(".bg-section").mouseenter(function(){
+    	$(".bg-button").css({display:"block"});
+    });
+	   
+     $(".bg-section").mouseleave(function(){
+    	$(".bg-button").css({display:"none"});
+    });
+     
   
+    $("#prev").click(function(){
+        if(i>1){
+            i--;
+            $(".bg-section").css({
+                "background":"url(/steach/resources/images/class/curriculum/bg/back"+i+".jpg)",
+            	"background-size":"cover","-webkit-transition":"background 0.5s"
+            });
+        }
+    });
+    
+    $("#next").click(function(){
+        if(i<14){ 
+            i++;
+            $(".bg-section").css({
+                "background":"url(/steach/resources/images/class/curriculum/bg/back"+i+".jpg)",
+                "background-size":"cover","-webkit-transition":"background 0.5s"
+            });
+        }
+    });
 
+    $("#lock").click(function(){
+    	//배경 파일 가져오기 
+    	
+    	//console.log($(".bg-section").css('background-image'))
+    	
+    	
+    	var bgName = $(".bg-section").css('background-image');
+    		// --> url("http://localhost:8002/steach/resources/images/class/curriculum/bg/back1.jpg")
+		
+    	//url(" ") 제거 
+    	bgName= bgName.replace('url("',"").replace('")',"");
+    	//console.log("replaceBGNAME"+bgName);
+    	
+    	//마지막/기준으로 파일명 가져오기 
+    	var index = bgName.lastIndexOf("/");
+    	bgName = bgName.substring(index+1,bgName.length);
+
+    	console.log(bgName)
+    	
+    	 $.ajax({
+    		url:"<c:url value='updateBG.do'/>",
+    		data:{classNo,bgName}
+    	}).done(function(){
+    		alert(1)
+    	}).fail(function(){
+    		alert(2)
+    	}) 
+    	
+    });
+    
+    
+	 	
       /* full Calendar */
       var cal = "";
 	  var eventArray = [];
@@ -214,25 +293,7 @@
 				 
 			});
 
-        /*bg */
-        var i =1; 
-        $("#prev").click(function(){
-            if(i>1){
-                i--;
-                $(".bg-section").css({
-                    "background":"url(/steach/resources/images/class/curriculum/bg"+i+".jpg)"
-                });
-            }
-        });
-        $("#next").click(function(){
-            if(i<9){
-                i++;
-                $(".bg-section").css({
-                    "background":"url(/steach/resources/images/class/curriculum/bg"+i+".jpg)"
-                });
-            }
-        });
-		
+     
         $("#formBtn").click(function(e){
         	obj={};
         	var formData =  $("#sForm").serializeArray();

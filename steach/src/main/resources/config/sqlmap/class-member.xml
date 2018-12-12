@@ -46,12 +46,43 @@
 	
 	<!-- class member 정보 구하기  -->
 	<select id="selectMemberByClassNo" parameterType="int" resultMap="memberMap">
-		select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,m.group_no,m.group_member_order,u.name,u.phone,u.addr,u.profile,u.profile_path
+		<!-- select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,u.name,u.phone,u.addr,u.profile,u.profile_path
 		  from tb_class_member m,tb_user u
+		 where m.id=u.id
+		   and m.class_no=#{classNo}
+		 order by u.name -->
+		 
+		 select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,u.name,u.phone,u.addr,u.profile,u.profile_path,g.*
+		  from tb_class_member m
+		  left outer join (select g.group_sequence,m.group_member_id
+														from tb_class_group g, tb_class_group_member m
+														where g.class_no=#{classNo}
+														  and g.group_no=m.group_no
+														  and g.current_at ='y') g
+		   on m.id =g.group_member_id, tb_user u
 		 where m.id=u.id
 		   and m.class_no=#{classNo}
 		 order by u.name
 	</select>
+	
+	<!-- 조가져오기 example -->
+	<!-- 
+	select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,u.name,u.phone,u.addr,u.profile,u.profile_path,g.*
+		  from tb_class_member m
+		  left outer join (select g.group_sequence,m.group_member_id
+														from tb_class_group g, tb_class_group_member m
+														where g.class_no=#{classNo}
+														  and g.group_no=m.group_no
+														  and g.current_at ='y') g
+		   on m.id =g.group_member_id, tb_user u
+		 where m.id=u.id
+		   and m.class_no=#{classNo}
+		 order by u.name
+	
+	
+	 -->
+	
+	
 	
 	<!-- class master 정보 구하기 -->
 	<select id="selectMasterByClassNo" parameterType="int" resultMap="classMap">

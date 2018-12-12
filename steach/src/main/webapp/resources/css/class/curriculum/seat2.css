@@ -14616,14 +14616,14 @@ input.jcrop-keymgr{
 }
 .tools-tables-viewbox{
     border-bottom:1px solid #d9d9d9;
-    	/* background-image:url('/steach/resources/images/class/curriculum/seat-background.png');  */
-     background:#eee; 
+    background-image:url('/steach/resources/images/class/curriculum/seat-background.png'); 
+ /*     background:#eee;  */
     min-width:-webkit-fill-available;
     min-width:-moz-available;
     min-width:fill-available;
     position:relative;
     /* min-height:550px; */
-    min-height:820px;
+    min-height:900px;
     padding:55px;
     z-index:1
 }

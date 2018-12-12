@@ -16,6 +16,7 @@ import kr.co.steach.clazz.service.ClazzService;
 import kr.co.steach.clazz.service.CurriculumService;
 import kr.co.steach.clazz.service.MemberService;
 import kr.co.steach.repository.domain.ClassSchedule;
+import kr.co.steach.repository.domain.Clazz;
 
 
 /**
@@ -100,15 +101,28 @@ public class CurriculumController {
 	/* base64 문자열을 image로 저장하기  */
 	@RequestMapping("/seatSetting.do")
 	@ResponseBody
-	public void seatSetting(String base64data){
-		try(FileOutputStream imageOutFile = new FileOutputStream("c://app//upload//seat.png")){
+	public void seatSetting(String base64data,int classNo){
+		System.out.println(classNo);
+		try(FileOutputStream imageOutFile = new FileOutputStream("c://drive//class//"+classNo+"//seat.png")){
 			base64data = base64data.substring("data:image/png;base64,".length()); //앞의 문자열 자르기 
 			byte[] imageByteArray = Base64.getDecoder().decode(base64data);
 			imageOutFile.write(imageByteArray);
+			
+			/* file 업로드 성공 시 db update */
+			classService.updateSeatSetting(classNo);
+			
 		} catch(FileNotFoundException e) {
 			System.out.println("image not found"+e);
 		} catch(IOException ioe) {
 			System.out.println("io exception"+ioe);
-		}
+		} 
+	}
+	
+	
+	@RequestMapping("/updateBG.do")
+	@ResponseBody
+	public void updateBG(Clazz clazz) {
+		System.out.println(clazz);
+		classService.updateBG(clazz);
 	}
 }

@@ -15,6 +15,10 @@ public interface CurriculumService {
 	
 	
 	void deleteSchedule(int id);
+	
 	/* schedule 기간 변경 */
 	void updateScheduleDate(ClassSchedule classSchedule);
+	
+	
+
 }

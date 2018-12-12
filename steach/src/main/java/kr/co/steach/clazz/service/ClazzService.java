@@ -23,4 +23,12 @@ public interface ClazzService {
 	
 	/* class 번호에 따른 클래스 조회 */
 	Clazz selectClassbyClassNo(int classNo);
+	
+	/* 자리배치 저장시 update하기 */
+	void updateSeatSetting(int classNo);
+	
+	/* 클래스 메인 배경 update */
+	void updateBG(Clazz clazz);
+	
+	
 }

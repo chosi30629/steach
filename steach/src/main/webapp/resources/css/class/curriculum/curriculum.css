@@ -6,20 +6,37 @@ body{
     background:white;
 }
 .bg-section{
-    height:300px;
-    background:url("/steach/resources/images/class/curriculum/test.jpg");
+    height:400px;
+    background:url("/steach/resources/images/class/curriculum/bg/back1.jpg");
     /* 배경 가득 채움 */
     background-size: cover;
+    position:relative;
+}
+.bg-section:after{
+	display:block;
+	content:'';
+	position: absolute;
+	background: rgba(0,0,0,0.2);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+.bg-section >*{
+	position: relative;
+	z-index:2;
 }
 .seat-section{
-	height:300px;
+	height:800px;
 	background-size:cover;
 }
 .bg-button {
 	position: absolute;
-    top: 335px;
-	
+    top: 300px;
+    z-index: 5;
 }
+
 .calendar-section,.seat-section{
     margin-top:20px;
 }
@@ -48,9 +65,6 @@ body{
     box-shadow:1px 1px 1px grey;
 }
 
-.seat-section{
-    height:400px;
-}
 /* fullcalendar */
 .fc-sat { color:blue; }
 .fc-sun { color:red;  }
@@ -134,10 +148,108 @@ button, input {
 	left:50%;
 	transform:translate(-50%,-50%);
 }
-.bg-subTitle > span{
-	font-size:1.8em;
-	font-weight:600;
-	color:black;
-	/* text-shadow: -1px 0 #0d0909, 0 1px #0d0909, 1px 0 #0d0909, 0 -1px #0d0909; */
+.bg-subTitle > h1{
+/* 	margin:0;
+	padding:0;
+	font-weight: bold;
+    font-size: 4em;
+    text-align: center;
+    width: 100%; 
+    position: absolute; */
+ 
+    font: 900 80px/1 'Source Sans Pro', Arial, sans-serif; text-transform: uppercase; color: #fff; text-align: center; letter-spacing: -1px; 
+    position: absolute;
+    width: 100%;
+    top:-131px;
+
+  text-shadow:     0 1px 0 hsl(174,5%,80%),
+	                 0 2px 0 hsl(174,5%,75%),
+	                 0 3px 0 hsl(174,5%,70%),
+	                 0 4px 0 hsl(174,5%,66%),
+	                 0 5px 0 hsl(174,5%,64%),
+	                 0 6px 0 hsl(174,5%,62%),
+	                 0 7px 0 hsl(174,5%,61%),
+	                 0 8px 0 hsl(174,5%,60%),
+	
+	                 0 0 5px rgba(0,0,0,.05),
+	                0 1px 3px rgba(0,0,0,.2),
+	                0 3px 5px rgba(0,0,0,.2),
+	               0 5px 10px rgba(0,0,0,.2),
+	              0 10px 10px rgba(0,0,0,.2),
+	              0 20px 20px rgba(0,0,0,.3);
+}
+
+/*3D SUBTITLE TEXT */
+.bg-subTitle > h3{ 
+    font: 900 50px/1 'Source Sans Pro', Arial, sans-serif; text-transform: uppercase; color: #fff; text-align: center; letter-spacing: -1px; 
+    position: absolute;
+    width: 100%;
+    top:-8px;
+    text-shadow:     0 1px 0 hsl(174,5%,80%),
+	                 0 2px 0 hsl(174,5%,75%),
+	                 0 3px 0 hsl(174,5%,70%),
+	                 0 4px 0 hsl(174,5%,66%),
+	                 0 5px 0 hsl(174,5%,64%),
+	                 0 6px 0 hsl(174,5%,62%),
+	                 0 7px 0 hsl(174,5%,61%),
+	                 0 8px 0 hsl(174,5%,60%),
+	
+	                 0 0 5px rgba(0,0,0,.05),
+	                0 1px 3px rgba(0,0,0,.2),
+	                0 3px 5px rgba(0,0,0,.2),
+	               0 5px 10px rgba(0,0,0,.2),
+	              0 10px 10px rgba(0,0,0,.2),
+	              0 20px 20px rgba(0,0,0,.3);
+}
+
+ /* 3D BG BUTTON  */
+ .bg-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.bg-nav li {
+  display: inline-block;
+  margin-right: -4px;
+  position: relative;
+}
+ .bg-nav li:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  z-index: -1;
+} 
+.bg-nav a {
+  background-color: #f7f7f7;
+  background-image: linear-gradient(#f7f7f7, #e7e7e7);
+  border-radius: 50%;
+  box-shadow: 0 3px 8px #aaa, inset 0 2px 3px #fff;
+  color: #878787;
+  display: block;
+  font-family: 'Poiret One', cursive;
+  font-size: 32px;
+  line-height: 72px;
+  text-decoration: none;
+  margin: 20px;
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.bg-nav a:visited {
+  color: #a7a7a7;
+}
+.bg-nav a:hover {
+  color: hsl(221, 79%, 67%);
+}
+.bg-nav a:active {
+  background: #f5f5f5;
+}
+#prev:hover,#next:hover,#lock:hover{
+	cursor:pointer;
 }
 

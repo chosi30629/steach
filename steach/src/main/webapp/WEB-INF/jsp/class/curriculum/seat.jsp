@@ -14,15 +14,19 @@
 	href="/steach/resources/css/class/curriculum/seat1.css" />
 <link rel="stylesheet"
 	href="/steach/resources/css/class/curriculum/seat2.css" />
-<!-- <script src="/steach/resources/js/jquery/jquery-2.1.0.min.js"></script>  -->
-<script src="/steach/resources/js/jquery/jquery-ui.js"></script>
-<!-- <script src="/steach/resources/js/bootstrap.js"></script>
- -->
-<!-- 화면저장 canvas2 -->
 
+<script src="/steach/resources/js/jquery/jquery-ui.js"></script>
+
+<!-- 화면저장 canvas2 -->
 <script src="/steach/resources/js/class/curriculum/seat/html2canvas4.js"></script>
 <script src="/steach/resources/js/class/curriculum/seat/canvas2image.js"></script>
 <script src="/steach/resources/js/download.js"></script>
+
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 
 <style>
 .tools-tables-gridItem:hover .tools-tables-gridItem-settings {
@@ -246,7 +250,7 @@
 		/* data 구조화  */
 		
 		/* 동적 생성 테이블의 index */
-		//var classNo = "${clazz.classNo}";
+		var classNo = "${clazz.classNo}";
 		var i=0;
 		
 		/*seat table size */
@@ -520,6 +524,7 @@
         	
         }
         function saveToServer(){   	
+        	console.log(canvasData);	
         	//var seatData = $("#seatData").val(canvasData);
      	
         	//console.log($("#seatData").val());
@@ -528,10 +533,17 @@
         		type:"POST",
   			  	dataType:"text",
   			 	data:{
-  				  base64data:canvasData
-  			  }
+  				  base64data:canvasData,classNo:classNo
+  			    }
         	}).done(function(data){
-        		alert(1);
+        		$("#preview-modal").modal('hide');
+        		swal({
+        			position:'center-center',
+        			type:'success',
+        			title:'Success!!',
+        			showConfirmbutton:false,
+        			timer:1500
+        		});
         	})
         	
         	

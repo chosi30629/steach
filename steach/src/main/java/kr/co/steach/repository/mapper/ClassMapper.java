@@ -27,4 +27,9 @@ public interface ClassMapper {
 	Clazz selectClassbyClassNo(int classNo);
 	
 
+	/* 자리배치 db 수정 */
+	void updateSeatSetting(int classNo);
+	
+	/* 메인 배경 저장하기 */
+	void updateBG(Clazz clazz);
 }

@@ -13,9 +13,7 @@
 		<result column="end_date" property="endDate"/>
 		<result column="class_key" property="classKey"/>
 		<result column="bg_name" property="bgName"/>
-		<result column="bg_path" property="bgPath"/>
 		<result column="seat_name" property="seatName"/>
-		<result column="seat_path" property="seatPath"/>
 	</resultMap>
 	
 	<resultMap id="memberMap" type="ClassMember">
@@ -76,6 +74,19 @@
 		  where class_no=#{classNo}
 	</select> 
 	
-
+	
+	<!-- 자리배치  -->
+		<!-- 자리배치 수행 시 db update  -->
+	<update id="updateSeatSetting" parameterType="int">
+		update tb_class
+		  set seat_name ="y"
+		 where class_no=#{classNo}
+	</update>
+	
+	<update id="updateBG" parameterType="Clazz">
+		update tb_class
+		  set bg_name=  #{bgName}
+		where class_no= #{classNo}
+	</update>
 	
 </mapper>

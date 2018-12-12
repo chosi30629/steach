@@ -20,9 +20,7 @@ public class Clazz {
 	private String endDate;         //클래스 종료일
 	private String classKey;        //클래스 고유키
 	private String bgName;          //메인페이지 bg name
-	private String bgPath;          // bg 경로
 	private String seatName;        // 좌석배치 filename
-	private String seatPath;        // seat 경로. 
-	
+
 	private User user;
 }
