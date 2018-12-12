@@ -518,3 +518,21 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
 	width: 18px;
 	height : 18px;
 }
+.ppt{
+	background : url("../../images/drive/ppticon.png") no-repeat;
+	display: -webkit-inline-box;
+	vertical-align: middle;
+    padding-left: 32px;
+	background-size : 18px;
+	width: 18px;
+	height : 18px;
+}
+.xlsx{
+	background : url("../../images/drive/xlsxicon.png") no-repeat;
+	display: -webkit-inline-box;
+	vertical-align: middle;
+    padding-left: 32px;
+	background-size : 18px;
+	width: 18px;
+	height : 18px;
+}

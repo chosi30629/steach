@@ -250,7 +250,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="download btn btn-primary">다운로드</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -262,6 +262,7 @@
  var firstload;
  var clickToLazy;
  var activeNode;
+ var pathData;
  // 파일 업로드 ajax
 	 	var nPath; 
 		 function nowpath(result){
@@ -277,12 +278,14 @@
 	 	
 	 	var file = $("input[name='attach']");
 		var files = $("input[name='attach']")[0].files;
-		var path = $('tbody').attr('data-path')
 		
+		if(pathData == undefined){
+			pathData = 'C:\\drive\\<c:out value='${user.id}'/>'
+		}
 		
 		var fd = new FormData();
 	 	// 현재 페이지의 path경로 가져올거야
-	 	fd.append("path" , path);
+	 	fd.append("path" , pathData);
 		fd.append("id", $("input[name='id']").val());
 		for (var i = 0 ; i< files.length; i++){
 			fd.append("attach", files[i]);
@@ -341,6 +344,8 @@
 		   		+		'</div>'
 		        +	'</div>'
 		        +'</div>')
+		     }else{
+		    	 $('.picOuter').remove();
 		     }
 			
 		})
@@ -442,7 +447,7 @@ $('.addFolder').click(function(){
     	 		$('tbody').attr('data-path',  e.path.substring(0, e.path.lastIndexOf('\\')) )
         	})
         	
-//     	  $('.picOuter').css("display", "none");
+    	  $('.picOuter').remove();
           $('.addTextBefore').val('제목없는 폴더');
           $(this).parent().parent().parent().modal('hide');
         
@@ -535,28 +540,30 @@ $('.addFolder').click(function(){
             //우클릭 메뉴 삭제 눌렀을때
             $('.contextmenu').children().eq(4).click(function(){
                 console.log(clickedTag);  
-            	$.ajax({
+            	
+                tr.remove() // 우클릭한 태그 삭제
+    			tree = $("#tree").fancytree("getTree"); // 트리 구조 불러오기
+    			console.log(thi);
+            	googleval = $('.myModal2').find('.changeNameText').val(thi);
+            	find = tree.findAll(thi)	// 트리에서 thi를 가지고 있는 하위목록 가져오기
+            	console.log(find)
+    			for(var i =0 ; i < find.length ; i++)
+    			{
+    				console.log("클릭태그",clickedTag);
+    				console.log("똑같",find[i].data.path);
+    				if(clickedTag == find[i].data.path)
+    				{
+    					var needNode = find[i]
+    					console.log("neeee", needNode);
+    				}
+    			}
+    			tree.activateKey(needNode.key).remove();
+                
+                $.ajax({
             		url : '<c:url value="/drive/delete.do" />',
             		data : {path : clickedTag} 
             	}).done(function(result){
             		console.log(result);
-        	tr.remove() // 우클릭한 태그 삭제
-			tree = $("#tree").fancytree("getTree"); // 트리 구조 불러오기
-        	googleval = $('.myModal2').find('.changeNameText').val(thi);
-        	find = tree.findAll(thi)	// 트리에서 thi를 가지고 있는 하위목록 가져오기
-//         	console.log(find)
-			for(var i =0 ; i < find.length ; i++)
-			{
-// 				console.log("클릭태그",clickedTag);
-// 				console.log("똑같",find[i].data.path);
-				if(clickedTag == find[i].data.path)
-				{
-					var needNode = find[i]
-					console.log(needNode);
-				}
-			}
-			tree.activateKey(needNode.key).remove();
-
             	})
         })
             
@@ -873,21 +880,21 @@ var source = [
 				 EmojiAndFLengthLIST(result);
 				 
 				 //!!!! 함수로 뺄 것 노가다 if
-				if($('tbody').children().isEmptyObject == true)
-					{
-    			    $('.ft').append(
-    			   		 '<div class="picOuter" style="display: flex">'
-    			       	+	'<div class="allpicOuter">'
-    			    	+		'<div class="allpic">'
-    			        +			'<div class="pic1"></div>'
-    			   		+			'<div class="pic2"></div>'
-    			        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
-    			   		+		'</div>'
-    			        +	'</div>'
-    			        +'</div>')
-    			     }else {
-    			    	 $('.picOuter').hide();
-    			     }
+				if($('tbody').children().length==0 && $('.ft').children().length==1 )
+						{
+					    $('.ft').append(
+					   		 '<div class="picOuter" style="display: flex">'
+					       	+	'<div class="allpicOuter">'
+					    	+		'<div class="allpic">'
+					        +			'<div class="pic1"></div>'
+					   		+			'<div class="pic2"></div>'
+					        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+					   		+		'</div>'
+					        +	'</div>'
+					        +'</div>')
+					     }else{
+					    	 $('.picOuter').remove();
+					     }
 				 	
     	 	}) // end function done
         }//end fancytree click event
@@ -927,7 +934,8 @@ var source = [
 		 	 	var length;
 		 	 	
 				 	for(var i=0 ; i< childlist.length; i++){
-					 	var e = childlist[i]
+					 	var e = childlist[i];
+// 					 	console.log(e.zzz);
 					 	var childNode = node.addChildren(e);
 					 		  keyPath = childNode.getKeyPath(false).split('/')[childNode.getKeyPath(false).split('/').length-1]
 
@@ -948,29 +956,27 @@ var source = [
 		    	 			length = Math.round(e.length / Math.pow(1024,3)) + "GB"
 		    	 		 }
 				 
-					 		 switch(e.folder){
+					 		 var choose;
+		 						
+			    	 		 switch(e.folder){
 				 				case true : emoji='emoji fas fa-folder fa-lg';
 				 				break;
 				 				case false : 
 				 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
 				 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
-				 						if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png')
-				 						{
-				 							emoji = 'img';
-				 						}
-				 						if(ext == 'txt' || ext == 'text')
-				 						{
-				 							emoji='txt';
-				 						}
-				 				break;
+				 					if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png') {emoji = 'img'; choose = e.zzz.path}
+			 						if(ext == 'txt' || ext == 'text') {emoji='txt'; choose = e.line}
+			 						if(ext == 'ppt' || ext == 'pptx') {emoji='ppt'; choose = ""}
+			 						if(ext == 'xlsx') {emoji='xlsx'; choose =""}
+				 					break;
 				 				}
-					 
+					 		 
 					 $('tbody').append('<tr path-data ="'+e.path+'" id="'+keyPath+'">' 
 			    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="">'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
 			    		        +  '<td class="val" class="text-center">'+length+'</td>'
-			    		        +  '<input type="hidden" class="eLine" value="'+e.line+'">'
+			    		        +  '<input type="hidden" class="eLine" value="'+choose+'">'
 			    		        +  '</tr>');
 					 $('tbody').attr('data-path',  childlist[0].path.substring(0, childlist[0].path.lastIndexOf('\\')) )
 					 
@@ -979,20 +985,21 @@ var source = [
 				 }
 				 
 					
-			  if($('tbody').children().length==0){
-			    
-			    $('.ft').append(
-			   		'<div class="picOuter">'
-			       		 +'<div class="allpicOuter">'
-			    		 +'<div class="allpic">'
-			          	 +'<div class="pic1"></div>'
-			   			 +'<div class="pic2"></div>'
-			           	 +'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
-			   			 +'</div>'
-			             +'</div>'
-			         	 +'</div>')
-			            $('.picOuter').css("display", "flex");
-			            } //if
+				 	if($('tbody').children().length==0 && $('.ft').children().length==1 )
+							{
+						    $('.ft').append(
+						   		 '<div class="picOuter" style="display: flex">'
+						       	+	'<div class="allpicOuter">'
+						    	+		'<div class="allpic">'
+						        +			'<div class="pic1"></div>'
+						   		+			'<div class="pic2"></div>'
+						        +			'<div class="pictext">파일을 여기 끌어다 놓거나 <br>새로만들기 버튼을 사용하세요</div>'
+						   		+		'</div>'
+						        +	'</div>'
+						        +'</div>')
+						     }else{
+						    	 $('.picOuter').remove();
+						     }//end if
 			            }// end function drive  // 처음 리스트를 불러오는 역할
 			            
 			            $(document).ready(function(){
@@ -1182,6 +1189,7 @@ var source = [
 		    	 			length = Math.round(e.length / Math.pow(1024,3)) + "GB"
 		    	 		 }
 			 
+	    	 		var choose;
 		 						
 	    	 		 switch(e.folder){
 		 				case true : emoji='emoji fas fa-folder fa-lg';
@@ -1189,27 +1197,24 @@ var source = [
 		 				case false : 
 		 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
 		 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
-		 						if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png')
-		 						{
-		 							emoji = 'img';
-		 						}
-		 						if(ext == 'txt' || ext == 'text')
-		 						{
-		 							emoji='txt';
-		 						}
-		 				break;
+		 					if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png') {emoji = 'img'; choose = e.zzz.path}
+	 						if(ext == 'txt' || ext == 'text') {emoji='txt'; choose = e.line}
+	 						if(ext == 'ppt' || ext == 'pptx') {emoji='ppt'; choose = ""}
+	 						if(ext == 'xlsx') {emoji='xlsx'; choose =""}
+		 					break;
 		 				}
 	    	 		 
-	    	 		 
+	    	 		
 			 
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
 		    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
 		    		        +  '<td class="owner text-center">'+e.path.split("\\")[2]+'</td>'
 		    		        +  '<td class="date text-center">'+e.lastModified+'</td>'
 		    		        +  '<td class="val text-center">'+length+'</td>'
-		    		        +  '<input type="hidden" class="eLine" value="'+e.line+'">'
+		    		        +  '<input type="hidden" class="eLine" value="'+choose+'">'
 		    		        +  '</tr>');
 	    	 		$('tbody').attr('data-path',  result[0].path.substring(0, result[0].path.lastIndexOf('\\')) )
+	    	 		console.log("ddddd",result[0].path.substring(0, result[0].path.lastIndexOf('\\')));
 			 }//end for
 			 
 		 }// end function EmojiAndFLengthLIST

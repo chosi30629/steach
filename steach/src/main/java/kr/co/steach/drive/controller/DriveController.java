@@ -102,7 +102,8 @@ public class DriveController {
 	@ResponseBody
 	public String imageRead(@RequestParam(value="path")String path ) throws IOException {
 		System.out.println("클릭"+path);
-	
+		String Ext = path.substring(path.indexOf("."), path.length());
+		
 		BASE64Encoder base64Encoder = new BASE64Encoder();
         InputStream in = new FileInputStream(new File(path));
         ByteArrayOutputStream byteOutStream=new ByteArrayOutputStream();
@@ -114,7 +115,7 @@ public class DriveController {
         byte fileArray[]=byteOutStream.toByteArray();
         String encodeString=base64Encoder.encodeBuffer(fileArray);
 		in.close();
-		return "data:image/png;base64,"+encodeString;
+		return "data:image/"+Ext+";base64,"+encodeString;
 	}
 	
 	@RequestMapping("/rename.do")
@@ -142,7 +143,7 @@ public class DriveController {
 	@RequestMapping(value="/fileUpload.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Map<String, Object>> fileUpload(FileVO vo) throws IllegalStateException, IOException {
-		
+		System.out.println(vo.getPath());
 		List<Map<String,Object>> list = new ArrayList<>();
 		Map<String,Object> fmap = new HashMap<>();
 		String path = vo.getPath();
@@ -267,7 +268,7 @@ public class DriveController {
 						fmap.put("line", temp);
 						br.close();
 				    	}
-					
+					fmap.put("zzz", fInfo);
 					fmap.put("path", fInfo.getCanonicalPath());
 					fmap.put("title", fInfo.getName());
 					fmap.put("folder", fInfo.isDirectory());
