@@ -155,8 +155,8 @@ public class GroupServiceImpl implements GroupService {
 	} // insertGroupMember
 
 	@Override
-	public void updateGroupCurrentAt() {
-		mapper.updateGroupCurrentAt();
+	public void updateGroupCurrentAt(int classNo) {
+		mapper.updateGroupCurrentAt(classNo);
 	} // updateGroupCurrentAt
 
 	/* (non-Javadoc)
@@ -178,7 +178,7 @@ public class GroupServiceImpl implements GroupService {
 		 */
 		
 		// 1단계 : 현재 조 그룹 'N' 설정하기
-		mapper.updateGroupCurrentAt();
+		mapper.updateGroupCurrentAt(group.getClassNo());
 		
 		// 2단계 : 클래스 학생 목록 가져오기
 		int classNo = group.getClassNo();

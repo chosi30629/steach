@@ -10,12 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
+    <title>GroupMain</title>
 	<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-main.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/animate.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/steach/resources/js/class/group/wow.min.js"></script>
-    <title>GroupMain</title>
 </head>
 <body>
     <div class="container clearfix">
@@ -106,18 +106,20 @@ l0,-61 L40,28" />
         </div>
     </div>
     <script>
-        // wow.js
+        // wow.js 효과
         new WOW().init();
         
+        // 클래스 번호
         var classNo = "${classNo}";        
         
+        // 학생일 때 랜덤 조 편성 및 초기화 버튼 가리기
         <c:forEach var="studentId" items="${classMember}">
         	<c:if test="${user.id == studentId.id}">
 	        	$(".wrapper").hide();
         	</c:if>
         </c:forEach>
         
-        // 클래스 멤버 textarea(랜덤 설정 해주는 곳)에 뿌리기
+        // 조가 편성되지 않았을 때 클래스 멤버들 보여주기
         if(parseInt("${groupCount}") != 0) {
         	$(".parentDrop").show();
         	$("#studentList").hide();
@@ -125,6 +127,8 @@ l0,-61 L40,28" />
         	$("#studentList").show();
         	$(".parentDrop").hide();
         }
+        
+     	// 클래스 멤버를 랜덤 조 편성 해주는 곳(textarea)에 설정
         var students = "";
 		<c:forEach var="student" items="${classMember}" varStatus="loop">
 			students += "${student.user.name}" + "[" + "${student.id}" + "]"; 
@@ -132,12 +136,9 @@ l0,-61 L40,28" />
 				students += "\n"; 
 			</c:if>
 		</c:forEach>
-		
 		$("#students").text(students);
 		
-		console.log("${groupList}");
-		
-		// 그룹 뿌려주기 
+		// 편성된 그룹 화면에 설정 
 		group();
 		function group() {
 			var group = "";
@@ -145,9 +146,9 @@ l0,-61 L40,28" />
 				group += '<li class="parentDrag" data-index="${group.groupNo}">'
 		            + '<div class="listTitle">'
 		            +     '<div class="listSubject text-center">'
-		            +         '<span class="group-name">${group.groupName}</span>'
+		            +         '<span class="group-name"  contenteditable="true">${group.groupName}</span>'
 		            +     '</div>'
-		            +     '<div><button class="btn btn-default btn-sm modify-group-name" style="display: none; float: right;">수정</button></div>'
+		            +     '<div><button class="btn btn-default btn-sm modify-group-name" style="display: none; float: right;">입장</button></div>'
 		            + '</div>'
 		            + '<div class="groupNameForm text-center"><div class="input-group">'
 		            + '<input type="text" class="form-control modify-group-name-input" value="${group.groupName}">'
@@ -171,6 +172,7 @@ l0,-61 L40,28" />
 			}
 		};
         
+		// 드래그 앤 드롭을 위한 함수(DB에 변경된 학생 위치 저장하는 함수 설정)
         $(function () {
             $(".childDrop").sortable({
                 connectWith: ".childDrop",
@@ -185,7 +187,7 @@ l0,-61 L40,28" />
             }).disableSelection();
         });
         
-        // 조별 인원 위치 변경 데이터베이스 저장
+        // 조별 인원 위치 변경 시 DB에 저장
         function saveNewMemberOrders() {
 			var map = new Map();
         	
@@ -253,9 +255,9 @@ l0,-61 L40,28" />
 					html += '<li class="parentDrag wow wobble" data-index="' + group.groupNo + '">'
 			             + '<div class="listTitle">'
 			             +     '<div class="listSubject text-center">'
-			             +         '<span class="group-name">' + group.groupName + '</span>'
+			             +         '<span class="group-name" contenteditable="true">' + group.groupName + '</span>'
 			             +     '</div>'
-			             +     '<div><button class="btn btn-default btn-sm modify-group-name" style="display: none; float: right;">수정</button></div>'
+			             +     '<div><button class="btn btn-default btn-sm modify-group-name" style="display: none; float: right;">입장</button></div>'
 			             + '</div>'
 			             + '<div class="groupNameForm text-center"><div class="input-group">'
 			             + '<input type="text" class="form-control modify-group-name-input" value="' + group.groupName + '">'
@@ -300,7 +302,7 @@ l0,-61 L40,28" />
 			}); 
         });
         
-        // 초기화
+        // 조 초기화
         $(".init").click(function(e) {
             e.preventDefault();
             
@@ -321,21 +323,13 @@ l0,-61 L40,28" />
 			});
         });
 
-        // 애니메이션
+        // 랜덤 조 편성 시 카운터 애니메이션
         document.querySelector('.button').addEventListener('click', () => {
         document.querySelector('.menu__list')
             .classList.toggle('menu__list--animate');
         });
 		
-        // 조 이름 수정
-        $(document).mousedown(function (e){
-            var container = $('.groupNameForm');
-            if( container.has(e.target).length === 0){
-                $(".groupNameForm").hide();
-                $(".listTitle").show();
-            }
-        });
-
+        // 조 이름에 마우스오버 시 입장 할 수 있는 버튼 보이기 
         $("body").on("mouseover", ".listTitle", function() {
             $(this).find("div").find(".modify-group-name").show();
             $(this).mouseleave(function() {
@@ -343,52 +337,47 @@ l0,-61 L40,28" />
             });
         });
         
+     	// 해당 조 입장
         $("body").on("click", ".modify-group-name", function(e) {
-            e.stopPropagation();
-            $(this).parents(".listTitle").siblings(".groupNameForm").show();
-            $(this).parents(".listTitle").hide();
-            $(".modify-group-name-input").focus();
+        	var groupNo = $(this).parents(".parentDrag").attr("data-index");
+            location.href = "groupActivity.do?classNo=${clazz.classNo}&groupNo=" + groupNo;
         });
         
-        $("body").on("click", ".on-modify-group-name", function() {
-        	modfiyGroupName(this);
-        });
-        
-        function modfiyGroupName(modifyGroupNameBtn) {
-            var modifyName = $(modifyGroupNameBtn).parent("span").siblings(".modify-group-name-input").val();
-            $(modifyGroupNameBtn).parents(".groupNameForm").siblings(".listTitle").find(".listSubject").find(".group-name").text(modifyName);
-            var modifyGroupNo = $(modifyGroupNameBtn).parents(".parentDrag").attr("data-index");
-            
+        // 수정할 조 이름 설정 후 영역에서 나갈 시 조 이름 수정 
+        $("body").on("blur", ".group-name", function(e) {
+            var modifyGroupNo = $(this).parent().parent().parent().attr("data-index");
             $.ajax({
             	url: "/steach/class/group/modifyGroupName.do",
-            	data: {"groupNo": modifyGroupNo, "groupName": modifyName}
+            	data: {"groupNo": modifyGroupNo, "groupName": $(this).html()}
             })
             .done(function(result) {
 				console.log(result);
-	            $(".groupNameForm").hide();
-	            $(".listTitle").show();
 			}); 
-		};
-        
-        // 그룹 이름 수정폼에서 엔터 쳐도 그룹 이름 수정
-        $(document).on('keydown', '.modify-group-name-input', function(e) {
-            if (e.which == 13) {
-            	var modifyGroupNameBtn = $(this).siblings("span").find(".on-modify-group-name");
-            	modfiyGroupName(modifyGroupNameBtn);
-            } 
         });
         
+     	// 수정할 조 이름 설정 후 영역에서 엔터 시 조 이름 수정
+        $("body").on("keydown", ".group-name", function(e) {
+            var modifyGroupNo = $(this).parent().parent().parent().attr("data-index");
+	        	if (e.keyCode === 13) {
+	            $.ajax({
+	            	url: "/steach/class/group/modifyGroupName.do",
+	            	data: {"groupNo": modifyGroupNo, "groupName": $(this).html()}
+	            })
+	            .done(function(result) {
+					console.log(result);
+				}); 
+	            $(this).blur();
+	            return false;
+       	 	}
+        });
+        
+     	// 헤더 드랍다운 효과
         $('ul.nav li.dropdown').hover(function () {
             $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeIn(200);
         }, function () {
             $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
         });
 
-        $("body").on("click", ".listTitle", function() {
-        	var groupNo = $(this).parent(".parentDrag").attr("data-index");
-            location.href = "groupActivity.do?classNo=${clazz.classNo}&groupNo=" + groupNo;
-        });
-        
         // 그룹 메인 페이지 네이비게이션 고정
         $(".navbar").addClass("navbar-fixed-top");
     </script>

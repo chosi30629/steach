@@ -25,6 +25,11 @@
     <div class="clearfix groupName">
         <h3>
 	        <span>${group.groupName}</span>
+    		<span class="modify-bg" data-toggle="tooltip" data-placement="bottom" title="배경화면 변경">　
+			  	<label class="bg-label"><i class="fas fa-images"></i>
+	            	<input type="file" class="bg-file">
+	        	</label>
+			</span>
 			<ul class="group-info">
 		        <c:forEach var="member" items="${groupMember}">
 					<li class="member-list" tabindex="0" data-memberid="${member.groupMemberId}" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="${member.groupMemberId}&nbsp;(${member.name})" data-content="${member.phone}">
@@ -33,11 +38,6 @@
 					</li>		
 	   		    </c:forEach>
 			</ul>   
-			<span class="modify-bg" data-toggle="tooltip" data-placement="bottom" title="배경화면 변경">　
-			  	<label class="bg-label"><i class="fas fa-images"></i>
-	            	<input type="file" class="bg-file">
-	        	</label>
-			</span>
 		</h3>     	
     </div>
     <div class="wrapper clearfix">
@@ -103,7 +103,7 @@
 		var nextLastListOrder = 0;
 		var groupNo = "${groupNo}";
 		
-    	// 리스트 및 카드 목록 표현
+    	// 리스트 및 카드 목록 함수
     	function listListAndCardList() {
 			$.ajax({
 				url: "/steach/class/group/groupActivityList.do",
@@ -169,9 +169,10 @@
 			});
 		};
 		
+		// 그룹 입장 시 리스트 및 카드 목록 함수 실행
 		listListAndCardList();
 
-		// 카드 댓글 목록
+		// 카드 댓글 목록 함수
 		function commentList(commentCardNo) {
 			$.ajax({
 				url: "/steach/class/group/cardCommentList.do",
@@ -202,7 +203,7 @@
 			});
 		};
 		
-		// 카드 체크리스트 목록
+		// 카드 체크리스트 목록 함수
 		function checklist(commentCardNo) {
 			$.ajax({
 				url: "/steach/class/group/cardChecklistList.do",
@@ -229,7 +230,8 @@
 				$(".checkbox-list").html(checklistList);
 			});
 		};
-		
+
+		// 카드 누를 시 카드 댓글 목록 함수 실행
 		$("body").on("click", "li[data-toggle='modal']", function() {
 			var commentCardNo = $(this).attr("data-index");
 			commentList(commentCardNo);
@@ -258,7 +260,7 @@
 			});
 		});
 		
-		// 댓글 수정
+		// 댓글 수정을 위한 폼 보여주기
 		$("body").on("click", ".comment-update-btn", function() {
 			$(".comment-content-div").css("display", "block");
 			$(".comment-update-form").css("display", "none");
@@ -271,7 +273,8 @@
 			$(this).parent(".comment-btn").siblings(".comment-form-btn").css("display", "block");
 			$(".modify-content").focus();
 		});
-		
+
+		// 댓글 수정
 		$("body").on("click", ".comment-onUpdate-btn", function() {
 			var commentModalId = $(this).parents(".modal").attr("id");
 			var commentCardNo = $("li[data-target='#" + commentModalId + "']").attr("data-index");
@@ -329,7 +332,7 @@
 			} else {
 				checklistStatus = 0;
 			}
- 		$.ajax({
+ 			$.ajax({
 				url: "/steach/class/group/modifyChecklistStatus.do",
 				data: {"cardChecklistNo": checklistNo, "cardChecklistStatus": checklistStatus}
 			})
@@ -339,13 +342,14 @@
 			});
 		});
 		
-		// 체크리스트 추가 시
+		// 체크리스트 등록을 위한 폼 보여주기
         $("body").on("click", ".addChecklist", function() {
             $(this).find("h4").css("display", "none");
             $(this).find(".add-checklist-form").css("display", "block");
             $(".form-control").focus();
         });
 		
+		// 체크리스트 등록 함수
 		function addCheckList(onAddChecklist) {
 			var checklistModalId = $(onAddChecklist).parents(".modal").attr("id");
 			var checklistCardNo = $("li[data-target='#" + checklistModalId + "']").attr("data-index");
@@ -372,11 +376,12 @@
 			});
 		};
 		
+		// 체크리스트 등록
 		$("body").on("click", ".onAddChecklist", function() {
 			addCheckList(this);
 		});
 		
-		// 체크리스트 추가폼에서 엔터 쳐도 체크리스트 추가
+		// 체크리스트 등록 폼에서 엔터 쳐도 체크리스트 등록
         $(document).on('keydown', '.addChecklist-form', function(e) {
             if (e.which == 13) {
             	var onAddChecklist = $(this).siblings(".input-group-btn").find(".onAddChecklist");
@@ -384,7 +389,7 @@
             } 
         });
 		
-		// 체크리스트 수정/삭제 버튼 컨트롤
+		// 체크리스트에서 마우스오버 시 체크리스트 수정/삭제 버튼 보여주기
 		$(document).on("mouseover", ".checkbox", function() {
 			$(this).find(".checklist-controller").css("display", "inline");
 			$(this).css("background-color", "#f5f5f5");
@@ -410,7 +415,7 @@
 			});
 		});
 		
-		// 체크리스트 수정
+		// 체크리스트 수정을 위한 폼 보여주기
 		$(document).on("click", ".checklist-update", function(e) {
 			$(".checklist-update-group").css("display", "none");
 			$(".checklist-label").css("display", "inline-block");
@@ -421,6 +426,7 @@
 			$(this).parents(".checklist-controller").siblings(".checklist-update-group").find(".checklist-update-form").focus();
 		});
 		
+		// 체크리스트 수정 함수
 		function modifyChecklist(onModifyChecklist) {
 			var checklistModalId = $(onModifyChecklist).parents(".modal").attr("id");
 			var checklistCardNo = $("li[data-target='#" + checklistModalId + "']").attr("data-index");
@@ -437,11 +443,12 @@
 			});  
 		};
 		
+		// 체크리스트 수정
 		$(document).on("click", ".onModifyChecklist", function() {
 			modifyChecklist(this);
 		});
 		
-		// 체크리스트 수정폼에서 엔터 쳐도 체크리스트 수정
+		// 체크리스트 수정 폼에서 엔터 쳐도 체크리스트 수정
         $(document).on('keydown', '.checklist-update-form', function(e) {
             if (e.which == 13) {
             	var onModifyChecklist = $(this).siblings(".input-group-btn").find(".onModifyChecklist");
@@ -477,7 +484,7 @@
             }).disableSelection();
         });
         
-        // 카드 위치 변경 데이터베이스 저장
+        // 카드 위치 변경 시 DB에 저장
         function saveNewCardOrders() {
 			var map = new Map();
         	
@@ -501,7 +508,7 @@
         	}); 
         }
         
-        // 리스트 위치 변경 데이터베이스 저장
+        // 리스트 위치 변경 시 DB에 저장
         function saveNewListOrders() {
 			var map = new Map();
 			
@@ -525,7 +532,7 @@
         	});
         }
         
-        // 빈 공간 클릭 시 폼 접기
+        // 빈 공간 클릭 시 활성화 된 각종 폼(등록/수정 폼) 숨기기 
         $(document).mousedown(function (e) {
             var container = $('.addCardForm');
             if( container.has(e.target).length === 0){
@@ -583,7 +590,7 @@
             }
         }); 
         
-        // + 카드 추가 버튼 누를 시
+        // 카드 추가를 위한 폼 보여주는 함수
         function addCardArea(addCardBtn) {
             $(".addCard").css("display", "block");
             $(addCardBtn).css("display", "none");
@@ -592,14 +599,15 @@
             $(".addCardForm textarea").val('');
             $(".addCardForm textarea").focus();
         };       
-
+		
+     	// 카드 추가를 위한 폼 보여주기
         $("body").on("click", ".addCard", function(e) {
             addCardArea(this);
             // 스크롤바 맨 아래로
             document.querySelector("body").scrollIntoView(false);
         });
         
-        // 추가(카드) 버튼 누를 시
+        // 카드 추가 함수
         function onAddCard(addCardBtn) {
         	var listNoOfAddCard = $(addCardBtn).parents(".parentDrag").attr("data-index");
             var content = $(addCardBtn).parent().siblings("textarea").val();
@@ -634,7 +642,7 @@
         	onAddCard(this);
         });    
         
-     	// 카드 추가폼에서 엔터 쳐도 카드 추가
+     	// 카드 추가 폼에서 엔터 쳐도 카드 추가
         $(document).on('keydown', '.addCardTextarea', function(e) {
             if (e.which == 13) {
             	var addCardFormBtn = $(this).siblings("div").find(".onAddCard");
@@ -642,19 +650,19 @@
             } 
         });
      	
-        // 취소(카드) 버튼 누를 시
+        // 카드 추가 폼에서 취소 버튼 누를 시 폼 숨기기
         $("body").on("click", ".addCardCancel", function(e) {
             $(".addCardForm").css("display", "none");
             $(".addCard").css("display", "block");
         });    
 		
-        // 카드내용 Null 일시 자동 수정 버튼 클릭 
+        // 카드 내용 Null일 때 '내용을 등록하세요.' 클릭 시 자동으로 수정 버튼 클릭 
         $("body").on("click", ".cardContent-null", function(e) {
         	e.preventDefault();
 			$(this).parents(".cardContent-div").siblings(".modal-title").find(".modifyCard").click();
 		});
         
-        // ... 카드 수정 버튼 누를 시
+        // 카드 수정 폼 보여주기
         $("body").on("click", ".modifyCard", function(e) {
             $(".cardTitle-span").css("display", "inline");
             $(".cardTitleForm").css("display", "none");
@@ -670,7 +678,7 @@
             $(".cardContent-textarea").focus();
         }); 
         
-        // 수정(카드) 버튼 누를 시
+        // 카드 수정
         $("body").on("click", ".onModifyCardContent", function(e) {
             var modifyCardNo = $(this).siblings(".cardNo").attr("data-cardno");
             var modifyCardTitle = $(this).parents(".cardContent").siblings(".cardTitle").find(".modal-title").find(".cardTitleForm").find(".modifyCardForm").val();
@@ -709,7 +717,7 @@
 			}); 
         });  
         
-        // 카드 삭제 버튼 누를 시
+        // 카드 삭제
         $("body").on("click", ".removeCard", function (e) {
 			e.preventDefault();
         	var removeCardNo = $(this).siblings(".removeCardNo").attr("data-cardno");
@@ -727,7 +735,7 @@
 			});
 		});
         
-        // … 리스트 수정 버튼 누를 시        
+        // 리스트 수정 폼 보여주기        
         $("body").on("click", ".modifyList", function(e) {
             $(".listSubjectForm").css("display", "none");
             $(".listSubject").css("display", "inline");
@@ -737,12 +745,12 @@
             $(".listSubjectForm textarea").focus();
         });    
 
-        // 수정(리스트) 버튼 누를 시
+        // 리스트 수정
         $("body").on("click", ".modifyListFormBtn", function(e) {
         	updateList(this);
         });  
 
-        // 리스트 수정폼에서 엔터 쳐도 리스트 수정
+        // 리스트 수정 폼에서 엔터 쳐도 리스트 수정
         $(document).on('keydown', '.modifyListForm', function(e) {
             if (e.which == 13) {
             	console.log("asdf");
@@ -751,6 +759,7 @@
             } 
         });
 		
+        // 리스트 수정 함수
         function updateList(btn) {
 	        var modifyListNo = $(btn).parents(".parentDrag").attr("data-index");
 	        
@@ -776,7 +785,7 @@
 			});
         }
         
-        // + 리스트 추가 버튼 누를 시
+        // 리스트 추가 폼 보여주는 함수
         function addListArea(addListBtn) {
             $(".addList").css("display", "block");
             $(addListBtn).css("display", "none");
@@ -786,10 +795,12 @@
             $(".addListForm textarea").focus();
         };       
 
+        // 리스트 추가 폼 보여주기
         $("body").on("click", ".addListBtn", function(e) {
             addListArea(this);
         });
-        // 추가(리스트) 버튼 누를 시
+        
+        // 리스트 추가 함수
         function addList(onAddList) {
         	var content = $(onAddList).parent().siblings("textarea").val();
 			var groupNo = "${groupNo}";
@@ -853,11 +864,12 @@
 			});
 		};
         
+		// 리스트 추가
         $("body").on("click", ".onAddList", function(e) {
         	addList(this);
         });   
 
-        // 리스트 추가폼에서 엔터 쳐도 리스트 추가
+        // 리스트 추가 폼에서 엔터 쳐도 리스트 추가
         $(document).on('keydown', '.addListTextarea', function(e) {
             if (e.which == 13) {
             	var addListFormBtn = $(this).siblings("div").find(".onAddList");
@@ -865,7 +877,7 @@
             } 
         });
         
-        // 취소(리스트) 버튼 누를 시
+        // // 리스트 추가 폼에서 취소 버튼 누를 시 폼 숨기기
         $("body").on("click", ".addListCancel", function(e) {
             $(".addListForm").css("display", "none");
             $(".addListBtn").css("display", "block");
@@ -895,13 +907,15 @@
             $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
         });
         
-        // 채팅
+        // 채팅 위한 변수
         var $messages = $('.messages-content'), d, h, m, i = 0;
-
+		
+        // 채팅 스크롤 바 설정
         $(window).load(function() {
             $messages.mCustomScrollbar();
         });
-
+		
+        // 채팅 스크롤 바 설정 함수
         function updateScrollbar() {
             $messages.mCustomScrollbar("update").mCustomScrollbar('scrollTo', 'bottom', {
                 scrollInertia: 10,
@@ -909,6 +923,7 @@
             });
         };
         
+        // 채팅 메시지 입력 시 1분 단위로 현재 시간 보여주기 위한 함수
         function setDate() {
             d = new Date()
             if (m != d.getMinutes()) {
@@ -922,7 +937,6 @@
 
 		// 채팅창 사이즈 조절
         var chatSize = 0;
-		
         $(".chat-button").on("click", function() {
             if(chatSize == 0) {
                 $(".avenue-messenger").css("max-height", "85px").css("min-height", "85px");
@@ -938,17 +952,21 @@
             return;
         });
 		
-        // 채팅
+        // 채팅을 위한 웹소켓
        	var ws;
 		$(document).ready(function() {
 // 			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
 // 			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
 			ws = new WebSocket('wss://192.168.1.126:8443/steach/chat.do');
+			
+			// 그룹 입장 시
 			ws.onopen = function() {
 			    console.log('연결 성공');
 		        var memberId = "${user.id}";
 		        ws.send("groupNo:" + groupNo + ",memberId:" + memberId);
 		    };
+		    
+		    // 상대방에게 메시지 전달
 		    ws.onmessage = function(evt) {
 		    	if(evt.data.startsWith("memberList:")) {
 		    		var evtString = evt.data.substring(evt.data.indexOf(":") + 2, evt.data.lastIndexOf("]"));
@@ -975,19 +993,25 @@
 
 	           $(".chat_s").append('<div class="chat_bubble-1">' + messageContent+ '</div>');
 		    };
+		    
+		    // 웹소켓 에러 시
 		    ws.onerror = function(evt) {
 		    	console.dir(evt.data)
 		    };
+		    
+		    // 그룹 퇴장 시
 		    ws.onclose = function() {
 		        ws.send("close:" + groupNo);
 		    	console.log("연결을 끊었습니다.");
 		        console.log('close');
 		    };
 			
+		    // 보내기 버튼 클릭 시 메시지 보내기
 			$('#sendBtn').click(function() { 
 				send(); 
 			});
 			
+		    // 메시지 입력 폼에서 엔터 시 메시지 보내기
 	        $(".chat_input").on('keydown', function (e) {
 	            if (e.originalEvent.keyCode == 13) {
 
@@ -997,6 +1021,7 @@
 	        });
 		});
 		
+		// 메시지 보내는 함수
 		function send() {
 		    var $msg = $("#message");
 		    var sendMsg = $('.message-input').val(groupNo + ",${user.profilePath}:" + $(".emoji-wysiwyg-editor").html()).val();
@@ -1036,7 +1061,7 @@
         ga('create', 'UA-49610253-3', 'auto');
         ga('send', 'pageview');
              
-        // 파일첨부
+        // 카드 파일첨부
         var filenames = [];
        
         $(document).on('change', '.upload-hidden', function() { 
@@ -1070,10 +1095,9 @@
 	            }
 	            filenames = [];
 			}); 
-			
         }); 
         
-        // 파일 리스트
+        // 카드 파일 리스트
         $("body").on("click", "li[data-toggle='modal']", function() {
 			var modalId = $(this).attr("data-target");
 			var fileCardNo = $(this).attr("data-index");
@@ -1090,13 +1114,10 @@
 			});
 		});
         
-     // 확장자 제한
-		function checkFile(f){
-			// files로 해당 파일 정보 얻기
+     	// 그룹활동 배경화면 수정 시 확장자 제한을 위한 함수
+		function checkFile(f) {
 			var file = f.files;
 
-			// file[0].name 은 파일명
-			// 정규식으로 확장자 체크
 			if(!/(gif|jpg|jpeg|png)$/i.test(file[0].name)) {
 				alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
 				return false;
@@ -1144,8 +1165,10 @@
 			 }  
 		});
 
+        // 그룹 활동 페이지 네이비게이션 고정
         $(".navbar").addClass("navbar-fixed-top");
         
+        // 조원 이미지 클릭 시 조원 정보 툴팁 컨트롤
         $('.member-list').popover('hide');
     </script>
 </body>

@@ -1106,6 +1106,7 @@ body {
 .groupName > h3 > span {
 	position: relative;
 	top: -12px;
+	color: #E9EAEC;
 }
 .groupName > h3 > ul {
 	display: inline-block;
@@ -1169,13 +1170,18 @@ body {
 }
 .groupName > h3 > .group-info {
 	position: relative;
-	top: -2px;
+	top: -6px;
+	padding-left: 5px;
+	min-width: 390px !important;
 }
 .groupName > h3 > .modify-bg > .bg-label {
     padding: 10px;
     display: inline !important;
-    color: black;
+	color: #E9EAEC;
     cursor: pointer;
+}
+.groupName > h3 > .modify-bg > .bg-label > i {
+    font-size: 1.5em;
 }
 .groupName > h3 > .modify-bg > .bg-label > .bg-file {
     display: none !important;

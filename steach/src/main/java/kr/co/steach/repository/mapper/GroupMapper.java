@@ -65,7 +65,7 @@ public interface GroupMapper {
 	
 	void insertGroupMember(GroupMember groupMember);
 	
-	void updateGroupCurrentAt();
+	void updateGroupCurrentAt(int classNo);
 	
 	void memberOrderUpdate(GroupMember groupMember);
 	

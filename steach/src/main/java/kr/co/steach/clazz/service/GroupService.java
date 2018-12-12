@@ -65,7 +65,7 @@ public interface GroupService {
 	
 	void insertGroupMember(GroupMember groupMember);
 	
-	void updateGroupCurrentAt();
+	void updateGroupCurrentAt(int classNo);
 
 	List<Group> randomGroup(Group group);
 

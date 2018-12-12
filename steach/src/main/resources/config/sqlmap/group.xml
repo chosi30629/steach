@@ -264,9 +264,10 @@
 	</insert>
 	
 	<!-- 조 생성할 때 현재 조 여부 수정 -->
-	<update id="updateGroupCurrentAt">
+	<update id="updateGroupCurrentAt" parameterType="int">
 		update tb_class_group
 		   set current_at = 'n'
+		 where class_no = #{classNo}  
 	</update>
 		
 	<!-- 멤버 위치 변경 -->

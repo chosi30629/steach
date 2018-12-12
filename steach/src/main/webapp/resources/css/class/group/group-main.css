@@ -251,6 +251,7 @@ input, textarea, button {
     border-radius: 100% !important; 
     width: 150px !important; 
     height: 150px ;
+    margin-top: 5px !important;
     margin-bottom: 20px !important;
     background-size: cover !important;
     /* display: inline-block !important; */
@@ -272,9 +273,9 @@ input, textarea, button {
     margin-left: 40px !important; 
 }
 .childDrop > li > .student-name {
-	font-size: 1.3em;
+	font-size: 1.2em;
     position: relative; 
-    top: 146.49px;
+    top: 143.49px;
 }
 .student-list {
     width: 860px !important;
@@ -409,10 +410,6 @@ input, textarea, button {
 .listTitle {
 	font-size: 20px;
     height: 25px !important;
-}
-.listTitle:hover {
-    opacity: 0.7;
-    font-size: 22px;
 }
 .parentDrag > .listTitle > div > .modify-group-name {
     float: right;

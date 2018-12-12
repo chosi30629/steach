@@ -88,8 +88,8 @@ public class GroupController {
 	
 	@RequestMapping("updateGroupCurrentAt.do")
 	@ResponseBody
-	public String updateGroupCurrentAt() {
-		service.updateGroupCurrentAt();
+	public String updateGroupCurrentAt(int classNo) {
+		service.updateGroupCurrentAt(classNo);
 		return "현재 조 여부 수정";
 	} // updateGroupCurrentAt
 	
