@@ -204,6 +204,7 @@
 		    WHERE tb3.attend_date = tb1.attend_date
 		      AND tb3.g_no = '1002'
 		       and tb3.class_no=#{classNo}
+		       and tb3.id=#{id}
 		  ) AS 'attend_late',
 		  (
 		    SELECT COUNT(*) AS cnt

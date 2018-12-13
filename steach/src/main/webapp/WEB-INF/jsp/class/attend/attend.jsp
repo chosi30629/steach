@@ -401,7 +401,7 @@
  						formatOfftime = "-"
 					} else {
 						formatAttendtime = $.format.date(result[i].attendTime, "HH:mm")
-						formatOfftime = $.format.date(result[i].attendTime, "HH:mm")
+						formatOfftime = $.format.date(result[i].offTime, "HH:mm")
 					}
    					dailytable +='<tr>'
 					dailytable +='<td>'+(i+1)+'</td><td>'+result[i].user[0].name+'</td><td>'+result[i].attendDate+'</td>'
