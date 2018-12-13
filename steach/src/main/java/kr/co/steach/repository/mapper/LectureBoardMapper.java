@@ -77,14 +77,18 @@ public interface LectureBoardMapper {
 	/* 투표하기 */
 	void insertVote(VoteResult voteResult);
 	
-/*	투표 선택한 항목에 대한 count*/
+	/*	투표 선택한 항목에 대한 count*/
 	
 	List<CounterVO> selectVoteResultCountByBNo(int boardNo);
 	
-	
 	void insertBoardFile(BoardUploadFileVO BUFV);
 	
-	
 	List<BoardFileVO> selectUploadFilesByCNo(int classNo);
+	
+	/* 숙제 제출하기 ~ */
+	void insertHomework(Homework homework);
+
+	/* 숙제 제출하기 */
+	void insertHomeworkFile(BoardUploadFileVO BUFV);
 	
 }

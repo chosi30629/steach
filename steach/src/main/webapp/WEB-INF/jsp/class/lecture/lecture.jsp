@@ -384,9 +384,7 @@
 			/*vote soartable set */
 			$(".sortable").sortable();
 			$(".sortable").disableSelection();
-	
-			
-			
+
 
 		});
 		
@@ -624,7 +622,7 @@
 									for(var f=0;f<fileList.length;f++){
 										if(boardList[j].boardNo==fileList[f].boardNo){
 										 	html.append("<a href='/local_img/class/${clazz.classNo}_${clazz.className}/"+boardList[j].boardNo+"_"+boardList[j].title+"/"+fileList[f].fileName+"' download>"+fileList[f].fileName+"</a>&nbsp;&nbsp;"); 
-										/* 	html.append("<a href='#' download>"+fileList[f].fileName+"</a>") */
+										
 										}
 									}
 									html.append("</div>");//col-md-6 end
@@ -641,11 +639,14 @@
 										html.append("<div class='row'>");
 										html.append("<div class='col-md-12'>");
 										html.append("<span><i class='fas fa-upload'></i></span>");
-										html.append("<form>");
-										html.append("<input class='uploader' type='file' multiple>");
-										html.append("<div class='hwContent'><i class='far fa-comment'></i> <input type='text' class='form-control' name='hwContent' placeholder='제출 시 남길 말을 입력해주세요' style='width:80%;display:inline-block;margin-left:10px;'></div>");
-										html.append("<div class='upload-button'>");
-										html.append("<button class='btn btn-primary'>제출하기</button>");
+										html.append("<form id='submitForm"+boardList[j].boardNo+"' enctype='multipart/form-data'>");
+										html.append("<input type='hidden' name='classNo' value='"+classNo+"'>");
+										html.append("<input type='hidden' name='boardNo' value='"+boardList[j].boardNo+"'>");
+										html.append("<input type='hidden' name='id' value='"+userId+"'>");
+										html.append("<input class='uploader' name='submitFiles' type='file' multiple>");
+										html.append("<div class='hwContent'><i class='far fa-comment'></i> <input type='text' class='form-control' name='hwContent' placeholder='제출 시 남길 말을 입력해주세요' autocomplete='off' style='width:80%;display:inline-block;margin-left:10px;'></div>");
+										html.append("<div class='upload-button'>"); 
+										html.append("<button type='button' class='btn btn-primary' onclick='doSubmit("+boardList[j].boardNo+")'>제출하기</button>");
 										html.append("</div>");//uploadbuttn end
 										html.append("</form>");
 										html.append("</div>");//12 end 
@@ -1039,7 +1040,26 @@
 			
 		}
 		
-	
+		
+		function doSubmit(boardNo){
+			var formData = new FormData($("#submitForm"+boardNo)[0]);
+			
+			$.ajax({
+				url:"<c:url value='doSubmitHomework.do'/>",
+				method : "POST",
+				enctype : 'multipart/form-data',
+				contentType : false,
+				processData : false,
+				data : formData
+			}).done(function(data){
+				if(data=="empty") alert("파일이 없습니다.");
+				if(data=="success") alert("성공!");
+			}).fail(function(){
+				alert(2)
+			})
+  
+
+		}
 		
 	</script>
 </body>

@@ -63,9 +63,10 @@
 			<div class="col-md-8 col-md-offset-2">
 				<div class="user-title">
 					<span>강사</span>
+					<span style="float:right">클래스코드: ${clazz.classKey}</span>
 				</div>
 				<div class="user-info">
-					<div class="user-pic"></div>
+					<div class="user-pic" style='background:url("${master.user.profilePath}"); background-size:cover; background-position:center center'></div>
 					<div class="user-name">
 						<a href="#">${master.user.name} (${master.user.id})</a>
 					</div>
@@ -268,7 +269,7 @@
 	        			html.append("<div class='card'>");
 	        		    html.append("<div class='card-header' role='tab' href='#collapse"+i.memNo+"' data-toggle='collapse' aria-expanded='false'>");
 	        		    html.append("<div class='user-info'>");
-	        		    html.append("<div class='user-pic'>"+i.user.profile+"</div>");
+	        		    html.append("<div class='user-pic' style=background:url('"+i.user.profilePath+"');background-size:cover;background-position:center center;></div>"); 
 	        		    html.append("<div class='user-name'>");
 	        		    
 	        		    if(i.pNo==1001){

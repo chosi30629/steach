@@ -19,6 +19,7 @@ import kr.co.steach.clazz.service.LectureService;
 import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.Clazz;
 import kr.co.steach.repository.domain.CounterVO;
+import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
@@ -101,50 +102,45 @@ public class LectureController {
 	@ResponseBody
 	public String insertLectureBoard(LectureBoard lectureBoard,BoardUploadFileVO BUFV,List<MultipartFile> attach) {
 		service.insertLectureBoard(lectureBoard);	
-		System.out.println("attach:"+attach);
-	/*	if(mpf.getAttach().get(0).getOriginalFilename()!="") {
-		*/if(attach.isEmpty()==false) {	
-			System.out.println(lectureBoard);
-			
-			
-			/*드라이브 내 클래스번호 내 파일저장하기 */
-			int classNo = lectureBoard.getClassNo();
-			/*upload path c:/drive/class/클래스번호_클래스명 */
-			//클래스명 가져오기 
-			
-			Clazz clazz = classService.selectClassbyClassNo(classNo);
-			String uploadPath="c:/drive/class/"+clazz.getClassNo()+"_"+clazz.getClassName();
-			/*board folder 생성하기 */
-			File f = new File(uploadPath+"/"+lectureBoard.getBoardNo()+"_"+lectureBoard.getTitle());
-			
-			
-			//폴더없으면 생성하기
-			if(!f.exists())f.mkdir();
-			 
-			System.out.println(uploadPath);
-			
+		
+		/*드라이브 내 클래스번호 내 파일저장하기 */
+		int classNo = lectureBoard.getClassNo();
+		/*upload path c:/drive/class/클래스번호_클래스명 */
+		//클래스명 가져오기 
+		
+		Clazz clazz = classService.selectClassbyClassNo(classNo);
+		String uploadPath="c:/drive/class/"+clazz.getClassNo()+"_"+clazz.getClassName();
+		/*board folder 생성하기 */
+		File f = new File(uploadPath+"/"+lectureBoard.getBoardNo()+"_"+lectureBoard.getTitle());
+		
+		
+		//폴더없으면 생성하기
+		if(!f.exists())f.mkdir();
+		
+		// 첨부 파일이 있을 경우 폴더 내에 저장하기.
+		if(attach.get(0).getOriginalFilename()!="") {
 			/* 해당 경로에파일 upload하기  */
 			for(MultipartFile mf : attach) {
-					try {
-						/* file upload */
-						mf.transferTo(new File(f,mf.getOriginalFilename()));
+				try {
+					/* file upload */
+					mf.transferTo(new File(f,mf.getOriginalFilename()));
 				} catch (IllegalStateException | IOException e) {
 						System.out.println("Board_file_upload_Error");
 						e.printStackTrace();
 					}				
-			}// for end 
-			
-			
-			/* DB에 게시글번호, 파일명 저장하기. */	
-			BUFV.setBoardNo(lectureBoard.getBoardNo());
-			List<String> files = new ArrayList<>();
-			for(int i=0;i<attach.size();i++) {
-				files.add(i,attach.get(i).getOriginalFilename());
-			}
-			BUFV.setFileName(files);
-			service.insertBoardFile(BUFV);
-		}
+		}// for end 
 		
+		
+		/* DB에 게시글번호, 파일명 저장하기. */	
+		BUFV.setBoardNo(lectureBoard.getBoardNo());
+		List<String> files = new ArrayList<>();
+		for(int i=0;i<attach.size();i++) {
+			files.add(i,attach.get(i).getOriginalFilename());
+		}
+		BUFV.setFileName(files);
+		service.insertBoardFile(BUFV);
+	}
+	
 		/* 투표LIST  insert 시 boardNo 필요합니다. */
 		return lectureBoard.getBoardNo()+"";
 	}
@@ -192,6 +188,54 @@ public class LectureController {
 	}
 	
 	
+	@RequestMapping("/doSubmitHomework.do")
+	@ResponseBody
+	public String doSubmitHomework(Homework homework,BoardUploadFileVO BUFV, int classNo, List<MultipartFile> submitFiles) {
+		System.out.println(homework);
+		System.out.println(submitFiles);
+		//System.out.println(BUFV);
+		System.out.println(classNo);
+		if(submitFiles.get(0).getOriginalFilename()!="") {
+			
+			/* homework DB 저장  */
+			service.insertHomework(homework);
+			
+			System.out.println(homework.getHwNo());
+			
+			/*해당 폴더 경로에 저장 */
+			Clazz clazz = classService.selectClassbyClassNo(classNo);
+			LectureBoard board = service.selectLectureBoardByBNo(homework.getBoardNo());
+			/* 실제 파일 저장하기 */
+			String uploadPath ="c:/drive/class/"+clazz.getClassNo()+"_"+clazz.getClassName()+"/"+board.getBoardNo()+"_"+board.getTitle();
+			File f = new File(uploadPath+"/homework"+"/"+homework.getId());
+			if(!f.exists()) f.mkdir();
+			
+			for(MultipartFile mf : submitFiles) {
+				try {
+					mf.transferTo(new File(f,mf.getOriginalFilename()));
+				} catch(IllegalStateException | IOException e) {
+					e.printStackTrace();
+				}
+			}
+			/*db 저장하기 */
+			BUFV.setHwNo(homework.getHwNo());
+			BUFV.setId(homework.getId());
+			List<String> files = new ArrayList<>();
+			for(int i=0;i<submitFiles.size();i++) {
+				files.add(i,submitFiles.get(i).getOriginalFilename());
+			}
+			BUFV.setFileName(files);
+			//System.out.println(BUFV);
+			service.insertHomeworkFile(BUFV);
+			
+			return "success";
+		}else {
+			return "empty";
+		}
+	}
+	
+	
+
 	@RequestMapping("/homework.do")
 	public void hwList(int classNo,Model model) {		
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));

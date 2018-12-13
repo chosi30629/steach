@@ -65,4 +65,10 @@ public interface LectureService {
  
     void insertBoardFile(BoardUploadFileVO BUFV);
     
+    /*insert homework */
+    void insertHomework(Homework homework);
+    
+    /*insert Homework File */
+    void insertHomeworkFile(BoardUploadFileVO BUFV);
+    
 }

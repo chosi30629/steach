@@ -188,7 +188,7 @@
 										style="background:url('/steach/resources/images/class/curriculum/empty-classroom.jpg'); background-size:cover;"
 										</c:when>
 										<c:otherwise>
-										style="background:url('/local_img/class/${clazz.classNo}/seat.png');background-size:cover;"
+										style="background:url('/local_img/class/${clazz.classNo}_${clazz.className}/seat.png');background-size:cover;"
 										</c:otherwise>
 									</c:choose>
 								></div>
@@ -271,9 +271,9 @@
     		url:"<c:url value='updateBG.do'/>",
     		data:{classNo,bgName}
     	}).done(function(){
-    		alert(1)
+    		//alert(1)
     	}).fail(function(){
-    		alert(2)
+    		//alert(2)
     	}) 
     	
     });
@@ -326,7 +326,7 @@
            			 url:"<c:url value='insertSchedule.do'/>",
          	 		 data:obj
             }).done(function(id){
-            	alert(1)
+            	//alert(1)
           		$("#formModal").modal('hide');
           		$("#sForm").find("input[type='text']").val(""); 
          		obj.id=id;
@@ -338,12 +338,17 @@
         	
         })//btn end ;
 
+        /* context menu disable*/
+        $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
+            e.preventDefault()
+        })    
+        
  	function calendar(){
 
             /* 사용자 여부 check */
             
  			var isBool = false; 
- 		
+ 			if(master==user) isBool= true;
  				
  			cal = $('#calendar').fullCalendar({
 	            header: {

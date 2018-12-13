@@ -301,5 +301,31 @@
 			and l.class_no=#{classNo}
 	</select>
 	
+	<!-- homework 제출하기  -->
+	<insert id="insertHomework" parameterType="Homework" useGeneratedKeys="true" keyProperty="hwNo">
+		insert into tb_class_lecture_board_homework (
+														board_no,
+														id,
+														hw_content
+																	)values (
+																				#{boardNo},
+																				#{id},
+																				#{hwContent}
+																							)
+	</insert>
 	
+	<insert id="insertHomeworkFile" parameterType="java.util.List">
+		insert into tb_class_lecture_board_homework_file(
+													id,
+													hw_no,
+													file_name
+																)
+																	values 
+		<foreach item="file" collection="fileName" separator="),(" open="(" close=")">
+																		 	#{id},
+																		 	#{hwNo},
+																		 	#{file}
+																				
+		</foreach>	
+	</insert>
 </mapper>

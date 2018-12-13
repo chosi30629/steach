@@ -14616,8 +14616,8 @@ input.jcrop-keymgr{
 }
 .tools-tables-viewbox{
     border-bottom:1px solid #d9d9d9;
-    background-image:url('/steach/resources/images/class/curriculum/seat-background.png'); 
- /*     background:#eee;  */
+   /* background-image:url('/steach/resources/images/class/curriculum/seat-background.png'); */
+      background:#eee;  
     min-width:-webkit-fill-available;
     min-width:-moz-available;
     min-width:fill-available;
@@ -14782,7 +14782,8 @@ input.jcrop-keymgr{
     width:100%
 }
 .tools-tables-gridItem-square{
-    border:1px solid #444;
+    border:2px solid #444;
+    border-radius:5px;
     background-color:#fff;
     position:relative;
     z-index:-1;
@@ -14812,7 +14813,7 @@ input.jcrop-keymgr{
     min-width:100px
 }
 .tools-tables-gridItem-seat{
-    border:1px solid #444;
+    border:2px solid #444;
     background-color:#f5f5f5;
     border-radius:33px;
     text-align:center;
@@ -22585,7 +22586,7 @@ li:first-child .list-transfer-resume-item{
     height: 66px;
     border-radius: 33px;
     overflow:hidden;
-    border:1px solid black;
+    border:2px solid black;
     
 }
 

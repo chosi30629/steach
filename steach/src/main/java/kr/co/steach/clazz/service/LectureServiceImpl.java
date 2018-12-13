@@ -154,4 +154,14 @@ public class LectureServiceImpl implements LectureService {
 		mapper.insertBoardFile(BUFV);
 	}
 
+	@Override
+	public void insertHomework(Homework homework) {
+		mapper.insertHomework(homework);
+	}
+
+	@Override
+	public void insertHomeworkFile(BoardUploadFileVO BUFV) {
+		mapper.insertHomeworkFile(BUFV);
+	}
+
 }

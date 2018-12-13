@@ -80,7 +80,7 @@
 									
 							<ul
 								class="app-tools-tables-group-family tools-tables-left-guests-family">
-								<li data-nombre="${fn:substring(name,0,1)}" data-apellidos="${fn:substring(name,1,length)}" data-seat-id=""
+								<li data-nombre="${fn:substring(name,0,1)}" data-apellidos="${fn:substring(name,1,length)}" data-seat-id="" data-path="${st.user.profilePath}"
 									class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item">
 	
 									<span
@@ -252,7 +252,7 @@
 		/* 동적 생성 테이블의 index */
 		var classNo = "${clazz.classNo}";
 		var i=0;
-		
+
 		/*seat table size */
 		/* const squareCommonHeight="50px";
 		const square1SeatWidth="50px";
@@ -463,19 +463,20 @@
                 /* 성 + 이름 붙이기 */
                  var lName= ui.helper[0].parentElement.dataset.nombre;
                  var fName= ui.helper[0].parentElement.dataset.apellidos;
-                 
+                 var profilePath = ui.helper[0].parentElement.dataset.path;
+              
               	/* list 에서 제거하기 */
                  ui.helper[0].parentElement.remove();
                   
                  var html= "<div class='app-tables-persona app-seated-guest' style='display: block;'>";
                      html+="<div class='tools-tables-gridItem-guest'>";
                  /*     html+="<i class='app-tables-guest-icon icon-tools icon-tools-avatar-guest-adult-small-fulfilled list-draggable'></i></div>"; */
-                 	 html+="<div class='profile' style='background:url(/steach/resources/images/common/default.jpg);background-size:cover;z-index:99999999999999999999'></div></div>";
+                	 html+="<div class='profile' style='background:url(" + profilePath + "); background-size:cover; background-position:center center;'></div></div>"; 
                      html+="<div class='app-tables-persona-name tools-tables-gridItem-guestName' title='"+lName+" "+fName+"' style='display:block;'>";
                      html+="<span>"+lName+fName+"</span></div></div>";
            
 	                $(this).append(html);
-	              $(this).css({border:"none"}); 
+	              	$(this).css({border:"none"}); 
 	               console.log($(this).children().size());
 	         
 	               /*  $(ui.draggable).remove(); */

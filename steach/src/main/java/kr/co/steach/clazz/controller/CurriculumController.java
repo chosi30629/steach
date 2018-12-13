@@ -103,7 +103,10 @@ public class CurriculumController {
 	@ResponseBody
 	public void seatSetting(String base64data,int classNo){
 		System.out.println(classNo);
-		try(FileOutputStream imageOutFile = new FileOutputStream("c://drive//class//"+classNo+"//seat.png")){
+		
+		Clazz clazz = classService.selectClassbyClassNo(classNo);
+		
+		try(FileOutputStream imageOutFile = new FileOutputStream("c://drive/class/"+clazz.getClassNo()+"_"+clazz.getClassName()+"/seat.png")){
 			base64data = base64data.substring("data:image/png;base64,".length()); //앞의 문자열 자르기 
 			byte[] imageByteArray = Base64.getDecoder().decode(base64data);
 			imageOutFile.write(imageByteArray);

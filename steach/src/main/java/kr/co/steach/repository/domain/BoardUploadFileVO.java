@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class BoardUploadFileVO {
 	private int fileNo;
-	private int boardNo;
+	private int boardNo;  //upload file 
+	private int hwNo;     //upload homework;
+	private String id;       //userid
 	private List<String> fileName;
 }
