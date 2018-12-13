@@ -12,8 +12,11 @@ a {
     color: black;
     text-decoration: none;
 }
+.my-container {
+	margin-left: 20px;
+}
 .student-card {
-    margin: 240px 0 0 0;
+    margin: 165px 0 0 0;
     width: 330px;
 }
 .student-card-content {
@@ -127,7 +130,7 @@ a {
 #accordion {
     position: relative; 
     top: -600px; 
-    left: 439px;
+    left: 350px;
     max-height: 510px; 
     overflow: auto; 
     width: 700px; 
@@ -193,6 +196,14 @@ a {
     color: #444;
     transform: rotate(-135deg);
     transition: all 0.2s ease-in;
+}
+#accordion > .panel > .panel-heading > .panel-title > a {
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+#accordion > .panel > .panel-heading > .panel-title > a > .counseling-regdate {
+	float: right;
 }
 #accordion > .panel > .panel-heading > .panel-title > a > .title-update-form {
     color: black; 

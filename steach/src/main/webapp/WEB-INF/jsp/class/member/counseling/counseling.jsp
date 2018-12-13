@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,42 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="pull-left home"><a href="#"><i class="fas fa-home"></i></a></li>
-                <li class="pull-left myClassName"><a href="#">클래스명</a></li>
-                <li class="classCurriculum"><a href="#">커리큘럼</a></li>
-                <li class="dropdown classCourse">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">수업</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">과제제출</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown classUser">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">사용자</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">출결현황</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">조별활동</a></li>
-                    </ul>
-                </li>
-                <li class="nbsp"> </li>
-                <li class="pull-right dropdown myNotification">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
-                    <ul class="dropdown-menu myNotificationMenu">
-                        <li><a href="#">마이페이지</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">마이드라이브</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">로그아웃</a></li>
-                    </ul>
-                </li>
-                <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
-            </ul>
-        </div>
-    </nav>
-    <div class="container">
+    <div class="my-container">
         <div class="student-card">
             <div class="student-card-content">
                 <div class="card">
@@ -81,7 +47,7 @@
 	                <div class="panel-heading">
 	                    <h4 class="panel-title">
 	                        <a href="#panelBody${counseling.counselingNo}" ondragstart="return false" onselectstart="return false" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion">
-	                            <span class="counseling-date-title" >${counseling.counselingTitle}</span>
+	                            <span class="counseling-date-title">${counseling.counselingTitle}</span><span class="counseling-regdate"><i class="far fa-calendar-check"></i> &nbsp;<fmt:formatDate value="${counseling.counselingRegDate}" pattern="yyyy-MM-dd"/></span>
 	                            <input class="title-update-form" type="text" value="${counseling.counselingTitle}">
 	                        </a>
 	                    </h4>
@@ -150,13 +116,29 @@
 			.done(function(result) {
 				console.log(result);
 				
+				var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth() + 1; 
+				var yyyy = today.getFullYear();
+
+				if(dd < 10) {
+				    dd = '0' + dd;
+				} 
+
+				if(mm < 10) {
+				    mm = '0' + mm;
+				} 
+
+				today = yyyy + '-' + mm + '-' + dd;
+				
 				var html = "";
 				
 				html += '<div class="panel">' +
 			                '<div class="panel-heading">' +
 				                '<h4 class="panel-title">' +
 				                    '<a href="#panelBody' + result + '" ondragstart="return false" onselectstart="return false" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion">' +
-				                    '<span class="counseling-date-title">' + addCounselingTitle + '</span>' +  
+				                    '<span class="counseling-date-title">' + addCounselingTitle + '</span>' + 
+				                    '<span class="counseling-regdate"><i class="far fa-calendar-check"></i> &nbsp;' + today + '</span>' +
 				                    '<input class="title-update-form" type="text" value="' + addCounselingTitle + '">' +
 				                    '</a>' + 
 				                '</h4>' + 
@@ -168,7 +150,7 @@
 				                    '<div class="counseling-modify-remove-btn">' +
 				                        '<br>' +
 				                        '<button class="btn btn-default remove-counseling" data-index="' + result + '">삭제</button>' +
-				                        '<button class="btn btn-default modify-counseling" data-index="' + result + '">수정</button>' +
+				                        '<button class="btn btn-default modify-counseling" data-index="' + result + '" style="margin-left: 6px;">수정</button>' +
 				                    '</div>' +
 				                    '<div class="counseling-modify-btn-div" style="display: none;">' +
 				                    	'<button class="btn btn-default on-modify-counseling" data-index="' + result + '">수정</button>' +

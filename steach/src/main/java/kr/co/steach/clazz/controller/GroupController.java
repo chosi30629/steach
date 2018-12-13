@@ -343,7 +343,7 @@ public class GroupController {
 			if(uFile.isEmpty() == true) return null;
 			
 			// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
-			String uploadPath = "C:/app/upload";
+			String uploadPath = "C:/drive";
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 			String datePath = sdf.format(new Date());
 			String ext = "";
@@ -379,7 +379,7 @@ public class GroupController {
 	
 	@RequestMapping("fileload.do")
 	public void fileDownload(HttpServletResponse response, String cardFilePath, String cardFileName) throws Exception {
-		cardFilePath = cardFilePath.replace("/local_img", "c:/app/upload");
+		cardFilePath = cardFilePath.replace("/local_img", "c:/drive");
 		
 		response.setHeader("Content-Type", "application/octet-stream");	
 		cardFileName = new String(cardFileName.getBytes("utf-8"),"8859_1");  // 사용자가 보내준 파라미터를 utf-8 바이트 형태로 보냄 (한글 처리시) 
@@ -408,7 +408,7 @@ public class GroupController {
 	@ResponseBody
 	public String modifyGroupBg(MultipartFile uploadFile, int groupNo) {
 		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
-		String uploadPath = "C:/app/upload";
+		String uploadPath = "C:/drive";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
 		String ext = "";
