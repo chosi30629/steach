@@ -83,4 +83,6 @@ public interface GroupService {
 
 	void updateGroupBg(Group group);
 	
+	void commissionGroupLeader(GroupMember groupMember);
+	
 } // end interface

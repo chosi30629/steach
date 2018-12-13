@@ -337,4 +337,18 @@
 		 where group_no = #{groupNo}  
 	</update>
 	
+	<!-- 조장 위임 전 모든 조원 조장이 아닌 상태로 만들기 -->
+	<update id="updateNotGroupLeader" parameterType="GroupMember">
+		update tb_class_group_member
+		   set g_no = 2, p_no = 1002
+		 where group_no = #{groupNo}  
+	</update>
+	
+	<!-- 조장 위임 -->
+	<update id="updateGroupLeader" parameterType="GroupMember">
+		update tb_class_group_member
+		   set g_no = 3, p_no = 1001
+		 where group_member_no = #{groupMemberNo}  
+	</update>
+	
 </mapper>

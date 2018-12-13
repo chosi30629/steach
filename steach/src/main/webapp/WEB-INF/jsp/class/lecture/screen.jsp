@@ -6,15 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">   -->
-<!-- <link rel="stylesheet" href="/steach/resources/css/header/class-header.css"> -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
 <link rel="stylesheet" href="/steach/resources/css/class/lecture/screen.css">
-<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">   -->
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
 </head>
 <body>
-	
   	<div class="text-center">
         <h2 class="streaming-title">MySQL 보충수업</h2>
     </div>
@@ -68,13 +63,14 @@
 	        audio : true
 	    };
 		
-	 	// 아이피 관리 해야함
+	 	// 화면공유를 위한 웹소켓
 // 		var ws = new WebSocket("wss://192.168.0.82:8443/steach/screen");
 		var ws = new WebSocket("wss://192.168.1.126:8443/steach/screen");
 		ws.onopen = function() {
-			console.log("Openened connection to websocket");
+			console.log('연결 성공');
 		}
 		
+		// 상대방에게 화면공유 시켜주기
 		ws.onmessage = function(msg) {
 			var target = document.getElementById("target");
 			url = window.URL.createObjectURL(msg.data);
@@ -85,9 +81,9 @@
 		}
 		
 	    getScreenId((error, sourceId, screenConstraints) => {
-	    if (error === 'not-installed') return alert('The extension is not installed');
-	    if (error === 'permission-denied') return alert('Permission is denied.');
-	    if (error === 'not-chrome') return alert('Please use chrome.');
+	    if (error === 'not-installed') return;
+	    if (error === 'permission-denied') return;
+	    if (error === 'not-chrome') return;
 	
 	    navigator.mediaDevices.getUserMedia(screenConstraints)
 	        .then(stream => {
@@ -109,21 +105,16 @@
 	    }, 250);
 	    
 	    function convertToBinary(dataURI) {
-			// convert base64 to raw binary data held in a string
-			// doesn't handle URLEncoded DataURIs
 			var byteString = atob(dataURI.split(',')[1]);
 	
-			// separate out the mime component
 			var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
 	
-			// write the bytes of the string to an ArrayBuffer
 			var ab = new ArrayBuffer(byteString.length);
 			var ia = new Uint8Array(ab);
 			for (var i = 0; i < byteString.length; i++) {
 				ia[i] = byteString.charCodeAt(i);
 			}
 	
-			// write the ArrayBuffer to a blob, and you're done
 			var bb = new Blob([ab]);
 			return bb;
 		}
@@ -135,7 +126,7 @@
 	        $(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
 	    });
 	    
-     	// 채팅
+	 	// 채팅을 위한 웹소켓
        	var wss;
 		$(document).ready(function() {
 			$('input').blur(function () {

@@ -81,4 +81,8 @@ public interface GroupMapper {
 	
 	void updateGroupBg(Group group);
 	
+	void updateNotGroupLeader(GroupMember groupMember);
+	
+	void updateGroupLeader(GroupMember groupMember);
+	
 } // end interface

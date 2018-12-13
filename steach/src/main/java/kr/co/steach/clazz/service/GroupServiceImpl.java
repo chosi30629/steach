@@ -260,5 +260,11 @@ public class GroupServiceImpl implements GroupService {
 	public void updateGroupBg(Group group) {
 		mapper.updateGroupBg(group);
 	} // updateGroupBg
+
+	@Override
+	public void commissionGroupLeader(GroupMember groupMember) {
+		mapper.updateNotGroupLeader(groupMember);
+		mapper.updateGroupLeader(groupMember);
+	} // commissionGroupLeader
 	
 } // end class

@@ -19,4 +19,18 @@ public class GroupMember {
 	private String addr;
 	
 	
+	public int getpNo() {
+		return pNo;
+	}
+	public void setpNo(int pNo) {
+		this.pNo = pNo;
+	}
+	
+	public int getgNo() {
+		return gNo;
+	}
+	public void setgNo(int gNo) {
+		this.gNo = gNo;
+	}
+	
 } // end class

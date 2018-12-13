@@ -257,6 +257,19 @@ input, textarea, button {
     /* display: inline-block !important; */
     float: left;
 }
+.ui-state-default > .commission-leader {
+    border: 1px solid #468966; 
+    box-shadow: 2px 2px 2px #0a3a21; 
+    border-radius: 5px; 
+    background-color: #468966; 
+    color: white; 
+    display: none; 
+    width: 100px; 
+    font-size: 20px; 
+    position: relative; 
+    top: -36px; 
+    left: 75px;
+}
 .parentDrop {
     padding-top: 0 !important;
 }
@@ -276,6 +289,10 @@ input, textarea, button {
 	font-size: 1.2em;
     position: relative; 
     top: 143.49px;
+}
+.childDrop > li > .student-name > .fas {
+	color: #965A38;
+	margin-right: 3px;
 }
 .student-list {
     width: 860px !important;

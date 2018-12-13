@@ -157,7 +157,13 @@ l0,-61 L40,28" />
 		                　		+ '　'
 		           	+ ' <c:forEach var="member" items="${groupList[loop.index].groupMember}">  '  
 		                　		+      '<li class="ui-state-default clearfix" data-groupNo="${member.groupNo}" data-index="${member.groupMemberNo}" data-order="${member.groupMemberOrder}" data-id="${member.groupMemberId}" style="background-image: url(${member.profilePath});">'
+		                　		+		'<c:if test="${member.gNo == 3 && member.pNo == 1001}">'
+		                　		+         '<span class="student-name"><i class="fas fa-crown"></i>${member.name}</span>'
+		            +		'</c:if>'     		
+		            +		'<c:if test="${member.gNo != 3 && member.pNo != 1001}">'
 		                　		+         '<span class="student-name">${member.name}</span>'
+		                　		+		'</c:if>'     	
+		            + 		'<div class="commission-leader">조장 위임</div>'
 		                　		+     '</li>'
 		            + ' </c:forEach>'  
 		            + '</ul>'
@@ -270,6 +276,7 @@ l0,-61 L40,28" />
 			        	groupMemberList[k]     		
 			            html += '<li class="ui-state-default clearfix" data-groupNo="' + groupMemberList[k].groupNo + '" data-index="' + groupMemberList[k].groupMemberNo + '" data-order="' + groupMemberList[k].groupMemberOrder + '" style="background-image: url(' + groupMemberList[k].profilePath + ');">'
 			          		 +         '<span class="student-name">' + groupMemberList[k].name + '</span>'
+			          		 + 		'<div class="commission-leader">조장 위임</div>'
 			                　			 +     '</li>';
 			        }
 			        html +=  '</ul>'
@@ -370,6 +377,38 @@ l0,-61 L40,28" />
 	            return false;
        	 	}
         });
+        
+     	// 조원 우클릭 시
+     	$("body").on("contextmenu", ".ui-state-default", function(e) {
+     		e.preventDefault();
+			$(this).find(".commission-leader").toggle();
+		});
+        
+        $(document).mouseup(function (e) {
+            var container = $('.ui-state-default');
+            if (container.has(e.target).length === 0) {
+                $(container).find(".commission-leader").hide();
+            }
+        });
+     	
+        // 조장 위임
+        $("body").on("click", ".commission-leader", function(e) {
+			var groupNo = $(this).parent().attr("data-groupno");
+			var memberNo = $(this).parent().attr("data-index");
+			var name = $(this).siblings(".student-name").text().trim();
+			
+			$("li[data-groupno='" + groupNo + "']").find("i").remove();
+			$("li[data-index='" + memberNo + "']").find(".student-name").html("<i class='fas fa-crown'></i>" + name);
+			$(this).hide();
+			
+			$.ajax({
+				url: "/steach/class/group/commissionGroupLeader.do",
+				data: {"groupNo": groupNo, "groupMemberNo": memberNo}
+			})
+			.done(function(result) {
+				console.log(result);
+			});
+		});
         
      	// 헤더 드랍다운 효과
         $('ul.nav li.dropdown').hover(function () {
