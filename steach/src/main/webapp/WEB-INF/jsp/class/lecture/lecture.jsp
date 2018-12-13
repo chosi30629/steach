@@ -46,8 +46,6 @@
 </head>
 <body>
 	<!-- lecture -->
-
-	<!-- form modal 구현해아함!! -->
 	<div id="formModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -97,8 +95,8 @@
 							<label for="attachFile" class="col-sm-2 control-label">파일첨부</label>
 							<div class="col-sm-10">
 								<input type="file" id="localAttachFile" name="attach"
-									style="display: none"> <input type="file"
-									id="driveAttachFile" style="display: none">
+									style="display: none" multiple> <input type="file"
+									id="driveAttachFile" style="display: none" multiple>
 								<div id="file-icon">
 									<i class='fas fa-paperclip' id="localAttach"></i> <i
 										class='fab fa-google-drive' id="driveAttach"></i>
@@ -437,7 +435,8 @@
 					var voteCount = data.list.voteCount; 
 					var voteResult = data.list.voteResult;
 					var hwCount = data.list.hwCount;
-					
+					var fileList = data.list.fileList;
+					console.log(fileList);
 					var html = new StringBuffer();
 					/* 주제  list */
 					for (let i = 0; i < subjectList.length; i++) {
@@ -617,13 +616,22 @@
 								
 								/* 파일 첨부 */
 								if(boardList[j].pNo != 4 ){
+																		
 									html.append("<div class='subTitle-attach'>");
 									html.append("<div class='row'>");
-									html.append("<div class='col-md-6'>");
-									html.append("<span><i class='fas fa-download'></i>　파일명나오겠쬬</span>");
+									html.append("<div class='col-md-12'>");
+									html.append("<span><i class='fas fa-download'></i></span>");
+									for(var f=0;f<fileList.length;f++){
+										if(boardList[j].boardNo==fileList[f].boardNo){
+										 	html.append("<a href='/local_img/class/${clazz.classNo}_${clazz.className}/"+boardList[j].boardNo+"_"+boardList[j].title+"/"+fileList[f].fileName+"' download>"+fileList[f].fileName+"</a>&nbsp;&nbsp;"); 
+										/* 	html.append("<a href='#' download>"+fileList[f].fileName+"</a>") */
+										}
+									}
 									html.append("</div>");//col-md-6 end
 									html.append("</div>");//row end
 									html.append("</div>");//attach end 
+									
+									
 								}
 								
 								/* 업로드 */
@@ -835,6 +843,7 @@
 			$(".accordion").remove();
 			/* ajax 수행 후 deadline 활성화 */
 			$("input[name='deadline']").removeAttr("disabled");	
+			$("input[type='file']").val("");
 			
 			list();
 		}

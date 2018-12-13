@@ -3,6 +3,8 @@ package kr.co.steach.repository.mapper;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.steach.repository.domain.BoardFileVO;
+import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
@@ -75,9 +77,14 @@ public interface LectureBoardMapper {
 	/* 투표하기 */
 	void insertVote(VoteResult voteResult);
 	
-/*	투표 선택한 항목에 대한 count 
-	List<CounterVO> selectVoteResultListByCNo(int classNo);*/
+/*	투표 선택한 항목에 대한 count*/
 	
 	List<CounterVO> selectVoteResultCountByBNo(int boardNo);
+	
+	
+	void insertBoardFile(BoardUploadFileVO BUFV);
+	
+	
+	List<BoardFileVO> selectUploadFilesByCNo(int classNo);
 	
 }

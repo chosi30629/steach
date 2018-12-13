@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import kr.co.steach.repository.domain.BoardFileVO;
+import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
@@ -58,11 +60,13 @@ public class LectureServiceImpl implements LectureService {
 		//투표자 명단 list 
 		map.put("voteResult",mapper.selectVoteResultByCNo(classNo));
 		
-		//map.put("voteResultCount",mapper.selectVoteResultListByCNo(classNo));
-		
-		
-		System.out.println("voteCount"+mapper.selectVoteCntByCNo(classNo));
-		System.out.println("voteResult"+mapper.selectVoteResultByCNo(classNo));
+		//upload file list
+		map.put("fileList",mapper.selectUploadFilesByCNo(classNo));
+		System.out.println(mapper.selectLectureBoardByClassNo(classNo));
+		System.out.println("파일리스트"+mapper.selectUploadFilesByCNo(classNo));
+			
+		//System.out.println("voteCount"+mapper.selectVoteCntByCNo(classNo));
+		//System.out.println("voteResult"+mapper.selectVoteResultByCNo(classNo));
 		//System.out.println("voteResultCount"+mapper.selectVoteResultListByCNo(classNo));
 		//System.out.println(mapper.selectLectureBoardByClassNo(classNo));
 		//System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
@@ -145,12 +149,9 @@ public class LectureServiceImpl implements LectureService {
 		return mapper.selectVoteResultCountByBNo(boardNo);
 	}
 
-	
+	@Override
+	public void insertBoardFile(BoardUploadFileVO BUFV) {
+		mapper.insertBoardFile(BUFV);
+	}
 
-	
-
-
-	
-	
-	
 }

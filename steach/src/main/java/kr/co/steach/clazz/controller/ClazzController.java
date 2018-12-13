@@ -23,8 +23,8 @@ public class ClazzController {
 	public void createClass(Clazz clazz) {
 		service.createClass(clazz);
 		/* class 생성 시 class drive 생성하기 
-		 * 경로: c://drive/class/ 클래스번호 */
-		DriverUtil.makeDrive("class//"+clazz.getClassNo());
+		 * 경로: c://drive/class/ 클래스번호_클래스명 */
+		DriverUtil.makeDrive("class//"+clazz.getClassNo()+"_"+clazz.getClassName());
 	}
 
 	@ResponseBody

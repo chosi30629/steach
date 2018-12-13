@@ -3,6 +3,7 @@ package kr.co.steach.clazz.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
 import kr.co.steach.repository.domain.Lecture;
@@ -38,7 +39,6 @@ public interface LectureService {
     /* insert lecture board */
     void insertLectureBoard(LectureBoard lectureBoard);
     
-    
     /* delete lecture board */
     void deleteLectureBoard(int boardNo);
     
@@ -62,7 +62,7 @@ public interface LectureService {
     
     /*board별 투표 확인하기 */
     List<CounterVO> selectVoteResultCountByBNo(int boardNo);
-  
-  
+ 
+    void insertBoardFile(BoardUploadFileVO BUFV);
     
 }

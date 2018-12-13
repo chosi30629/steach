@@ -43,7 +43,6 @@
 		<result column="id" property="id"/>
 		<result column="hw_content" property="hwContent"/>
 		<result column="reg_date" property="regDate"/>
-<!-- 		<collection property="user" resultMap="userMap"/>  -->
 		<collection property="user" column="id" ofType="user" select="selectUserById"/> 
 	</resultMap>
 	
@@ -65,6 +64,12 @@
 		<result column="board_no" property="boardNo"/>
 		<result column="selected_no" property="selectedNo"/>
 		<result column="id" property="id"/>
+	</resultMap>
+	
+	<resultMap id="BoardFileMap" type="BoardFileVO">
+		<result column="file_no" property="fileNo"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="file_name" property="fileName"/>
 	</resultMap>
 	
 	
@@ -139,7 +144,7 @@
 										   			#{deadline},
 										   			<!-- #{memCnt} -->
 										   			(select count(*) from tb_class_member where class_no=#{classNo})
-										   						)	
+										   																				)	
 	</insert>
 	
 	<!-- board 삭제 -->
@@ -270,8 +275,31 @@
 		 order by board_no asc	
 	
 	</select>
+	
+	
+	<!-- 수업자료 upload 하기  -->
+	<!-- multiple insert문  -->
+	<insert id="insertBoardFile" parameterType="java.util.List">
+			insert into tb_class_lecture_board_file(
+													board_no,
+													file_name
+															)
+															values 
+		<foreach item="file" collection="fileName" separator="),(" open="(" close=")">
+																 	#{boardNo},
+																 	#{file}
+																				
+		</foreach>													 		
+	</insert> 
 
- 
- 	
+	<!-- 클래스별 업로드 파일 가져오기  -->
+	<select id="selectUploadFilesByCNo" parameterType="int" resultMap="BoardFileMap">
+		select f.*
+		  from tb_class_lecture_board_file f,  tb_class_lecture l , tb_class_lecture_board b
+		 where f.board_no=b.board_no
+		   and l.lec_no = b.lec_no
+			and l.class_no=#{classNo}
+	</select>
+	
 	
 </mapper>

@@ -192,10 +192,12 @@
 										</c:otherwise>
 									</c:choose>
 								></div>
+								<c:if test="${clazz.master == user.id }">
 								<div class="seat-setting">
-									<button type="button" class="btn"
+									<button type="button" class="btn btn-primary"
 										onclick="javascript:location.href='<c:url value="/class/curriculum/seat.do?classNo=${clazz.classNo}"/>'">수정하기</button>
 								</div>
+								</c:if>
 							</div>
 						</div>
 					</div>
@@ -209,16 +211,21 @@
 
 	<script>
  		
-	var i =1;
+	var i = 1;
 	var classNo="${clazz.classNo}";
+	var master ="${clazz.master}";
+	var user ="${user.id}";
 	/*bg button event */
-    $(".bg-section").mouseenter(function(){
-    	$(".bg-button").css({display:"block"});
-    });
-	   
-     $(".bg-section").mouseleave(function(){
-    	$(".bg-button").css({display:"none"});
-    });
+	
+	if(master==id){
+	    $(".bg-section").mouseenter(function(){
+	    	$(".bg-button").css({display:"block"});
+	    });
+		   
+	     $(".bg-section").mouseleave(function(){
+	    	$(".bg-button").css({display:"none"});
+	    });
+	}
      
   
     $("#prev").click(function(){
@@ -258,7 +265,7 @@
     	var index = bgName.lastIndexOf("/");
     	bgName = bgName.substring(index+1,bgName.length);
 
-    	console.log(bgName)
+    	//console.log(bgName)
     	
     	 $.ajax({
     		url:"<c:url value='updateBG.do'/>",
@@ -284,11 +291,13 @@
 					  url:"<c:url value='selectSchbyCNo.do'/>",
 					 data:"classNo="+${clazz.classNo}
 				  }).done(function(data){
-					  console.log(data);
+					  //console.log(data);
 					  for(var i=0; i<data.length;i++){
 					  	eventArray.push(data[i]);
 					  }
-					  calendar();
+					  calendar(); 
+					  
+					 
 				  });
 				 
 			});
@@ -330,8 +339,12 @@
         })//btn end ;
 
  	function calendar(){
- 			//console.log(eventArray);
+
+            /* 사용자 여부 check */
             
+ 			var isBool = false; 
+ 		
+ 				
  			cal = $('#calendar').fullCalendar({
 	            header: {
 	              left: 'prev,next today',
@@ -342,9 +355,9 @@
 	            themeSystem:"bootstrap4", */
 	            navLinks: true, // can click day/week names to navigate views
 	            locale: initialLocaleCode,
-	            editable: true,
+	            editable: isBool,
 	            eventLimit: true, // allow "more" link when too many events
-	            selectable:true,
+	            selectable:isBool,
 	       		/* event 등록하기 */ 
 	            select:function(start,end,jsEvent,view){
 	            	//console.log(jsEvent);
