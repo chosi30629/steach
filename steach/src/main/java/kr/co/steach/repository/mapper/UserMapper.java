@@ -12,6 +12,9 @@ public interface UserMapper {
 	// 임시비밀번호 생성후 변경
 	void temppass(User user);
 	
+	// 임시비밀번호 변경할 아이디 확인
+	int checkpassId(User user);
+	
 	// 임시비밀번호 체크
 	int temppasschk(User user);
 
@@ -31,7 +34,7 @@ public interface UserMapper {
 	
 	
 	int checkId(User user);
-
+	
 	// 현재 비밀번호 확인할 아이디
 	User checkPass(String id);
 

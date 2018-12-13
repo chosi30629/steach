@@ -17,12 +17,16 @@ public interface UserService {
 	int checkId(User user);
 	
 	
+	
+	
 	/**
 	 * 로그인 처리
 	 * @param user
 	 */
 	User userLogin(User user);
 	
+	// 비밀번호 변경할 아이디 확인
+	int checkpassId(User user);
 	
 	// 임시비밀번호 변경 및 메일 보내기
 	void sendMail(User user);

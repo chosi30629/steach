@@ -115,7 +115,7 @@ public class MyPageController {
 		if(uploadFile.isEmpty() == true) return "redirect:myPage.do";
 		
 		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
-		String uploadPath = "C:/app/steachprofile";
+		String uploadPath = "C:/drive/steach/profile";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
 		String ext = "";
@@ -135,7 +135,7 @@ public class MyPageController {
 		uploadFile.transferTo(new File(uploadPath + datePath, uName + ext));		
 		
 		user.setProfile(uploadFile.getOriginalFilename());
-		user.setProfilePath("/local_img" + datePath + "/" + uName + ext);
+		user.setProfilePath("/local_img/steach/profile" + datePath + "/" + uName + ext);
 		
 		service.profileImg(user);
 //		service.insertFile(userfile);

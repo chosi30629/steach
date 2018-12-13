@@ -33,7 +33,7 @@ public class SignUpController {
 //		if(uploadFile.isEmpty() == true) return "redirect:myPage.do";
 //		
 		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
-		String uploadPath = "C:/App/steachprofile";
+		String uploadPath = "C:/drive/steach/profile";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
 		String ext = "";
@@ -53,7 +53,7 @@ public class SignUpController {
 		uploadFile.transferTo(new File(uploadPath + datePath, uName + ext));		
 		
 		user.setProfile(uploadFile.getOriginalFilename());
-		user.setProfilePath("/local_img" + datePath + "/" + uName + ext);		
+		user.setProfilePath("/local_img/steach/profile" + datePath + "/" + uName + ext);		
 //		System.out.println(user);
 		service.register(user);
 		
@@ -75,6 +75,9 @@ public class SignUpController {
 	@RequestMapping("checkId.do")
 	@ResponseBody
 	public String checkId(User user) {
+		System.out.println("invoke");
+		System.out.println(user);
+		System.out.println(Integer.toString(service.checkId(user)));
 		return Integer.toString(service.checkId(user));
 	} // checkId
 	

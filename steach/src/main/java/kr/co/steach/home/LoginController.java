@@ -74,7 +74,9 @@ public class LoginController {
 	@RequestMapping("checkpassId.do")
 	@ResponseBody
 	public String checkId(User user) {
-		return Integer.toString(service.checkId(user));
+		System.out.println(user);
+		System.out.println(Integer.toString(service.checkpassId(user)));
+		return Integer.toString(service.checkpassId(user));
 	} // checkId
 	
 	

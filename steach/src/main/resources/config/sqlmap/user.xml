@@ -24,7 +24,7 @@
 	</insert>
 
 	<!-- 아이디 중복 체크 -->
-	<select id="checkId" parameterType="user" resultType="int" flushCache="true" useCache="false">
+	<select id="checkId" parameterType="user" resultType="int">
 		select count(*)
 		  from tb_user
 		 where id = #{id}
@@ -40,7 +40,7 @@
 
 	
 	<!-- 비밀번호찾을 아이디 체크 -->
-	<select id="checkpassId" parameterType="user" resultType="int" flushCache="true" useCache="false">
+	<select id="checkpassId" parameterType="user" resultType="int">
 		select count(*)
 		  from tb_user
 		 where id = #{id}
@@ -76,13 +76,13 @@
 	</update>
 	
 	<!-- 전화번호 등록 or 수정 -->
-	<update id="updatePhone" parameterType="user" flushCache="true">
+	<update id="updatePhone" parameterType="user">
 		update tb_user
 		   set phone = #{phone}
 		 where id = #{id}
 	</update>
 	<!-- 주소 등록 or 수정 -->
-	<update id="updateAddr" parameterType="user" flushCache="true">
+	<update id="updateAddr" parameterType="user">
 		update tb_user
 		   set addr = #{addr}
 		 where id = #{id}

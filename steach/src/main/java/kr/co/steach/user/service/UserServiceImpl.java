@@ -171,6 +171,11 @@ public class UserServiceImpl implements UserService {
 		mapper.profileImg(user);
 	}
 
+	@Override
+	public int checkpassId(User user) {
+		return mapper.checkpassId(user);
+	}
+
 //	/**
 //	 * 파일 등록
 //	 * @param userFile
