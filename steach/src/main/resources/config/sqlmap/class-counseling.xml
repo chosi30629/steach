@@ -12,11 +12,42 @@
 		<result column="counseling_reg_Date" property="counselingRegDate"/>
 	</resultMap>
 	
+		<resultMap id="memberMap" type="ClassMember">
+		<result column="mem_no" property="memNo"/>
+		<result column="class_no" property="classNo"/>
+		<result column="p_no" property="pNo"/>
+		<result column="g_no" property="gNo"/>
+		<result column="id" property="id"/>
+		<result column="group_no" property="groupNo"/>
+		<result column="group_member_order" property="groupMemberOrder"/>
+		<collection property="user" resultMap="userMap"/>
+	</resultMap>
+	
+	<resultMap id="userMap" type="User">
+		<result column="id" property="id"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="phone" property="phone"/>
+		<result column="addr" property="addr"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="profile" property="profile"/>
+		<result column="profile_path" property="profilePath"/>	
+	</resultMap>
+	
+	<!-- 상담 학생 정보 -->
+	<select id="selectStudentInfoByMemberNo" parameterType="int" resultMap="memberMap">
+		select m.mem_no, m.class_no, u.name, u.id, u.phone, u.addr, u.profile_path
+		  from tb_class_member m, tb_user u
+		 where mem_no = #{memNo}
+		   and m.id = u.id
+	</select>
+	
 	<!-- 상담 리스트 -->
-	<!-- 클래스 번호와 학생 아이디 받아야 함 -->
-	<select id="counselingListBystudentId" resultMap="counselingMap">
+	<select id="counselingListBystudentId" parameterType="ClassMember" resultMap="counselingMap">
 		select * 
 		  from tb_class_counseling
+		 where class_no = #{classNo}
+  		   and student_id = #{id}
 		 order by counseling_no desc	
 	</select>
 	

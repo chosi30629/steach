@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Counseling;
 import kr.co.steach.repository.mapper.CounselingMapper;
 
@@ -18,10 +19,15 @@ public class CounselingServiceImpl implements CounselingService {
 	@Autowired
 	private CounselingMapper mapper;
 	
+
+	@Override
+	public ClassMember selectStudentInfoByMemberNo(int memNo) {
+		return mapper.selectStudentInfoByMemberNo(memNo);
+	} // selectStudentInfoByMemberNo
 	
 	@Override
-	public List<Counseling> counselingListBystudentId() {
-		return mapper.counselingListBystudentId();
+	public List<Counseling> counselingListBystudentId(ClassMember classMember) {
+		return mapper.counselingListBystudentId(classMember);
 	} // counselingListBystudentId
 
 	@Override

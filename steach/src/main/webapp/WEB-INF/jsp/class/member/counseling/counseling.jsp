@@ -27,14 +27,19 @@
                         <div class="details"></div>
                     </div>
                     <div class="row student-img">
-                        <img src="/steach/resources/images/class/group/pl.png" width="180" height="180" alt="학생 프로필 사진"/>
-                        <h1>조성일</h1>
+                    	<c:if test="${studentInfo.user.profilePath != ''}">
+	                        <img src="${studentInfo.user.profilePath}" width="180" height="180" alt="학생 프로필 사진"/>
+                        </c:if>
+                    	<c:if test="${studentInfo.user.profilePath == ''}">
+	                        <img src="/local_img/steach/whtjddlf.jpg" width="180" height="180" alt="학생 프로필 사진"/>
+                        </c:if>
+                        <h1>${studentInfo.user.name}</h1>
                     </div>
                 </div>
                 <ul class="student-info">
-                    <li><i class="fas fa-phone"></i>　010-3403-9303</li>
-                    <li><i class="fas fa-envelope"></i>　cho30629@naver.com</li>
-                    <li class="student-address"><i class="fas fa-location-arrow"></i><span>　경기도 고양시 덕양구 고양동 195-4</span></li>
+                    <li><i class="fas fa-phone"></i>　${studentInfo.user.phone}</li>
+                    <li><i class="fas fa-envelope"></i>　${studentInfo.user.id}</li>
+                    <li class="student-address"><i class="fas fa-location-arrow"></i><span>　${studentInfo.user.addr}</span></li>
                 </ul>
             </div>
         </div>
@@ -98,6 +103,10 @@
         </div>
     </div>
     <script>
+    	var id = "${user.id}";
+    	var studentClassNo = "${studentInfo.classNo}";
+    	var studentId = "${studentInfo.user.id}";
+    
     	// + 모달 오픈시 상담 제목 입력란 포커스
     	$('#addCounselingModal').on('shown.bs.modal', function() {
     		$(".writeform-counseling-title").focus();
@@ -111,7 +120,7 @@
 			
 			$.ajax({
 				url: "/steach/class/member/counseling/writeCounseling.do",
-				data: {"classNo": 1, "studentId": 'chos', "counselingWriter": "csi", "counselingTitle": addCounselingTitle, "counselingContent": addCounselingContent}
+				data: {"classNo": studentClassNo, "studentId": studentId, "counselingWriter": id, "counselingTitle": addCounselingTitle, "counselingContent": addCounselingContent}
 			})
 			.done(function(result) {
 				console.log(result);

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.steach.clazz.service.CounselingService;
+import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Counseling;
 
 
@@ -22,8 +23,11 @@ public class CounselingController {
 	
 	
 	@RequestMapping("counseling.do")
-	public void counselingList(Model model) {
-		model.addAttribute("counselingList", service.counselingListBystudentId());
+	public void counselingList(Model model, int memNo) {
+		model.addAttribute("studentInfo", service.selectStudentInfoByMemberNo(memNo));
+		ClassMember classMember = service.selectStudentInfoByMemberNo(memNo);
+		model.addAttribute("counselingList", service.counselingListBystudentId(classMember));
+		model.addAttribute("memNo", memNo);
 	} // counselingList
 	
 	@RequestMapping("writeCounseling.do")
