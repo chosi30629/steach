@@ -88,7 +88,15 @@ $(function(){
 		          }
 		        },
 		        dblclick: function(event,data){
-		        	console.log(data.node.isExpanded());
+// 		        	console.log(data.node.isExpanded());
+		        	console.log(data.node.data.path, data.node.title);
+		        	let fileObj = {
+		        			cardFilePath: data.node.data.path,
+		        			cardFileName: data.node.title,
+		        			cardNo: "${param.cardNo}"
+		        	}
+		        	self.close();
+		        	opener.saveFileDrive(fileObj);
 		        },
 		        click: function(event, data) {
 		        	console.dir(data.node);
