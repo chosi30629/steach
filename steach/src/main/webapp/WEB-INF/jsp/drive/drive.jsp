@@ -281,7 +281,11 @@
 		if(pathData == undefined){
 			pathData = 'C:\\drive\\<c:out value='${user.id}'/>'
 		}
-		
+		if(nPath != 'C:\\drive\\<c:out value='${user.id}'/>' ){
+		pathData = nPath;
+ 		}
+		console.log("업로드 클릭태그",clickToLazy);
+		console.log("들어가는 경로",pathData);
 		var fd = new FormData();
 	 	// 현재 페이지의 path경로 가져올거야
 	 	fd.append("path" , pathData);
@@ -300,7 +304,6 @@
 			processData : false,
 			contentType : false,
 		}).done(function(result){
-			
 			var node  = $("#tree").fancytree("getActiveNode");
 	    	if (!node) {
 	    		node = clickToLazy;
@@ -321,7 +324,7 @@
 	            }
 	         });
 			
-	    	if(node.key != "_1"){
+	    	if(node.key != "_1" && node.isLazy() == true ){
 	    	node.load(true).done(function(){
 	    		node.resetLazy();  
 	    		node.setExpanded();
@@ -415,6 +418,7 @@ $('.addFolder').click(function(){
             }
          });
     	
+    	if(node.isExpanded == true)
     	node.setExpanded = true;
     	
     //  path
@@ -537,7 +541,7 @@ $('.addFolder').click(function(){
       })
         
             //우클릭 메뉴 삭제 눌렀을때
-            $('.contextmenu').children().eq(4).click(function(){
+            $('.contextmenu').children().eq(2).click(function(){
                 console.log(clickedTag);  
             	
                 tr.remove() // 우클릭한 태그 삭제
@@ -865,8 +869,12 @@ var source = [
         	console.log(data.node.isExpanded());
         },
         click: function(event, data) {
-        	console.dir(data.node);
     	 	var path = data.node.data.path
+    	 	console.log("게",path);
+    	 	var node = data.node;
+    	 	if(node.isLazy()){
+    	 		node.lazyLoad();
+    	 	}
     	 	//파일업로드 경로주기
     	 	nowpath(path);
     	 	$.ajax({
