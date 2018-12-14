@@ -138,6 +138,8 @@
 	
 	<script>
 			var classNo="${clazz.classNo}";
+			var userId= "${user.id}";
+			var master="${clazz.master}";
 		  /* stringBuffer */
 		    var StringBuffer = function() {
 			    this.buffer = new Array();
@@ -279,8 +281,12 @@
 	        			html.append("<div class='user-elps'>");
 	        			html.append("<a id='msgModal' data-toggle='modal' data-target='#msgModal"+i.memNo+"'>");
 	        			html.append("<i class='far fa-envelope'></i></a>");
-	        			html.append("　<a id='userElpsModal' data-toggle='modal' data-target='#userElpsModal"+i.memNo+"'>");
-	        			html.append("<i class='fas fa-ellipsis-v'></i></a></div></div></div>");
+	        			
+	        			if(userId==master){
+		        			html.append("　<a id='userElpsModal' data-toggle='modal' data-target='#userElpsModal"+i.memNo+"'>");
+		        			html.append("<i class='fas fa-ellipsis-v'></i></a>");
+	        			}
+	        			html.append("</div></div></div>");
 	        			html.append("<div id='collapse"+i.memNo+"' role='tabpanel' class='collapse'>");
 	        			html.append("<div class='card-body'>");
 	        			html.append("<div class='user-detail'>");

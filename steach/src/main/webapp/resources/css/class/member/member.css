@@ -130,3 +130,6 @@
 .card-body{
 	 box-shadow:1px 1px 1px grey;
 }
+.fa-envelope:before{
+	cursor:pointer;
+}

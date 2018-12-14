@@ -66,9 +66,12 @@ a:hover,a:active,a:focus{
 .homework-deadline{
 	font-size:1.0em;
 	font-weight:300;
+	float:right;
 }
 
-
+.container-fluid{
+	margin-bottom:60px;
+}
 /* accordion 내 css  */
 
 .card-header:hover{

@@ -208,7 +208,7 @@ public class LectureController {
 			/* 실제 파일 저장하기 */
 			String uploadPath ="c:/drive/class/"+clazz.getClassNo()+"_"+clazz.getClassName()+"/"+board.getBoardNo()+"_"+board.getTitle();
 			File f = new File(uploadPath+"/homework"+"/"+homework.getId());
-			if(!f.exists()) f.mkdir();
+			if(!f.exists()) f.mkdirs();
 			
 			for(MultipartFile mf : submitFiles) {
 				try {

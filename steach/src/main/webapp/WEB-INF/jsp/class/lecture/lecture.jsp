@@ -442,10 +442,12 @@
 						html.append("<div class='title'>");
 						html.append("<span class='title-name' id='subject"+subjectList[i].lecNo+"'>"+subjectList[i].subject+"</span>");
 						html.append("<div class='menu'>");
-						html.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-						html.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
-						html.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
-						html.append("<i class='fas fa-ellipsis-v'></i></a>");
+						if(master==userId){
+							html.append("<a id='titlePlus' data-toggle='modal' data-target='#formModal' data-lecNo='"+subjectList[i].lecNo+"'>");
+							html.append("<i class='fas fa-plus'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;");
+							html.append("<a id='titleElps' data-toggle='modal' data-target='#titleElpsModal' data-lecNo='"+subjectList[i].lecNo+"'>");
+							html.append("<i class='fas fa-ellipsis-v'></i></a>");
+						}
 						html.append("</div>"); //menu end 
 						html.append("</div>"); //title end 
 						html.append("</div>"); //acc-head end 
@@ -478,8 +480,10 @@
 
 								html.append("&nbsp;&nbsp;<span>"+boardList[j].title+"</span>");
 								html.append("<div class='menu'>");
-								html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
-								html.append("<i class='fas fa-ellipsis-v'></i></a>");
+								if(master==userId){
+									html.append("<a id='subElps' data-toggle='modal' data-target='#subElpsModal' data-boardNo='"+boardList[j].boardNo+"'>");
+									html.append("<i class='fas fa-ellipsis-v'></i></a>");
+								}
 								html.append("</div>"); // menu end 
 								html.append("</div>"); //subtitle end
 								html.append("</div>"); //card header end 

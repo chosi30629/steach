@@ -243,7 +243,7 @@ textarea:focus, input:focus {
 
 }
 
-.deadlineText {
+#deadlineText {
     position: relative;
     top: 7px;
 }
@@ -260,5 +260,11 @@ textarea:focus, input:focus {
 /* progressbar color */
 .sb_bar {
 	background-color:#FA8124 !important;
-	
 }
+/* .fileinput-wrapper{
+	color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    border-radius: 6px;
+    padding: 3px;
+} */
