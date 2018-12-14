@@ -122,14 +122,14 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public List<LectureBoard> selectHomework(int classNo) {
 		List<LectureBoard> boardList = mapper.selectHomeworkByCNo(classNo);
-
+		
 		Map<String, Object> param = new HashMap<>();
 		param.put("classNo", classNo);
 		for (LectureBoard board : boardList) {
 			param.put("boardNo", board.getBoardNo());
 			board.setHomework(mapper.selectAllHomeworkByCNo(param));
 		}
-
+		System.out.println(boardList);
 		return boardList;
 	}
 

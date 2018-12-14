@@ -11,7 +11,7 @@
 		<result column="addr" property="addr"/>
 		<result column="reg_date" property="regDate"/>
 		<result column="profile" property="profile"/>
-		<result column="proflie_path" property="profilePath"/>	
+		<result column="profile_path" property="profilePath"/>	
 	</resultMap>
 		
 	<resultMap id="lectureMap" type="Lecture">
@@ -253,7 +253,7 @@
 	</select>
 	
 	
-	<!-- homework - count test -->
+	<!-- homework - count  -->
 	<select id="selectHomeworkByCNo" parameterType="int" resultMap="lectureBoardMap">
 		select b.*,l.subject,count(*) as count
 		  from tb_class_lecture_board b, tb_class_lecture l,tb_class_lecture_board_homework h
@@ -262,6 +262,7 @@
 		   and l.class_no=#{classNo}
 		   and b.p_no=2
 		   group by h.board_no
+		   order by board_no desc
 	</select>
 	
 	<select id="selectAllHomeworkByCNo" parameterType="map" resultMap="homeworkMap">

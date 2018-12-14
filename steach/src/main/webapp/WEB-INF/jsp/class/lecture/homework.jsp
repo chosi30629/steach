@@ -57,7 +57,7 @@
 												<c:forEach var="j" items="${board.homework}">
 													<c:if test="${board.boardNo==j.boardNo}">
 														<div class="user-info">
-															<div class="user-pic">${j.user.profile}</div>
+															<div class="user-pic" style='background:url("${j.user.profilePath}"); background-size:cover; background-position:center center'></div> 
 															<div class="user-name">
 																<a href="#"><span>${j.user.name}</span></a>
 																<span><i class="far fa-comment"></i> ${j.hwContent}</span>
@@ -88,7 +88,7 @@
 																</c:if>
 																<td>
 																	<div class="user-info">
-																		<div class="user-pic">${j.user.profile}</div>
+																		<div class="user-pic" style='background:url("${j.user.profilePath}"); background-size:cover; background-position:center center'></div>
 																		<div class="user-name">
 																			<a href="#"><span>${j.user.name}</span></a>
 																		</div>

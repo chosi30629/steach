@@ -148,7 +148,7 @@ a:hover,a:active,a:focus{
     width: 40px;
     height: 40px;
     margin: 5px 5px;
-    border: 1px solid red;
+    border-radius:100%;
 }
 .user-name {
 	display: inline;
