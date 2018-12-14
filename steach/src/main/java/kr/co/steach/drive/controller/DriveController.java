@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.google.gson.Gson;
 
 import kr.co.steach.repository.domain.FileVO;
@@ -44,6 +44,7 @@ public class DriveController {
 	  * @param keyVal
 	  * @return
 	  */
+	 
 	@RequestMapping("/makedir.do")
 	@ResponseBody
 	public HashMap<String, Object> makeDir(@RequestParam(value="path")String path, @RequestParam(value="keyVal")String keyVal) {
@@ -192,7 +193,6 @@ public class DriveController {
 //			System.out.println("들어오는데.... 왜 이동이 안되죠?");
 //			response.sendRedirect("/steach/home/home.do");
 //		}
-				
 				File f= new File(Npath+user.getId());
 				if(f.exists()) {
 					String len = (f.length() < 1024) ? "KB" : (f.length() > Math.pow(1024, 3) ? "GB" : "MB");
@@ -247,6 +247,8 @@ public class DriveController {
 		            } 
 		        } 
 		    }
+		    
+		    
 		    public static List<Map<String, Object>> listLoad(File f) throws IOException
 		    {
 		    	

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>내 드라이브 - Steach 드라이브</title>
+ <title>내 드라이브 - 구글 드라이브</title>
   <script src="/steach/resources/fancytree/lib/jquery.js"></script>
   <script src="/steach/resources/fancytree/lib/jquery-ui.custom.js"></script>
   <script src="/steach/resources/fancytree/src/jquery-ui-dependencies/jquery.fancytree.ui-deps.js"></script>
@@ -249,14 +249,12 @@
         <img id="fileimage">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         <button type="button" class="download btn btn-primary">다운로드</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-    
-      
 
  <script type="text/javascript">
  var firstload;
@@ -907,14 +905,30 @@ var source = [
     });
 
 	//!!!! (임의로 만든거) 로그아웃 버튼 누를시 트리 구조 불러옴 
-		$('.fa-sign-out-alt').on('click', function(){			
-	  var tree = $("#tree").fancytree("getTree");
-	  var d = tree.toDict(true);
-   	  alert(JSON.stringify(d));
+		$('.fa-sign-out-alt').on('click', function(){		
+			
+			$.ajax({
+				url : '<c:url value="/drive/test.do" />'
+			}).done(function(result){
+				console.log(result);
+				var node = $("#tree2").fancytree("getRootNode").children[0];
+				var childlist = ${list};
+		 	 	
+				 	for(var i=0 ; i< childlist.length; i++){
+					 	var e = childlist[i];
+					 	var childNode = node.addChildren(e);
+				 	}
+			})
+			
+			$('#fancytreeModule').modal('show')
+			
 		})
 	
 	
-	//!!!! 왜 만들었지 이거.....
+		
+		
+		
+		//!!!!
 	function nameChange() {	
 	$('.changeNameText').on('keyup', function(){
 		console.log($(this).val() == "")
@@ -1222,7 +1236,6 @@ var source = [
 		 $('.textheader').click(function(){
 			 location.reload();
 		 })
-		 
 		 
 </script>
 </body>
