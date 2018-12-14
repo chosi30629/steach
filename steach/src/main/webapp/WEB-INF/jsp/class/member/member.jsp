@@ -275,7 +275,7 @@
 	        		    if(i.pNo==1001){
 	        		    	html.append("<i class='fas fa-crown'></i>");
 	        		    }
-	        			html.append(" <a href='#'>"+i.user.name+" ("+i.user.id+")</a></div>");
+	        			html.append(" <a onclick='doPopup("+i.memNo+")'>"+i.user.name+" ("+i.user.id+")</a></div>");
 	        			html.append("<div class='user-elps'>");
 	        			html.append("<a id='msgModal' data-toggle='modal' data-target='#msgModal"+i.memNo+"'>");
 	        			html.append("<i class='far fa-envelope'></i></a>");
@@ -318,6 +318,11 @@
 	        	});
 	        } 
 	
+
+	        
+	function doPopup(memNo){
+		window.open("<c:url value='/class/member/counseling/counseling.do?memNo="+memNo+"'/>",'_blank', 'width=1089, height=671, top=50, left=770, scrollbars= 0, toolbar=0, menubar=no');
+	}
 	</script>
 </body>
 
