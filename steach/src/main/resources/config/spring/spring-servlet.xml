@@ -50,6 +50,7 @@
 				<mvc:mapping path="/main/main.do" />
 				<mvc:mapping path="/class/*" /> 
 				<mvc:exclude-mapping path="/user/checkId.do"/>
+				<mvc:exclude-mapping path="/user/signUp.do"/>
 
 				<bean class="kr.co.steach.home.AuthInterceptor" />
 			</mvc:interceptor>
