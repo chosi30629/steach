@@ -209,8 +209,8 @@
   <ul class="contextmenu">
       <li><a href="#">색상바꾸기 (나중에)</a></li>
       <li><a href="#">이름 변경</a></li>
-      <li><a href="#">공유 (미구현)</a></li>
-      <li><a href="#">다운로드 (미구현)</a></li>
+<!--       <li><a href="#">공유 (미구현)</a></li> -->
+<!--       <li><a href="#">다운로드 (미구현)</a></li> -->
       <li><a href="#">삭제</a></li>
     </ul>
     <!-- 컨텍스트 메뉴 끝 -->

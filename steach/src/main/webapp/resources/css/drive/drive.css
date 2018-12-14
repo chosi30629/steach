@@ -325,7 +325,7 @@ body{
 .contextmenu li a {
   display: block;
   padding: 10px;
-  color: #B0BEC5;
+/*   color: #B0BEC5; */
   text-decoration: none;
   transition: ease .2s;
 }
