@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -370,6 +371,46 @@ public class GroupController {
 		
 		return service.selectFileByCardNo(groupFile.getCardNo());
 	} // cardFileUpload
+	
+	@RequestMapping(value="cardDriveFileUpload.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<GroupFile> cardDriveFileUpload(GroupFile groupFile) throws Exception {	
+			System.out.println("들어옴");
+			System.out.println(groupFile);
+			// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+			String uploadPath = "C:/drive";
+			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
+			String datePath = sdf.format(new Date());
+			String ext = "";
+			int index = groupFile.getCardFileName().lastIndexOf(".");
+			
+			if(index != -1) {
+				ext = groupFile.getCardFileName().substring(index);
+			} // if
+			
+			File file = new File(uploadPath + datePath); 
+			if(file.exists() == false) {
+				file.mkdirs();
+			} // if
+			
+			// 이미지 이름 중복 방지를 위한 파일이름 랜덤생성
+			String uName = UUID.randomUUID().toString();
+			FileInputStream fis = new FileInputStream(groupFile.getCardFilePath());
+			FileOutputStream fos = new FileOutputStream(new File(uploadPath + datePath, uName + ext));		
+			while(true) {
+				int ch = fis.read();
+				if(ch == -1) break;
+				
+				fos.write(ch);
+			}
+			fos.close(); fis.close();
+			
+			groupFile.setCardFilePath("/local_img" + datePath + "/" + uName + ext);
+			
+			service.insertCardFile(groupFile);	
+		
+			return service.selectFileByCardNo(groupFile.getCardNo());
+	} // cardDriveFileUpload
 	
 	@RequestMapping("cardFileList.do")
 	@ResponseBody

@@ -64,8 +64,8 @@
 	    };
 		
 	 	// 화면공유를 위한 웹소켓
-// 		var ws = new WebSocket("wss://192.168.0.82:8443/steach/screen");
-		var ws = new WebSocket("wss://192.168.1.126:8443/steach/screen");
+		var ws = new WebSocket("wss://192.168.0.82:8443/steach/screen");
+// 		var ws = new WebSocket("wss://192.168.1.126:8443/steach/screen");
 		ws.onopen = function() {
 			console.log('연결 성공');
 		}
@@ -135,8 +135,8 @@
 	            $('.plane').addClass("act");
          	});
 			
-// 			wss = new WebSocket('wss://192.168.0.82:8443/steach/streamingChat.do');
-			wss = new WebSocket('wss://192.168.1.126:8443/steach/streamingChat.do');
+			wss = new WebSocket('wss://192.168.0.82:8443/steach/streamingChat.do');
+// 			wss = new WebSocket('wss://192.168.1.126:8443/steach/streamingChat.do');
 			wss.onopen = function() {
 		        console.log('연결 성공');
 		    };

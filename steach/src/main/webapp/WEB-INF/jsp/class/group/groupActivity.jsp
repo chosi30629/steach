@@ -127,7 +127,7 @@
 						}
 						if(listList[i].listNo == cardList[j].listNo) {
 							$("#childDrop" + i).append('<li data-toggle="modal" data-target="#cardModal' + j + '" data-listNo="' + cardList[j].listNo + '" data-index="' + cardList[j].cardNo + '" data-order="' +  cardList[j].cardOrder + '">' + cardList[j].cardTitle + '</li>');
-							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a id="modifyCard' + j + '" class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span id="cardContent' + j + '" class="cardContent-span" style="white-space: pre-line;">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea id="cardContent-textarea' + j + '" class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button id="onModifyCardContent' + j + '" class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name my-hard-file" disabled="disabled"></div><label for="my_filename' + j + '"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename' + j + '" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name" disabled="disabled"></div><label for="drive_filename' + j + '"><i class="fab fa-google-drive"></i></label><input type="file" id="drive_filename' + j + '" multiple class="upload-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control addChecklist-form" placeholder="체크리스트 추가"><span class="input-group-btn addChecklist-group"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
+							$modalDiv.append('<div class="modal fade" id="cardModal' + j + '" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="cardTitle clearfix"><button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;"><span aria-hidden="true">&times;</span></button><h3 class="modal-title" id="myModalLabel" style="position: relative; top: 13px;"><i class="far fa-credit-card"></i>　<span class="cardTitle-span">' + cardList[j].cardTitle + '</span><span class="cardTitleForm" style="display: none;"><input type="text" class="modifyCardForm" value="' + cardList[j].cardTitle + '"/></span> </h3><span style="float: right;">' + $.format.date(cardList[j].cardRegDate, "yyyy-MM-dd HH:mm:ss") + '</span></div><hr><div class="cardContent clearfix"><h4 class="modal-title"> <i class="far fa-sticky-note"></i>　내용<div class="btn-group" style="float: right;"><div class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></div><ul class="dropdown-menu" role="menu"> <li class="text-center"><a id="modifyCard' + j + '" class="modifyCard" href="#">수정</a></li><li class="divider"></li><li class="text-center"><a class="removeCard" href="#">삭제</a><input type="hidden" class="removeCardNo" data-cardNo="' + cardList[j].cardNo + '"/></li></ul></div></h4><div class="clearfix cardContent-div"><span id="cardContent' + j + '" class="cardContent-span" style="white-space: pre-line;">' + cardList[j].cardContent + '</span></div><div class="clearfix cardContent-form" style="display: none;"><textarea id="cardContent-textarea' + j + '" class="cardContent-textarea">' + cardList[j].cardContent + '</textarea><div class="md-rv-bnt" style="float: right;"><button id="onModifyCardContent' + j + '" class="btn btn-default onModifyCardContent">수정</button><input type="hidden" class="cardNo" data-cardNo="' + cardList[j].cardNo + '"/></div></div></div><hr><div class="cardFile clearfix"><h4 class="modal-title"><i class="fas fa-paperclip"></i>　첨부 파일</h4><div class="attachbox" style="min-width: 568px; min-height: 80px; border: 1px solid #ccc; border-radius: 3px; margin-top: 10px; margin-bottom: 15px;"><div class="filebox"><div class="upload-name my-hard-file" disabled="disabled"></div><label for="my_filename' + j + '"><i class="fas fa-hdd"></i></label><input type="file" id="my_filename' + j + '" multiple class="upload-hidden"></div><div class="filebox"><div class="upload-name my-drive-file" disabled="disabled"></div><label for="drive_filename' + j + '"><i class="fab fa-google-drive"></i></label><input type="text" id="drive_filename' + j + '" multiple class="upload-hidden drive-hidden"></div></div></div><hr><div class="check-list"><h4 class="modal-title" style="margin-bottom: 10px;"><i class="far fa-check-square"></i>　체크리스트</h4><div class="checkbox-list"></div><div class="addChecklist clearfix" style="width: 100%; height: 37px; border-radius: 2px;"><h4 class="addChecklistBtn"; style="margin-left: 20px; float: right; font-size: 16px;">+ 체크리스트 추가&nbsp;</h4><div class="add-checklist-form clearfix" style="display: none;"><div class="input-group"><input type="text" class="form-control addChecklist-form" placeholder="체크리스트 추가"><span class="input-group-btn addChecklist-group"><button class="btn btn-default onAddChecklist" type="button">추가</button></span></div></div></div></div><hr><div class="cardComment"><h4 class="modal-title"><i class="far fa-comments"></i>&nbsp;&nbsp;&nbsp;댓글</h4><textarea class="comment-textarea" placeholder="댓글을 입력하세요."></textarea><button class="btn btn-default comment-insert-btn">등록</button> <table class="table"><tbody id="cardComment' + j + '" class="comment-table"></tbody></table></div></div></div></div></div>');
 						}
 						if($("#cardContent" + j).text() == "내용을 등록하세요.") {
 							$("#modifyCard" + j).text("등록");
@@ -955,9 +955,9 @@
         // 채팅을 위한 웹소켓
        	var ws;
 		$(document).ready(function() {
-// 			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
+			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
 // 			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
-			ws = new WebSocket('wss://192.168.1.126:8443/steach/chat.do');
+// 			ws = new WebSocket('wss://192.168.1.126:8443/steach/chat.do');
 			
 			// 그룹 입장 시
 			ws.onopen = function() {
@@ -1165,11 +1165,45 @@
 			 }  
 		});
 
+		// 파일 첨부 드라이브 연동
+		$(document).on("click", ".fa-google-drive", function(e) {
+			e.preventDefault();
+			var fileModalId = $(this).parents(".modal").attr("id");
+			var fileCardNo = $("li[data-target='#" + fileModalId + "']").attr("data-index");
+			console.log(fileCardNo)
+			window.open("/steach/drive/cardUpload.do?cardNo="+fileCardNo , "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=1270,width=600,height=700");
+		});
+		
         // 그룹 활동 페이지 네이비게이션 고정
         $(".navbar").addClass("navbar-fixed-top");
         
         // 조원 이미지 클릭 시 조원 정보 툴팁 컨트롤
         $('.member-list').popover('hide');
+        
+        // 
+        function saveFileDrive(data) {
+        	var modalId = $("li[data-index='" + data.cardNo + "']").attr("data-target").substring(1);
+        	var modal = $("div[id='" + modalId + "']");
+			$.ajax({
+				url: "/steach/class/group/cardDriveFileUpload.do",
+				type: "POST",
+				data: {
+					cardFileName: data.cardFileName,
+					cardFilePath: data.cardFilePath,
+					cardNo: data.cardNo,
+					cardFileWriter: userId
+				}
+			})
+			.done(function(result) {
+	        	modal.find(".my-hard-file").empty();
+				for(let j = 0; j < result.length; j++) {
+					modal.find(".my-hard-file").append('<h5><a href="/steach/class/group/fileload.do?cardFilePath=' +  result[j].cardFilePath + '&cardFileName=' + result[j].cardFileName + ' ">' + result[j].cardFileName + '</a></h5>'); 
+	            }
+			})
+			.fail(function(err) {
+				console.log(err);
+			})
+		}
     </script>
 </body>
 </html>

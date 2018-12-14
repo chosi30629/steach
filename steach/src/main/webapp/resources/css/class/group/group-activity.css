@@ -887,7 +887,7 @@ body {
 }
 .filebox label { 
     display: block; 
-    padding: .5em .75em; 
+    padding: 0; 
     color: #999; 
     font-size: inherit; 
     line-height: normal; 
@@ -904,6 +904,7 @@ body {
 } 
 .filebox label i { 
     font-size: 45px;
+    padding: 16px 13px;
 } 
 .filebox input[type="file"] {
     position: absolute; 
@@ -915,8 +916,11 @@ body {
     clip: rect(0,0,0,0); 
     border: 0; 
 }
+.filebox .drive-hidden {
+    display: none;
+}
 .filebox .upload-name { 
-    width: 205px;
+    width: 410px;
     height: 78px;
     display: block; 
     padding: .5em .75em; 
@@ -931,6 +935,9 @@ body {
     -moz-appearance: none; appearance: none; 
     float: left;
     overflow-x: hidden; 
+}
+.filebox .my-drive-file {
+	display: none;
 }
 .modal-title > .btn-group {
 	border-radius: 3px;
