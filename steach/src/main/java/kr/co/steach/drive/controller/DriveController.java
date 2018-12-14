@@ -103,7 +103,7 @@ public class DriveController {
 	@ResponseBody
 	public String imageRead(@RequestParam(value="path")String path ) throws IOException {
 		System.out.println("클릭"+path);
-		String Ext = path.substring(path.indexOf("."), path.length());
+		String Ext = path.substring(path.lastIndexOf(".")+1, path.length());
 		
 		BASE64Encoder base64Encoder = new BASE64Encoder();
         InputStream in = new FileInputStream(new File(path));
@@ -259,7 +259,34 @@ public class DriveController {
 				for(File fInfo : arrfile) {
 					Map<String, Object> fmap = new HashMap<>();
 					
-					if(!fInfo.isDirectory()) {
+					int colone = fInfo.getName().indexOf(".")+1;
+					if(!fInfo.isDirectory() && colone != -1) {
+						String Ext = fInfo.getName().substring(colone, fInfo.getName().length());
+//						System.out.println(Ext);
+						String extention = "";
+						if(Ext == "txt" || Ext == "text") {
+							extention = "text/plain";
+						}
+						if(Ext == "jpg") {
+							extention = "image/jpeg";
+						}
+						if(Ext == "jpeg" || Ext == "png" || Ext =="bmp" || Ext=="gif") {
+							extention = "image/"+Ext;
+						}
+						if(Ext == "xlsx") {
+							extention = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+						}
+						if(Ext == "mp3") {
+							extention = "audio/mpeg3";
+						}
+						if(Ext == "ppt") {
+							extention = "application/vnd.ms-powerpoint";
+						}
+						if(Ext == "mp4") {
+							extention = "video/mp4";
+						}
+						
+						fmap.put("Ext", extention);
 						br = new BufferedReader(new InputStreamReader(new FileInputStream(fInfo), "UTF-8"));
 						String temp = "";
 						while(true) {

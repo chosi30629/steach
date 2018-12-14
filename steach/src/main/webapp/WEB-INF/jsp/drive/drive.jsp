@@ -5,13 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>내 드라이브 - 구글 드라이브</title>
+ <title>내 드라이브 - 스티치 드라이브</title>
   <script src="/steach/resources/fancytree/lib/jquery.js"></script>
   <script src="/steach/resources/fancytree/lib/jquery-ui.custom.js"></script>
   <script src="/steach/resources/fancytree/src/jquery-ui-dependencies/jquery.fancytree.ui-deps.js"></script>
   <script src="/steach/resources/fancytree/src/jquery.fancytree.js"></script>
   <script src="/steach/resources/fancytree/src/jquery.fancytree.dnd5.js"></script>
   <script src="/steach/resources/fancytree/src/jquery.fancytree.childcounter.js"></script>
+  <script src="/steach/resources/js/download.js"></script>
   <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -36,7 +37,7 @@
        		<div class="imgheader">
        			<img class="headerimg" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/drive_48dp.png 2x " style="width:40px;height:40px">    
       		</div>
-     		<div class="textheader">&nbsp;구글 드라이브  </div>
+     		<div class="textheader">&nbsp;스티치 드라이브  </div>
 		</div>
       
       	<form class="formrow">
@@ -245,12 +246,12 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
-        <p></p>
+        <p id="fileContent"></p>
         <img id="fileimage">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        <button type="button" class="download btn btn-primary">다운로드</button>
+        <button id="download" type="button" class="download btn btn-primary">다운로드</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -1060,6 +1061,7 @@ var source = [
 											maxWidth: '100%', 
 										  	maxHeight: '100%'
 										});
+										
 										$('#fileReader').modal('show'); // 모달 보이기
 										})
 								}else{
@@ -1235,6 +1237,17 @@ var source = [
 		 
 		 $('.textheader').click(function(){
 			 location.reload();
+		 })
+		 
+		 $('#download').on("click", function(){
+			 var src = $(this).parents().find('#fileimage')[0].src;
+			 if(src != "http://localhost:8000/steach/drive/drive.do"){
+				 download($(this).parents().find('#fileimage')[0].src)
+			 }else{
+// 				 console.dir($(this).parents().find('#fileContent')[0].textContent)
+				 console.log($(this).parents().find(".modal-title")[0].textContent);
+				 download($(this).parents().find('#fileContent')[0].textContent, $(this).parents().find(".modal-title")[0].textContent , "text/plain");
+			 }
 		 })
 		 
 </script>
