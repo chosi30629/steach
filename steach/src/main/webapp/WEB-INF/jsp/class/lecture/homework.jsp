@@ -7,6 +7,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
 <title>Homework</title>
 <!-- header import -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
