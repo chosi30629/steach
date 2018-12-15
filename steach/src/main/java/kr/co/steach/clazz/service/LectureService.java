@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
+import kr.co.steach.repository.domain.HomeworkFileVO;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
@@ -46,7 +47,7 @@ public interface LectureService {
     LectureBoard selectLectureBoardByBNo(int boardNo);
     
     
-    /* select homewokr by classNo */
+    /* select homework by classNo */
     List<LectureBoard> selectHomeworkByCNo(int classNo);
     
     /*제출자 내역 리스트  ~~ */
@@ -70,5 +71,8 @@ public interface LectureService {
     
     /*insert Homework File */
     void insertHomeworkFile(BoardUploadFileVO BUFV);
+    
+    
+    List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo);
     
 }

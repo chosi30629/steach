@@ -72,15 +72,13 @@
 		<result column="file_name" property="fileName"/>
 	</resultMap>
 	
-	
- <!-- 	<select id="selectBoardByClassNo" parameterType="int" resultMap="lectureBoardMap">
-		select b.board_no,b.lec_no, b.p_no, b.title, b.content, b.reg_date, b.deadline, b.mem_cnt,l.class_no,l.subject,l.master 
-		  from tb_class_lecture_board b,tb_class_lecture l
-		 where l.lec_no = b.lec_no
-		  and  l.class_no=#{classNo}
-		 order by b.reg_date
-	</select> 
-	 -->
+	<resultMap id="HomeworkFileMap" type="HomeworkFileVO">
+		<result column="file_no" property="fileNo"/>
+		<result column="id" property="id"/>
+		<result column="hw_no" property="hwNo"/>
+		<result column="file_name" property="fileName"/>
+	</resultMap>
+
 	<!-- 클래스 별 주제 가져오기  -->
 	<select id="selectLectureByClassNo" parameterType="int" resultMap="lectureMap">
 		select *
@@ -315,6 +313,7 @@
 																							)
 	</insert>
 	
+	<!-- 숙제 파일 업로드 multiple -->
 	<insert id="insertHomeworkFile" parameterType="java.util.List">
 		insert into tb_class_lecture_board_homework_file(
 													id,
@@ -329,4 +328,14 @@
 																				
 		</foreach>	
 	</insert>
+	
+	<!-- 클래스별 숙제파일 불러오기  -->
+	<select id="selectHomeworkFileByCNo" parameterType="int" resultMap="HomeworkFileMap">
+		select f.* 
+	      from tb_class_lecture_board_homework_file f, tb_class_lecture_board_homework h,tb_class_lecture_board b,tb_class_lecture l
+		 where f.hw_no=h.hw_no
+		   and h.board_no=b.board_no
+		   and b.lec_no=l.lec_no
+		   and l.class_no=#{classNo}
+	</select>
 </mapper>

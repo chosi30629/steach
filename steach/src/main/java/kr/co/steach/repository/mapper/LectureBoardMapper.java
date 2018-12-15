@@ -7,6 +7,7 @@ import kr.co.steach.repository.domain.BoardFileVO;
 import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
+import kr.co.steach.repository.domain.HomeworkFileVO;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
@@ -91,4 +92,7 @@ public interface LectureBoardMapper {
 	/* 숙제 제출하기 */
 	void insertHomeworkFile(BoardUploadFileVO BUFV);
 	
+	
+	/* 숙제 파일 가져오기 */
+	List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo);
 }

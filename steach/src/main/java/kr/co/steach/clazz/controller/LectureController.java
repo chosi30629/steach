@@ -237,13 +237,12 @@ public class LectureController {
 	
 
 	@RequestMapping("/homework.do")
-	public void hwList(int classNo,Model model) {		
+	public void hwList(int classNo, Model model) {		
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
-		//model.addAttribute("subject",service.selectHomeworkByCNo(classNo));
 		model.addAttribute("homework",service.selectHomework(classNo));
-		//		model.addAttribute("submit",service.selectSubmitHomeworkByCNo(classNo));
+		model.addAttribute("fileList",service.selectHomeworkFileByCNo(classNo));
 		
-		//System.out.println(service.selectHomework(classNo));
+		System.out.println("fileList:"+service.selectHomeworkFileByCNo(classNo));
 	}
 
 

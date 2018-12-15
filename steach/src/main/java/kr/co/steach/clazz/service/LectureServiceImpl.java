@@ -11,6 +11,7 @@ import kr.co.steach.repository.domain.BoardFileVO;
 import kr.co.steach.repository.domain.BoardUploadFileVO;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
+import kr.co.steach.repository.domain.HomeworkFileVO;
 import kr.co.steach.repository.domain.Lecture;
 import kr.co.steach.repository.domain.LectureBoard;
 import kr.co.steach.repository.domain.VoteList;
@@ -22,23 +23,6 @@ public class LectureServiceImpl implements LectureService {
 	
 	@Autowired
 	LectureBoardMapper mapper;
-	//ClassMapper cMapper;
-	
-/*	@Override
-	public List<LectureBoard> selectBoardByClassNo(int classNo) {
-		List<LectureBoard> list = mapper.selectBoardByClassNo(classNo);
-		return mapper.selectBoardByClassNo(classNo);
-	}*/
-
-/*	@Override
-	public List<Lecture> selectLectureByClassNo(int classNo) {
-		return mapper.selectLectureByClassNo(classNo);
-	}
-
-	@Override
-	public List<LectureBoard> selectLectureBoardByClassNo(int classNo) {
-		return mapper.selectLectureBoardByClassNo(classNo);
-	}*/
 
 	@Override
 	public Map<String,Object> selectLectureListByClassNo(int classNo) {
@@ -62,6 +46,7 @@ public class LectureServiceImpl implements LectureService {
 		
 		//upload file list
 		map.put("fileList",mapper.selectUploadFilesByCNo(classNo));
+		
 		System.out.println(mapper.selectLectureBoardByClassNo(classNo));
 		System.out.println("파일리스트"+mapper.selectUploadFilesByCNo(classNo));
 			
@@ -72,11 +57,6 @@ public class LectureServiceImpl implements LectureService {
 		//System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
 		return map;
 	}
-	/*	@Override
-	public Clazz selectClassbyClassNo(int classNo) {
-		System.out.println("impl");
-		return cMapper.selectClassbyClassNo(classNo);
-	}*/
 	
 	@Override
 	public void insertLecture(Lecture lecture) {
@@ -162,6 +142,11 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public void insertHomeworkFile(BoardUploadFileVO BUFV) {
 		mapper.insertHomeworkFile(BUFV);
+	}
+
+	@Override
+	public List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo) {
+		return mapper.selectHomeworkFileByCNo(classNo);
 	}
 
 }
