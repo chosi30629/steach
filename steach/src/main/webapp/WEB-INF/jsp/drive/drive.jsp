@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>내 드라이브 - 스티치 드라이브</title>
+ <title>Steach</title>
   <script src="/steach/resources/fancytree/lib/jquery.js"></script>
   <script src="/steach/resources/fancytree/lib/jquery-ui.custom.js"></script>
   <script src="/steach/resources/fancytree/src/jquery-ui-dependencies/jquery.fancytree.ui-deps.js"></script>
@@ -1163,29 +1163,85 @@ var source = [
             var files = e.originalEvent.dataTransfer.files;
             console.log(e.originalEvent.dataTransfer.files[0].path)
             console.log(files)
+            
+            if(pathData == undefined){
+    			pathData = 'C:\\drive\\<c:out value='${user.id}'/>'
+    		}
+    		if(nPath != 'C:\\drive\\<c:out value='${user.id}'/>' ){
+    		pathData = nPath;
+     		}
+    		console.log("업로드 클릭태그",clickToLazy);
+    		console.log("들어가는 경로",pathData);
+    		var fd = new FormData();
+    	 	// 현재 페이지의 path경로 가져올거야
+    	 	fd.append("path" , pathData);
+    		for (var i = 0 ; i< files.length; i++){
+    			fd.append("attach", files[i]);
+    		}//for
+    		
+    		$.ajax({
+    			url : '<c:url value="/drive/fileUpload.do"/>',
+    			data : fd,
+    			type : "POST",
+    			// fileupload 를 ajax로 전송하기 위한 설정
+    			// true 로 설정시 enctype = application/x-www-form-urlencoded 으로 설정되므로
+    			// enctype = multipart/form-data 로 하기위해서 하는 설정 false
+    			processData : false,
+    			contentType : false,
+    		}).done(function(result){
+    			var node  = $("#tree").fancytree("getActiveNode");
+    	    	if (!node) {
+    	    		node = clickToLazy;
+    	    		console.log("clilckToLazy",node);
+    	    	}
+    	    	if(node == undefined) {
+    	    		node = $("#tree").fancytree("getRootNode").children[0]
+    				console.log("getRootNode",node);
+    	    	}
+    	    	
+    			for(var i =0 ; i < result.length ; i++){
+    	    	node.addChildren({
+    	            title : result[i].title,
+    	            folder : result[i].folder,
+    	            data : {
+    	            	path : nPath+"\\"+result[i].title
+    	            }
+    	         });
+    			
+    	    	if(node.key != "_1" && node.isLazy() == true ){
+    	    	node.load(true).done(function(){
+    	    		node.resetLazy();  
+    	    		node.setExpanded();
+    	    		});
+    	    	}
+    	    	
+    			EmojiAndFLengthLIST(result[i].list);
+    			}
+    		})
+            
             if(files != null){
                 if(files.length < 1){
                     alert("폴더 업로드 불가");
                     return;
                 }
-                selectFile(files)
+//                 selectFile(files)
             }else{
                 alert("ERROR");
             }
         });
     }
 		 
-		 function selectFile(fileObject){
-		        var files = null;
+// 		 function selectFile(fileObject){
+// 		        var files = null;
 		 
-		        if(fileObject != null){
-		            // 파일 Drag 이용하여 등록시
-		            files = fileObject;
-		        }else{
-		            // 직접 파일 등록시
-		            files = $('#multipaartFileList_' + fileIndex)[0].files;
-		        }
-		 }
+// 		        if(fileObject != null){
+// 		            // 파일 Drag 이용하여 등록시
+// 		            files = fileObject;
+// 		        }else{
+// 		            // 직접 파일 등록시
+// 		            files = $('#multipaartFileList_' + fileIndex)[0].files;
+// 		        }
+// 		 }
 
 		 // 앱 아이콘 클릭시 메인으로 이동
 		 function app() {
@@ -1218,7 +1274,8 @@ var source = [
 	    	 		 switch(e.folder){
 		 				case true : emoji='emoji fas fa-folder fa-lg';
 		 				break;
-		 				case false : 
+		 				case false :
+		 					console.log(e.path);
 		 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
 		 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
 		 					if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png') {emoji = 'img'; choose = e.zzz.path}
