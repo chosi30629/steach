@@ -146,12 +146,12 @@ public class DriveController {
 	public List<Map<String, Object>> fileUpload(FileVO vo) throws IllegalStateException, IOException {
 		System.out.println(vo.getPath());
 		List<Map<String,Object>> list = new ArrayList<>();
-		Map<String,Object> fmap = new HashMap<>();
 		String path = vo.getPath();
 		System.out.println("path예요" + path);
 		File f =new File(path);
 		
 		for(MultipartFile file : vo.getAttach()) {
+			Map<String,Object> fmap = new HashMap<>();
 			if(file.isEmpty() == true) continue;
 			
 			System.out.println("올린 파일 이름 : " + file.getOriginalFilename());

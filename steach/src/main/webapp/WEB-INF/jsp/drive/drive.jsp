@@ -4,6 +4,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="apple-touch-icon" sizes="180x180" href="/steach/resources/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/steach/resources/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/steach/resources/favicon/favicon-16x16.png">
+<link rel="manifest" href="/steach/resources/favicon/site.webmanifest">
+<link rel="mask-icon" href="/steach/resources/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <title>Steach</title>
   <script src="/steach/resources/fancytree/lib/jquery.js"></script>
@@ -26,12 +33,9 @@
   <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
   <link rel="stylesheet" href="/steach/resources/css/drive/drive.css">
 
-
 </head>
 
 <body>
-	
-			
     <div class="realheader">
    		<div class="outheader">
        		<div class="imgheader">
@@ -313,6 +317,7 @@
 	    		node = $("#tree").fancytree("getRootNode").children[0]
 				console.log("getRootNode",node);
 	    	}
+	    	
 	    	
 	    	
 			for(var i =0 ; i < result.length ; i++){
@@ -994,7 +999,7 @@ var source = [
 				 					break;
 				 				}
 					 		 
-					 $('tbody').append('<tr path-data ="'+e.path+'" id="'+keyPath+'">' 
+					 $('tbody').append('<tr class="ui-widget-content" path-data ="'+e.path+'" id="'+keyPath+'">' 
 			    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="">'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
 			    		        +  '<td class="date" class="text-center">'+e.lastModified+'</td>'
@@ -1192,14 +1197,16 @@ var source = [
     			var node  = $("#tree").fancytree("getActiveNode");
     	    	if (!node) {
     	    		node = clickToLazy;
-    	    		console.log("clilckToLazy",node);
+//     	    		console.log("clilckToLazy",node);
     	    	}
     	    	if(node == undefined) {
     	    		node = $("#tree").fancytree("getRootNode").children[0]
-    				console.log("getRootNode",node);
+//     				console.log("getRootNode",node);
     	    	}
     	    	
+    	    	console.log(result.length);
     			for(var i =0 ; i < result.length ; i++){
+    				console.log(result[i]);
     	    	node.addChildren({
     	            title : result[i].title,
     	            folder : result[i].folder,
@@ -1275,7 +1282,7 @@ var source = [
 		 				case true : emoji='emoji fas fa-folder fa-lg';
 		 				break;
 		 				case false :
-		 					console.log(e.path);
+// 		 					console.log(e.path);
 		 					var extention = e.path.substring(e.path.lastIndexOf('\\')+1, e.path.length); // path마지막 부분 자르기 (타이틀)
 		 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
 		 					if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png') {emoji = 'img'; choose = e.zzz.path}
@@ -1295,7 +1302,7 @@ var source = [
 		    		        +  '<input type="hidden" class="eLine" value="'+choose+'">'
 		    		        +  '</tr>');
 	    	 		$('tbody').attr('data-path',  result[0].path.substring(0, result[0].path.lastIndexOf('\\')) )
-	    	 		console.log("ddddd",result[0].path.substring(0, result[0].path.lastIndexOf('\\')));
+// 	    	 		console.log("ddddd",result[0].path.substring(0, result[0].path.lastIndexOf('\\')));
 			 }//end for
 			 
 		 }// end function EmojiAndFLengthLIST
@@ -1314,7 +1321,7 @@ var source = [
 				 download($(this).parents().find('#fileContent')[0].textContent, $(this).parents().find(".modal-title")[0].textContent , "text/plain");
 			 }
 		 })
-		 
+		
 </script>
 </body>
 </html>
