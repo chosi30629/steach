@@ -955,9 +955,9 @@
         // 채팅을 위한 웹소켓
        	var ws;
 		$(document).ready(function() {
-			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
+// 			ws = new WebSocket('wss://192.168.0.82:8443/steach/chat.do');
 // 			ws = new WebSocket('wss://172.30.1.54:8443/steach/chat.do');
-// 			ws = new WebSocket('wss://192.168.1.126:8443/steach/chat.do');
+			ws = new WebSocket('wss://192.168.1.122:8443/steach/chat.do');
 			
 			// 그룹 입장 시
 			ws.onopen = function() {
@@ -1180,7 +1180,7 @@
         // 조원 이미지 클릭 시 조원 정보 툴팁 컨트롤
         $('.member-list').popover('hide');
         
-        // 
+        // 드라이브 연동 파일 업로드
         function saveFileDrive(data) {
         	var modalId = $("li[data-index='" + data.cardNo + "']").attr("data-target").substring(1);
         	var modal = $("div[id='" + modalId + "']");

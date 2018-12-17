@@ -118,6 +118,16 @@
 			var addCounselingTitle = $(this).parents(".counselingContent").siblings(".counselingTitle").find(".modal-title").find(".writeform-counseling-title").val();
 			var addCounselingContent = $(this).parents(".write-btn-div").siblings(".counselinContent-div").find(".writeform-counseling-content").val();
 			
+			if(addCounselingTitle == "") {
+				$(this).parents(".counselingContent").siblings(".counselingTitle").find(".modal-title").find(".writeform-counseling-title").focus();
+				return;
+			}
+			
+			if(addCounselingContent == "") {
+				$(this).parents(".write-btn-div").siblings(".counselinContent-div").find(".writeform-counseling-content").focus();
+				return;
+			}
+			
 			$.ajax({
 				url: "/steach/class/member/counseling/writeCounseling.do",
 				data: {"classNo": studentClassNo, "studentId": studentId, "counselingWriter": id, "counselingTitle": addCounselingTitle, "counselingContent": addCounselingContent}
@@ -197,6 +207,16 @@
     		var modifyNo = $(this).attr("data-index");
 			var modifyTitle = $(this).parents(".panel-collapse").siblings(".panel-heading").find(".panel-title").find(".accordion-toggle").find(".title-update-form").val();
 			var modfiyContent = $(this).parents(".panel-body").find(".content-update-form").val();
+			
+			if(modifyTitle == "") {
+				$(this).parents(".panel-collapse").siblings(".panel-heading").find(".panel-title").find(".accordion-toggle").find(".title-update-form").focus();
+				return;
+			}
+			
+			if(modfiyContent == "") {
+				$(this).parents(".panel-body").find(".content-update-form").focus();
+				return;
+			}
 			
 			$(this).parents(".panel-collapse").siblings(".panel-heading").find(".panel-title").find(".accordion-toggle").find(".counseling-date-title").text(modifyTitle);
 			$(this).parents(".panel-body").find(".counseling-date-content").text(modfiyContent);

@@ -343,7 +343,7 @@ public class GroupController {
 		for(MultipartFile uFile : uploadFile) {
 			if(uFile.isEmpty() == true) return null;
 			
-			// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+			// C:/drive 밑에 날짜별 폴더생성을 통한 이미지 저장
 			String uploadPath = "C:/drive";
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 			String datePath = sdf.format(new Date());
@@ -377,7 +377,7 @@ public class GroupController {
 	public List<GroupFile> cardDriveFileUpload(GroupFile groupFile) throws Exception {	
 			System.out.println("들어옴");
 			System.out.println(groupFile);
-			// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+			// C:/drive 밑에 날짜별 폴더생성을 통한 이미지 저장
 			String uploadPath = "C:/drive";
 			SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 			String datePath = sdf.format(new Date());
@@ -448,7 +448,7 @@ public class GroupController {
 	@RequestMapping("modifyGroupBg.do")
 	@ResponseBody
 	public String modifyGroupBg(MultipartFile uploadFile, int groupNo) {
-		// C:/app/upload 밑에 날짜별 폴더생성을 통한 이미지 저장
+		// C:/drive 밑에 날짜별 폴더생성을 통한 이미지 저장
 		String uploadPath = "C:/drive";
 		SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd/HH");
 		String datePath = sdf.format(new Date());
