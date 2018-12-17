@@ -6,7 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>STEACH</title>
+<!-- favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/steach/resources/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/steach/resources/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/steach/resources/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/steach/resources/favicon/site.webmanifest">
+	<link rel="mask-icon" href="/steach/resources/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
     		integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -19,226 +27,239 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-        <div class="navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="pull-left home"><a href="/steach/main/main.do"><i class="fas fa-home"></i></a></li>
-                <li class="pull-left myClassName"><a href="#">STEACH</a></li>
-                <li class="pull-right dropdown myNotification">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
-                    <ul class="dropdown-menu myNotificationMenu">
-                        <li><a href="#">마이페이지</a></li>
-                        <li class="divider"></li>
-                        <li><a href='<c:url value="/drive/drive.do"/>'>마이드라이브</a></li>
-                        <li class="divider"></li>
-                        <li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
-                    </ul>
-                </li>
-                <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
-                <!-- <li class="pull-right dropdown add">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
-                    <ul class="dropdown-menu addmenu">
-                        <li><a href="#" id="joinclass" data-toggle="modal" data-target="joincodeinput">수업 참여하기</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#" id="addclass" data-toggle="modal">수업 만들기</a></li>
-                    </ul>
-                </li> -->
-            </ul>
-        </div>
-    </nav>
-    <div class="container" style="margin-top: 100px">
-        <!-- member_basic_info -->
-        <h3>MyPage</h3>
-        <div class="member_basic_info">
-
-            <div id="content" class="section_home">
-                <div class="column">
-
-                    <!-- 프로필 설정 -->
-                    <div class="sh_group">
-                        <div class="sh_header">
-                            <h2><i class="fas fa-user"></i> 프로필</h2>
-                        </div>
-                        <div class="sh_content">
-                            <dl class="sh_lst">
-                                <dt class="blind">프로필 사진</dt>
-                                <dd class="pic_desc">
-                                    <a href="#">
-                                    <c:choose>
-		                            	<c:when test="${empty mypage.profile}">
-	        	                            <img id="profile" class="media-object" src="/steach/resources/images/main/profile.jpg" alt="프로필"/>
-	    	                        	</c:when>
-		                            	<c:otherwise>
-	        	                            <img id="profile" class="media-object" src="${mypage.profilePath}" alt="프로필"/>
-	    	                        	</c:otherwise>
-    	                        	</c:choose>
-                                        <!-- <img id="profile" class="media-object" src="../profile.jpg" alt="프로필" /> -->
-                                    </a>
-                                    <div id="drop">
-
-                                    </div>
-                                </dd>
-                                <dt class="blind">&nbsp;</dt>
-                                <dd class="intro_desc">&nbsp;</dd>
-                                <dt class="nic_tit">이름</dt>
-                                <dd class="nic_desc">${mypage.name}</dd>
-                            </dl>
-                        </div>
-                        <br>
-                        <div class="fileBox text-center">
-                            <label for="uploadBtn" class="btn_file">프로필 사진 수정</label>
-                            <input type="file" name="uploadFile" id="uploadBtn" class="uploadBtn" />
-                        </div>
-                    </div>
-                    <br>
-                    <!-- 강의중인 클래스 -->
-                    <div class="sh_group">
-                        <div class="sh_header">
-                            <h2><i class="fas fa-book-reader"></i> 강의중인 클래스</h2>
-                        </div>
-                        <div class="sh_content">
-                                <c:choose>
-	                                <c:when test="${empty teaching}">
-	                                	<p class="contxt">현재 강의중인 클래스가 없습니다.</p>
-	                                </c:when>
-	                                <c:otherwise>
-	        	                    	<table class="table">
-		                                	<thead>
-		                                    	<tr>
-		                                    		<th>클래스명</th>
-		                                    		<th>과정기간</th>
-		                                		</tr>
-		                                	</thead>
-		                                	<tbody>
-		                                <c:forEach var="teach" items="${teaching }">
-											<tr>
-		                                        <td><a href="#" data-no="${teach.classNo}">${teach.className}</a></td>
-		                                        <td class="time">${teach.beginDate}　~　${teach.endDate}</td>
-		                                    </tr>
-										</c:forEach>
-										</tbody>
-										</table>
-    	                        	</c:otherwise>
-                                </c:choose>
-
-                        </div>
-                    
-                    </div>
-                </div>
-                <div class="column">
-                    <!-- 일반아이디 연락처 -->
-                    <div class="sh_group ">
-                        <div class="sh_header">
-                            <h2><i class="fas fa-user"></i> 정보</h2>
-
-                        </div>
-                        <div class="sh_content">
-                            <dl class="sh_lst2">
-                                <dt>이메일아이디</dt>
-                                <dd>${mypage.id}</dd>
-                                <dt>비밀번호</dt>
-                                <dd>
-                                    <button class="btn btn-default btn-sm active" id="modipassbtn">수정</button>
-                                </dd>
-                                <dt>휴대전화</dt>
-                                <dd class="phonenum1">
-                                	<c:choose>
-		                            	<c:when test="${mypage.phone eq null}">
-	        	                        -　<button class="btn btn-default btn-sm active" id="modiphonebtn">등록</button></dd>
-	    	                        	</c:when>
-		                            	<c:otherwise>
-	        	                        ${mypage.phone}　<button class="btn btn-default btn-sm active" id="modiphonebtn">수정</button></dd>
-	    	                        	</c:otherwise>
-    	                        	</c:choose>
-                                <dd class="phonenum2" style="display: none">
-                                	<input type="text" class="inputphone" id="modiphonenum" placeholder="번호를 입력하세요">
-                                	<c:choose>
-		                            	<c:when test="${mypage.phone eq null}">
-                                        <button class="btn btn-default btn-xs active" id="modiphonecomplete">등록</button>
-                                        </c:when>
-                                        <c:otherwise>
-	        	                        <button class="btn btn-default btn-xs active" id="modiphonecomplete">수정</button>
-	    	                        	</c:otherwise>
-	    	                        </c:choose>
-                                        <button class="btn btn-default btn-xs" id="modiphonecanclebtn">취소</button></dd>
-                                <dt>주소</dt>
-                                <dd class="addr1">
-                                <c:choose>
-                                	<c:when test="${mypage.addr eq null}">
-                                	-　<button class="btn btn-default btn-sm active" id="modiaddrbtn">등록</button></dd>
-                                	</c:when>
-                                	<c:otherwise>
-                                	${mypage.addr}　<button class="btn btn-default btn-sm active" id="modiaddrbtn">수정</button></dd>
-                                	</c:otherwise>
-                                </c:choose>
-                                
-                                <dd class="addr2" style="display: none">
-                                	<input type="text" class="inputaddr" id="modiaddr" placeholder="지역을 입력해주세요">
-                                	<c:choose>
-		                            	<c:when test="${mypage.addr eq null}">
-                                        <button class="btn btn-default btn-xs active" id="modiaddrcomplete">등록</button>
-                                        </c:when>
-                                        <c:otherwise>
-	        	                        <button class="btn btn-default btn-xs active" id="modiaddrcomplete">수정</button>
-	    	                        	</c:otherwise>
-	    	                        </c:choose>
-                                    <button class="btn btn-default btn-xs" id="modiaddrcanclebtn">취소</button></dd>
-                            </dl>
-                        </div>
-                        <!-- <p class="btn_area_btm"><a href="/user2/help/changeUserInfo.nhn?menu=nid&amp;lang=ko_KR" onclick="clickcr(this,'imn.cntmodify','','',event);" class="btn_model"><b class="btn2">수정</b></a></p> -->
-                    </div>
-                    <br>
-                    <div class="sh_group">
-                            <div class="sh_header">
-                                <h2><i class="fas fa-book-reader"></i> 수강중인 클래스</h2>
-                            </div>
-                            <div class="sh_content">
-                            	<c:choose>
-	                                <c:when test="${empty studying }">
-	                                	<p class="contxt">현재 수강중인 클래스가 없습니다.</p>
-			                        	
-	                                </c:when>
-	                                <c:otherwise>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li class="pull-left home"><a href="/steach/main/main.do"><i class="fas fa-home"></i></a></li>
+			<li class="pull-left myClassName"><a href="#">STEACH</a></li>
+			<li class="pull-right dropdown myNotification"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user"></i></a>
+				<ul class="dropdown-menu myNotificationMenu">
+					<li><a href="#">마이페이지</a></li>
+					<li class="divider"></li>
+					<li><a href='<c:url value="/drive/drive.do"/>'>마이드라이브</a></li>
+					<li class="divider"></li>
+					<li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
+				</ul></li>
+			<li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
+		</ul>
+	</div>
+	</nav>
+	<div class="container" style="margin-top: 100px">
+		<h3>MyPage</h3>
+		<div class="member_basic_info">
+			<div id="content" class="section_home">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="sh_group" style="height: 300px">
+								<div class="sh_header">
+									<h2>
+										<i class="fas fa-user"></i> 프로필
+									</h2>
+								</div>
+								<div class="sh_content">
+									<div id="drop" style="float: left; width: 40%; height: 250px;">
+										<a href="#" style="margin: auto; width: 180px; height: 180px">
+											<c:choose>
+												<c:when test="${empty mypage.profile}">
+													<img id="profile" class="media-object"
+														src="/steach/resources/images/main/profile.jpg" alt="프로필"
+														style="margin: auto; width: 180px; height: 180px" />
+												</c:when>
+												<c:otherwise>
+													<img id="profile" class="media-object"
+														src="${mypage.profilePath}" alt="프로필"
+														style="margin: auto; width: 170px; height: 170px" />
+												</c:otherwise>
+											</c:choose>
+										</a>
+										<div class="fileBox" style="margin: auto; text-align: center">
+											<label for="uploadBtn" class="btn_file">프로필 사진 수정</label>
+											<input type="file" name="uploadFile" id="uploadBtn" class="uploadBtn" />
+										</div>
+									</div>
+									<div id="profilecontent"
+										style="padding-top: 20px; float: right; width: 60%; height: 250px;">
 										<table class="table">
-		                                	<thead>
-		                                    	<tr>
-		                                    		<th>클래스명</th>
-		                                    		<th>과정기간</th>
-		                                		</tr>
-		                                	</thead>
-		                                	<tbody>
-		                                <c:forEach var="study" items="${studying }">
 											<tr>
-		                                        <td><a href="#" data-no="${study.classNo}">${study.className}</a></td>
-		                                        <td class="time">${study.beginDate}　~　${study.endDate}</td>
-		                                    </tr>
-										</c:forEach>
-										</tbody>
+												<th>이름</th>
+												<td>${mypage.name}</td>
+											</tr>
+											<tr>
+												<td></td>
+											</tr>
+											<tr>
+												<th colspan="2">자기소개</th>
+											</tr>
+											<tr style="display: none">
+												<td colspan="2"><textarea style="width: 100%"></textarea>
+													<button class="btn btn-default btn-sm">수정</button>
+													<button class="btn btn-default btn-sm">취소</button></td>
+											</tr>
+											<tr>
+												<td colspan="2"><textarea
+														style="width: 100%; border: 0px">안녕하세요</textarea>
+													<div style="float: right; padding-top: 5px;">
+														<button class="btn btn-default btn-sm">수정</button>
+														<button class="btn btn-default btn-sm">취소</button>
+													</div></td>
+											</tr>
 										</table>
-    	                        	</c:otherwise>
-                                </c:choose>
-                            </div>
-                        
-                        </div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="sh_group" style="height: 300px">
+								<div class="sh_header">
+									<h2>
+										<i class="fas fa-user"></i> 프로필
+									</h2>
+								</div>
+								<div class="sh_content">
+									<div id="profilecontent">
+										<table class="table">
+											<tr>
+												<th>이메일아이디</th>
+												<td>${mypage.id}</td>
+											</tr>
+											<tr>
+												<th>비밀번호</th>
+												<td>
+													<button class="btn btn-default btn-sm active" id="modipassbtn">수정</button>
+												</td>
+											</tr>
+											<tr>
+												<th>휴대전화</th>
+												<td class="phonenum1">
+												<c:choose>
+													<c:when test="${mypage.phone eq null}">
+	        	                        			-　<button class="btn btn-default btn-sm active" id="modiphonebtn">등록</button></td>
+												</c:when>
+												<c:otherwise>
+	        	                        		${mypage.phone}　<button class="btn btn-default btn-sm active" id="modiphonebtn">수정</button></td>
+												</c:otherwise>
+												</c:choose>
+												<td class="phonenum2" style="display: none">
+												<input type="text" class="inputphone" id="modiphonenum" placeholder="번호를 입력하세요"> 
+												<c:choose>
+													<c:when test="${mypage.phone eq null}">
+														<button class="btn btn-default btn-xs active" id="modiphonecomplete">등록</button>
+													</c:when>
+													<c:otherwise>
+														<button class="btn btn-default btn-xs active" id="modiphonecomplete">수정</button>
+													</c:otherwise>
+													</c:choose>
+													<button class="btn btn-default btn-xs" id="modiphonecanclebtn">취소</button></td>
+											</tr>
+											<tr>
+												<th>주소</th>
+												<td class="addr1">
+												<c:choose>
+													<c:when test="${mypage.addr eq null}">
+                                					-　<button class="btn btn-default btn-sm active" id="modiaddrbtn">등록</button></td>
+												</c:when>
+												<c:otherwise>
+                                				${mypage.addr}　<button class="btn btn-default btn-sm active" id="modiaddrbtn">수정</button></td>
+												</c:otherwise>
+												</c:choose>
+												<td class="addr2" style="display: none">
+													<input type="text" class="inputaddr" id="modiaddr"placeholder="지역을 입력해주세요"> 
+													<c:choose>
+														<c:when test="${mypage.addr eq null}">
+															<button class="btn btn-default btn-xs active" id="modiaddrcomplete">등록</button>
+														</c:when>
+														<c:otherwise>
+															<button class="btn btn-default btn-xs active" id="modiaddrcomplete">수정</button>
+														</c:otherwise>
+													</c:choose>
+													<button class="btn btn-default btn-xs" id="modiaddrcanclebtn">취소</button></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="sh_group">
+								<div class="sh_header">
+									<h2>
+										<i class="fas fa-book-reader"></i> 강의중인 클래스
+									</h2>
+								</div>
+								<div class="sh_content">
+									<c:choose>
+										<c:when test="${empty teaching}">
+											<p class="contxt">현재 강의중인 클래스가 없습니다.</p>
+										</c:when>
+										<c:otherwise>
+											<table class="table">
+												<thead>
+													<tr>
+														<th>클래스명</th>
+														<th>과정기간</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="teach" items="${teaching }">
+														<tr>
+															<td><a href="#" data-no="${teach.classNo}">${teach.className}</a></td>
+															<td class="time">${teach.beginDate}~
+																${teach.endDate}</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="sh_group">
+								<div class="sh_header">
+									<h2>
+										<i class="fas fa-book-reader"></i> 수강중인 클래스
+									</h2>
+								</div>
+								<div class="sh_content">
+									<c:choose>
+										<c:when test="${empty studying }">
+											<p class="contxt">현재 수강중인 클래스가 없습니다.</p>
 
-                </div>
+										</c:when>
+										<c:otherwise>
+											<table class="table">
+												<thead>
+													<tr>
+														<th>클래스명</th>
+														<th>과정기간</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="study" items="${studying }">
+														<tr>
+															<td><a href="#" data-no="${study.classNo}">${study.className}</a></td>
+															<td class="time">${study.beginDate}~
+																${study.endDate}</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<!--                 <div class="resize-triggers">
-                    <div class="expand-trigger">
-                        <div style="width: 100px; height: 50px;"></div>
-                    </div>
-                    <div class="contract-trigger"></div>
-                </div> -->
-            </div>
-
-            
-
-
-        </div>
-        <!-- //member_basic_info -->
-    </div>
-
-    <!-- Modal -->
+	<!-- Modal -->
     <div class="modal modal-center fade" id="modipassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-center" role="document">

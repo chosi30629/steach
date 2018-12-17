@@ -7,14 +7,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Class MainPage</title>
 
-
-
-
 <!-- header import -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 
 <!-- css -->
-
 <link href="/steach/resources/css/class/attend/attend.css"
 	rel="stylesheet" />
 
@@ -31,10 +27,9 @@
 
 
 </head>
-<!-- style= "height: 100vh; overflow: hidden;" -->
 <body>
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row" style="background-color: #eee">
 			<div class="col-md-8 col-md-offset-2">
 				<div class="accordion" role="tablist">
 					<div class="card">
@@ -44,21 +39,21 @@
 							</div>
 						</div>
 						<div id="collapseOne" role="tabpanel" class="collapse in">
-							<div class="card-body">
+							<div class="card-body" style="background-color: white">
 								<div id="kCalendar"></div>
+								<div style="width: 90%; margin: auto">
+									<div id="chartarea">
+									<canvas id="line-chart"></canvas>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div style="width: 60%; margin: auto">
-				<div id="chartarea">
-				<canvas id="line-chart"></canvas>
-				</div>
-			</div>
+			
 		</div>
 	</div>
-
 
 
 	<!-- Modal -->
@@ -235,10 +230,7 @@
         $(".attendContent").click(function(){
         
 		var tttt = $(this).attr("data-date")
-		console.log(tttt)
 		$("#dailyattTitle").text(tttt +"  출석부")
-// 		console.log("teacher여부확인id"+ userid)
-// 		console.log("teacher여부확인master"+ master)
 		
 		if (userid==master) {
 			console.log("강사다")
@@ -295,7 +287,6 @@
 		})
 		}
 		else {
-// 			console.log("학생이다")
 			
 			$.ajax({
    				url: "/steach/class/attend/attendStudentContent.do",
@@ -322,12 +313,15 @@
 					dailyat = "결석"
 					break;
 				}
-//    				console.log("퇴실시간 : " + $.format.date(result.offTime, "HH:mm"))
-//    				console.log("퇴실시간2: " + result.offTime)
-   				if (!result.attendTime || !result.offTime) {
+
+   				if (!result.attendTime) {
    					atontime = "-"
-  					atofftime = "-"
-					} 
+   					atofftime = "-"
+					}
+   				else if (!result.offTime){
+   					atontime = $.format.date(result.attendTime, "HH:mm")
+   					atofftime = "-"
+   				}
    				else {
    					atontime = $.format.date(result.attendTime, "HH:mm")
 					atofftime = $.format.date(result.offTime, "HH:mm")
@@ -418,8 +412,6 @@
 		}
 	})
 	
-	
-	
     }
 
     kCalendar('kCalendar');
@@ -433,7 +425,6 @@
 				classNo:cno
 			}
 		}).done(function(result){
-			console.log(result)
 			var atdata = '';
 			for (var i = 0; i < result.length; i++) {
 				atdata = '<p class="teach">지각 '+result[i].attendLate+'</p><p class="teach">조퇴 '+result[i].attendEarly+'</p><p class="teach">결석 '+result[i].attendOff+'</p>'

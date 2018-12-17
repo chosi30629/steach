@@ -6,7 +6,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>STEACH</title>
+<!-- favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/steach/resources/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/steach/resources/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/steach/resources/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/steach/resources/favicon/site.webmanifest">
+	<link rel="mask-icon" href="/steach/resources/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -44,14 +52,19 @@
 					<li class="divider"></li>
 					<li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
 				</ul></li>
-			<li class="pull-right myInformation"><a href="#"><i
-					class="fas fa-bell"></i></a></li>
-			<li class="pull-right dropdown add"><a href="#"
-				class="dropdown-toggle" data-toggle="dropdown"><i
-					class="fas fa-plus"></i></a>
+			<li class="pull-right dropdown myInformation"><a href="#" class="notibtn"><i class="fas fa-bell"></i></a>
+<!-- 				<div class="notialert" style="width: 10px; height:10px; margin: -40px 0px 0px 38px; background-color: red; border-radius: 50px"></div>
+				<div id="myNoti" class="dropdown-content" style="right: -40px">
+					<ul>	
+					    <li>비트캠프 클래스 - 과제가 등록되었습니다.</li>
+					    <li>비트캠프 클래스 - 안규영 학생이 과제를 제출하였습니다.</li>
+					    <li>Contact</li>
+				    </ul>
+				 </div> -->
+			</li>
+			<li class="pull-right dropdown add"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
 				<ul class="dropdown-menu addmenu">
-					<li><a href="#" id="joinclass" data-toggle="modal"
-						data-target="joincodeinput">수업 참여하기</a></li>
+					<li><a href="#" id="joinclass" data-toggle="modal" data-target="joincodeinput">수업 참여하기</a></li>
 					<li class="divider"></li>
 					<li><a id="addclass" data-toggle="modal">수업 만들기</a></li>
 				</ul></li>
@@ -73,12 +86,7 @@
 								<p>${teach.beginDate}~${teach.endDate}</p>
 							</div>
 							<div class="card--details">
-								<ul>
-									<li>과제 - 스프링프레임워크</li>
-									<li>aaa</li>
-									<li>aaa</li>
-									<li>aaa</li>
-								</ul>
+								
 							</div>
 						</div>
 					</li>
@@ -103,7 +111,7 @@
 										<p>${study.beginDate}~ ${study.endDate}</p>
 									</div>
 									<div class="card--details">
-										<table>
+<!-- 										<table>
 											<tr>
 												<td></td>
 												<td></td>
@@ -112,7 +120,7 @@
 												<td></td>
 												<td></td>
 											</tr>
-										</table>
+										</table> -->
 									</div>
 								</div>
 							</li>
@@ -162,7 +170,7 @@
 					<form id="createclassForm" method="post">
 						<div class="form-group">
 							<label for="usrname"><i class="fas fa-book"></i> 클래스 이름</label> <input
-								type="text" class="form-control" name="className" id="usrname"
+								type="text" class="form-control" name="className" id="clname"
 								placeholder="클래스 이름">
 						</div>
 						<div class="form-group">
@@ -218,6 +226,12 @@
 	}, function() {
 		$(this).find('.dropdown-menu').stop(true, true).delay(10).fadeOut(200);
 	});
+	
+	// 알림창
+	$(".myInformation").click(function(){
+		$("#myNoti").toggle();
+	})
+
 
 	$(document).ready(function() {
 		$("#joinclass").on("click", function() {
@@ -226,6 +240,7 @@
 			$("#joincodeinput").modal('toggle')
 		});
 		$("#addclass").on("click", function() {
+			$("#clname, #subtitle, #datepicker1, #datepicker2, #timepicker1, #timepicker2").val("")
 			$("#createclass").modal('toggle')
 		});
 

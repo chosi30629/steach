@@ -4,7 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>STEACH</title>
+<!-- favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/steach/resources/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/steach/resources/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/steach/resources/favicon/favicon-16x16.png">
+	<link rel="manifest" href="/steach/resources/favicon/site.webmanifest">
+	<link rel="mask-icon" href="/steach/resources/favicon/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
 <link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' rel='stylesheet' />
   <link rel="stylesheet" href="/steach/resources/css/user/steach.css">
 <!--   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script> -->
@@ -192,7 +200,6 @@
     $("#findpassForm").submit(function(e){
     	e.preventDefault();
     	console.log($(this).serialize());
-    	console.log($(this))
     	var findpassname = $("#find-name").val()
     	var findpassid = $("#find-email").val()
     	
@@ -411,28 +418,29 @@
 	// 아이디 입력
 	$("#register-email").on("input", function() {
 		var id = $("#register-email").val();
-		
+		console.log(id)
 		var idReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 		
 		if(!idReg.test(id)) {
 			$("#ckIdMsg").html("<span style='color: red; line-height: 0px;'> 올바른 이메일 형식을 입력해주세요.</span>");
 			signup.idConfirm = 1;
-			console.log("1??" + signup.idConfirm)
+			//console.log("1??" + signup.idConfirm)
 			return false;
 		} else {
 			$("#ckIdMsg").html(
 					"<span style='color: green; line-height: 0px;'>사용 가능한 이메일입니다.　</span>"
 			);
 			signup.idConfirm = 0;
-			console.log("0???" + signup.idConfirm)
+			//console.log("0???" + signup.idConfirm)
 		}
         
 		$.ajax({
 			url: "/steach/user/checkId.do",
 			data: {id: id}
 		})
-		.done(function(check) {
-			if(check == "0") {
+		.done(function(checkid) {
+			console.log(checkid);
+			if(checkid == "0") {
 				$("#ckIdMsg").html("<span style='color: green; line-height: 0px;'>사용 가능한 아이디입니다.</span>");
 				signup.idConfirm = 0;
 			} else {

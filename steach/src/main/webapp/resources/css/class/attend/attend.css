@@ -4,7 +4,9 @@
 /* @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 * {font-family: 'Nanum Gothic', serif;} */
 
-/* #kCalendar { border: 1px solid black; text-align: center} */
+#kCalendar { 
+	padding-bottom: 20px
+}
 
 .accordion {
 	margin-bottom: 5px;
