@@ -7,9 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
-<title>Homework</title>
+<title>STEACH</title>
 <!-- header import -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 
@@ -23,7 +21,7 @@
 			<div class="col-md-8 col-md-offset-2">
 
 				<!-- subject title -->
-				<c:forEach var="board" items="${homework}">
+				<c:forEach var="board" items="${list}">
 					<div class="accordion-head">
 						<div class="title">
 							<span class="title-name">${board.lecture.subject}</span>
@@ -33,7 +31,7 @@
 
 					<div class="accordion" role="tablist">
 						<div class="card">
-							<div class="card-header" role="tab" data-toggle="collapse"
+							<div class="card-header" role="tab" data-toggle="collapse" aria-expanded="false" 
 								href="#collapse${board.boardNo}" id="heading${board.boardNo}">
 								<div class="subTitle">
 									<div class="row">
@@ -54,7 +52,7 @@
 									<div class="row">
 										<div class="col-md-10 col-md-offset-1">
 											<div class="submit-section">
-												<span>제출자 수</span> <span>${board.count}</span> <span>/</span>
+												<span>제출자</span> <span>${board.count}</span> <span>/</span>
 												<span>${board.memCnt}</span>
 												<c:forEach var="j" items="${board.homework}">
 													<c:if test="${board.boardNo==j.boardNo}">

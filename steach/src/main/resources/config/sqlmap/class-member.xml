@@ -9,8 +9,7 @@
 		<result column="p_no" property="pNo"/>
 		<result column="g_no" property="gNo"/>
 		<result column="id" property="id"/>
-		<result column="group_no" property="groupNo"/>
-		<result column="group_member_order" property="groupMemberOrder"/>
+		<result column="groupNo" property="groupNo"/>
 		<collection property="user" resultMap="userMap"/>
 	</resultMap>
 	
@@ -52,7 +51,7 @@
 		   and m.class_no=#{classNo}
 		 order by u.name -->
 		 
-		 select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,u.name,u.phone,u.addr,u.profile,u.profile_path,g.*
+		 select m.mem_no,m.class_no,m.p_no,m.g_no,m.id,u.name,u.phone,u.addr,u.profile,u.profile_path,g.group_sequence as groupNo
 		  from tb_class_member m
 		  left outer join (select g.group_sequence,m.group_member_id
 														from tb_class_group g, tb_class_group_member m

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>수업 페이지</title>
+<title>STEACH</title>
 <!-- header import -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 
@@ -1057,7 +1057,22 @@
 				data : formData
 			}).done(function(data){
 				if(data=="empty") alert("파일이 없습니다.");
-				if(data=="success") alert("성공!");
+				
+				Swal({
+					  title: "과제 제출이 완료되었습니다!",
+			 		  animation: false, 
+					  customClass: 'animated bounce',
+					  position:'center-center',
+	        		  type:'success',
+	        		  showConfirmbutton:false,
+	        		  timer:1500
+					});
+				$(".accordion-head").remove();
+				$(".accordion").remove();
+				list();
+				
+				
+				
 			}).fail(function(){
 				alert(2)
 			})

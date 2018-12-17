@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>자리배치 페이지</title>
+<title>STEACH</title>
 <!-- header import -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />  
 
@@ -84,8 +84,15 @@
 									class="app-tables-persona app-tables-persona-list tools-tables-left-guests-item">
 	
 									<span
-									class="app-tables-guest-name tools-tables-left-guests-name  parent ">${st.user.name}(${st.user.id})</span> <i
-									class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
+									class="app-tables-guest-name tools-tables-left-guests-name  parent ">
+									<c:if test="${st.groupNo ne 0}">
+									${st.groupNo}조 
+									</c:if> 
+									${st.user.name}(${st.user.id})
+									
+									</span> 
+									
+									<i class="app-tables-guest-icon icon-tools fright relative icon-tools-avatar-guest-adult-small list-draggable"></i>
 								</li>
 							</ul>
 						</c:forEach>
@@ -321,12 +328,7 @@
         }
         
         
-        
-        /* delete */
-       
-        $(document).on("click",".icon-tools-tables-trash",function(){
-        	alert("a");
-        });
+      
         
         
         function seat2(tName){
@@ -477,8 +479,8 @@
            
 	                $(this).append(html);
 	              	$(this).css({border:"none"}); 
-	               console.log($(this).children().size());
-	         
+	               //console.log($(this).children().size());
+	         		$(this).removeClass("ui-droppable");
 	               /*  $(ui.draggable).remove(); */
 	      
                  }
@@ -487,49 +489,38 @@
          }
 		
          /* table 삭제. */
-         $(document).on("click",".icon-tools-tables-trash-hover",function(e){
-        	 
-        	 
-        	 
-        	 
+         $(document).on("click",".icon-tools-tables-trash-hover",function(e){ 
         	 /* table 삭제 */
-        	 $(this).parents().parents()[1].remove();
+        	$(this).parents().parents()[1].remove();
          });
          
          /* table 수정. --미구현 ..  */
           $(document).on("click",".icon-tools-tables-edit-hover",function(e){
-        	 alert(2);
+        	 //alert(2);
          });
-         
-         
-         
-    
-         
+            
  	     var canvasData ="";
          /* capture */
          function saveImage(){
-       		$("#preview-modal").modal('show'); 	 	 
-		 
-		  html2canvas($(".app-tables-viewbox"), {
-		  	onrendered: function(canvas) {
-		   	$("#image").attr("src",canvas.toDataURL("image/png"));
-		  		canvasData = canvas.toDataURL("image/png");	
-		  	}			
+        	 /*capture 후 modal창에 출력하기. */
+        	 $("#preview-modal").modal('show'); 	 	 
+		  
+    		html2canvas(
+    				$(".app-tables-viewbox"), 
+    				{ onrendered: function(canvas) {
+					   	$("#image").attr("src",canvas.toDataURL("image/png"));
+				  		canvasData = canvas.toDataURL("image/png");	
+					}			
 		  });
 		}
          
         function doDownload(){
         	/*file download */
-        	download($("#image").attr("src"),"자리배치도.png","image/png");
-
-        	
+        	download($("#image").attr("src"),"자리배치도.png","image/png");        	
         }
+        /* base64 image server save. */
         function saveToServer(){   	
-        	console.log(canvasData);	
-        	//var seatData = $("#seatData").val(canvasData);
-     	
-        	//console.log($("#seatData").val());
-        	$.ajax({
+        		$.ajax({
         		url:"<c:url value='seatSetting.do'/>",
         		type:"POST",
   			  	dataType:"text",
@@ -545,9 +536,7 @@
         			showConfirmbutton:false,
         			timer:1500
         		});
-        	})
-        	
-        	
+        	})   	
         }
          
         

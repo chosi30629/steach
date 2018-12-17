@@ -3,7 +3,8 @@
     margin:0;
 }
 body{
-    background:#eee;
+    /* background:#eee; */
+    background:#CCC;
 }
 .bg-section{
     height:400px;
@@ -30,6 +31,7 @@ body{
 .seat-section{
 	height:800px;
 	background-size:cover;
+	margin: 10px;
 }
 .bg-button {
 	position: absolute;
@@ -44,17 +46,17 @@ body{
     margin:20px 20px;
 }
 .title{
-    background-color:navy;
-    height:35px;
+    background-color:rgb(0, 121, 191);
+    height:50px;
 }
 .title > a {
     display:inline-block;
-    font-size:1.2em;
+    font-size:2.0em;
     text-decoration: none;
     font-weight:bold;
     color:white;
     line-height: 1.43;
-    margin: 5px 10px;
+    margin: 5px 15px;
 }
 #calendar,.accordion{
     margin-top:20px;
@@ -64,6 +66,9 @@ body{
     border:1px solid #eee;
     box-shadow:1px 1px 1px grey;
     margin-bottom:100px;
+}
+.card-header{
+	cursor:pointer;
 }
 
 /* fullcalendar */
@@ -251,6 +256,9 @@ button, input {
   background: #f5f5f5;
 }
 #prev:hover,#next:hover,#lock:hover{
+	cursor:pointer;
+}
+td{
 	cursor:pointer;
 }
 

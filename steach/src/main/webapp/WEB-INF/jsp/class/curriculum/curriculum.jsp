@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Class MainPage</title>
+<title>STEACH</title>
 <!-- header import -->
 <c:import url="/WEB-INF/jsp/header/classHeader.jsp" />
 <!-- main css -->
@@ -116,8 +116,9 @@
 	</div>
 
 	<script>
+		/* color 선택 modal 색 적용하기 */
 		$(function(){
-			for(var i=0;i<$("#inputColor > option").length; i++){
+			for(let i=0;i<$("#inputColor > option").length; i++){
 				$("#inputColor > option:eq("+i+")").css({color:$("#inputColor > option:eq("+i+")").val()});
 			}		
 			
@@ -158,9 +159,9 @@
 				<div class="accordion" role="tablist">
 					<!-- calendar -->
 					<div class="card">
-						<div class="card-header" role="tab" id="headingOne">
-							<div class="title">
-								<a data-toggle="collapse" href="#collapseOne">수업계획표</a>
+						<div class="card-header" role="tab" id="headingOne" data-toggle="collapse" href="#collapseOne">
+							<div class="title" >
+								<a >수업계획표</a>
 							</div>
 						</div>
 
@@ -173,9 +174,9 @@
 					</div>
 
 					<div class="card">
-						<div class="card-header" role="tab" id="headingTwo">
+						<div class="card-header" role="tab" id="headingTwo" data-toggle="collapse" href="#collapseTwo">
 							<div class="title">
-								<a data-toggle="collapse" href="#collapseTwo">자리배치도</a>
+								<a >자리배치도</a>
 							</div>
 						</div>
 
@@ -271,7 +272,13 @@
     		url:"<c:url value='updateBG.do'/>",
     		data:{classNo,bgName}
     	}).done(function(){
-    		//alert(1)
+    		swal({
+    			position:'center-center',
+    			type:'success',
+    			title:'배너가 저장되었습니다.',
+    			showConfirmbutton:false,
+    			timer:1500
+    		});
     	}).fail(function(){
     		//alert(2)
     	}) 

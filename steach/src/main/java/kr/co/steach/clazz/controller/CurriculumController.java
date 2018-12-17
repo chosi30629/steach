@@ -95,7 +95,7 @@ public class CurriculumController {
 	public void seat(int classNo,Model model) {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
 		model.addAttribute("memberList",memberService.selectMemberByClassNo(classNo));
-		//System.out.println(memberService.selectMemberByClassNo(classNo));
+		System.out.println(memberService.selectMemberByClassNo(classNo));
 	}
 	
 	/* base64 문자열을 image로 저장하기  */

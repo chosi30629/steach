@@ -2,6 +2,7 @@ package kr.co.steach.clazz.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.steach.clazz.service.ClazzService;
+import kr.co.steach.clazz.service.CurriculumService;
 import kr.co.steach.clazz.service.LectureService;
 import kr.co.steach.repository.domain.BoardUploadFileVO;
+import kr.co.steach.repository.domain.ClassSchedule;
 import kr.co.steach.repository.domain.Clazz;
 import kr.co.steach.repository.domain.CounterVO;
 import kr.co.steach.repository.domain.Homework;
@@ -36,32 +39,12 @@ public class LectureController {
 	@Autowired
 	ClazzService classService;
 	
+	@Autowired
+	CurriculumService curriService;
+	
 	@RequestMapping("/lecture.do")
 	public void list(int classNo, Model model) {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
-		
-		
-		//model.addAttribute("list",service.selectBoardByClassNo(classNo));
-		//List<LectureBoard> list = service.selectBoardByClassNo(classNo);
-		//System.out.println(list);
-		
-		/* 주제 가져오기 */
-	/*	List<Lecture> subjectList = service.selectLectureByClassNo(classNo);
-		 주제별 데이터 가져오기 
-		List<LectureBoard> boardList = service.selectLectureBoardByClassNo(classNo);*/
-		
-		//System.out.println(boardList);
-		
-		//model.addAttribute("subjectList",service.selectLectureByClassNo(classNo));
-		//model.addAttribute("boardList",service.selectLectureBoardByClassNo(classNo));
-
-	//	model.addAttribute("list",service.selectLectureListByClassNo(classNo));
-		
-	
-/*		//test
-		model.addAttribute("classInfo",service.selectClassbyClassNo(classNo));
-		Clazz clz = service.selectClassbyClassNo(classNo);
-		System.out.println(clz);*/
 	}
 	
 	/* ajax List */
@@ -102,6 +85,34 @@ public class LectureController {
 	@ResponseBody
 	public String insertLectureBoard(LectureBoard lectureBoard,BoardUploadFileVO BUFV,List<MultipartFile> attach) {
 		service.insertLectureBoard(lectureBoard);	
+		
+	/*	System.out.println("lectureBoard::"+lectureBoard);
+		과제 등록시 calendar 추가하기 
+		if(lectureBoard.getpNo()==2) {
+			ClassSchedule classSchedule = new ClassSchedule();
+			
+			classSchedule.setClassNo(lectureBoard.getClassNo());
+			classSchedule.setAllDay(false);
+			classSchedule.setColor("purple");
+			
+			deadline formatting
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+			String formatDate = sdfDate.format(lectureBoard.getDeadline());
+			String formatTime =  sdfTime.format(lectureBoard.getDeadline());
+			
+			String deadline = formatDate+"T"+formatTime;
+			
+			classSchedule.setStart(deadline);
+			classSchedule.setTitle("과제");
+			classSchedule.setDescription(lectureBoard.getTitle());
+			
+			curriService.insertSchedule(classSchedule);
+			
+			
+		}*/
+		
+		
 		
 		/*드라이브 내 클래스번호 내 파일저장하기 */
 		int classNo = lectureBoard.getClassNo();
@@ -239,10 +250,10 @@ public class LectureController {
 	@RequestMapping("/homework.do")
 	public void hwList(int classNo, Model model) {		
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
-		model.addAttribute("homework",service.selectHomework(classNo));
+		model.addAttribute("list",service.selectHomework(classNo));
 		model.addAttribute("fileList",service.selectHomeworkFileByCNo(classNo));
-		
-		System.out.println("fileList:"+service.selectHomeworkFileByCNo(classNo));
+		System.out.println("homework"+service.selectHomework(classNo));
+		//System.out.println("fileList:"+service.selectHomeworkFileByCNo(classNo));
 	}
 
 
