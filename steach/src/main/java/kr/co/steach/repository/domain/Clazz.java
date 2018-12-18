@@ -23,4 +23,9 @@ public class Clazz {
 	private String seatName;        // 좌석배치 filename
 
 	private User user;
+	
+	
+	public String getClassName() {
+		return this.className.replace(".", "");
+	}
 }

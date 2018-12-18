@@ -39,4 +39,8 @@ public class LectureBoard {
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
 	}
+	
+	public String getTitle() {
+		return this.title.replace(".", "");
+	}
 }
