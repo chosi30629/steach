@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,124 +13,81 @@
 	<link rel="mask-icon" href="/steach/resources/favicon/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
-<!-- <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"> -->
-<link
-	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'
-	rel='stylesheet' />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/steach/resources/css/user/home.css">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' rel='stylesheet' />
+  <link rel="stylesheet" href="/steach/resources/css/user/steach.css">
+<!--   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
-<body class="welcome">
-	<span id="splash-overlay" class="splash"></span>
-	<span id="welcome" class="z-depth-4"></span>
-
-	<header class="navbar-fixed"> <nav class="row black darken-3">
-	<div class="col s12">
-		<div class="steach">
-			<h2 id="steachTitle" style="visibility: hidden">STEACH</h2>
-		</div>
-		<section class="typing">
-		<h2 id="writer"></h2>
-		</section>
-	</div>
-	</nav> </header>
-
-	<main class="valign-wrapper">
-		<div class="login" style="display:none"> 
-		<div class="scalable" style="height: 195px" id="login-scalable">
-			<form id="loginForm" method="post">
-				<input type="email" class="form-control" id="login-email" name="id"
-					placeholder="Email 아이디"> <input type="password"
-					class="form-control" id="login-password" name="password"
-					placeholder="비밀번호">
-				<button class="btn btn-primary btn-lg btn-block" id="login">로그인</button>
-			</form>
-			<div class="bottom">
-				<a href="#" id="register">회원가입</a> <a href="#" id="forgot">비밀번호
-					찾기</a>
-			</div>
-		</div>
-		<div class="scalable" style="height: 0px" id="register-scalable">
-			<form id="signupForm" method="post" enctype="multipart/form-data">
-				<input type="email" class="form-control" id="register-email"
-					name="id" placeholder="Email 아이디">
-				<p class="msg" id="ckIdMsg"></p>
-				<input type="text" class="form-control" id="register-name"
-					name="name" placeholder="이름">
-				<p class="msg" id="ckNameMsg"></p>
-				<div id="drop">
-					<a href="#"> <img id="profile" class="media-object"
-						src="/steach/resources/images/main/profile.jpg" alt="프로필" />
-					</a>
-				</div>
-				<br>
-				<div class="fileBox text-center">
-					<label for="uploadBtn" class="btn_file">프로필 사진 등록</label> <input
-						type="file" name="uploadFile" id="uploadBtn" class="uploadBtn" />
-				</div>
-				<input type="password" class="form-control" id="register-password"
-					name="password" placeholder="비밀번호">
-				<p class="msg" id="ckPassMsg"></p>
-				<input type="password" class="form-control"
-					id="register-passwordchk" name="passwordchk" placeholder="비밀번호 확인">
-				<p class="msg" id="ckPasschkMsg"></p>
-				<button class="btn btn-success btn-lg btn-block" id="signup">회원가입</button>
-			</form>
-			<div class="bottom">
-				<a href="#" class="signinlink">로그인</a>
-			</div>
-		</div>
-		<div class="scalable" style="height: 0px" id="findpass-scalable">
-			<form id="findpassForm" method="post">
-				<input type="text" class="form-control" name="name" id="find-name"
-					placeholder="이름"> <input type="text" class="form-control"
-					name="id" id="find-email" placeholder="Email 아이디">
-				<button class="btn btn-link btn-block" id="findpass">비밀번호
-					찾기</button>
-			</form>
-			<input type="password" class="form-control" id="curpassword"
-				placeholder="임시 비밀번호">
-			<p class="msg" id="cktempMsg"></p>
-			<form id="modipassForm" method="post">
-				<input type="password" class="form-control" name="password"
-					id="modipassword" placeholder="변경할 비밀번호">
-				<p class="msg" id="cktemppassMsg"></p>
-				<input type="password" class="form-control" id="modipasswordchk"
-					placeholder="변경할 비밀번호 확인">
-				<p class="msg" id="cktemppasschkMsg"></p>
-				<button class="btn btn-success btn-lg btn-block" id="changepass">비밀번호
-					변경</button>
-			</form>
-			<div class="bottom">
-				<a href="#" class="signinlink">로그인</a>
-			</div>
-		</div>
-	</div>
-		
-	</main>
-
-
-	<footer class="page-footer black darken-3">
-	<div class="footer-copyright black darken-3">
-		<div class="container">
-			<time datetime="{{ site.time | date: '%Y' }}">&copy; 2018
-			STEACH 안규영 | 김해동 | 박한준 | 조성일 </time>
-		</div>
-	</div>
-	</footer>
-	
-	
-
-
-
-	<script>
+<body>
+<div class="login">
+    <div class="scalable" style="height:195px" id="login-scalable">
+    <form id="loginForm" method="post">
+      <input type="email" class="form-control" id="login-email" name="id" placeholder="Email 아이디">
+      <input type="password" class="form-control" id="login-password" name="password" placeholder="비밀번호">
+      <button class="btn btn-primary btn-lg btn-block" id="login">로그인</button>
+      </form>
+      <div class="bottom">
+        <a href="#" id="register">회원가입</a>　　<a href="#" id="forgot">비밀번호 찾기</a>
+      </div>
+    </div>
+    <div class="scalable" style="height:0px" id="register-scalable">
+    	<form id="signupForm" method="post" enctype="multipart/form-data">
+      <input type="email" class="form-control" id="register-email" name="id" placeholder="Email 아이디">
+      <p class="msg" id="ckIdMsg"></p>
+      <input type="text" class="form-control" id="register-name" name="name" placeholder="이름">
+      <p class="msg" id="ckNameMsg"></p>
+      <div id="drop">
+        <a href="#">
+          <img id="profile" class="media-object" src="/steach/resources/images/main/profile.jpg" alt="프로필" />
+        </a>
+      </div>
+      <br>
+      <div class="fileBox text-center">
+        <label for="uploadBtn" class="btn_file">프로필 사진 등록</label>
+        <input type="file" name="uploadFile" id="uploadBtn" class="uploadBtn" />
+      </div>
+      <input type="password" class="form-control" id="register-password"  name="password" placeholder="비밀번호">
+      <p class="msg" id="ckPassMsg"></p>   
+      <input type="password" class="form-control" id="register-passwordchk" name="passwordchk" placeholder="비밀번호 확인">
+      <p class="msg" id="ckPasschkMsg"></p>   
+      <button class="btn btn-success btn-lg btn-block" id="signup">회원가입</button>
+      </form>
+      <div class="bottom">
+        <a href="#" class="signinlink">로그인</a>
+      </div>
+    </div>
+    <div class="scalable" style="height:0px" id="findpass-scalable">
+    <form id="findpassForm" method="post">
+      <input type="text" class="form-control" name="name" id="find-name" placeholder="이름">
+      <input type="text" class="form-control" name="id" id="find-email" placeholder="Email 아이디">
+      <button class="btn btn-link btn-block" id="findpass">비밀번호 찾기</button>
+      </form>
+      <input type="password" class="form-control" id="curpassword" placeholder="임시 비밀번호">
+      <p class="msg" id="cktempMsg"></p>
+      <form id="modipassForm" method="post">
+      <input type="password" class="form-control" name="password" id="modipassword" placeholder="변경할 비밀번호">
+      <p class="msg" id="cktemppassMsg"></p>
+      <input type="password" class="form-control" id="modipasswordchk" placeholder="변경할 비밀번호 확인">
+      <p class="msg" id="cktemppasschkMsg"></p>
+      <button class="btn btn-success btn-lg btn-block" id="changepass">비밀번호 변경</button>
+      </form>
+      <div class="bottom">
+        <a href="#" class="signinlink">로그인</a>
+      </div>
+    </div>
+  </div>
+  <script>
     $(document).ready(function () {
       $("#login").prop("disabled", false);
+//       $(".btn").click(function () {
+//         $(".btn").prop("disabled", true);
 
+//         setTimeout(function () {
+//           $(".btn").prop("disabled", false);
+//         }, 1000);
+//       });
 
       $("#register").click(function () {
         $("#login-scalable").height(0);
@@ -193,6 +150,7 @@
 			return false;
 		}
 		var formData = new FormData($("#signupForm")[0]);
+// 		console.log(formData)
 		$.ajax({
 			url:"/steach/user/signUp.do",
 			method : "POST",
@@ -242,7 +200,6 @@
     $("#findpassForm").submit(function(e){
     	e.preventDefault();
     	console.log($(this).serialize());
-    	console.log($(this))
     	var findpassname = $("#find-name").val()
     	var findpassid = $("#find-email").val()
     	
@@ -259,6 +216,7 @@
 				swal("입력하신 정보에 해당하는 아이디가 없습니다.", "error")
 				$("#find-name").focus();
 			} else {
+// 				console.log($(this).serialize())
 				$.ajax({
 		    		url:"/steach/login/sendMail.do",
 		    		data:{
@@ -270,7 +228,19 @@
 		    	})
 			}
 		})
-
+    	////////////////////////////////////////////////////
+    	
+    	
+//     	$.ajax({
+//     		url:"/steach/login/sendMail.do",
+//     		data:$(this).serialize()
+//     	}).done(function(){
+//     		swal('임시 비밀번호가 이메일로 전송되었습니다. \n비밀번호 변경을 진행해주세요','success');
+//     	}).fail(function(){
+//     		swal("입력하신 정보에 해당하는 아이디가 없습니다.", "error")
+//     		$("#find-name").focus();
+//     	})
+      	/* swal("임시 비밀번호가 등록된 메일로 전송되었습니다."); */
     });
     
  	// 임시비밀번호 확인
@@ -362,6 +332,10 @@
  		
  	})
     
+    
+    /* $("#changepass").click(function(){
+      swal("비밀번호가 변경되었습니다.","로그인화면에서 로그인해주세요.");
+    }); */
 
 
     // 확장자 제한
@@ -391,6 +365,26 @@
 
       fileReader.onload = function (e) {
         document.getElementById('profile').src = e.target.result;
+        // setTimeout(function () {
+        //   conf = confirm("수정하시겠습니까?");
+        //   if (conf == false) { location.href = "myPage.do"; return; }
+
+        //   var formData = new FormData();
+        //   var inputFile = $("input[name='uploadFile']")
+        //   var files = inputFile[0].files;
+        //   var id = $("#userId").val();
+        //   formData.append("uploadFile", files[0]);
+        //   $.ajax({
+        //     url: "/cocain/user/profileImg.do",
+        //     processData: false,
+        //     contentType: false,
+        //     data: formData,
+        //     type: "POST"
+        //   })
+        //     .done(function (result) {
+        //       location.href = "myPage.do";
+        //     });
+        // }, 10)
       }
     });
     // 파일 드래그 앤 드롭
@@ -413,32 +407,40 @@
 			passConfirm : "1",
 			passChkConfirm : "1",
 		}
+    
+//  var idConfirmSwich = 1;	
+// 	var passConfirmSwich = 1;	
+// 	var passCkConfirmSwich = 1;	
+// 	var nicknameConfirmSwich = 1;	
+// 	var emailConfirmSwich = 1;	
+// 	var emailKeyConfirmSwich = 1;	
 
 	// 아이디 입력
 	$("#register-email").on("input", function() {
 		var id = $("#register-email").val();
-		
+		console.log(id)
 		var idReg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 		
 		if(!idReg.test(id)) {
 			$("#ckIdMsg").html("<span style='color: red; line-height: 0px;'> 올바른 이메일 형식을 입력해주세요.</span>");
 			signup.idConfirm = 1;
-			console.log("1??" + signup.idConfirm)
+			//console.log("1??" + signup.idConfirm)
 			return false;
 		} else {
 			$("#ckIdMsg").html(
 					"<span style='color: green; line-height: 0px;'>사용 가능한 이메일입니다.　</span>"
 			);
 			signup.idConfirm = 0;
-			console.log("0???" + signup.idConfirm)
+			//console.log("0???" + signup.idConfirm)
 		}
         
 		$.ajax({
 			url: "/steach/user/checkId.do",
 			data: {id: id}
 		})
-		.done(function(check) {
-			if(check == "0") {
+		.done(function(checkid) {
+			console.log(checkid);
+			if(checkid == "0") {
 				$("#ckIdMsg").html("<span style='color: green; line-height: 0px;'>사용 가능한 아이디입니다.</span>");
 				signup.idConfirm = 0;
 			} else {
@@ -489,87 +491,6 @@
 		}
 	});
     
-	
-	
-	/* ui !! */
-	 $(function() {
-	var textOpts = ["    ","Welcome","STEACH"],
-		timeOut,
-		len = textOpts.length,
-		$writer = $('#writer'), 
-		currentValue = 0, charVal = 0,
-		cursor = '<span class="cursor">|</span>',
-		lengths = [];
-
-		$.each(textOpts, function( index, value ) {
-		     lengths.push( value.length );
-	  	});
-		
-		function typeAnimationIt() {
-			var humanize = Math.round(Math.random() * (200 - 30)) + 30;
-      humanize = 200
-			timeOut = setTimeout(function() {
-				charVal++;
-				var	txtLen = lengths[currentValue],
-					type = textOpts[currentValue].substring(0, charVal);
-				$writer.html(type + cursor);
-				typeAnimationIt();
-				if(charVal == txtLen) {
-					clearTimeout(timeOut);
-					if(currentValue < len - 1) {
-						setTimeout(function() {
-							typeAnimationDelete();
-						}, 1000);
-					}
-				}
-			}, humanize);
-		}
-
-
-
-		function typeAnimationDelete() {
-			var humanize = Math.round(Math.random() * (200 - 30)) + 30;
-			timeOut = setTimeout(function() {
-				charVal--;
-				var	type = textOpts[currentValue].substring(0, charVal);
-				$writer.html(type + cursor);
-				typeAnimationDelete();
-				if(charVal == 0) {
-					clearTimeout(timeOut);
-					currentValue++;
-					setTimeout(function() {
-						typeAnimationIt();
-					}, 1000);
-				}
-			}, humanize);
-		}
-
-		typeAnimationIt();
-});
-      
-
-
-	$(function(){
-        setTimeout(function(){
-          $(".typing").css({background:"none"})
-          $("#writer").css({"fontSize":"30px",transform:"translate(-846px, -144px)",transition:"2s"});
-          
-      
-        },10000) 
-  
-        
-         setTimeout(function(){
-          $("#writer").css({"visibility":"hidden"});
-        
-        },10600)  
-      
-        setTimeout(function(){
-          $("#steachTitle").css({"visibility":"visible"});
-  		  $(".login").fadeIn(500);
-        },12300) 
-
-      })
-	
     
   </script>
 </body>
