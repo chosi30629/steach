@@ -46,7 +46,7 @@
       
       	<form class="formrow">
 	        <div class="fff" >
-          		<button class="searchbtn">
+          		<button class="searchbtn" onclick="search()" type="button">
       				<i class="fas fa-search"></i>
 	          	</button>
 	          <input type="search" placeholder="드라이브 검색">
@@ -861,6 +861,11 @@ var source = [
       loadChildren: function (event, data) {
         // update node and parent counters after lazy loading
     		            data.node.updateCounters();
+    		                data.node.visit(function(subNode){
+    		                    if( subNode.isUndefined() && subNode.isExpanded() ) {
+    		                        subNode.load();
+    		                    }
+    		                });
       },
       keydown: function(event, data){
           switch( $.ui.fancytree.eventToString(data.originalEvent) ) {
@@ -1172,7 +1177,7 @@ var source = [
             if(pathData == undefined){
     			pathData = 'C:\\drive\\<c:out value='${user.id}'/>'
     		}
-    		if(nPath != 'C:\\drive\\<c:out value='${user.id}'/>' ){
+    		if(pathData != 'C:\\drive\\<c:out value='${user.id}'/>' ){
     		pathData = nPath;
      		}
     		console.log("업로드 클릭태그",clickToLazy);
@@ -1322,6 +1327,74 @@ var source = [
 			 }
 		 })
 		
+		 
+		 // 검색기능
+		 //인풋박스에서 앤터치면 검색기능 시작
+		 $('input[type="search"]').keyup(function(e){
+			 if(e.which == 13){
+				 search();
+			 }
+		 })
+		 
+		 function search(){
+		 	$("#tree").fancytree("getTree").expandAll();
+			
+		 		setTimeout(function(){
+		 		var tree = $.ui.fancytree.getTree();
+				var searchValue = $('input[type="search"]').val();
+				var findValue = tree.findAll(searchValue)
+		 		
+				$('tbody').empty();
+				 var emoji;
+				 var length;
+				for(var i = 0 ; i < findValue.length ; i++){
+		 			console.log(findValue[i]);
+		 			var e = findValue[i];
+		 			
+		 			if(e.data.length < 1024){
+	    	 			length = e.length +"Byte";
+	    	 		 }
+		    	 		 else if(e.data.length > 1024){
+		    	 			length = Math.ceil(e.data.length/Math.pow(1024,1)) + "KB"
+		    	 		 }
+		    	 		 else if( e.length > 1048576){
+		    	 			length = Math.round(e.data.length / Math.pow(1024,2)) + "MB"
+		    	 		 }
+		    	 		 else if( e.length > 1073741824){
+		    	 			length = Math.round(e.data.length / Math.pow(1024,3)) + "GB"
+		    	 		 }
+			 
+	    	 		var choose;
+	    	 		
+	    	 		switch(e.folder){
+	 				case true : emoji='emoji fas fa-folder fa-lg';
+	 				break;
+	 				case false :
+//		 					console.log(e.path);
+	 					var extention = e.data.path.substring(e.data.path.lastIndexOf('\\')+1, e.data.path.length); // path마지막 부분 자르기 (타이틀)
+	 					var ext = extention.substring(extention.lastIndexOf('.')+1 , extention.length); // 타이틀의 확장자 가져오기
+	 					if(ext == 'bmp' || ext == 'jpg' || ext == 'jpeg' || ext == 'png') {emoji = 'img'; choose = e.data.zzz.path}
+ 						if(ext == 'txt' || ext == 'text') {emoji='txt'; choose = e.line}
+ 						if(ext == 'ppt' || ext == 'pptx') {emoji='ppt'; choose = ""}
+ 						if(ext == 'xlsx') {emoji='xlsx'; choose =""}
+	 					break;
+	 				}
+		 			
+	    	 		$('tbody').append('<tr path-data="'+e.data.path+'">' 
+		    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
+		    		        +  '<td class="owner text-center">'+e.data.path.split("\\")[2]+'</td>'
+		    		        +  '<td class="date text-center">'+e.data.lastModified+'</td>'
+		    		        +  '<td class="val text-center">'+length+'</td>'
+		    		        +  '<input type="hidden" class="eLine" value="'+choose+'">'
+		    		        +  '</tr>');
+// 	    	 		$('tbody').attr('data-path',  findValue[i].data.path.substring(0, findValue[0].data.path.lastIndexOf('\\')) )
+	    	 		
+		 		}
+		 		}, 1000)
+			
+		 }
+		 
+		 
 </script>
 </body>
 </html>
