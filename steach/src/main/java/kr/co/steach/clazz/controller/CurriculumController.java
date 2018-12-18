@@ -43,6 +43,8 @@ public class CurriculumController {
 	@RequestMapping("/curriculum.do")
 	public void list(int classNo, Model model) {		
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
+		
+		System.out.println(classService.selectClassbyClassNo(classNo));
 	}
 	
 	
@@ -125,7 +127,8 @@ public class CurriculumController {
 	@RequestMapping("/updateBG.do")
 	@ResponseBody
 	public void updateBG(Clazz clazz) {
-		System.out.println(clazz);
+		System.out.println("inboke");
+		System.out.println("upBG"+clazz);
 		classService.updateBG(clazz);
 	}
 }

@@ -41,6 +41,6 @@ public class LectureBoard {
 	}
 	
 	public String getTitle() {
-		return this.title.replace(".", "");
+		return this.title.replace(".","");
 	}
 }

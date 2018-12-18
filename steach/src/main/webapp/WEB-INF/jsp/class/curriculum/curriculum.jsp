@@ -257,7 +257,7 @@
     	
     	var bgName = $(".bg-section").css('background-image');
     		// --> url("http://localhost:8002/steach/resources/images/class/curriculum/bg/back1.jpg")
-		
+		console.log(bgName);
     	//url(" ") 제거 
     	bgName= bgName.replace('url("',"").replace('")',"");
     	//console.log("replaceBGNAME"+bgName);
@@ -265,12 +265,15 @@
     	//마지막/기준으로 파일명 가져오기 
     	var index = bgName.lastIndexOf("/");
     	bgName = bgName.substring(index+1,bgName.length);
-
-    	//console.log(bgName)
+		
+    	console.log("0000000000000000000")
+    	console.log(bgName);
+    	console.log(classNo);
+    	
     	
     	 $.ajax({
     		url:"<c:url value='updateBG.do'/>",
-    		data:{classNo,bgName}
+    		data:"classNo="+classNo+"&bgName="+bgName
     	}).done(function(){
     		swal({
     			position:'center-center',
@@ -280,7 +283,7 @@
     			timer:1500
     		});
     	}).fail(function(){
-    		//alert(2)
+    		alert(2)
     	}) 
     	
     });
