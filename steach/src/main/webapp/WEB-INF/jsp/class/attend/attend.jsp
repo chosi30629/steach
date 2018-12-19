@@ -388,13 +388,27 @@
 						atcode = "결석"
 						break;
 					}
-   					if (!result[i].attendTime || !result[i].offTime) {
+   					
+   					if (!result[i].attendTime) {
    						formatAttendtime = "-"
- 						formatOfftime = "-"
-					} else {
-						formatAttendtime = $.format.date(result[i].attendTime, "HH:mm")
+  	 					formatOfftime = "-"
+   						}
+   	   				else if (!result[i].offTime){
+   	   					formatAttendtime = $.format.date(result[i].attendTime, "HH:mm")
+   	   					formatOfftime = "-"
+   	   				}
+   	   				else {
+	   	   				formatAttendtime = $.format.date(result[i].attendTime, "HH:mm")
 						formatOfftime = $.format.date(result[i].offTime, "HH:mm")
-					}
+   						}
+   					
+//    					if (!result[i].attendTime || !result[i].offTime) {
+//    						formatAttendtime = "-"
+//  						formatOfftime = "-"
+// 					} else {
+// 						formatAttendtime = $.format.date(result[i].attendTime, "HH:mm")
+// 						formatOfftime = $.format.date(result[i].offTime, "HH:mm")
+// 					}
    					dailytable +='<tr>'
 					dailytable +='<td>'+(i+1)+'</td><td>'+result[i].user[0].name+'</td><td>'+result[i].attendDate+'</td>'
 					dailytable +='<td>'+atcode+'</td><td>'+formatAttendtime+'</td><td>'+formatOfftime+'</td>'

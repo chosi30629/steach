@@ -58,14 +58,6 @@
 					<li><a href='<c:url value="/login/logout.do"/>'>로그아웃</a></li>
 				</ul></li>
 			<li class="pull-right dropdown myInformation"><a href="#" class="notibtn"><i class="fas fa-bell"></i></a>
-<!-- 				<div class="notialert" style="width: 10px; height:10px; margin: -40px 0px 0px 38px; background-color: red; border-radius: 50px"></div>
-				<div id="myNoti" class="dropdown-content" style="right: -40px">
-					<ul>	
-					    <li>비트캠프 클래스 - 과제가 등록되었습니다.</li>
-					    <li>비트캠프 클래스 - 안규영 학생이 과제를 제출하였습니다.</li>
-					    <li>Contact</li>
-				    </ul>
-				 </div> -->
 			</li>
 			<li class="pull-right dropdown add"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
 				<ul class="dropdown-menu addmenu">
@@ -147,7 +139,7 @@
 				</div>
 				<div class="modal-body" style="padding-bottom: 0;">
 					<p>선생님으로부터 수업 코드를 받아 여기에 입력하세요.</p>
-					<form id="joinclassForm" method="post">
+					<form id="joinclassForm" method="post" autocomplete="off">
 						<input type="hidden" name="id" value="${user.id }">
 						<input type="hidden" name="classNo" id="classNo"> 
 						<input type="text" class="form-control" id="classkey" style="width: 100%" placeholder="수업 코드">
@@ -169,7 +161,7 @@
 
 				</div>
 				<div class="modal-body">
-					<form id="createclassForm" method="post">
+					<form id="createclassForm" method="post" autocomplete="off">
 						<div class="form-group">
 							<label for="usrname"><i class="fas fa-book"></i> 클래스 이름</label> <input
 								type="text" class="form-control" name="className" id="clname"
