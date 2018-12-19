@@ -63,4 +63,7 @@ public interface LectureService {
     
     List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo);
     
+    /*제출자 카운트 변경 */
+    void updateMemCntbyCNo(int classNo);
+    
 }

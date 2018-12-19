@@ -158,7 +158,16 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-2 alarm" style="border:1px solid red">
+				<div class='alarmTitle'>
+					<span>곧 마감되는 과제</span>
+				</div>
+				<div class='alarmContext'>
+				</div>
+			
+				
+			</div>
+			<div class="col-md-8">
 				<!-- create button -->
 					<div class="create">
 						<c:if test="${user.id == clazz.master}">
@@ -434,7 +443,8 @@
 					var voteResult = data.list.voteResult;
 					var hwCount = data.list.hwCount;
 					var fileList = data.list.fileList;
-					console.log(fileList);
+					var alarmList = data.list.alarmList;
+					//console.log(fileList);
 					var html = new StringBuffer();
 					/* 주제  list */
 					for (let i = 0; i < subjectList.length; i++) {
@@ -676,6 +686,17 @@
 							  showMultipleNames: true,
 							  buttonClass: 'btn btn-danger',
 							});
+						
+						/*alarm list 불러오기 */
+						html= new StringBuffer();
+						for(var al=0;al<alarmList.length;al++){
+							html+="<p><span>"+$.format.date(alarmList[al].deadline, pattern="yyyy-MM-dd HH:mm:ss")+"까지 </span><br>"
+							html+="<span> - </span>"
+							html+="<span>"+alarmList[al].title+"</span></p>"
+						}
+						$(".alarmContext").append(html.toString());
+						
+						
 					}).fail(function() {
 				alert("list ajax loading fail ")
 			});
@@ -838,7 +859,6 @@
 					formEnd();		
 				}
 			}).fail(function() {
-				alert("err");
 			})
 		});
 		
@@ -1017,7 +1037,6 @@
 				list();
 					
 			}).fail(function(){
-				alert("fail!")
 			})
 			
 		}
@@ -1074,7 +1093,6 @@
 				
 				
 			}).fail(function(){
-				alert(2)
 			})
   
 

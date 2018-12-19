@@ -46,7 +46,8 @@ public class LectureServiceImpl implements LectureService {
 		
 		//upload file list
 		map.put("fileList",mapper.selectUploadFilesByCNo(classNo));
-
+		
+		map.put("alarmList",mapper.selectEarlyDeadlineBoard(classNo));
 		return map;
 	}
 	
@@ -138,6 +139,11 @@ public class LectureServiceImpl implements LectureService {
 	@Override
 	public List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo) {
 		return mapper.selectHomeworkFileByCNo(classNo);
+	}
+
+	@Override
+	public void updateMemCntbyCNo(int classNo) {
+		mapper.updateMemCntbyCNo(classNo);
 	}
 
 }

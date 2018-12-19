@@ -61,7 +61,7 @@
 		   on m.id =g.group_member_id, tb_user u
 		 where m.id=u.id
 		   and m.class_no=#{classNo}
-		 order by u.name
+		 order by groupNo,u.name
 	</select>
 	
 	<!-- 조가져오기 example -->
