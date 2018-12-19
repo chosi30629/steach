@@ -40,7 +40,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 </head>
-<body>
+<body style="background-color: #eee">
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-collapse">
 		<ul class="nav navbar-nav">
@@ -72,7 +72,23 @@
 		<div class="teaching" style="height: 50%">
 			<h3>강의중인 클래스</h3>
 			<ul id="list-1">
-				<c:forEach var="teach" items="${teaching }">
+				<c:choose>
+					<c:when test="${empty teaching}">
+						<li>
+							<div class="card--container" style="opacity: 0.5">
+								<div class="card--section"
+									style="background-color: rgb(74, 202, 106); padding-left: 10px; padding-right: 10px;">
+									<h1 style="color: white">강의중인 클래스가 없습니다</h1>
+								</div>
+								<div class="card--details"
+									style="flex-direction: column; justify-content: center; display: flex;">
+									<h3 id="addclass2" style="cursor: pointer;">클래스를 개설해보세요!</h3>
+								</div>
+							</div>
+						</li>
+					</c:when>
+				</c:choose>
+				<c:forEach var="teach" items="${teaching}">
 					<li>
 						<div class="card--container">
 							<div class="card--section"
@@ -84,9 +100,9 @@
 							</div>
 							<div class="card--details">
 								<h4>수업기간</h4>
-								<p>${teach.beginDate} ~ ${teach.endDate}</p>
+								<p>${teach.beginDate}~ ${teach.endDate}</p>
 								<h4>수업시간</h4>
-								<p>${teach.startTime} ~ ${teach.endTime}</p>
+								<p>${teach.startTime}~ ${teach.endTime}</p>
 							</div>
 						</div>
 					</li>
@@ -98,6 +114,22 @@
 		<div class="studying" style="height: 50%">
 			<h3>수강중인 클래스</h3>
 			<ul id="list-2">
+				<c:choose>
+					<c:when test="${empty studying}">
+						<li>
+							<div class="card--container" style="opacity: 0.5;">
+								<div class="card--section"
+									style="background-color: #0080FF; padding-left: 10px; padding-right: 10px;">
+									<h1 style="color: white">수강중인 클래스가 없습니다</h1>
+								</div>
+								<div class="card--details"
+									style="flex-direction: column; justify-content: center; display: flex;">
+									<h3 id="joinclass2" style="cursor: pointer;">클래스에 참여해보세요!</h3>
+								</div>
+							</div>
+						</li>
+					</c:when>
+				</c:choose>
 				<c:forEach var="study" items="${studying }">
 					<c:choose>
 						<c:when test='${study.master != user.id}'>
@@ -233,7 +265,16 @@
 			$("#joincodeMsg").html("")
 			$("#joincodeinput").modal('toggle')
 		});
+		$("#joinclass2").on("click", function() {
+			$("#classkey").val("")
+			$("#joincodeMsg").html("")
+			$("#joincodeinput").modal('toggle')
+		});
 		$("#addclass").on("click", function() {
+			$("#clname, #subtitle, #datepicker1, #datepicker2, #timepicker1, #timepicker2").val("")
+			$("#createclass").modal('toggle')
+		});
+		$("#addclass2").on("click", function() {
 			$("#clname, #subtitle, #datepicker1, #datepicker2, #timepicker1, #timepicker2").val("")
 			$("#createclass").modal('toggle')
 		});

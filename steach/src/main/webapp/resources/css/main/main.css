@@ -272,6 +272,7 @@ td {
     flex-direction: column;
     justify-content: center;
     padding: 20px;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .card--details {
@@ -302,6 +303,7 @@ td {
 .card--container {
     break-inside: avoid;
     margin: 40px 0;
+    border-radius: 10px;
 }
 
 .card--container:first-child {

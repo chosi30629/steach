@@ -30,7 +30,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 </head>
-<body>
+<body style="background-color: #eee">
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="navbar-collapse">
 		<ul class="nav navbar-nav">
