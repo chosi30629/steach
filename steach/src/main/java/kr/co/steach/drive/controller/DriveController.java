@@ -206,6 +206,7 @@ public class DriveController {
 		        // 드라이브 사용 가능한 용량
 				String usableSpace = Math.round(f.getUsableSpace()/Math.pow(1024, 3))+"GB";
 		        
+				long val = 0;
 		        if(!f.exists()) 
 		        { 
 		            System.out.println("디렉토리가 존재하지 않습니다"); 
@@ -218,12 +219,39 @@ public class DriveController {
 		        { 
 		            if(file.isFile()) 
 		            { 
+		            	val += file.length();
 		            } 
 		            else if(file.isDirectory()) 
 		            { 
 		            } 
 		        } 
 
+		        double valResult = 0;
+		        String valueExtention = "";
+		        if(val < 1024)
+			 	 {
+		        valResult = val;
+        		valueExtention = "Byte";
+   	 		 }
+   	 		 else if(val > 1024)
+   	 		 {
+   	 			valResult = Math.ceil(val/Math.pow(1024,1));
+   	 			valueExtention = "KB";
+   	 		 }
+   	 		 else if( val > 1048576)
+   	 		 {
+   	 			valResult = Math.round(val / Math.pow(1024,2));
+   	 			valueExtention ="MB";
+   	 		 }
+   	 		 else if( val > 1073741824)
+   	 		 {
+   	 			valResult = Math.round(val / Math.pow(1024,3));
+   	 			valueExtention ="GB";
+   	 		 }
+		        
+		        System.out.println(valResult + valueExtention);
+		        model.addAttribute("val" , valResult);
+		        model.addAttribute("valueExtention", valueExtention);
 		        model.addAttribute("subFiles", subFiles); //  경로 배열  // 사용 안함
 		        model.addAttribute("usableSpace", usableSpace); // 사용 가능한 용량
 		        model.addAttribute("list", gson.toJson(listLoad(f)));

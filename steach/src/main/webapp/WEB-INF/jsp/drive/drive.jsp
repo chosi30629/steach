@@ -20,6 +20,7 @@
   <script src="/steach/resources/fancytree/src/jquery.fancytree.dnd5.js"></script>
   <script src="/steach/resources/fancytree/src/jquery.fancytree.childcounter.js"></script>
   <script src="/steach/resources/js/download.js"></script>
+  <script src="/steach/resources/js/jscolor.js"></script>
   <!-- 합쳐지고 최소화된 최신 CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 부가적인 테마 -->
@@ -32,6 +33,7 @@
   <link href="/steach/resources/fancytree/src/skin-win8/ui.fancytree.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
   <link rel="stylesheet" href="/steach/resources/css/drive/drive.css">
+  
 
 </head>
 
@@ -39,7 +41,7 @@
     <div class="realheader">
    		<div class="outheader">
        		<div class="imgheader">
-       			<img class="headerimg" aria-hidden="true" src="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png" srcset="https://www.gstatic.com/images/branding/product/1x/drive_48dp.png 1x, https://www.gstatic.com/images/branding/product/2x/drive_48dp.png 2x " style="width:40px;height:40px">    
+       			<img class="headerimg" aria-hidden="true" src="https://vignette.wikia.nocookie.net/disney/images/e/e9/Stitch_OfficialDisney.jpg/revision/latest?cb=20160820061042"  style="width:40px;height:40px">    
       		</div>
      		<div class="textheader">&nbsp;스티치 드라이브  </div>
 		</div>
@@ -50,6 +52,7 @@
       				<i class="fas fa-search"></i>
 	          	</button>
 	          <input type="search" placeholder="드라이브 검색">
+	          
 	        </div>
       	</form>
       
@@ -107,13 +110,12 @@
            </div>
            
            <div style="font-size: 13px;">
-             <div>저장용량</div>
+             <div style="font-size: 15px">저장용량</div>
              <div class="progress">
                 <div class="progress-bar" role="progressbar"  style="width: 10%;"></div>
               </div>
-             <div>
-             
-               ${usableSpace} 중 732.7MB 사용중
+             <div class="valResult">
+               ${usableSpace} 중 ${val} ${valueExtention}사용중
               </div>
             </div> 
           </div>  
@@ -219,6 +221,7 @@
     </ul>
     <!-- 컨텍스트 메뉴 끝 -->
     
+    <!-- 이름바꾸기 모달 -->
     <div class="myModal2 modal fade">
         <div class="modal4 modal-content col-md-3">                                                   
             <p>이름 바꾸기</p>
@@ -230,6 +233,18 @@
         </div>
       </div>
       
+      <!-- 파일 업로드 모달 -->
+    <div class="colorPicker modal fade" style="z-index: 1">
+        <div class="modal-content col-md-3">                                                   
+            <p>색깔 바꾸기</p>
+            <p>Color: <input class="jscolor" ></p>
+            <p style="display : flex; flex-direction: row-reverse;">
+	              <button type="button" class="AfterCancle form-control" style="width:unset;">취소</button>
+	              <button class="colorChange form-control" style="width:unset;">변경</button>
+            </p>
+        </div>
+      </div>
+    
       <!-- 파일 업로드 모달 -->
     <div class="fileUpload modal fade">
       	<div class="modal-content col-md-3">
@@ -474,6 +489,37 @@ $('.addFolder').click(function(){
       var thiResultEXT;  // 파일확장자 ex) .png
       var resultPath; // 
       var needNode;
+      
+      $('.contextmenu').children().eq(0).off('click').click(function(){
+    	  var folder = tr.children().find('.emoji');
+    	  console.log(folder);
+    	  if(tr.children().find('.emoji')[0].className == 'emoji emoji fas fa-folder fa-lg'){
+    		  
+    		  $('.colorPicker').modal('show').css({
+    			  marginTop : function() {
+    				  return ($(this).height()/2);
+    			  },
+    			  marginLeft : function() {
+    				  return ($(this).width()/2);
+    			  }
+    		  })
+    		  
+    		  
+    		  
+    	  }//if emoji가 폴더일경우 !
+    	  
+    	 $('.colorChange').off('click').click(function(){
+    		 var col = $('.jscolor').val();
+    		 folder.css({color : function(){
+    			 return ($(this).color = '#' + $('.jscolor').val())
+    		 }})
+    		 
+    		 console.log(folder.css('color'))
+    	 })
+    	      	  
+      })
+      
+      
       $('.contextmenu').children().eq(1).off('click').click(function(){
 //     	  console.log("thi", thi);
 			if(thi.indexOf('.') != -1){
@@ -1004,6 +1050,10 @@ var source = [
 				 					break;
 				 				}
 					 		 
+			    	 		if(emoji == 'emoji fas fa-folder fa-lg'){
+			    	 			length = '-';
+			    	 		}
+			    	 		 
 					 $('tbody').append('<tr class="ui-widget-content" path-data ="'+e.path+'" id="'+keyPath+'">' 
 			    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="">'+e.title+'</span></td>'
 			    		        +  '<td class="owner" class="text-center">'+e.path.split("\\")[2]+'</td>'
@@ -1297,7 +1347,9 @@ var source = [
 		 					break;
 		 				}
 	    	 		 
-	    	 		
+	    	 		if(emoji == 'emoji fas fa-folder fa-lg'){
+	    	 			length = '-';
+	    	 		}
 			 
 	    	 		$('tbody').append('<tr path-data="'+e.path+'">' 
 		    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
@@ -1380,6 +1432,10 @@ var source = [
 	 					break;
 	 				}
 		 			
+	    	 		if(emoji == 'emoji fas fa-folder fa-lg'){
+	    	 			length = '-';
+	    	 		}
+	    	 		
 	    	 		$('tbody').append('<tr path-data="'+e.data.path+'">' 
 		    		        +  '<td class="folderName"><div class="emoji '+emoji+'"></div><span id="test_'+i+'">'+e.title+'</span></td>'
 		    		        +  '<td class="owner text-center">'+e.data.path.split("\\")[2]+'</td>'
@@ -1390,6 +1446,7 @@ var source = [
 // 	    	 		$('tbody').attr('data-path',  findValue[i].data.path.substring(0, findValue[0].data.path.lastIndexOf('\\')) )
 	    	 		
 		 		}
+				$("#tree").fancytree("getTree").expandAll(false);
 		 		}, 1000)
 			
 		 }

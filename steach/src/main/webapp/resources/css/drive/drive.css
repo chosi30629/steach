@@ -17,6 +17,7 @@
   }
 
   ul.fancytree-container {
+  margin-left : 20px;
   overflow: hidden;
   /* The expand animations result in ugly focus outline artefacts, so hide those. */
   outline: 0;
@@ -27,6 +28,7 @@
 }
 /* Display top level nodes as accordion header. */
 ul.fancytree-container >li >.fancytree-node span.fancytree-title {
+  font-size : 15px;
   box-sizing: border-box;
   width: 100%;
   padding: 4px;
@@ -101,7 +103,7 @@ width:8px;height:0px;background:#f1ef79;}
 }
 
 #myBtn2 , .myBtn2{
-  font-size: 18px;
+  font-size: 25px;
     display: flex;
     align-items: center;
     padding: 5px 10px;
@@ -164,7 +166,7 @@ width:8px;height:0px;background:#f1ef79;}
 }
 
 .textheader{
-  font-size: 22px;
+  font-size: 25px;
   font-family: sans-serif;
   opacity: .66;
   vertical-align: middle;
@@ -237,7 +239,7 @@ background: transparent;
 
 td{
   line-height: 2 !important;
-  font-size: 13px;
+  font-size: 20px;
   /* font-weight: 600; */
   color: rgba(0,0,0,.72);
 }
@@ -397,7 +399,7 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
     border-top: none;
     padding: 0 10px;
     display: flex;
-    font-size: 14px;
+    font-size: 20px;
     color: #5f6368;
     font-weight: 500;
     height: 48px;
@@ -497,6 +499,14 @@ box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302),
 {
   padding-bottom: 9px;
   z-index: 1;
+}
+
+.valResult{
+	font-size : 15px;
+}
+
+ul[role=group]{
+	font-size : 15px;
 }
 
 .txt{
