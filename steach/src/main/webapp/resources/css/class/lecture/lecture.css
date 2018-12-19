@@ -1,10 +1,5 @@
 /* modal */
 
-
-i.fa-plus:hover,i.fa-ellipsis-v:hover {
-	font-size:1.2em !important;
-}
-
 /*page */ 
 body,html{
     margin:0;padding:0;
@@ -55,6 +50,7 @@ body{
 a:hover,a:active,a:focus{
     color:grey;
 }
+
 .title{
     margin:0px 15px;
     padding-top:10px;
@@ -62,10 +58,15 @@ a:hover,a:active,a:focus{
      text-transform: uppercase;
 }
 .menu > a > i{
+	font-size:1.5em;
 	color:white;
+}
+.menu > a > i:hover{
+	cursor:pointer;
 }
 
 .menu{
+	margin-top: 5px;
     float:right;
     text-align:right;
 }

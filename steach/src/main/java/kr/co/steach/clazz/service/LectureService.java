@@ -13,28 +13,16 @@ import kr.co.steach.repository.domain.VoteList;
 import kr.co.steach.repository.domain.VoteResult;
 
 public interface LectureService {
-	/*List<LectureBoard> selectBoardByClassNo(int classNo);*/
-
-/*	List<Lecture> selectLectureByClassNo(int classNo);
-	
-	List<LectureBoard>selectLectureBoardByClassNo(int classNo);*/
 	
 	Map<String,Object> selectLectureListByClassNo(int classNo);
-	
-/*	
-	//test 
-	
-	Clazz selectClassbyClassNo(int classNo);*/
-	
+
 	/* insertLecture */
-	
 	void insertLecture(Lecture lecture);
 	
 	/* update lecture */
 	void updateLectureSubject(Lecture lecture);
 	
 	/* delete lecture */
-	
     void deleteLecture(int lecNo);
     
     /* insert lecture board */
@@ -53,6 +41,7 @@ public interface LectureService {
     /*제출자 내역 리스트  ~~ */
     List<Homework> selectSubmitHomeworkByCNo(int classNo);
 
+    
     List<LectureBoard> selectHomework(int classNo);
     
     /* vote list insert */
@@ -64,14 +53,13 @@ public interface LectureService {
     /*board별 투표 확인하기 */
     List<CounterVO> selectVoteResultCountByBNo(int boardNo);
  
-    void insertBoardFile(BoardUploadFileVO BUFV);
+    void insertBoardFile(BoardUploadFileVO bufv);
     
     /*insert homework */
     void insertHomework(Homework homework);
     
     /*insert Homework File */
-    void insertHomeworkFile(BoardUploadFileVO BUFV);
-    
+    void insertHomeworkFile(BoardUploadFileVO bufv);
     
     List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo);
     

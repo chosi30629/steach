@@ -15,7 +15,6 @@
 	<meta name="theme-color" content="#ffffff">
 <link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' rel='stylesheet' />
   <link rel="stylesheet" href="/steach/resources/css/user/steach.css">
-<!--   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -24,7 +23,7 @@
 <div class="login">
     <div class="scalable" style="height:195px" id="login-scalable">
     <form id="loginForm" method="post">
-      <input type="email" class="form-control" id="login-email" name="id" placeholder="Email 아이디">
+      <input type="email" class="form-control" id="login-email" name="id" placeholder="Email 아이디" autocomplete="off">
       <input type="password" class="form-control" id="login-password" name="password" placeholder="비밀번호">
       <button class="btn btn-primary btn-lg btn-block" id="login">로그인</button>
       </form>
@@ -34,9 +33,9 @@
     </div>
     <div class="scalable" style="height:0px" id="register-scalable">
     	<form id="signupForm" method="post" enctype="multipart/form-data">
-      <input type="email" class="form-control" id="register-email" name="id" placeholder="Email 아이디">
+      <input type="email" class="form-control" id="register-email" name="id" placeholder="Email 아이디" autocomplete="off">
       <p class="msg" id="ckIdMsg"></p>
-      <input type="text" class="form-control" id="register-name" name="name" placeholder="이름">
+      <input type="text" class="form-control" id="register-name" name="name" placeholder="이름" autocomplete="off">
       <p class="msg" id="ckNameMsg"></p>
       <div id="drop">
         <a href="#">
@@ -60,8 +59,8 @@
     </div>
     <div class="scalable" style="height:0px" id="findpass-scalable">
     <form id="findpassForm" method="post">
-      <input type="text" class="form-control" name="name" id="find-name" placeholder="이름">
-      <input type="text" class="form-control" name="id" id="find-email" placeholder="Email 아이디">
+      <input type="text" class="form-control" name="name" id="find-name" placeholder="이름" autocomplete="off">
+      <input type="text" class="form-control" name="id" id="find-email" placeholder="Email 아이디" autocomplete="off">
       <button class="btn btn-link btn-block" id="findpass">비밀번호 찾기</button>
       </form>
       <input type="password" class="form-control" id="curpassword" placeholder="임시 비밀번호">

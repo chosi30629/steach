@@ -16,7 +16,6 @@
 
 <!-- swAlert.js -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!-- <script src="/steach/resources/js/class/member/member.js"></script> -->
 </head>
 <body>
 <%-- <!-- modal 동적 생성하기 -->
@@ -82,7 +81,7 @@
 			<!-- 학생 page  -->
 			<div class="col-md-8 col-md-offset-2">
 				<div class="user-title">
-					<span>학생</span>
+					<span>학생</span><span style="float:right">${studentList.length}</span>
 				</div>
 				<div class="accordion" role="tablist">
 	<%-- 				 <c:forEach var="st" items="${studentList}">

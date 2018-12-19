@@ -367,3 +367,6 @@ footer{
 	background:black;
 	
 }
+button:hover{
+	cursor:pointer;
+}

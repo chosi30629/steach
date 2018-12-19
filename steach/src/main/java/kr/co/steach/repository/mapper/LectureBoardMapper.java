@@ -90,7 +90,7 @@ public interface LectureBoardMapper {
 	void insertHomework(Homework homework);
 
 	/* 숙제 제출하기 */
-	void insertHomeworkFile(BoardUploadFileVO BUFV);
+	void insertHomeworkFile(BoardUploadFileVO bufv);
 	
 	
 	/* 숙제 파일 가져오기 */

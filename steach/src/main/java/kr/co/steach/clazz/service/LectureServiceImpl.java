@@ -46,15 +46,7 @@ public class LectureServiceImpl implements LectureService {
 		
 		//upload file list
 		map.put("fileList",mapper.selectUploadFilesByCNo(classNo));
-		
-		System.out.println(mapper.selectLectureBoardByClassNo(classNo));
-		System.out.println("파일리스트"+mapper.selectUploadFilesByCNo(classNo));
-			
-		//System.out.println("voteCount"+mapper.selectVoteCntByCNo(classNo));
-		//System.out.println("voteResult"+mapper.selectVoteResultByCNo(classNo));
-		//System.out.println("voteResultCount"+mapper.selectVoteResultListByCNo(classNo));
-		//System.out.println(mapper.selectLectureBoardByClassNo(classNo));
-		//System.out.println("voteList:"+mapper.selectVoteListByCNo(classNo));
+
 		return map;
 	}
 	
@@ -108,7 +100,7 @@ public class LectureServiceImpl implements LectureService {
 			param.put("boardNo", board.getBoardNo());
 			board.setHomework(mapper.selectAllHomeworkByCNo(param));
 		}
-		//System.out.println(boardList);
+
 		return boardList;
 	}
 
@@ -129,8 +121,8 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public void insertBoardFile(BoardUploadFileVO BUFV) {
-		mapper.insertBoardFile(BUFV);
+	public void insertBoardFile(BoardUploadFileVO bufv) {
+		mapper.insertBoardFile(bufv);
 	}
 
 	@Override
@@ -139,8 +131,8 @@ public class LectureServiceImpl implements LectureService {
 	}
 
 	@Override
-	public void insertHomeworkFile(BoardUploadFileVO BUFV) {
-		mapper.insertHomeworkFile(BUFV);
+	public void insertHomeworkFile(BoardUploadFileVO bufv) {
+		mapper.insertHomeworkFile(bufv);
 	}
 
 	@Override

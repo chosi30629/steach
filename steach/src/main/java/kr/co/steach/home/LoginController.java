@@ -68,7 +68,7 @@ public class LoginController {
 	public String logout(HttpSession session) {
 		session.invalidate(); 
 		
-		return "redirect:/home/home.do";
+		return "redirect:/home/home-skip.do";
 	} // logout
 	
 	@RequestMapping("checkpassId.do")

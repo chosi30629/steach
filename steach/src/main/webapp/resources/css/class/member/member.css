@@ -87,6 +87,7 @@ body{
 .modal-ul > li > a {
     text-decoration: none;
     color:black;
+    font-size:1.5em;	
 }
 .modal-ul > li:hover{
     border-radius:5px;
@@ -102,7 +103,9 @@ body{
 .modal-backdrop{
     height:100% !important;
 }
-
+a:hover{
+	cursor:pointer;
+} 
 
 /* accordion css*/
 .accordion-head{
@@ -137,4 +140,7 @@ body{
 }
 .fa-envelope:before{
 	cursor:pointer;
+}
+.fa-envelope,.fa-ellipsis-v{
+	font-size:1.5em;
 }

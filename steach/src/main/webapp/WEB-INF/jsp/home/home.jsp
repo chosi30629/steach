@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,8 +13,6 @@
 	<link rel="mask-icon" href="/steach/resources/favicon/safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
-<!-- <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"> -->
 <link
 	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'
 	rel='stylesheet' />
@@ -25,6 +23,7 @@
 
 </head>
 <body class="welcome">
+
 	<span id="splash-overlay" class="splash"></span>
 	<span id="welcome" class="z-depth-4"></span>
 
@@ -44,23 +43,23 @@
 		<div class="scalable" style="height: 195px" id="login-scalable">
 			<form id="loginForm" method="post">
 				<input type="email" class="form-control" id="login-email" name="id"
-					placeholder="Email 아이디"> <input type="password"
+					placeholder="Email 아이디" autocomplete="off"> <input type="password"
 					class="form-control" id="login-password" name="password"
 					placeholder="비밀번호">
 				<button class="btn btn-primary btn-lg btn-block" id="login">로그인</button>
 			</form>
 			<div class="bottom">
-				<a href="#" id="register">회원가입</a> <a href="#" id="forgot">비밀번호
+				<a href="#" id="register">회원가입</a>&nbsp; <a href="#" id="forgot">비밀번호
 					찾기</a>
 			</div>
 		</div>
 		<div class="scalable" style="height: 0px" id="register-scalable">
 			<form id="signupForm" method="post" enctype="multipart/form-data">
 				<input type="email" class="form-control" id="register-email"
-					name="id" placeholder="Email 아이디">
+					name="id" placeholder="Email 아이디" autocomplete="off">
 				<p class="msg" id="ckIdMsg"></p>
 				<input type="text" class="form-control" id="register-name"
-					name="name" placeholder="이름">
+					name="name" placeholder="이름" autocomplete="off">
 				<p class="msg" id="ckNameMsg"></p>
 				<div id="drop">
 					<a href="#"> <img id="profile" class="media-object"
@@ -87,8 +86,8 @@
 		<div class="scalable" style="height: 0px" id="findpass-scalable">
 			<form id="findpassForm" method="post">
 				<input type="text" class="form-control" name="name" id="find-name"
-					placeholder="이름"> <input type="text" class="form-control"
-					name="id" id="find-email" placeholder="Email 아이디">
+					placeholder="이름" autocomplete="off"> <input type="text" class="form-control"
+					name="id" id="find-email" placeholder="Email 아이디" autocomplete="off">
 				<button class="btn btn-link btn-block" id="findpass">비밀번호
 					찾기</button>
 			</form>
@@ -112,8 +111,10 @@
 	</div>
 		
 	</main>
-
-
+	<!-- bgm -->	
+	<audio id="bgm" controls autoplay style="display:none">
+		<source src="/steach/resources/audio/ukulele.mp3" type="audio/mp3">
+	</audio>
 	<footer class="page-footer black darken-3">
 	<div class="footer-copyright black darken-3">
 		<div class="container">
@@ -128,6 +129,10 @@
 
 
 	<script>
+
+	
+	
+	
     $(document).ready(function () {
       $("#login").prop("disabled", false);
 
@@ -565,7 +570,7 @@
       
         setTimeout(function(){
           $("#steachTitle").css({"visibility":"visible"});
-  		  $(".login").fadeIn(500);
+  		  $(".login").fadeIn(2000);
         },12300) 
 
       })

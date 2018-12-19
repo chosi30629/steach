@@ -13,8 +13,8 @@ public class Home {
 	}
 	
 	
-	@RequestMapping("/home2.do")
-	public void home2() {
+	@RequestMapping("/home-skip.do")
+	public void homeSkip() {
 		
 	}
 }

@@ -39,7 +39,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<h4 class="modal-title">
-						<i class="far fa-edit"></i>일정 등록하기
+						<i class="far fa-edit"></i>&nbsp;&nbsp;일정 등록하기
 					</h4>
 				</div>
 				<div class="modal-body">

@@ -83,36 +83,8 @@ public class LectureController {
 	
 	@RequestMapping("/insertLectureBoard.do")
 	@ResponseBody
-	public String insertLectureBoard(LectureBoard lectureBoard,BoardUploadFileVO BUFV,List<MultipartFile> attach) {
+	public String insertLectureBoard(LectureBoard lectureBoard,BoardUploadFileVO bufv,List<MultipartFile> attach) {
 		service.insertLectureBoard(lectureBoard);	
-		
-	/*	System.out.println("lectureBoard::"+lectureBoard);
-		과제 등록시 calendar 추가하기 
-		if(lectureBoard.getpNo()==2) {
-			ClassSchedule classSchedule = new ClassSchedule();
-			
-			classSchedule.setClassNo(lectureBoard.getClassNo());
-			classSchedule.setAllDay(false);
-			classSchedule.setColor("purple");
-			
-			deadline formatting
-			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
-			String formatDate = sdfDate.format(lectureBoard.getDeadline());
-			String formatTime =  sdfTime.format(lectureBoard.getDeadline());
-			
-			String deadline = formatDate+"T"+formatTime;
-			
-			classSchedule.setStart(deadline);
-			classSchedule.setTitle("과제");
-			classSchedule.setDescription(lectureBoard.getTitle());
-			
-			curriService.insertSchedule(classSchedule);
-			
-			
-		}*/
-		
-		
 		
 		/*드라이브 내 클래스번호 내 파일저장하기 */
 		int classNo = lectureBoard.getClassNo();
@@ -143,13 +115,13 @@ public class LectureController {
 		
 		
 		/* DB에 게시글번호, 파일명 저장하기. */	
-		BUFV.setBoardNo(lectureBoard.getBoardNo());
+		bufv.setBoardNo(lectureBoard.getBoardNo());
 		List<String> files = new ArrayList<>();
 		for(int i=0;i<attach.size();i++) {
 			files.add(i,attach.get(i).getOriginalFilename());
 		}
-		BUFV.setFileName(files);
-		service.insertBoardFile(BUFV);
+		bufv.setFileName(files);
+		service.insertBoardFile(bufv);
 	}
 	
 		/* 투표LIST  insert 시 boardNo 필요합니다. */
@@ -211,8 +183,6 @@ public class LectureController {
 			/* homework DB 저장  */
 			service.insertHomework(homework);
 			
-			System.out.println(homework.getHwNo());
-			
 			/*해당 폴더 경로에 저장 */
 			Clazz clazz = classService.selectClassbyClassNo(classNo);
 			LectureBoard board = service.selectLectureBoardByBNo(homework.getBoardNo());
@@ -252,8 +222,6 @@ public class LectureController {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
 		model.addAttribute("list",service.selectHomework(classNo));
 		model.addAttribute("fileList",service.selectHomeworkFileByCNo(classNo));
-		System.out.println("homework"+service.selectHomework(classNo));
-		//System.out.println("fileList:"+service.selectHomeworkFileByCNo(classNo));
 	}
 
 

@@ -44,6 +44,9 @@ button[id="signup"]
 {
     margin-top: 5px;
 }
+button:hover{
+	cursor:pointer;
+}
 
 div.scalable
 {
