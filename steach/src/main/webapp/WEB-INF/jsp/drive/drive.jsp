@@ -1446,9 +1446,10 @@ var source = [
 // 	    	 		$('tbody').attr('data-path',  findValue[i].data.path.substring(0, findValue[0].data.path.lastIndexOf('\\')) )
 	    	 		
 		 		}
-				$("#tree").fancytree("getTree").expandAll(false);
+// 				$("#tree").fancytree("getTree").expandAll(false);
 		 		}, 1000)
 			
+		 		return false;
 		 }
 		 
 		 
