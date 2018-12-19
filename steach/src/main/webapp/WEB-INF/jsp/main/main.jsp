@@ -34,6 +34,11 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script
 	src="/steach/resources/Time-Selection-Popover-jQuery-Timepicker/dist/js/timepicker.js"></script>
+	<!-- swAlert.js -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -71,7 +76,7 @@
 		</ul>
 	</div>
 	</nav>
-	<div class="wrap" style="height: 750px; margin-top: 80px">
+	<div class="wrap" style="height: 800px; margin-top: 80px">
 		<div class="teaching" style="height: 50%">
 			<h3>강의중인 클래스</h3>
 			<ul id="list-1">
@@ -83,10 +88,13 @@
 								<h1>
 									<a href="#" data-no="${teach.classNo}">${teach.className}</a>
 								</h1>
-								<p>${teach.beginDate}~${teach.endDate}</p>
+								<h4>${teach.classSubname}</h4>
 							</div>
 							<div class="card--details">
-								
+								<h4>수업기간</h4>
+								<p>${teach.beginDate} ~ ${teach.endDate}</p>
+								<h4>수업시간</h4>
+								<p>${teach.startTime} ~ ${teach.endTime}</p>
 							</div>
 						</div>
 					</li>
@@ -108,19 +116,13 @@
 										<h1>
 											<a href="#" data-no="${study.classNo}">${study.className}</a>
 										</h1>
-										<p>${study.beginDate}~ ${study.endDate}</p>
+										<h4>${study.beginDate}~ ${study.endDate}</h4>
 									</div>
 									<div class="card--details">
-<!-- 										<table>
-											<tr>
-												<td></td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td></td>
-											</tr>
-										</table> -->
+										<h4>수업기간</h4>
+										<p>${study.beginDate} ~ ${study.endDate}</p>
+										<h4>수업시간</h4>
+										<p>${study.startTime} ~ ${study.endTime}</p>
 									</div>
 								</div>
 							</li>
@@ -315,7 +317,14 @@
 			type : "POST"
 		}).done(function() {
 			$("#classkey").val("");
-			alert("클래스에 가입되었습니다")
+// 			alert("클래스에 가입되었습니다")
+			Swal({
+// 					  position: 'top-end',
+					  type: 'success',
+					  title: '클래스에 가입되었습니다.',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
 			location.href="<c:url value='/main/main.do'/>";
 		})
 

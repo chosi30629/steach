@@ -170,7 +170,14 @@
  				gNo:atcode
  			}
     	}).done(function(){
-				alert("출석되었습니다.")
+// 				swal("출석되었습니다.")
+				Swal({
+// 					  position: 'top-end',
+					  type: 'success',
+					  title: '출석되었습니다.',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
  				$(".attendon").css("display", "none");
 				$(".attendoff").css("display", "block");
     	})
@@ -189,7 +196,14 @@
      				gNo:atcode
      			}
         	}).done(function(){
-        		alert("퇴실되었습니다.")
+//         		swal('퇴실되었습니다.','success')
+        		Swal({
+// 					  position: 'top-end',
+					  type: 'success',
+					  title: '퇴실되었습니다.',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
         		$(".attendcomplete").css("display", "none");
         		$(".attendoff").css("display", "none");
         	})
@@ -202,7 +216,14 @@
      				attendDate:today
      			}
         	}).done(function(){
-        		alert("퇴실되었습니다.")
+//         		alert("퇴실되었습니다.")
+        		Swal({
+// 					  position: 'top-end',
+					  type: 'success',
+					  title: '퇴실되었습니다.',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
  				$(".attendcomplete").css("display", "block");
 				$(".attendoff").css("display", "none");
         	})

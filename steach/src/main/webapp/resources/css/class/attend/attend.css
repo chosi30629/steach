@@ -83,6 +83,7 @@ a:visited {
 
 .attendContent {
     vertical-align: center;
+    cursor: pointer;
 }
 
 .attendContent p.teach {

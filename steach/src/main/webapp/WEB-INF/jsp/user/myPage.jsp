@@ -22,9 +22,13 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/steach/resources/css/user/mypage.css">
     <link rel="stylesheet" href="/steach/resources/css/user/help_member.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -93,15 +97,15 @@
 											</tr>
 											<tr style="display: none">
 												<td colspan="2"><textarea style="width: 100%"></textarea>
-													<button class="btn btn-default btn-sm">수정</button>
+													<button class="btn btn-default btn-sm active">수정</button>
 													<button class="btn btn-default btn-sm">취소</button></td>
 											</tr>
 											<tr>
 												<td colspan="2"><textarea
 														style="width: 100%; border: 0px">안녕하세요</textarea>
 													<div style="float: right; padding-top: 5px;">
-														<button class="btn btn-default btn-sm">수정</button>
-														<button class="btn btn-default btn-sm">취소</button>
+														<button class="btn btn-default btn-sm active">수정</button>
+														<!-- <button class="btn btn-default btn-sm">취소</button> -->
 													</div></td>
 											</tr>
 										</table>
@@ -183,7 +187,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<div class="sh_group">
+							<div class="sh_group" style="overflow: auto">
 								<div class="sh_header">
 									<h2>
 										<i class="fas fa-book-reader"></i> 강의중인 클래스
@@ -218,7 +222,7 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="sh_group">
+							<div class="sh_group" style="overflow: auto">
 								<div class="sh_header">
 									<h2>
 										<i class="fas fa-book-reader"></i> 수강중인 클래스
@@ -317,7 +321,11 @@
         // file[0].name 은 파일명
         // 정규식으로 확장자 체크
         if (!/(gif|jpg|jpeg|png)$/i.test(file[0].name)) {
-            alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+//             alert('gif, jpg, png 파일만 선택해 주세요.\n\n현재 파일 : ' + file[0].name);
+            Swal({
+            	type:'error',
+            	title:'gif, jpg, png 파일만 선택해 주세요.'
+            })
             return false;
         } else {
             return;
@@ -334,28 +342,42 @@
         fileReader.onload = function (e) {
             document.getElementById('profile').src = e.target.result;
             setTimeout(function () {
-              conf = confirm("수정하시겠습니까?");
-              if (conf == false) { location.href = "myPage.do"; return; }
-
-              var formData = new FormData();
-              var inputFile = $("input[name='uploadFile']")
-              console.log(inputFile)
-              var files = inputFile[0].files;
-//               var id = $("#userId").val();
-              formData.append("uploadFile", files[0]);
-              console.log(formData)
-              $.ajax({
-                url: "/steach/user/profileImg.do",
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: "POST"
+//               conf = confirm("수정하시겠습니까?");
+              conf = Swal({
+            	  title:'수정하시겠습니까?',
+            	  type:'warning',
+            	  showCancelButton: true,
+            	  confirmButtonColor: '#3085d6',
+            	  cancelButtonColor: '#d33',
+            	  confirmButtonText: '확인'
+              }).then((result)=> {
+            	  if (result.value) {
+            		  var formData = new FormData();
+                      var inputFile = $("input[name='uploadFile']")
+                      console.log(inputFile)
+                      var files = inputFile[0].files;
+//                       var id = $("#userId").val();
+                      formData.append("uploadFile", files[0]);
+                      console.log(formData)
+                      $.ajax({
+                        url: "/steach/user/profileImg.do",
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type: "POST"
+                      }).done(function (result) {
+                    	  Swal({
+        					  type: 'success',
+        					  title: '수정되었습니다.',
+        					  showConfirmButton: false
+        					})
+                        location.href = "myPage.do";
+                      });
+				} else {
+            		  location.href = "myPage.do"; return;
+				}
               })
-                .done(function (result) {
-                	alert("수정되었습니다.")
-                  location.href = "myPage.do";
-                });
-            }, 10)
+            }, 50)
         }
     });
     // 파일 드래그 앤 드롭
