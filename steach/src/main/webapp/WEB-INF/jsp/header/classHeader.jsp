@@ -58,8 +58,8 @@
                     </ul>
                 </li>
                 <li class="pull-right myInformation"><a href="#"><i class="fas fa-bell"></i></a></li>
-                <li class="pull-right attend attendon" style="display: none"><a href="#" id="atton"><i class="fas fa-calendar-check"></i></a></li>
-                <li class="pull-right attend attendoff" style="display: none"><a href="#" id="attoff"><i class="fas fa-door-open"></i></a></li>
+                <li class="pull-right attend attendon" style="display: none"><a href="#" id="atton" title="출석"><i class="fas fa-calendar-check"></i></a></li>
+                <li class="pull-right attend attendoff" style="display: none"><a href="#" id="attoff" title="퇴실"><i class="fas fa-door-open"></i></a></li>
                 <li class="pull-right attend attendcomplete" style="display: none"><a href="#" id="attcomplete"><i class="fas fa-check"></i></a></li>
             </ul>
         </div>

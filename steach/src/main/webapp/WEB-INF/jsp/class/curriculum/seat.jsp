@@ -145,9 +145,9 @@
 					</div>
 					<div class="modalAddTable__footer">
 						<button type="button" class="btn-flat red" value="Add"
-							onclick="doDownload()">파일로 저장하기</button>
+							onclick="doDownload()">파일로 저장</button>
 						<button type="button" class="btn-flat red" value="Add"
-							onclick="saveToServer()">SAVE</button>
+							onclick="saveToServer()">배치완료</button>
 					</div>
 			</div>
 		</div>

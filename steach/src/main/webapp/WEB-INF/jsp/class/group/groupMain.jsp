@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-activity.css">
-    <title>GroupMain</title>
+    <title>STEACH</title>
 	<c:import url="/WEB-INF/jsp/header/classHeader.jsp"/>
     <link rel="stylesheet" href="/steach/resources/css/class/group/group-main.css">
     <link rel="stylesheet" href="/steach/resources/css/class/group/animate.css">

@@ -338,4 +338,36 @@
 		   and b.lec_no=l.lec_no
 		   and l.class_no=#{classNo}
 	</select>
+	
+	
+	<!-- 멤버 가입 / 멤버 탈퇴 시 현재 인원에 맞게 마감일이 지나지 않은 과제의 memCnt 변경하기  -->
+	<update id="updateMemCntbyCNo" parameterType="int">
+	     update tb_class_lecture_board
+			  set mem_cnt = (select count(*) from tb_class_member m where m.class_no=9) 		  
+			where board_no in (select b.board_no 
+									  from (select * from tb_class_lecture_board) b, (select * from tb_class_lecture) l 
+									 where b.lec_no=l.lec_no
+									   and l.class_no=9
+										and b.p_no in (2,4)
+									   and b.deadline > now()
+									)
+	</update>
+	
+	<!-- 곧 마감되는 과제/투표 4 개까지  -->
+	<select id="selectEarlyDeadlineBoard" parameterType="int" resultMap="lectureBoardMap">
+		select *
+		  from tb_class_lecture_board
+		 where board_no in (select b.board_no 
+						  from tb_class_lecture_board b, tb_class_lecture l 
+						 where b.lec_no=l.lec_no
+						   and l.class_no=#{classNo}
+							and p_no in (2,4)
+						   and deadline > now())
+		order by deadline						   
+		limit 0,4
+	</select>
+	
+	
+	
+	
 </mapper>

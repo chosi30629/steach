@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.steach.clazz.service.ClazzService;
+import kr.co.steach.clazz.service.LectureService;
 import kr.co.steach.repository.domain.ClassMember;
 import kr.co.steach.repository.domain.Clazz;
 import kr.co.steach.util.DriverUtil;
@@ -17,6 +18,8 @@ public class ClazzController {
 	@Autowired
 	private ClazzService service;
 	
+	@Autowired
+	LectureService lectureService;
 	
 	@ResponseBody
 	@RequestMapping("/createClass.do")
@@ -36,7 +39,12 @@ public class ClazzController {
 	@ResponseBody
 	@RequestMapping("/joinClass.do")
 	public void joinClass(ClassMember member) {
+		
 		service.joinclass(member);
+		
+		//회원 추가 시 마감일이 지나지 않은 투표, 과제 카운트 증가
+		
+		lectureService.updateMemCntbyCNo(member.getClassNo());
 	}
 
 	

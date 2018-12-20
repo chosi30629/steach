@@ -59,11 +59,11 @@
 				</ul></li>
 			<li class="pull-right dropdown myInformation"><a href="#" class="notibtn"><i class="fas fa-bell"></i></a>
 			</li>
-			<li class="pull-right dropdown add"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
+			<li class="pull-right dropdown add" style="margin-top: 3px;"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
 				<ul class="dropdown-menu addmenu">
 					<li><a href="#" id="joinclass" data-toggle="modal" data-target="joincodeinput">수업 참여하기</a></li>
 					<li class="divider"></li>
-					<li><a id="addclass" data-toggle="modal">수업 만들기</a></li>
+					<li style="cursor: pointer;"><a id="addclass" data-toggle="modal">수업 만들기</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -140,7 +140,7 @@
 										<h1>
 											<a href="#" data-no="${study.classNo}">${study.className}</a>
 										</h1>
-										<h4>${study.beginDate}~ ${study.endDate}</h4>
+										<h4>${study.classSubname}</h4>
 									</div>
 									<div class="card--details">
 										<h4>수업기간</h4>
@@ -178,8 +178,8 @@
 						<p id="joincodeMsg" style="min-height: 25px"></p>
 				</div>
 				<div class="modal-footer" style="padding-bottom: 10px;">
-					<button class="btn btn-link">참여하기</button>
 					<a class="btn btn-default" data-dismiss="modal">취소</a>
+					<button class="btn btn-default">참여하기</button>
 					</form>
 				</div>
 			</div>
@@ -218,7 +218,7 @@
 							</p>
 						</div>
 						<div class="form-group">
-							<label for="usrname"><i class="far fa-clock"></i>수업기간</label>
+							<label for="usrname"><i class="far fa-clock"></i>수업시간</label>
 							<p>
 								<input class="datepick" type="text" name="startTime"
 									id="timepicker1" placeholder="시작시간"> ~ <input
@@ -234,7 +234,7 @@
 				</div>
 				<div class="modal-footer" style="padding-bottom: 10px;">
 					<a class="btn btn-default" id="cancle" data-dismiss="modal">취소</a>
-					<button class="btn btn-link">개설하기</button>
+					<button class="btn btn-default">개설하기</button>
 					</form>
 				</div>
 			</div>

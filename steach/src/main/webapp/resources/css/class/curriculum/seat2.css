@@ -14832,7 +14832,7 @@ input.jcrop-keymgr{
     top:0
 }
 .tools-tables-gridItem-guestName{
-    background:rgba(255,255,255,.7);
+    background:white;
     -webkit-transform:translateX(50%);
     transform:translateX(50%);
     border:1px solid #e2e2e2;
@@ -14866,7 +14866,7 @@ input.jcrop-keymgr{
 .tools-tables-gridItem-topSide{
     height:35px;
     margin:0 auto -5px;
-    float:left
+    float:left;
 }
 .tools-tables-gridItem-bottomSide{
     height:35px;

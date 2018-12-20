@@ -18,47 +18,9 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-<%-- <!-- modal 동적 생성하기 -->
-	<c:forEach var="i" items="${studentList}">
-		<!-- 쪽지보내기  모달 -->
-		<div class="modal fade" id="msgModal${i.memNo}" tabindex="-1"
-			role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<ul class="modal-ul">
-							<li><a>쪽지보내기</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- 사용자 등급 변경  모달 -->
-		<div class="modal fade" id="userElpsModal${i.memNo}" tabindex="-1"
-			role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<ul class="modal-ul">
-							<c:choose>
-								<c:when test="${i.pNo eq 1001}">
-									<li><a href="#" onclick="removeReader(${i.memNo})">반장위임취소</a></li>
-								</c:when>
-								<c:otherwise>
-									<li><a href="#" onclick="doReader(${i.memNo})">반장위임</a></li>
-								</c:otherwise>						
-							</c:choose>
-									<li><a href="#" onclick="doIgnore(${i.memNo})">내보내기</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</c:forEach> --%>
 	<div class="container-fluid">
 		<div class="row">
-				<!-- 강사 -->
+			<!-- 강사 -->
 			<div class="col-md-8 col-md-offset-2">
 				<div class="user-title">
 					<span>강사</span>
@@ -81,7 +43,7 @@
 			<!-- 학생 page  -->
 			<div class="col-md-8 col-md-offset-2">
 				<div class="user-title">
-					<span>학생</span><span style="float:right">${studentList.length}</span>
+					<span>학생</span><span id="cnt" style="float:right"></span>
 				</div>
 				<div class="accordion" role="tablist">
 	<%-- 				 <c:forEach var="st" items="${studentList}">
@@ -151,11 +113,6 @@
 				    return this.buffer.join("");
 			};
 			
-			
-		
-	  		/* accordion */
-	    	 /* $('.card-header').collapse('toggle'); */
-	    	 
 	    	 /* eventPropagation 해제 accordion 때문에 !! */
 	       	$(document).on("click","a", function(e){
 	       		e.stopPropagation();
@@ -178,8 +135,6 @@
 	        	});
 	     	});
 	 
-	     	
-	        
 	        
 	        /* button 기능 */
 	        function doReader(memNo){
@@ -231,7 +186,7 @@
 	        	$("body").removeClass("modal-open").css({padding:"0"});
 	        	$.ajax({
 	        		url:"<c:url value='doIgnore.do'/>",
-	        		data:"memNo="+memNo
+	        		data:{memNo:memNo,classNo:classNo}
 	        	}).done(function(data){
 	        		$(".accordion").children().remove();
 	        		$(".modalSection").children().remove();
@@ -247,10 +202,6 @@
 	        		
 	        	});
 	        };
-	        
-
-	      
-
 
 	        /* page 호출 시 list 출력 */
 	        $(function(){
@@ -264,6 +215,8 @@
 	        	}).done(function(data){
 	        		var html = new StringBuffer();
 	        		var modalHtml = new StringBuffer();
+
+					$("#cnt").text("학생 수: "+data.length+"명");	
 	        		
 	        		for(let i of data){
 	        			/* accordion data */

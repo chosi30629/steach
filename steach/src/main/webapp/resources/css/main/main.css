@@ -246,8 +246,10 @@ h1 {
 
 .card--section {
     background-position: left;
-    
     color: #FFCFCF;
+}
+.card--section h4 {
+	margin-top: 10px;
 }
 
 .card--tag span {

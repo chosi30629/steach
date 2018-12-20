@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,8 @@ public class LectureController {
 	@RequestMapping("/lecture.do")
 	public void list(int classNo, Model model) {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
+		
+		
 	}
 	
 	/* ajax List */
@@ -86,6 +89,46 @@ public class LectureController {
 	public String insertLectureBoard(LectureBoard lectureBoard,BoardUploadFileVO bufv,List<MultipartFile> attach) {
 		service.insertLectureBoard(lectureBoard);	
 		
+		/*과제 등록시 calendar 추가하기 */
+		if(lectureBoard.getpNo()==2) {
+			ClassSchedule classSchedule = new ClassSchedule();
+			
+			classSchedule.setClassNo(lectureBoard.getClassNo());
+			classSchedule.setAllDay(false);
+			classSchedule.setColor("purple");
+			
+			/*deadline formatting*/
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+			String endDate = sdfDate.format(lectureBoard.getDeadline());
+			String endTime =  sdfTime.format(lectureBoard.getDeadline());		
+			String deadline = endDate+"T"+endTime;
+			
+			//출력 날짜 포멧
+			SimpleDateFormat deadDate = new SimpleDateFormat("MM-dd");
+			String deadlineText = deadDate.format(lectureBoard.getDeadline());
+			
+			
+			classSchedule.setEnd(deadline);
+	
+			/*start */
+			
+			
+			
+			String startDate = sdfDate.format(new Date()); 
+			String startTime = sdfTime.format(new Date());
+			String start = startDate+"T"+startTime;
+			classSchedule.setStart(start);
+			
+			classSchedule.setTitle("과제가 등록되었습니다.");
+			
+			classSchedule.setDescription("["+ lectureBoard.getTitle() +"]  "+deadlineText+" "+endTime+"일 까지");
+			
+			curriService.insertSchedule(classSchedule);
+		
+		}
+		
+
 		/*드라이브 내 클래스번호 내 파일저장하기 */
 		int classNo = lectureBoard.getClassNo();
 		/*upload path c:/drive/class/클래스번호_클래스명 */

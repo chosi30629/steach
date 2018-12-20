@@ -95,4 +95,10 @@ public interface LectureBoardMapper {
 	
 	/* 숙제 파일 가져오기 */
 	List<HomeworkFileVO> selectHomeworkFileByCNo(int classNo);
+	
+	/* 과제/투표 count 변경 */
+	void updateMemCntbyCNo(int classNo);
+	
+	/*클래스별 보드 리스트 */
+	List<LectureBoard> selectEarlyDeadlineBoard(int classNo);
 }
