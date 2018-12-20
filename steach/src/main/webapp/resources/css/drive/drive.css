@@ -192,6 +192,7 @@ width:8px;height:0px;background:#f1ef79;}
 .formrow{
   display: flex;
   border-radius: 5px;
+  margin-left : 40px;
 }
 
 .fff{
@@ -264,6 +265,7 @@ body{
 
 .fas{
   opacity: .65;
+  font-size: 30px;
 }
 
 .fas:hover{

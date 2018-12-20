@@ -41,7 +41,7 @@
     <div class="realheader">
    		<div class="outheader">
        		<div class="imgheader">
-       			<img class="headerimg" aria-hidden="true" src="https://vignette.wikia.nocookie.net/disney/images/e/e9/Stitch_OfficialDisney.jpg/revision/latest?cb=20160820061042"  style="width:40px;height:40px">    
+       			<img class="headerimg" aria-hidden="true" src="http://stimg.afreecatv.com/LOGO/ri/risky0125/risky0125.jpg"  style="width:70px;height:70px">    
       		</div>
      		<div class="textheader">&nbsp;스티치 드라이브  </div>
 		</div>
@@ -58,7 +58,7 @@
       
       	<div style="margin-right: 10px; display: flex; flex-direction: row-reverse; align-items: center; width: 100%">
         	<div>
-          		<i class="fas fa-sign-out-alt fa-2x" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></i>
+          		<i class="fas fa-sign-out-alt"  style="margin-left: 20px; margin-right: 20px;" data-toggle="tooltip" data-placement="bottom" title="로그아웃"></i>
         	</div>
         	<div style="margin : 0 25px" >
         		<i class="fas fa-th fa-lg" data-toggle="tooltip" data-placement="bottom" title="스티치 app"  onclick="app()"></i>
@@ -138,8 +138,8 @@
           </div>
           
           <div style="display: flex; align-items: center; flex-direction : row-reverse; width: 100%;">
-              <div class="infoCircle" data-toggle="tooltip" data-placement="bottom" title="세부정보">
-                <i class="google fas fa-info-circle fa-lg"></i></div>
+              <div class="infoCircle" style="margin-right:  20px;" data-toggle="tooltip" data-placement="bottom" title="세부정보">
+                <i class="google fas fa-info-circle"></i></div>
           </div>
         </div>  
 
@@ -1137,11 +1137,10 @@ var source = [
 								else if(emojiTest == 'emoji mp3'){
 									var body = $('.modal-body').children()[0];
 									
-									body.innerHTML +='<audio controls="controls">'
-									body.innerHTML +='<source src="track.ogg" type="audio/ogg" />'
-									body.innerHTML +='<source src='+pathData+' type="audio/mpeg" />'
+									body.innerHTML +='<audio controls autoplay>'
+									body.innerHTML +='<source src="file:///C:/drive/park@park.com/qr.mp3" type="audio/mp3" />'
 									body.innerHTML +='</audio>'
-										
+									
 									$('#fileReader').modal('show'); // 모달 보이기
 								}
 								else{
