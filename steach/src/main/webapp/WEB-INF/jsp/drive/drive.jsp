@@ -213,7 +213,7 @@
   
   <!-- 컨텍스트 메뉴 관련 -->
   <ul class="contextmenu">
-      <li><a href="#">색상바꾸기 (나중에)</a></li>
+      <li><a href="#">색상바꾸기</a></li>
       <li><a href="#">이름 변경</a></li>
 <!--       <li><a href="#">공유 (미구현)</a></li> -->
 <!--       <li><a href="#">다운로드 (미구현)</a></li> -->
@@ -1047,6 +1047,7 @@ var source = [
 			 						if(ext == 'txt' || ext == 'text') {emoji='txt'; choose = e.line}
 			 						if(ext == 'ppt' || ext == 'pptx') {emoji='ppt'; choose = ""}
 			 						if(ext == 'xlsx') {emoji='xlsx'; choose =""}
+			 						if(ext == 'mp3') {emoji='mp3'}
 				 					break;
 				 				}
 					 		 
@@ -1132,7 +1133,18 @@ var source = [
 										
 										$('#fileReader').modal('show'); // 모달 보이기
 										})
-								}else{
+								}
+								else if(emojiTest == 'emoji mp3'){
+									var body = $('.modal-body').children()[0];
+									
+									body.innerHTML +='<audio controls="controls">'
+									body.innerHTML +='<source src="track.ogg" type="audio/ogg" />'
+									body.innerHTML +='<source src='+pathData+' type="audio/mpeg" />'
+									body.innerHTML +='</audio>'
+										
+									$('#fileReader').modal('show'); // 모달 보이기
+								}
+								else{
 								$.ajax({
 									url : '<c:url value="/drive/trClickToDetail.do" />',
 									data : {
@@ -1344,6 +1356,7 @@ var source = [
 	 						if(ext == 'txt' || ext == 'text') {emoji='txt'; choose = e.line}
 	 						if(ext == 'ppt' || ext == 'pptx') {emoji='ppt'; choose = ""}
 	 						if(ext == 'xlsx') {emoji='xlsx'; choose =""}
+	 						if(ext == 'mp3') {emoji='mp3'}
 		 					break;
 		 				}
 	    	 		 
@@ -1429,6 +1442,7 @@ var source = [
  						if(ext == 'txt' || ext == 'text') {emoji='txt'; choose = e.line}
  						if(ext == 'ppt' || ext == 'pptx') {emoji='ppt'; choose = ""}
  						if(ext == 'xlsx') {emoji='xlsx'; choose =""}
+ 						if(ext == 'mp3') {emoji='mp3'}
 	 					break;
 	 				}
 		 			
