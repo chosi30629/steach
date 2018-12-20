@@ -6,8 +6,8 @@ body,html{
 }
 body{
    /*  background-color:#eee; */
-  /*  background-color:#CCC; */
-  background-color : rgba(0,0,0,0.02);
+    background-color:#CCC; 
+  /* background-color : rgba(0,0,0,0.02); */
 }
 .accordion{
    box-shadow:1px 1px 1px grey;

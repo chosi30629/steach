@@ -90,7 +90,7 @@
 		</div>
 		<!--row end -->
 		
-		<div class="row">
+		<div class="row" style="margin-top:200px">
 			<div class="modalSection"></div>
 		</div>
 	</div>
@@ -146,13 +146,13 @@
 	        		$(".accordion").children().remove();
 	        		$(".modalSection").children().remove();
 	        		$(".modal").modal('hide');
-	        		swal({
+	        /* 		swal({
 	        			position:'center-center',
 	        			type:'success',
 	        			title:'Success!!',
 	        			showConfirmbutton:false,
 	        			timer:1500
-	        		});
+	        		}); */
 	        		
 	        		studentList();
 	        		
@@ -169,13 +169,13 @@
 	        		$(".accordion").children().remove();
 	        		$(".modalSection").children().remove();
 	        		$(".modal").modal('hide');
-	        		swal({
+	        	/* 	swal({
 	        			position:'center-center',
 	        			type:'success',
 	        			title:'Success!!',
 	        			showConfirmbutton:false,
 	        			timer:1500
-	        		});
+	        		}); */
 	        		$(".modal").modal('hide');
 	        		studentList();
 	        		
@@ -194,7 +194,7 @@
 	        		swal({
 	        			position:'center-center',
 	        			type:'success',
-	        			title:'Success!!',
+	        			title:'학생을 내보냈습니다.',
 	        			showConfirmbutton:false,
 	        			timer:1500
 	        		});
