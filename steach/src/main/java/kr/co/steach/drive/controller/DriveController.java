@@ -95,14 +95,14 @@ public class DriveController {
 	@RequestMapping("/trClickToDetail.do")
 	@ResponseBody
 	public List<Map<String, Object>> trClickToDetail(@RequestParam(value="path")String path ) throws IOException {
-		System.out.println("클릭"+path);
+//		System.out.println("클릭"+path);
 		File f =new File(path);
 			return listLoad(f);
 	}
 	@RequestMapping("/imageRead.do")
 	@ResponseBody
 	public String imageRead(@RequestParam(value="path")String path ) throws IOException {
-		System.out.println("클릭"+path);
+//		System.out.println("클릭"+path);
 		String Ext = path.substring(path.lastIndexOf(".")+1, path.length());
 		
 		BASE64Encoder base64Encoder = new BASE64Encoder();
@@ -122,9 +122,9 @@ public class DriveController {
 	@RequestMapping("/rename.do")
 	@ResponseBody
 	public List<Map<String, Object>> rename(@RequestParam(value="title")String title , @RequestParam(value="path")String path) throws IOException {
-			System.out.println(path); // 전
-			System.out.println(title);	// 후
-			System.out.println(title.substring(0, title.lastIndexOf("\\")+1)+path);
+//			System.out.println(path); // 전
+//			System.out.println(title);	// 후
+//			System.out.println(title.substring(0, title.lastIndexOf("\\")+1)+path);
 			File f = new File(title.substring(0, title.lastIndexOf("\\")+1)+path);  //전
 			File f1 = new File(title); //후
 			f.renameTo(f1);
@@ -144,17 +144,17 @@ public class DriveController {
 	@RequestMapping(value="/fileUpload.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Map<String, Object>> fileUpload(FileVO vo) throws IllegalStateException, IOException {
-		System.out.println(vo.getPath());
+//		System.out.println(vo.getPath());
 		List<Map<String,Object>> list = new ArrayList<>();
 		String path = vo.getPath();
-		System.out.println("path예요" + path);
+//		System.out.println("path예요" + path);
 		File f =new File(path);
 		
 		for(MultipartFile file : vo.getAttach()) {
 			Map<String,Object> fmap = new HashMap<>();
 			if(file.isEmpty() == true) continue;
 			
-			System.out.println("올린 파일 이름 : " + file.getOriginalFilename());
+//			System.out.println("올린 파일 이름 : " + file.getOriginalFilename());
 			file.transferTo(new File(path+"\\" , file.getOriginalFilename()));
 			fmap.put("title", file.getOriginalFilename());
 			fmap.put("folder", false);
@@ -168,7 +168,7 @@ public class DriveController {
 	@RequestMapping(value="/delete.do")
 	@ResponseBody
 	public String delete(@RequestParam(value="path")String path) {
-		System.out.println(path);
+//		System.out.println(path);
 		File f = new File(path);
 		f.delete();
 		return "성공이요";
@@ -249,7 +249,7 @@ public class DriveController {
    	 			valueExtention ="GB";
    	 		 }
 		        
-		        System.out.println(valResult + valueExtention);
+//		        System.out.println(valResult + valueExtention);
 		        model.addAttribute("val" , valResult);
 		        model.addAttribute("valueExtention", valueExtention);
 		        model.addAttribute("subFiles", subFiles); //  경로 배열  // 사용 안함

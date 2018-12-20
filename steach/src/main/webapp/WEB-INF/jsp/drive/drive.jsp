@@ -48,7 +48,7 @@
       
       	<form class="formrow">
 	        <div class="fff" >
-          		<button class="searchbtn" onclick="search()" type="button">
+          		<button class="searchbtn" onclick="search(); return false;" type="button">
       				<i class="fas fa-search"></i>
 	          	</button>
 	          <input type="search" placeholder="드라이브 검색">
@@ -83,7 +83,7 @@
         <div class="addBtnOuter" tabindex="-1" id="myBtn1" style="display:flex;">
           <div class="addBtn">
           </div>
-          <div style="display : flex; align-items : center;">
+          <div style="font-size : 18px; display : flex; align-items : center;">
             새로 만들기
           </div>
         </div>
@@ -303,8 +303,8 @@
 		if(nPath != 'C:\\drive\\<c:out value='${user.id}'/>' ){
 		pathData = nPath;
  		}
-		console.log("업로드 클릭태그",clickToLazy);
-		console.log("들어가는 경로",pathData);
+// 		console.log("업로드 클릭태그",clickToLazy);
+// 		console.log("들어가는 경로",pathData);
 		var fd = new FormData();
 	 	// 현재 페이지의 path경로 가져올거야
 	 	fd.append("path" , pathData);
@@ -326,11 +326,11 @@
 			var node  = $("#tree").fancytree("getActiveNode");
 	    	if (!node) {
 	    		node = clickToLazy;
-	    		console.log("clilckToLazy",node);
+// 	    		console.log("clilckToLazy",node);
 	    	}
 	    	if(node == undefined) {
 	    		node = $("#tree").fancytree("getRootNode").children[0]
-				console.log("getRootNode",node);
+// 				console.log("getRootNode",node);
 	    	}
 	    	
 	    	
@@ -411,12 +411,12 @@ $('.addFolder').click(function(){
     		alert("이름을 지어주세요!")
     		return false
     	}
-    	console.log(nPath);
+//     	console.log(nPath);
     	var node = $("#tree").fancytree("getActiveNode");
     	if (!node) node = $("#tree").fancytree("getRootNode").children[0];
     	if (node.folder==false) {
     		node = node.parent
-    		console.log(node);
+//     		console.log(node);
     	}
     	
     	var key = node.getKeyPath(false).split("/");
@@ -492,7 +492,7 @@ $('.addFolder').click(function(){
       
       $('.contextmenu').children().eq(0).off('click').click(function(){
     	  var folder = tr.children().find('.emoji');
-    	  console.log(folder);
+//     	  console.log(folder);
     	  if(tr.children().find('.emoji')[0].className == 'emoji emoji fas fa-folder fa-lg'){
     		  
     		  $('.colorPicker').modal('show').css({
@@ -514,7 +514,7 @@ $('.addFolder').click(function(){
     			 return ($(this).color = '#' + $('.jscolor').val())
     		 }})
     		 
-    		 console.log(folder.css('color'))
+//     		 console.log(folder.css('color'))
     	 })
     	      	  
       })
@@ -539,15 +539,15 @@ $('.addFolder').click(function(){
          }).find('.changeNameText').val(thi).select();
         
          googleval = $('.myModal2').find('.changeNameText').val();	// 모달의 input - value를 가져온다.  
-         console.log("기존 이름",thi);	
+//          console.log("기존 이름",thi);	
 
-         console.log("우클릭한 태그의 경로",clickedTag);	// ex ) C:\drive\parkhanjun\제목없는 폴더\google.png  
+//          console.log("우클릭한 태그의 경로",clickedTag);	// ex ) C:\drive\parkhanjun\제목없는 폴더\google.png  
          
          if(thiResultEXT == undefined) thiResultEXT ="";
    		tree = $("#tree").fancytree("getTree");
-   		console.log( (thi).trim())
+//    		console.log( (thi).trim())
    		find = tree.findAll(thi);
-   		console.log("트리 경로찾을거야",find);
+//    		console.log("트리 경로찾을거야",find);
    		
    		for(var i =0; i < find.length ; i++){
 //    			console.log(find[i].data.path);
@@ -578,10 +578,10 @@ $('.addFolder').click(function(){
  				title : resultPath+google+thiResultEXT 
  			}
  		}).done(function(result){
- 			console.log(result);
+//  			console.log(result);
  			EmojiAndFLengthLIST(result);
  			needNode.setTitle(google+thiResultEXT)
- 			console.log(needNode.data.path);
+//  			console.log(needNode.data.path);
  			needNode.data.path = resultPath+google+thiResultEXT
  		})
 
@@ -593,22 +593,22 @@ $('.addFolder').click(function(){
         
             //우클릭 메뉴 삭제 눌렀을때
             $('.contextmenu').children().eq(2).click(function(){
-                console.log(clickedTag);  
+//                 console.log(clickedTag);  
             	
                 tr.remove() // 우클릭한 태그 삭제
     			tree = $("#tree").fancytree("getTree"); // 트리 구조 불러오기
-    			console.log(thi);
+//     			console.log(thi);
             	googleval = $('.myModal2').find('.changeNameText').val(thi);
             	find = tree.findAll(thi)	// 트리에서 thi를 가지고 있는 하위목록 가져오기
-            	console.log(find)
+//             	console.log(find)
     			for(var i =0 ; i < find.length ; i++)
     			{
-    				console.log("클릭태그",clickedTag);
-    				console.log("똑같",find[i].data.path);
+//     				console.log("클릭태그",clickedTag);
+//     				console.log("똑같",find[i].data.path);
     				if(clickedTag == find[i].data.path)
     				{
     					var needNode = find[i]
-    					console.log("neeee", needNode);
+//     					console.log("neeee", needNode);
     				}
     			}
     			tree.activateKey(needNode.key).remove();
@@ -617,7 +617,7 @@ $('.addFolder').click(function(){
             		url : '<c:url value="/drive/delete.do" />',
             		data : {path : clickedTag} 
             	}).done(function(result){
-            		console.log(result);
+//             		console.log(result);
             	})
         })
             
@@ -922,11 +922,11 @@ var source = [
           }
         },
         dblclick: function(event,data){
-        	console.log(data.node.isExpanded());
+//         	console.log(data.node.isExpanded());
         },
         click: function(event, data) {
     	 	var path = data.node.data.path
-    	 	console.log("게",path);
+//     	 	console.log("게",path);
     	 	var node = data.node;
     	 	if(node.isLazy()){
     	 		node.lazyLoad();
@@ -975,7 +975,7 @@ var source = [
 			$.ajax({
 				url : '<c:url value="/drive/test.do" />'
 			}).done(function(result){
-				console.log(result);
+// 				console.log(result);
 				var node = $("#tree2").fancytree("getRootNode").children[0];
 				var childlist = ${list};
 		 	 	
@@ -996,7 +996,7 @@ var source = [
 		//!!!!
 	function nameChange() {	
 	$('.changeNameText').on('keyup', function(){
-		console.log($(this).val() == "")
+// 		console.log($(this).val() == "")
 		if($(this).val() == ""){
 			alert("이름 입력하시오");
 		}
@@ -1094,7 +1094,7 @@ var source = [
 			            	$(document).on('dblclick', 'tr' ,function(){
 								pathData = $(this).attr('path-data');	// 클릭한 태그의 path-data 속성을 가져옴
 								var isFolder = $(this).find('.emoji')[0].className.indexOf('fas fa-folder'); // 클릭한 태그의 클래스를 가져와서 폴더인지 아닌지 판단	
-								console.log(pathData);
+// 								console.log(pathData);
 								// 파일 업로드할때 필요한 현재페이지의 경로를 보내는 기능
 	 					 	 	nowpath(pathData);
 	 					 	 	
@@ -1159,7 +1159,7 @@ var source = [
 									for(var i =0; i < findAll.length ; i++ ){
 										if(findAll[i].data.path == pathData){
 											clickToLazy = findAll[i];
-											console.log(clickToLazy);
+// 											console.log(clickToLazy);
 											clickToLazy.resetLazy();
 											if(clickToLazy.isLazy() == true)	clickToLazy.lazyLoad();											
 										}
@@ -1232,8 +1232,8 @@ var source = [
             dropZone.css('background-color','#FFFFFF');
             
             var files = e.originalEvent.dataTransfer.files;
-            console.log(e.originalEvent.dataTransfer.files[0].path)
-            console.log(files)
+//             console.log(e.originalEvent.dataTransfer.files[0].path)
+//             console.log(files)
             
             if(pathData == undefined){
     			pathData = 'C:\\drive\\<c:out value='${user.id}'/>'
@@ -1241,8 +1241,8 @@ var source = [
     		if(pathData != 'C:\\drive\\<c:out value='${user.id}'/>' ){
     		pathData = nPath;
      		}
-    		console.log("업로드 클릭태그",clickToLazy);
-    		console.log("들어가는 경로",pathData);
+//     		console.log("업로드 클릭태그",clickToLazy);
+//     		console.log("들어가는 경로",pathData);
     		var fd = new FormData();
     	 	// 현재 페이지의 path경로 가져올거야
     	 	fd.append("path" , pathData);
@@ -1270,9 +1270,9 @@ var source = [
 //     				console.log("getRootNode",node);
     	    	}
     	    	
-    	    	console.log(result.length);
+//     	    	console.log(result.length);
     			for(var i =0 ; i < result.length ; i++){
-    				console.log(result[i]);
+//     				console.log(result[i]);
     	    	node.addChildren({
     	            title : result[i].title,
     	            folder : result[i].folder,
@@ -1386,7 +1386,7 @@ var source = [
 				 download($(this).parents().find('#fileimage')[0].src)
 			 }else{
 // 				 console.dir($(this).parents().find('#fileContent')[0].textContent)
-				 console.log($(this).parents().find(".modal-title")[0].textContent);
+// 				 console.log($(this).parents().find(".modal-title")[0].textContent);
 				 download($(this).parents().find('#fileContent')[0].textContent, $(this).parents().find(".modal-title")[0].textContent , "text/plain");
 			 }
 		 })
@@ -1412,7 +1412,7 @@ var source = [
 				 var emoji;
 				 var length;
 				for(var i = 0 ; i < findValue.length ; i++){
-		 			console.log(findValue[i]);
+// 		 			console.log(findValue[i]);
 		 			var e = findValue[i];
 		 			
 		 			if(e.data.length < 1024){
@@ -1459,10 +1459,11 @@ var source = [
 // 	    	 		$('tbody').attr('data-path',  findValue[i].data.path.substring(0, findValue[0].data.path.lastIndexOf('\\')) )
 	    	 		
 		 		}
-// 				$("#tree").fancytree("getTree").expandAll(false);
+				$("#tree").fancytree("getTree").expandAll(true);
 		 		}, 1000)
 			
 		 		return false;
+		 		
 		 }
 		 
 		 
