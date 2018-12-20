@@ -117,7 +117,7 @@
 							<div class="sh_group" style="height: 300px">
 								<div class="sh_header">
 									<h2>
-										<i class="fas fa-user"></i> 프로필
+										<i class="fas fa-user"></i> 정보
 									</h2>
 								</div>
 								<div class="sh_content">

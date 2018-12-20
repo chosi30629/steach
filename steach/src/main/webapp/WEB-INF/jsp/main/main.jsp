@@ -140,7 +140,7 @@
 										<h1>
 											<a href="#" data-no="${study.classNo}">${study.className}</a>
 										</h1>
-										<h4>${study.beginDate}~ ${study.endDate}</h4>
+										<h4>${study.classSubname}</h4>
 									</div>
 									<div class="card--details">
 										<h4>수업기간</h4>
@@ -218,7 +218,7 @@
 							</p>
 						</div>
 						<div class="form-group">
-							<label for="usrname"><i class="far fa-clock"></i>수업기간</label>
+							<label for="usrname"><i class="far fa-clock"></i>수업시간</label>
 							<p>
 								<input class="datepick" type="text" name="startTime"
 									id="timepicker1" placeholder="시작시간"> ~ <input
