@@ -157,13 +157,13 @@
 
 
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-2 alarm" style="border:1px solid red">
-				<div class='alarmTitle'>
+		<div class="row">	<!-- style="border:1px solid red" -->
+			<div class="col-md-2"><!-- class alarm"  -->
+				<!-- <div class='alarmTitle'>
 					<span>곧 마감되는 과제</span>
 				</div>
 				<div class='alarmContext'>
-				</div>
+				</div> -->
 			
 				
 			</div>
@@ -688,13 +688,14 @@
 							});
 						
 						/*alarm list 불러오기 */
+						/*
 						html= new StringBuffer();
 						for(var al=0;al<alarmList.length;al++){
 							html+="<p><span>"+$.format.date(alarmList[al].deadline, pattern="yyyy-MM-dd HH:mm:ss")+"까지 </span><br>"
 							html+="<span> - </span>"
 							html+="<span>"+alarmList[al].title+"</span></p>"
 						}
-						$(".alarmContext").append(html.toString());
+						$(".alarmContext").append(html.toString()); */
 						
 						
 					}).fail(function() {
