@@ -59,11 +59,11 @@
 				</ul></li>
 			<li class="pull-right dropdown myInformation"><a href="#" class="notibtn"><i class="fas fa-bell"></i></a>
 			</li>
-			<li class="pull-right dropdown add"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
+			<li class="pull-right dropdown add" style="margin-top: 3px;"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fas fa-plus"></i></a>
 				<ul class="dropdown-menu addmenu">
 					<li><a href="#" id="joinclass" data-toggle="modal" data-target="joincodeinput">수업 참여하기</a></li>
 					<li class="divider"></li>
-					<li><a id="addclass" data-toggle="modal">수업 만들기</a></li>
+					<li style="cursor: pointer;"><a id="addclass" data-toggle="modal">수업 만들기</a></li>
 				</ul></li>
 		</ul>
 	</div>
@@ -178,8 +178,8 @@
 						<p id="joincodeMsg" style="min-height: 25px"></p>
 				</div>
 				<div class="modal-footer" style="padding-bottom: 10px;">
-					<button class="btn btn-link">참여하기</button>
 					<a class="btn btn-default" data-dismiss="modal">취소</a>
+					<button class="btn btn-default">참여하기</button>
 					</form>
 				</div>
 			</div>
@@ -234,7 +234,7 @@
 				</div>
 				<div class="modal-footer" style="padding-bottom: 10px;">
 					<a class="btn btn-default" id="cancle" data-dismiss="modal">취소</a>
-					<button class="btn btn-link">개설하기</button>
+					<button class="btn btn-default">개설하기</button>
 					</form>
 				</div>
 			</div>

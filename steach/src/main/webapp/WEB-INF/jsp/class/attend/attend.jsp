@@ -84,7 +84,7 @@
 					</button>
 					<h4 class="modal-title" id="dailydetailTitle"></h4>
 				</div>
-				<div class="modal-body" id="dailydetailContent"></div>
+				<div class="modal-body" id="dailydetailContent" style="overflow: auto; height: 500px;"></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
