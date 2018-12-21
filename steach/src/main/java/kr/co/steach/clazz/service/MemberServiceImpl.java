@@ -18,8 +18,6 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public List<ClassMember> selectMemberByClassNo(int classNo) {
-		
-		//System.out.println("impl"+mapper.selectMemberByClassNo(classNo));
 		return	mapper.selectMemberByClassNo(classNo);
 	}
 

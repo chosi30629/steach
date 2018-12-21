@@ -55,10 +55,6 @@ public class CurriculumController {
 	@RequestMapping("/selectSchbyCNo.do")
 	@ResponseBody
 	public List<ClassSchedule> selectSchbyCNo(int classNo) {
-		//System.out.println("clno:"+classNo);
-		List<ClassSchedule> list = service.selectSchByClassNo(classNo);
-		
-		//System.out.println("list:"+list);
 		return service.selectSchByClassNo(classNo);
 	}
 	
@@ -68,9 +64,8 @@ public class CurriculumController {
 	@ResponseBody
 	public String insertSchedule(ClassSchedule classSchedule) {
 		System.out.println("insert "+classSchedule);
-		//System.out.println("등록할거 가꼬와!:"+classSchedule);
 		service.insertSchedule(classSchedule);
-		return classSchedule.getId()+"";			//insert한 key 가져오기!1
+		return classSchedule.getId()+"";			//insert한 key 가져오기
 	}
 	
 	/* schedule 삭제 */
@@ -84,7 +79,6 @@ public class CurriculumController {
 	@RequestMapping("/updateScheduleDate.do")
 	@ResponseBody
 	public void updateScheduleDate(ClassSchedule classSchedule) {
-		System.out.println(classSchedule);
 		service.updateScheduleDate(classSchedule);
 	}
 	
@@ -97,14 +91,12 @@ public class CurriculumController {
 	public void seat(int classNo,Model model) {
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
 		model.addAttribute("memberList",memberService.selectMemberByClassNo(classNo));
-		System.out.println(memberService.selectMemberByClassNo(classNo));
 	}
 	
 	/* base64 문자열을 image로 저장하기  */
 	@RequestMapping("/seatSetting.do")
 	@ResponseBody
 	public void seatSetting(String base64data,int classNo){
-		System.out.println(classNo);
 		
 		Clazz clazz = classService.selectClassbyClassNo(classNo);
 		
@@ -117,9 +109,9 @@ public class CurriculumController {
 			classService.updateSeatSetting(classNo);
 			
 		} catch(FileNotFoundException e) {
-			System.out.println("image not found"+e);
+			//System.out.println("image not found"+e);
 		} catch(IOException ioe) {
-			System.out.println("io exception"+ioe);
+			//System.out.println("io exception"+ioe);
 		} 
 	}
 	
@@ -127,8 +119,6 @@ public class CurriculumController {
 	@RequestMapping("/updateBG.do")
 	@ResponseBody
 	public void updateBG(Clazz clazz) {
-		System.out.println("inboke");
-		System.out.println("upBG"+clazz);
 		classService.updateBG(clazz);
 	}
 }

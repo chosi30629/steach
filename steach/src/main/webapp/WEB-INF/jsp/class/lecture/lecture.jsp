@@ -145,7 +145,7 @@
 
 
 	<script>
-		console.log(new Date());
+		//console.log(new Date());
 		$("#localAttach").click(function() {
 			$("#localAttachFile").click();
 		});
@@ -702,7 +702,7 @@
 						
 						
 					}).fail(function() {
-				alert("list ajax loading fail ")
+				//alert("list ajax loading fail ")
 			});
 		} // ajax list
 
@@ -1051,7 +1051,7 @@
 				url:"<c:url value='voteResult.do'/>",
 				data:{boardNo:boardNo}
 			}).done(function(data){
-				console.log(data);
+				//console.log(data);
 				for(var i =0; i<data.length; i++){
 					console.log(data[i].count)
 					var html="";

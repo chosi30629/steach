@@ -257,7 +257,7 @@
     	
     	var bgName = $(".bg-section").css('background-image');
     		// --> url("http://localhost:8002/steach/resources/images/class/curriculum/bg/back1.jpg")
-		console.log(bgName);
+		//console.log(bgName);
     	//url(" ") 제거 
     	bgName= bgName.replace('url("',"").replace('")',"");
     	//console.log("replaceBGNAME"+bgName);
@@ -266,9 +266,8 @@
     	var index = bgName.lastIndexOf("/");
     	bgName = bgName.substring(index+1,bgName.length);
 		
-    	console.log("0000000000000000000")
-    	console.log(bgName);
-    	console.log(classNo);
+    	//console.log(bgName);
+    	//console.log(classNo);
     	
     	
     	 $.ajax({
@@ -306,8 +305,7 @@
 					  	eventArray.push(data[i]);
 					  }
 					  calendar(); 
-					  
-					 
+	
 				  });
 				 
 			});
@@ -317,7 +315,7 @@
         	obj={};
         	var formData =  $("#sForm").serializeArray();
 
-			console.dir(formData);
+			//console.dir(formData);
         	obj.classNo=formData[0].value;
 			obj.title = formData[1].value;
         	obj.description = formData[2].value;
@@ -366,13 +364,11 @@
 	              center: 'title',
 	              right: 'month,agendaWeek,listMonth'
 	            },  
-	           /*  theme:true,
-	            themeSystem:"bootstrap4", */
 	            navLinks: true, // can click day/week names to navigate views
 	            locale: initialLocaleCode,
 	            editable: isBool,
 	            eventLimit: true, // allow "more" link when too many events
-	            selectable:isBool,
+	            selectable:isBool, //강사 학생구분 
 	       		/* event 등록하기 */ 
 	            select:function(start,end,jsEvent,view){
 	            	//console.log(jsEvent);
@@ -414,7 +410,7 @@
 	 		    	            	     );
 	 		            		   $("#calendar").fullCalendar('removeEvents',event._id);   
 	 		            	   }).fail(function(){
-	 		            		   alert("err");
+	 		            		  // alert("err");
 	 		            	   })//ajax end 
 	 	            	   }//if end 
 	 	            	 })
@@ -472,7 +468,7 @@
 	            		data:{start:event.start.format(),end:event.end.format(),id:event.id}
 	            	}).done(function(){
 	            	}).fail(function(){
-	            		alert("err")
+	            		//alert("err")
 	            	})
 
 	            }

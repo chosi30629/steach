@@ -155,21 +155,6 @@
 	</div>
 	
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<!-- 자리있는 seat - modal -->
 	<div tabindex="-1" role="dialog" aria-hidden="false" class="modal fade"
 		id="seat-modal">
@@ -267,11 +252,13 @@
 		const square3SeatWidth="150px";
 		const square4SeatWidth="200px";
 		 */
+		 
+		 /* size -up */
 		 const squareCommonHeight="100px";
-			const square1SeatWidth="100px";
-			const square2SeatWidth="200px";
-			const square3SeatWidth="300px";
-			const square4SeatWidth="400px";
+		const square1SeatWidth="100px";
+		const square2SeatWidth="200px";
+		const square3SeatWidth="300px";
+		const square4SeatWidth="400px";
 	
 		/* create table original position */
 		const tableCommonTop="45px";
@@ -398,7 +385,7 @@
 		/* 공석 생성 */
 		function createEmptyTable(){
 			var formData =$("#no-seat-form").serializeArray();
-			console.log(formData);
+			//console.log(formData);
 			var tName = formData[0].value;	
 			
 			seatEmpty(tName);

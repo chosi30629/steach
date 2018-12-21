@@ -30,16 +30,13 @@ public class MemberController {
 	/* class 번호 해당하는 list 가져오기 */
 	@RequestMapping("/member.do")
 	public void list(int classNo, Model model) {
-		//클래스정보 
 		model.addAttribute("clazz",classService.selectClassbyClassNo(classNo));
-		//강사정보 ~~ 
 		model.addAttribute("master",service.selectMasterByClassNo(classNo));
 	}
 	
 	@RequestMapping("/studentList.do")
 	@ResponseBody
 	public List<ClassMember> studentList(int classNo){
-		System.out.println(service.selectMemberByClassNo(classNo));
 		return service.selectMemberByClassNo(classNo);
 		
 	}
@@ -64,7 +61,6 @@ public class MemberController {
 	public void doIgnore(int memNo,int classNo) {
 		//회원 내보내기 
 		service.deleteDoIgnore(memNo);
-		
 		//마감일 지나지 않은 과제의 카운트 변경	
 		lectureService.updateMemCntbyCNo(classNo);
 		

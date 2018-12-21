@@ -112,16 +112,12 @@ public class LectureController {
 			classSchedule.setEnd(deadline);
 	
 			/*start */
-			
-			
-			
 			String startDate = sdfDate.format(new Date()); 
 			String startTime = sdfTime.format(new Date());
 			String start = startDate+"T"+startTime;
 			classSchedule.setStart(start);
 			
 			classSchedule.setTitle("과제가 등록되었습니다.");
-			
 			classSchedule.setDescription("["+ lectureBoard.getTitle() +"]  "+deadlineText+" "+endTime+"일 까지");
 			
 			curriService.insertSchedule(classSchedule);
@@ -181,7 +177,6 @@ public class LectureController {
 	@RequestMapping("/selectLectureBoardByBNo.do")
 	@ResponseBody
 	public LectureBoard selectLectureBoardByBNo(int boardNo) {
-		LectureBoard b = service.selectLectureBoardByBNo(boardNo);
 		return service.selectLectureBoardByBNo(boardNo);
 	}
 	
@@ -217,12 +212,7 @@ public class LectureController {
 	@RequestMapping("/doSubmitHomework.do")
 	@ResponseBody
 	public String doSubmitHomework(Homework homework,BoardUploadFileVO BUFV, int classNo, List<MultipartFile> submitFiles) {
-		System.out.println(homework);
-		System.out.println(submitFiles);
-		//System.out.println(BUFV);
-		System.out.println(classNo);
 		if(submitFiles.get(0).getOriginalFilename()!="") {
-			
 			/* homework DB 저장  */
 			service.insertHomework(homework);
 			
@@ -249,11 +239,10 @@ public class LectureController {
 				files.add(i,submitFiles.get(i).getOriginalFilename());
 			}
 			BUFV.setFileName(files);
-			//System.out.println(BUFV);
 			service.insertHomeworkFile(BUFV);
 			
 			return "success";
-		}else {
+		} else {
 			return "empty";
 		}
 	}
