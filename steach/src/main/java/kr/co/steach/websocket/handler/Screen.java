@@ -27,24 +27,20 @@ public class Screen {
 
 	@OnMessage
 	public void processVideo(byte[] imageData, Session session) {
-		System.out.println("INsite process Video");
 		try {
-			// Wrap a byte array into a buffer
 			ByteBuffer buf = ByteBuffer.wrap(imageData);
-			// imageBuffers.add(buf);
 
 			for (Session session2 : sessions) {
 				session2.getBasicRemote().sendBinary(buf);
 			} // for
 
 		} catch (Throwable ioe) {
-			System.out.println("Error sending message " + ioe.getMessage());
+			System.out.println(ioe.getMessage());
 		} // try-catch
 	} // processVideo
 
 	@OnClose
 	public void whenClosing(Session session) {
-		System.out.println("Goodbye !");
 		sessions.remove(session);
 	} // whenClosing
 
