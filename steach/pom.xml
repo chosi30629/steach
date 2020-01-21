@@ -8,7 +8,7 @@
   <description>kr.co.steach</description>
   
  	 <properties>
-		<spring-framework.version>5.1.1.RELEASE</spring-framework.version>
+		<spring-framework.version>5.2.3.RELEASE</spring-framework.version>
 		<aspectj.version>1.9.1</aspectj.version>
 		<jackson.version>2.9.7</jackson.version>
 		<slf4j.version>1.7.25</slf4j.version>
